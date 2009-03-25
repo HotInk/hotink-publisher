@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
+  # TODO: add unRESTful admin dashbouard section
+
   map.resources :accounts do |account|
     account.resources :articles do |article|
       article.resources :authors
