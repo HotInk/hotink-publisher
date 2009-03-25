@@ -5,8 +5,4 @@ class ArticleResource < ActiveResource::Base
   self.prefix = "/accounts/:account_id/"
   self.element_name = "article"
 
-  def account_id 
-    1
-  end
-  
 end
