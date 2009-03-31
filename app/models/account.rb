@@ -1,14 +1,6 @@
-class Account < ActiveRecord::Base
+class Account < ActiveResource::Base
 
-  has_many :articles
-  has_many :themes
-  has_many :widgets
-  has_many :articles
-  has_many :comments
-  
-  def account_resource_id
-    self.id
-  end
-  
-  
+  # TODO: make this a configuration option
+  self.site = "http://localhost:3001"
+    
 end

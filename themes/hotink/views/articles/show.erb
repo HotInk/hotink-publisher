@@ -1,5 +1,5 @@
-<h1><%= @article_resource.title %></h1>
+<h1><%= @article.title %></h1>
 
 
-<% markdown = Markdown.new(@article_resource.bodytext) %>
+<% markdown = Markdown.new(@article.bodytext) %>
 <%= markdown.to_html %>

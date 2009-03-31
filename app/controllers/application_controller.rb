@@ -7,4 +7,21 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+
+  before_filter :find_account
+
+  private
+  
+    def find_account
+      
+      if params[:account_id]
+        @account = Account.find(params[:account_id])
+        Time.zone = @account.time_zone
+        @account
+      else
+        false
+      end
+    end
+
+
 end

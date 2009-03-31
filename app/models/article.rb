@@ -1,15 +1,8 @@
-class Article < ActiveRecord::Base
-  belongs_to :account
-  
-  def article_resource
-    begin
-      ArticleResource.find(self.article_resource_id, :params => {:account_id => self.account_resource_id})
-    rescue ActiveResource::ResourceNotFound
-      return nil
-    end
-  end
+class Article < ActiveResource::Base
 
-  def account_resource_id
-    self.account.account_resource_id
-  end
+  # TODO: make this a configuration option
+  # self.site = "http://192.168.1.11:3000"
+  self.site = "http://localhost:3001"
+  self.prefix = "/accounts/:account_id/"
+
 end

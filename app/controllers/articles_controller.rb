@@ -1,5 +1,4 @@
 class ArticlesController < ApplicationController
-  skip_before_filter :find_account
 
   theme 'hotink'  
   layout 'default'
@@ -8,7 +7,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.xml
   def index
-    @articles = Article.find(:all)
+    @article = Article.find(:all, :params => {:account_id => 1})
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,10 +18,8 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.xml
   def show
-    @article = Article.find(params[:id])
+    @article = Article.find(params[:id], :params => {:account_id => 1})
       
-    @article_resource = @article.article_resource
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @article }
