@@ -1,4 +1,4 @@
-# Filters added to this controller apply to all controllers in the application.
+# Filters added to this controller apply to all controllers in6 the application.
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
@@ -6,7 +6,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+  # filter_parameter_logging :passwcord
+
+  before_filter :set_facebook_session
+  helper_method :facebook_session
 
   before_filter :find_account
 
