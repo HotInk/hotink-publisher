@@ -1,3 +1,4 @@
-<fb:profile-pic uid="<%= comment.fb_user_id %>" facebook-logo="true" linked="true" width="40" height="40"></fb:profile-pic>
+<strong><%= comment.created_at %></strong>
+<fb:profile-pic uid="<%= comment.fb_user_id %>" facebook-logo="true" linked="true" size="square" ></fb:profile-pic>
 <fb:name uid="<%= comment.fb_user_id %>"></fb:name>
 <p><%= comment.body %></p>
