@@ -1,0 +1,10 @@
+<%= render :partial => "comment", :collection => @comments %>
+
+
+<%= fb_connect_javascript_tag %>
+
+<p><a href="#" onclick='FB.Connect.logoutAndRedirect("/logout")'>Logout</a></p>
+
+<%= fb_login_button('window.location = "/accounts/link_user_accounts";')%>
+
+<%= init_fb_connect "XFBML"%>

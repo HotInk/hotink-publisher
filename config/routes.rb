@@ -15,6 +15,7 @@ map.connect "accounts/link_user_accounts", :controller => 'accounts', :action =>
   map.resources :accounts do |account|
     account.resources :articles do |article|
       article.resources :authors
+      article.resources :comments
     end
     account.resources :authors
     account.resources :sections
