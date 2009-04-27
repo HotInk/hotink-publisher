@@ -5,4 +5,8 @@ class Article < ActiveResource::Base
   self.site = "http://localhost:3001"
   self.prefix = "/accounts/:account_id/"
 
+  def comments
+    Comment.find_all_by_content_id(self.id)
+  end
+
 end

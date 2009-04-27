@@ -1,5 +1,36 @@
-<%= fb_connect_javascript_tag %>
-<%= render :partial => "comment", :collection => @comments %>
+<style>
+
+body {
+	font-family: "Helvetica";
+}
+
+.comment-meta {
+	float: left;
+	width: 80px;
+}
+.comment-body {
+	margin-left: 80px;
+	width: 300px;
+}
+
+.comment {
+	width: 600px;
+	clear: both;
+	margin-bottom: 30px;
+}
+
+</style>
+
+
+<% for @comment in @comments %>
+	<% if @comment.class == FacebookComment %>
+		<%= render :partial => "facebook_comment", :locals => {:comment => @comment } %>
+	<% else %>
+		<%= render :partial => "comment", :locals => {:comment => @comment } %>
+	<% end %>
+<% end %>
+
+<%= fb_login_button('window.location = "/users/link_user_accounts";')%>
 
 <p><a href="#" onclick='FB.Connect.logout()'>Logout</a></p>
 

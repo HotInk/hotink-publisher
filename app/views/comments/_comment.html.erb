@@ -1,4 +1,10 @@
-<strong><%= comment.created_at %></strong>
-<fb:profile-pic uid="<%= comment.fb_user_id %>" facebook-logo="true" linked="true" size="square" ></fb:profile-pic>
-<fb:name uid="<%= comment.fb_user_id %>"></fb:name>
-<p><%= comment.body %></p>
+<div class="comment">
+	<div class="comment-meta">
+
+	</div>
+
+	<div class="comment-body">
+		<%= comment.name %> <%= time_ago_in_words(comment.created_at) %> ago:<br/>
+		<%= comment.body %> <br/>
+	</div>
+</div>

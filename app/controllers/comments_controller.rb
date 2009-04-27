@@ -2,11 +2,10 @@ class CommentsController < ApplicationController
 
   layout 'default'
 
-  
-  # GET /comments
-  # GET /comments.xml
   def index
-    @comments = Comment.find(:all)
+    
+    @article = Article.find(params[:article_id], :params => {:account_id => @account.id})
+    @comments = @article.comments
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,8 +13,7 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /comments/1
-  # GET /comments/1.xml
+
   def show
     @comment = Comment.find(params[:id], :params => {:account_id => 1})
       
@@ -25,8 +23,7 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /comments/new
-  # GET /comments/new.xml
+
   def new
     @comment = Comment.new
 
@@ -36,15 +33,21 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /Comments/1/edit
+
   def edit
     @comment = Comment.find(params[:id])
   end
 
-  # POST /comments
-  # POST /comments.xml
+
   def create
-    @comment = Comment.new(params[:Comment])
+
+    @comment = Comment.new(params[:comment])
+    @comment.content_id = params[:article_id]
+    
+    if facebook_session
+      @comment.type = "FacebookComment"
+      @comment.fb_user_id = facebook_session.user.id
+    end
 
     respond_to do |format|
       if @comment.save
@@ -58,8 +61,7 @@ class CommentsController < ApplicationController
     end
   end
 
-  # PUT /comments/1
-  # PUT /comments/1.xml
+
   def update
     @comment = Comment.find(params[:id])
 
@@ -76,8 +78,7 @@ class CommentsController < ApplicationController
     end
   end
 
-  # DELETE /comments/1
-  # DELETE /comments/1.xml
+
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
