@@ -10,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
     account.resources :authors
     account.resources :sections
     account.resources :issues
+    account.resources :comments
   end
 
 

@@ -1,9 +1,10 @@
 class Article < ActiveResource::Base
 
   # TODO: make this a configuration option
+
   self.site = "http://192.168.1.1"
   self.prefix = "/accounts/:account_id/"
-  self.user = "varsitypub"
+  self.user = "andrew"
   self.password = "blah123"
 
   def comments

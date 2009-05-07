@@ -4,8 +4,12 @@ class CommentsController < ApplicationController
 
   def index
     
-    @article = Article.find(params[:article_id], :params => {:account_id => @account.id})
-    @comments = @article.comments
+    if params[:article_id].nil?
+      @comments = Comment.find(:all)
+    else    
+      @article = Article.find(params[:article_id], :params => {:account_id => @account.id})
+      @comments = @article.comments
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -67,7 +71,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.update_attributes(params[:Comment])
-        flash[:notice] = 'Comment was successfully updated.'
+        flash[:notice] = 'Co∆mment was successfully updated.'
         format.html { redirect_to(@comment) }
         format.js { head :ok } 
         format.xml  { head :ok }
@@ -87,5 +91,9 @@ class CommentsController < ApplicationController
       format.html { redirect_to(Comments_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def flag
+    @article = Article.find(params[:article_id], :params => {:account_id => @account.id})  
   end
 end
