@@ -1,0 +1,15 @@
+<% form_for([:account, :article, @comment]) do |f| %>
+   <%= f.label :body, 'Body' %>:
+   <%= f.text_area :body %><br />
+   <%= f.label :name, 'Author' %>:
+   <%= f.text_field :name %><br />
+   <%= submit_tag 'Create' %>
+
+ <% end %>
+
+
+<%= fb_login_button('')%>
+
+<%= fb_login_button('window.location = "/users/link_user_accounts";')%>
+
+<p><a href="#" onclick='FB.Connect.logout()'>Logout</a></p>

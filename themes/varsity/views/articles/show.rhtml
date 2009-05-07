@@ -1,0 +1,82 @@
+<div class="article-meta">
+	<span class="article-meta-elements">
+			<span class="small quiet date"><%= @article.date %></span>
+		<span class="section-title small">News</span>
+		<span class="comments small"></span>
+	</span>
+</div>
+
+	<h1><%= @article.title %></h1>
+
+	
+	
+		
+
+
+
+
+<div class="span-2 push-0 last article-sidebar">
+
+	
+
+	<br/>
+
+	
+
+
+
+
+    <script type="text/javascript">var addthis_pub="hyfen"; var addthis_brand = "theVARSITY.ca"; var addthis_options = 
+'facebook, delicious, digg, twitter, favorites';</script>
+    <a href="http://www.addthis.com/bookmark.php?v=20" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" 
+onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s7.addthis.com/static/btn/lg-share-en.gif" 
+width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" 
+src="http://s7.addthis.com/js/200/addthis_widget.js"></script>
+        
+    <a href="http://www.addthis.com/bookmark.php" 
+            style="text-decoration:none" 
+            onclick="return addthis_open(this, 'email', '[URL]', '[TITLE]');" >
+            <img src="http://s7.addthis.com/button1-email.gif" 
+            width="56" height="16" border="0" alt="Email" /></a>
+
+<br/>
+<br/>
+
+
+<h3>More from News</h3>
+<ul>
+</ul>
+
+
+<br/>
+
+
+<div class="">
+	<p><em>This article was published on <%= @article.date %><%= " in the News section" %> </em>
+	</p>
+</div>
+
+</div>
+
+
+<div class="article-meta2 dotted-border">
+
+	<h2 class="subtitle"><%= @article.subtitle %></h2>	
+
+		<p><%= @article.authors_list %></p>
+</div>
+
+<div class="article-body" style="">
+	<%= markdown(@article.bodytext) %>
+</div> <!-- /article_body -->
+
+
+<div class="article-comments">
+	<%= render :partial => "comments/comments", :locals => {:comment => @comments }%>
+</div>
+	
+
+
+
+<div id="comments" class="clear">
+</div><!-- /comments -->
