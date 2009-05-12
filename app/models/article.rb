@@ -7,11 +7,13 @@ class Article < ActiveResource::Base
   self.prefix = "/accounts/:account_id/"
   self.user = "hyfen"
   self.password = "blah123"
-  
-  liquid_methods :title, :subtitle, :bodytext, :comments, :date, :authors_list
 
   def comments
     Comment.find_all_by_content_id(self.id)
+  end
+  
+  def to_liquid(options = {})
+    Liquid::ArticleDrop.new self, options
   end
 
 end
