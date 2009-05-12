@@ -1,12 +1,12 @@
 <div class="article-meta">
 	<span class="article-meta-elements">
-			<span class="small quiet date"><%= @article.date %></span>
+			<span class="small quiet date">{{article.date}}</span>
 		<span class="section-title small">News</span>
 		<span class="comments small"></span>
 	</span>
 </div>
 
-	<h1><%= @article.title %></h1>
+	<h1>{{article.title}}</h1>
 
 	
 	
@@ -52,7 +52,7 @@ src="http://s7.addthis.com/js/200/addthis_widget.js"></script>
 
 
 <div class="">
-	<p><em>This article was published on <%= @article.date %><%= " in the News section" %> </em>
+	<p><em>This article was published on {{article.date}}<%= " in the News section" %> </em>
 	</p>
 </div>
 
@@ -61,20 +61,16 @@ src="http://s7.addthis.com/js/200/addthis_widget.js"></script>
 
 <div class="article-meta2 dotted-border">
 
-	<h2 class="subtitle"><%= @article.subtitle %></h2>	
+	<h2 class="subtitle">{{article.subtitle}}</h2>	
 
-		<p><%= @article.authors_list %></p>
+		<p>{{article.authors_list}}</p>
 </div>
 
 <div class="article-body" style="">
-	<%= markdown(@article.bodytext) %>
+	{{article.bodytext}}
 </div> <!-- /article_body -->
 
 
-<div class="article-comments">
-	<%= render :partial => "comments/comments", :locals => {:comment => @comments }%>
-</div>
-	
 
 
 
