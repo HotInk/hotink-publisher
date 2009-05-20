@@ -9,4 +9,9 @@ class Account < ActiveResource::Base
   def articles
     Article.find(:all, :params => {:account_id => self.id})
   end
+  
+  def sections
+    Section.find(:all, :params => {:account_id => self.id})
+  end
+  
 end
