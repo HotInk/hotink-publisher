@@ -8,7 +8,11 @@
 
 	<h1>{{article.title}}</h1>
 
-	
+ {% for section in newspaper.sections %}
+<ul>
+	<li>{{section}}</li>
+</ul>
+{% endfor %}
 	
 		
 

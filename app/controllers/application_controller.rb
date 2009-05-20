@@ -12,7 +12,8 @@ class ApplicationController < ActionController::Base
   helper_method :facebook_session
 
   before_filter :find_account
-
+  before_filter :set_liquid_variables
+  
   private
   
     def find_account
@@ -26,5 +27,9 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def set_liquid_variables
+      @newspaper = Liquid::NewspaperDrop.new(@account)
+      @site = Liquid::SiteDrop.new(self)
+    end
 
 end
