@@ -11,6 +11,9 @@ ActionController::Routing::Routes.draw do |map|
     account.resources :sections
     account.resources :issues
     account.resources :comments
+    account.resources :blogs do |blog|
+      blog.resource :entries
+    end
   end
 
 
