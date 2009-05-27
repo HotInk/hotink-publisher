@@ -25,6 +25,10 @@ class ApplicationController < ActionController::Base
       else
         false
       end
+      
+      account_name = "varsity"
+    
+      
     end
 
     def set_liquid_variables
