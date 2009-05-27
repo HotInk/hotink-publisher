@@ -1,0 +1,6 @@
+<div id="searchBox">
+<% form_tag('/view/search', :method => :get) do -%> 
+<br/>
+	<input style="color: black; margin-top: 10px;" name="query" type="text" size="20"/>
+	<%= submit_tag 'Search'%>
+<%end%>
