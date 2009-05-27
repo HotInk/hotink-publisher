@@ -12,7 +12,9 @@ ActionController::Routing::Routes.draw do |map|
     account.resources :issues
     account.resources :comments
     account.resources :blogs do |blog|
-      blog.resource :entries
+      blog.resources :entries do |entry|
+        entry.resource :comments
+      end      
     end
   end
 
