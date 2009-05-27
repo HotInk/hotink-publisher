@@ -8,4 +8,8 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
     @account.sections.collect{|s| s.name}
   end
   
+  def name
+    @account.name
+  end
+  
 end
