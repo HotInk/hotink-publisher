@@ -23,6 +23,7 @@ body {
 
 
 <% for @comment in @comments %>
+	<%= @comment.article.title %>
 	<% if @comment.class == FacebookComment %>
 		<%= render :partial => "facebook_comment", :locals => {:comment => @comment } %>
 	<% else %>

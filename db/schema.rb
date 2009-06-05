@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090420145122) do
+ActiveRecord::Schema.define(:version => 20090603170351) do
 
   create_table "comments", :force => true do |t|
     t.string   "email"
@@ -25,6 +25,17 @@ ActiveRecord::Schema.define(:version => 20090420145122) do
     t.integer  "fb_user_id"
     t.string   "email_hash"
     t.string   "type"
+    t.boolean  "enabled"
+  end
+
+  create_table "pages", :force => true do |t|
+    t.string   "name"
+    t.integer  "account_id"
+    t.datetime "date"
+    t.text     "bodytext"
+    t.boolean  "status",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "themes", :force => true do |t|

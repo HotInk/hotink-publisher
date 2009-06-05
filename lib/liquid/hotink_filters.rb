@@ -11,9 +11,12 @@ module Liquid
     end
     
     def markdown(text)
-      markdown = Markdown.new(text).to_html      
-    end    
-
+      markdown = Markdown.new(text).to_html
+    end
+    
+    def stylesheet()
+      
+    end
   end
 
 end
