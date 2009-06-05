@@ -11,5 +11,14 @@ class Comment < ActiveRecord::Base
   def article
     Article.find(self.content_id, :params => {:account_id => self.account_id})
   end
+  
+  def clear_flags
+    self.update_attribute(flags, 0)
+  end
+  
+  
+  def Comment.clear_all_flags(account_id)
+    @comments = Comment.find(:all, :conditions => {:account_id => account_id})
+  end
 
 end

@@ -8,4 +8,9 @@ class Blog < ActiveResource::Base
   self.user = "hyfen"
   self.password = "blah123"
 
+
+  def to_liquid
+    {'title' => title, 'id' => id, 'description' => description, 'updated_at' => updated_at}
+  end
+  
 end

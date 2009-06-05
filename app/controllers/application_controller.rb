@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :passwcord
 
-  before_filter :set_facebook_session
-  helper_method :facebook_session
+  # before_filter :set_facebook_session
+  # helper_method :facebook_session
 
   before_filter :find_account
   before_filter :set_liquid_variables
@@ -17,7 +17,6 @@ class ApplicationController < ActionController::Base
   private
   
     def find_account
-      
       if params[:account_id]
         @account = Account.find(params[:account_id])
         Time.zone = @account.time_zone

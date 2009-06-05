@@ -2,22 +2,22 @@ ActionController::Routing::Routes.draw do |map|
 
   # TODO: add unRESTful admin dashbouard section
 
-  map.resources :accounts do |account|
+  map.resources :accounts, :only => [:index, :issues, :sections, :articles, :blogs ] do |account|
     account.resources :articles do |article|
       article.resources :authors
       article.resources :comments
     end
-    account.resources :authors
     account.resources :sections
     account.resources :issues
-    account.resources :comments
     account.resources :blogs do |blog|
       blog.resources :entries do |entry|
         entry.resource :comments
       end      
     end
+    account.resources :comments
   end
 
+  map.connect 'accounts/:account_id/:page_name', :controller=> "pages", :action => "show"
 
 
 

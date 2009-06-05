@@ -14,4 +14,8 @@ class Account < ActiveResource::Base
     Section.find(:all, :params => {:account_id => self.id})
   end
   
+  def pages
+    Page.find(:all, :params => {:account_id => self.id})
+  end
+  
 end
