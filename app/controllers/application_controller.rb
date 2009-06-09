@@ -31,6 +31,10 @@ class ApplicationController < ActionController::Base
     end
 
     def set_liquid_variables
+
+      # TODO: figure out if this has a concurrency bug
+      Liquid::Template.file_system.root = "#{RAILS_ROOT}/themes/#{self.current_theme}/views"
+      
       @newspaper = Liquid::NewspaperDrop.new(@account)
       @site = Liquid::SiteDrop.new(self)
     end
