@@ -6,20 +6,8 @@
 	</span>
 </div>
 
- {% for comment in site.latest_comments %}
-<ul>
-	<li>{{comment.date}} - {{comment.article.title}}</li>
-</ul>
-{% endfor %}
-
-
 	<h1>{{article.title}}</h1>
 
- {% for section in newspaper.sections %}
-<ul>
-	<li>{{section}}</li>
-</ul>
-{% endfor %}
 
 <div class="span-2 push-0 last article-sidebar">
 
