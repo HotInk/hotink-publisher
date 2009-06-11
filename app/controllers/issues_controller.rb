@@ -9,5 +9,9 @@ class IssuesController < ApplicationController
     @articles = Article.find(:all, :params => {:account_id => @account.id})  #FIXME: need articles from issue
     
   end
+  
+  def index
+    @issues = @account.issues
+  end
 
 end

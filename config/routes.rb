@@ -15,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
       end      
     end
     account.resources :comments
+    account.resources :pages
   end
 
   map.connect 'accounts/:account_id/:page_name', :controller=> "pages", :action => "show"

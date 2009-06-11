@@ -5,7 +5,7 @@ class BlogsController < ApplicationController
 
   
   def index
-    @blogs = Blog.find(:all, :params => {:account_id => @account.id})
+    @blogs = @account.blogs
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +14,8 @@ class BlogsController < ApplicationController
   end
 
   def show
-    @blog = Blog.find(params[:id], :params => {:account_id => @account.id})
+    @blog = Blog.find(params[:id], :params => {:account_id => params[:account_id]})
+    @entries = @blog.entries      
       
     respond_to do |format|
       format.html # show.html.erb

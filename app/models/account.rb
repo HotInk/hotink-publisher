@@ -14,8 +14,16 @@ class Account < ActiveResource::Base
     Section.find(:all, :params => {:account_id => self.id})
   end
   
+  def issues
+    Issue.find(:all, :params => {:account_id => self.id})
+  end
+  
   def pages
-    Page.find(:all, :params => {:account_id => self.id})
+    Page.find(:all, :conditions => {:account_id => self.id})
+  end
+
+  def blogs
+    Blog.find(:all, :params => {:account_id => self.id})
   end
   
 end
