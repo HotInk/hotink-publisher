@@ -9,6 +9,10 @@ class Liquid::SiteDrop < Liquid::BaseDrop
     @controller.controller_name
   end
   
+  def account_id
+    @controller.params[:account_id]
+  end
+  
   def latest_comments
     Comment.find(:all, :limit => 10, :order => "created_at DESC")
   end
