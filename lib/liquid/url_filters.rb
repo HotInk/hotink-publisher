@@ -6,16 +6,18 @@ module Liquid
     include ActionView::Helpers::UrlHelper
     include ActionController::UrlWriter
     
-    def link_to_section(id)
-      @s = Account.find(1).issues[0]      
-      link_for(account_issue_path(@s))
+    def link_to_section(section_id)
+            
+      @account = Account.find(controller.params[:account_id])
+      @section = Section.find(section_id, :params => {:account_id => @account.id})
+      link_for(account_issue_path(@account, @section))
     end
     
     def link_to_issue(id)
       @i = Account.find(1).issues[0]
       link_for(account_issue_path(@i))
     end
-
+    
     
     def link_to_issues(asd)
       link_for(account_issues_path)
@@ -25,7 +27,6 @@ module Liquid
       link_for(account_blogs_path)
     end
     
-
 
     def link_for(url)
       content_tag :a, "asdfasdfasdfasd", { :href => url, :title => "asd" }
@@ -37,7 +38,7 @@ module Liquid
       controller.url_for options
     end
 
-    def controller()
+    def controller
       @context.registers[:controller]
     end
     
