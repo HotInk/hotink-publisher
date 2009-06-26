@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
   
-  theme 'varsity'
   layout 'default'
 
   def show

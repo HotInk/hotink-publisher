@@ -9,7 +9,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090603170351) do
+ActiveRecord::Schema.define(:version => 20090622193910) do
+
+  create_table "accounts", :force => true do |t|
+    t.string   "name"
+    t.string   "formal_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "time_zone"
+    t.text     "settings"
+    t.integer  "account_resource_id"
+  end
+
+  create_table "article_options", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "comments_enabled"
+    t.boolean  "comments_locked"
+    t.string   "display_format"
+    t.integer  "article_id"
+    t.integer  "account_id"
+  end
 
   create_table "comments", :force => true do |t|
     t.string   "email"

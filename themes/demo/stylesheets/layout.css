@@ -1,0 +1,44 @@
+body{text-align:center;}
+#container{width:970px;text-align:left;margin:auto;background:#fff;}
+#search{float:right;}
+#masthead{margin:2em 0px 2em 0;}
+#user-meta{float:right;}
+/* Issue Section menu */
+#issue-sections{padding-bottom: 8px; text-transform:uppercase;border-bottom:3px solid #939598;}
+#issue-sections ul {padding-left: 0;}
+#issue-sections li{display:inline;}
+#issue-sections a{padding:1em 1em 4px 0em;padding-top:3px;}
+.section-active{color:#ee4400;}
+#bottom{margin-top:15px;}
+/* Column definitions */
+#cols-left{float:left;width:620px;}
+#cols-right{float:right;width:335px;}
+.col{abackground:#f4f4f4;margin-bottom:15px;}
+.col-1{width:160px;float:left;}
+.col-2{width:270px;float:right;}
+.col-3{width:160px;float:right;}
+.col-4{width:160px;float:left;}
+.col-5{width:160px;float:right;}
+.col-1-2{width:445px;float:left;}
+.col-2-3{width:445px;float:right;}
+.col-4-5{float:right;width:335px;}
+.index-sidebar-section{margin-top:30px;}
+.column-box{border-bottom:3px solid #939598;padding-bottom:1em;margin-bottom:2em;background:#eee;}
+.article-meta{border-bottom:3px solid #939598;width:430px;padding-bottom:15px;}
+#article-sidebar .sidebar-box {
+    padding-bottom: 15px;
+} 
+.picturebox{}
+.picturebox-caption{font-style:italic;}
+.picturebox-attribution{float:right;}
+/* comments */
+.comment{padding-top:2em;clear:both;border-bottom:3px solid #939598;}
+#comment-form{padding-top:4em;}
+.comment-odd{background:#eee;}
+/* sidebar stuff */
+.teaser-box{height:89px;margin-bottom:15px;}
+.side-ad{text-align:right;}
+.clear{clear:both;}
+#comments{margin-top:3em;}
+#footer{background: #eee; margin-top: 50px;}
+.footer-float { width: 150px;}

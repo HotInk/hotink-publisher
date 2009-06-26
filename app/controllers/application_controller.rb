@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
   before_filter :find_account
   before_filter :set_liquid_variables
   
+  theme :get_theme
+  
   private
   
     def find_account
@@ -34,6 +36,10 @@ class ApplicationController < ActionController::Base
       
       @newspaper = Liquid::NewspaperDrop.new(@account)
       @site = Liquid::SiteDrop.new(self)
+    end
+    
+    def get_theme
+      @account.name
     end
 
 end

@@ -1,7 +1,7 @@
 class Section < ActiveResource::Base
 
   # TODO: make this a configuration option
-  self.site = "http://localhost:4000"
+  self.site = "http://demo.hotink.net"
   self.prefix = "/accounts/:account_id/"
   self.user = "hyfen"
   self.password = "blah123"

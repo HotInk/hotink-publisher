@@ -6,20 +6,22 @@ ActionController::Routing::Routes.draw do |map|
     account.resources :articles do |article|
       article.resources :authors
       article.resources :comments
+      article.resources :mediafile
     end
     account.resources :sections
     account.resources :issues
     account.resources :blogs do |blog|
       blog.resources :entries do |entry|
         entry.resource :comments
+        entry.resource :mediafiles
       end      
     end
     account.resources :comments
     account.resources :pages
   end
 
+  map.connect 'accounts/:account_id/search/:action/:id', :controller => 'search'
   map.connect 'accounts/:account_id/:page_name', :controller=> "pages", :action => "show"
-
 
 
   # The priority is based upon order of creation: first created -> highest priority.

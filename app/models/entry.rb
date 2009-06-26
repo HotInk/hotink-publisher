@@ -3,7 +3,7 @@ class Entry < ActiveResource::Base
   # TODO: make this a configuration option
 
   # self.site = "http://192.168.1.1"
-  self.site = "http://localhost:4000"
+  self.site = "http://demo.hotink.net"
   self.prefix = "/accounts/:account_id/blogs/:blog_id/"
   self.user = "hyfen"
   self.password = "blah123"

@@ -1,11 +1,9 @@
-class Account < ActiveResource::Base
+class Account < ActiveRecord::Base
 
-  # TODO: make this a configuration option
-  # self.site = "http://192.168.1.1"
-  self.site = "http://localhost:4000"
-  self.user = "hyfen"
-  self.password = "blah123"
-  
+  def account_resource
+    AccountResource.find(self.account_resource_id)
+  end
+
   def articles
     Article.find(:all, :params => {:account_id => self.id})
   end
@@ -24,6 +22,18 @@ class Account < ActiveResource::Base
 
   def blogs
     Blog.find(:all, :params => {:account_id => self.id})
+  end
+  
+  def account_resource
+    if self.account_resource_id
+      AccountResource.find(self.account_resource_id) 
+    else
+      AccountResource.find(self.id)
+    end
+  end
+  
+  def url
+    return "http://localhost:3000/accounts/1"
   end
   
 end

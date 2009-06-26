@@ -1,0 +1,37 @@
+body{font:13px/1em "Arial", "Trebuchet MS",serif;color:#000000;}
+em{font-style:italic;}
+a{color:#666;text-decoration:none;font-weight:bold;}
+a:visited{color:#666;}
+a:hover{color:#ee4400;}
+h1{font-size:3.5em;letter-spacing:-1px;font-weight:bold;font-family:"Arial"
+padding-top:1em;line-height:1em;}
+h2{font-size:2em;letter-spacing:-1px;line-height:1em;margin-bottom:10px;font-weight:bold;font-family:"Arial";color:black;}
+h3{font-size:1.2em;font-weight:bold;font-family:"Arial";line-height:1em;}
+p{margin-bottom:2em;}
+ul{list-style: square; padding-left:15px;}
+.article-meta h1{}
+}
+.article-body h3{}
+/* Article body */
+.article-body h3 + p{margin-top:1em;}
+.article-body h1{padding-top:15px;padding-bottom:15px;}
+.article-body h2{font-weight:normal;color:#949599;}
+.article-body p{font:15px/1.4em "Arial", "Trebuchet MS",serif;margin-top:1.5em;}
+.article-body p + h3{}
+.article-body h3 + p{margin-top:1em;}
+.navrow h2{font-size:1.5em;padding-left:20px;color:#fff;padding-top:4px;height:20px;overflow:hidden;background:url(/images/varsity/template/rowbg.gif);background-color:#939598;background-repeat:no-repeat;background-position:left;}
+.navrow h2 a{color:white;}
+/********************
+Pagination
+********************/
+.pagination{padding:2px;}
+.pagination ul{margin:0;padding:0;text-align:left;/*Set to "right" to right align pagination interface*/
+font-size:13px;}
+.pagination li{list-style-type:none;display:inline;padding-bottom:1px;}
+.pagination a,.pagination a:visited{padding:0 5px;border:1px solid #999;text-decoration:none;color:#333;}
+.pagination a:hover,.pagination a:active{border:1px solid #c0b5b6;color:#333;background:#DDD;}
+.pagination li.currentpage{font-weight:bold;padding:0 5px;border:1px solid #999;background-color:#c0b5b6;color:#FFF;}
+.pagination li.disablepage{padding:0 5px;border:1px solid #999;color:#333;display:none;}
+.pagination li.nextpage{}
+* html .pagination li.currentpage,* html .pagination li.disablepage{/*IE 6 and below. Adjust non linked LIs slightly to account for bugs*/
+margin-right:5px;padding-right:0;}

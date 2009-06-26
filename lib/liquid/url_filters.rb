@@ -4,39 +4,57 @@ module Liquid
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::AssetTagHelper
     include ActionView::Helpers::UrlHelper
-    include ActionController::UrlWriter
-    
-    def link_to_section(section_id)
-            
+    # include ActionController::UrlWriter
+    # 
+    # def link_to_section(section_id)
+    #         
+    #   @account = Account.find(controller.params[:account_id])
+    #   @section = Section.find(section_id, :params => {:account_id => @account.id})
+    #   link_for(account_issue_path(@account, @section))
+    # end
+    # 
+
+    def link_to_article(article)
       @account = Account.find(controller.params[:account_id])
-      @section = Section.find(section_id, :params => {:account_id => @account.id})
-      link_for(account_issue_path(@account, @section))
+      url = @account.url + "/articles/" + article["id"].to_s
+      link_to article["title"], url
     end
     
-    def link_to_issue(id)
-      @i = Account.find(1).issues[0]
-      link_for(account_issue_path(@i))
+    def link_to_issue(issue_id)
+      @account = Account.find(controller.params[:account_id])
+      @issue = Issue.find(issue_id, :params => {:account_id => @account.id})
+      url = @account.url + "/issues/" + @issue.id.to_s
+      issue_title = "asd"
+      link_to issue_title, url
+    end
+  
+    def link_to_section(section)
+      @account = Account.find(controller.params[:account_id])
+      url = @account.url + "/sections/" + section["name"]
+      link_to section["name"], url
+    end
+    
+    def link_to_page(page_name)
+      @account = Account.find(controller.params[:account_id])
+      url = @account.url + "/" + page_name
+      link_to page_name, url
     end
     
     
     def link_to_issues(asd)
-      link_for(account_issues_path)
+      @account = Account.find(controller.params[:account_id])
+      url = @account.url + "/issues/"
+      link_to "issues", url
     end
     
-    def link_to_blogs
-      link_for(account_blogs_path)
+    def link_to_blogs(asd)
+      @account = Account.find(controller.params[:account_id])
+      url = @account.url + "/blogs/"
+      link_to "blogs", url
     end
-    
 
-    def link_for(url)
-      content_tag :a, "asdfasdfasdfasd", { :href => url, :title => "asd" }
-    end
 
     private
-
-    def url_for(options = {})
-      controller.url_for options
-    end
 
     def controller
       @context.registers[:controller]
