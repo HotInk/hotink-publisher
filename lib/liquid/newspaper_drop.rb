@@ -5,7 +5,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   end
 
   def sections
-    @account.sections.collect{|s| s.name}
+    @account.sections
   end
   
   def name
