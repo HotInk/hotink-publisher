@@ -23,7 +23,7 @@ Rails::Initializer.run do |config|
   config.gem "rdiscount",
              :lib    => "rdiscount",
              :source => "http://gems.github.com"
-
+    
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -53,6 +53,4 @@ rescue LoadError
 end
 
 
-# from http://snippets.dzone.com/posts/show/551
-require 'yaml'
-HI_CONFIG = YAML::load(File.open("#{RAILS_ROOT}/config/hotink.yml"))
+HOTINK_SETTINGS = Settings.new(:hotink)

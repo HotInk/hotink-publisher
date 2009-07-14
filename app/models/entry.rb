@@ -1,8 +1,8 @@
 class Entry < ActiveResource::Base
 
-  self.site = HI_CONFIG["site"]
-  self.user = HI_CONFIG["user"]
-  self.password = HI_CONFIG["password"]
+  self.site = HOTINK_SETTINGS.site
+  self.user = HOTINK_SETTINGS.user
+  self.password = HOTINK_SETTINGS.password
   self.prefix = "/accounts/:account_id/blogs/:blog_id/"
 
   def comments
