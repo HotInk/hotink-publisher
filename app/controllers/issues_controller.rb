@@ -1,6 +1,5 @@
 class IssuesController < ApplicationController
 
-  theme 'varsity'
   layout 'default'
 
   def show

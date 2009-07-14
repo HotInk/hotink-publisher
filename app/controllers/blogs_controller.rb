@@ -1,6 +1,5 @@
 class BlogsController < ApplicationController
 
-  theme 'varsity'  
   layout 'default'
 
   
