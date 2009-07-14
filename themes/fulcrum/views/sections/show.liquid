@@ -1,7 +1,5 @@
-{{ section.name }}
-
 {% for article in articles %}
 <ul>
-	<li>{{article.title}}</li>
+	<li>{{article | link_to_article}}</li>
 </ul>
 {% endfor %}
