@@ -4,6 +4,7 @@ module Liquid
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::AssetTagHelper
     include ActionView::Helpers::UrlHelper
+    
     # include ActionController::UrlWriter
     # 
     # def link_to_section(section_id)
@@ -14,10 +15,11 @@ module Liquid
     # end
     # 
 
-    def link_to_article(article)
+    def link_to_article(article, title=nil)
       @account = Account.find(controller.params[:account_id])
       url = @account.url + "/articles/" + article["id"].to_s
-      link_to article["title"], url
+      title.nil? ? title = article["title"] : title
+      link_to title, url
     end
     
     def link_to_issue(issue_id)
