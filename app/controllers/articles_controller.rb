@@ -1,6 +1,5 @@
 class ArticlesController < ApplicationController
 
-  theme 'varsity'  
   layout 'default'
 
   

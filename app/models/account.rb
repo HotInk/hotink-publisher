@@ -33,7 +33,7 @@ class Account < ActiveRecord::Base
   end
   
   def url
-    return "http://localhost:3000/accounts/1"
+    return "http://localhost:3000/accounts/#{self.id}"
   end
   
 end
