@@ -1,12 +1,9 @@
 class Entry < ActiveResource::Base
 
-  # TODO: make this a configuration option
-
-  # self.site = "http://192.168.1.1"
-  self.site = "http://demo.hotink.net"
+  self.site = HI_CONFIG["site"]
+  self.user = HI_CONFIG["user"]
+  self.password = HI_CONFIG["password"]
   self.prefix = "/accounts/:account_id/blogs/:blog_id/"
-  self.user = "hyfen"
-  self.password = "blah123"
 
   def comments
     Comment.find_all_by_content_id(self.id)

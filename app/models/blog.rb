@@ -1,13 +1,9 @@
 class Blog < ActiveResource::Base
 
-  # TODO: make this a configuration option
-
-  # self.site = "http://192.168.1.1"
-  self.site = "http://demo.hotink.net"
+  self.site = HI_CONFIG["site"]
+  self.user = HI_CONFIG["user"]
+  self.password = HI_CONFIG["password"]
   self.prefix = "/accounts/:account_id/"
-  self.user = "hyfen"
-  self.password = "blah123"
-
 
   def to_liquid
     {'title' => title, 'id' => id, 'description' => description, 'updated_at' => updated_at}

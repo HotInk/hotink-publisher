@@ -51,3 +51,8 @@ begin
 rescue LoadError
   require 'bluecloth'
 end
+
+
+# from http://snippets.dzone.com/posts/show/551
+require 'yaml'
+HI_CONFIG = YAML::load(File.open("#{RAILS_ROOT}/config/hotink.yml"))
