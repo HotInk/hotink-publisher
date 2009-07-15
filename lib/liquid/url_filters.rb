@@ -18,43 +18,31 @@ module Liquid
     def link_to_article(article, title=nil)
       @account = Account.find(controller.params[:account_id])
       url = @account.url + "/articles/" + article["id"].to_s
-      title.nil? ? title = article["title"] : title
+      title ||= article["title"]
       link_to title, url
     end
     
-    def link_to_issue(issue_id)
+    def link_to_issue(issue_id, title=nil)
       @account = Account.find(controller.params[:account_id])
       @issue = Issue.find(issue_id, :params => {:account_id => @account.id})
       url = @account.url + "/issues/" + @issue.id.to_s
-      issue_title = "asd"
-      link_to issue_title, url
+      title ||= issue["name"]
+      link_to title, url
     end
   
-    def link_to_section(section)
+    def link_to_section(section, title=nil)
       @account = Account.find(controller.params[:account_id])
       url = @account.url + "/sections/" + section["name"]
-      link_to section["name"], url
+      title ||= section["name"]
+      link_to title, url
     end
     
-    def link_to_page(page_name)
+    def link_to_page(page_name, title=nil)
       @account = Account.find(controller.params[:account_id])
       url = @account.url + "/" + page_name
-      link_to page_name, url
+      title ||= page_name
+      link_to title, url
     end
-    
-    
-    def link_to_issues(asd)
-      @account = Account.find(controller.params[:account_id])
-      url = @account.url + "/issues/"
-      link_to "issues", url
-    end
-    
-    def link_to_blogs(asd)
-      @account = Account.find(controller.params[:account_id])
-      url = @account.url + "/blogs/"
-      link_to "blogs", url
-    end
-
 
     private
 
