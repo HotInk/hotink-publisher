@@ -16,6 +16,10 @@ class PagesController < ApplicationController
 
     end
   end
+  
+  def index
+    @pages = Page.find_all_by_account_id(@account.id)
+  end
 
   def new
 
