@@ -1,28 +1,36 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :pages
+
 
   # TODO: add unRESTful admin dashbouard section
 
-  map.resources :accounts, :only => [:index, :issues, :sections, :articles, :blogs ] do |account|
+  map.resources :accounts, :only => [:index, :issues, :sections, :articles, :blogs, :pages, :comments ] do |account|
     account.resources :articles do |article|
       article.resources :authors
-      article.resources :comments
+      article.resources :comments, :only => [:show, :create] 
       article.resources :mediafile
     end
     account.resources :sections
     account.resources :issues
     account.resources :blogs do |blog|
       blog.resources :entries do |entry|
-        entry.resource :comments
+        entry.resource :comments, :only => [:show, :create] 
         entry.resource :mediafiles
       end      
-    end
-    account.resources :comments
-    account.resources :pages
+    end  
+
+    account.resources :pages, :path_prefix => "accounts/:account_id/admin", :controller => "admin/pages"
+    
   end
 
+  map.connect 'accounts/:account_id/admin', :controller => "admin/pages", :action => "dashboard"
   map.connect 'accounts/:account_id/search/:action/:id', :controller => 'search'
   map.connect 'accounts/:account_id/:page_name', :controller=> "pages", :action => "show"
 
+
+# map.resources :photos, :path_prefix => 'admin', :controller => 'admin/photos' 
+# map.resources :tags, :name_prefix => 'admin_photo_', :path_prefix => 'admin/photos/:photo_id', :controller => 'admin/photo_tags' 
+# map.resources :ratings, :name_prefix => 'admin_photo_', :path_prefix => 'admin/photos/:photo_id', :controller => 'admin/photo_ratings' 
 
   # The priority is based upon order of creation: first created -> highest priority.
 

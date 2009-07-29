@@ -1,8 +1,9 @@
 class PagesController < ApplicationController
   
-  layout 'default'
+
 
   def show
+    
     @page = Page.find_by_name(params[:page_name])
     
     if @page.nil? 
@@ -18,6 +19,9 @@ class PagesController < ApplicationController
   end
   
   def index
+    
+    puts @account.id
+    
     @pages = Page.find_all_by_account_id(@account.id)
   end
 
@@ -26,7 +30,7 @@ class PagesController < ApplicationController
   end
 
   def edit
-    @page = Page.find(params[:id])
+    puts @account.id
   end
 
 
