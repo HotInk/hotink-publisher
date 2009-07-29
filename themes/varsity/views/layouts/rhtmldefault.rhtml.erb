@@ -62,12 +62,12 @@
 
 
     <div id="masthead" class="span-6">
-        <%= link_to image_tag(theme_image_path("masthead.png"), :border=>0), :action=>:index %> <br/>
+        <%= link_to image_tag(theme_image_path("masthead2.png"), :border=>0), :action=>:index %> <br/>
 
 		<div id="menu">
 			<% @menu_entries = ["news", "comment", "arts", "science", "sports", "features"] %>
 			<% for @menu_entry in @menu_entries %>
-<%= link_to image_tag(theme_image_path("menu-#{@menu_entry}.gif"), :border=>0), :action=>:section, :id => @menu_entry %>
+				<%= link_to image_tag(theme_image_path("menu-#{@menu_entry}.gif"), :border=>0), :action=>:section, :id => @menu_entry %>
 			<% end %>
 			<%= link_to image_tag(theme_image_path("menu-magazine.gif"), :border=>0), :action=>:issues, :type => "special" %>
 			<%= link_to image_tag(theme_image_path("menu-blogs.gif"), :border=>0), :action=>:blogs %>		

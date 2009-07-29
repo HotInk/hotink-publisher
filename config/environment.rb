@@ -20,6 +20,7 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
 
+  config.gem 'oauth'
   config.gem "rdiscount",
              :lib    => "rdiscount",
              :source => "http://gems.github.com"
