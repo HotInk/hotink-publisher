@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       access_token = request_token.get_access_token
       @token = OauthToken.new(:token => access_token.token, :secret => access_token.secret, :token_type => "AccessToken" )
       @user = User.create!(:oauth_token => @token )
-      redirect_to root_url
+      redirect_to :controller=>"admin/pages", :action=>"dashboard"
     else  
       consumer = get_consumer
       request_token = consumer.get_request_token

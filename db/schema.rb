@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090622193910) do
+ActiveRecord::Schema.define(:version => 20090729165753) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -48,6 +48,14 @@ ActiveRecord::Schema.define(:version => 20090622193910) do
     t.boolean  "enabled"
   end
 
+  create_table "oauth_tokens", :force => true do |t|
+    t.string   "token",      :null => false
+    t.string   "secret",     :null => false
+    t.string   "token_type", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pages", :force => true do |t|
     t.string   "name"
     t.integer  "account_id"
@@ -61,6 +69,20 @@ ActiveRecord::Schema.define(:version => 20090622193910) do
   create_table "themes", :force => true do |t|
     t.string   "name"
     t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "persistence_token",                 :null => false
+    t.string   "oauth_token_id",                    :null => false
+    t.integer  "login_count",        :default => 0, :null => false
+    t.integer  "failed_login_count", :default => 0, :null => false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
