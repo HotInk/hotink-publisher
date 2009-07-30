@@ -1,4 +1,4 @@
-set :application, "hotink-publisher"
+set :application, "hotink_publisher"
 set :branch, "master"
 set :repository,  "git://github.com/HotInk/hotink-publisher.git"
 
