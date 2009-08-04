@@ -20,5 +20,20 @@ class Comment < ActiveRecord::Base
   def Comment.clear_all_flags(account_id)
     @comments = Comment.find(:all, :conditions => {:account_id => account_id})
   end
+  
+  def flag
+    self.increment(:flags)
+    self.save
+  end
+  
+  def enable
+    self.update_attribute(:enabled, true)
+  end
+  
+  def disable
+    self.update_attribute(:enabled, false)
+  end
+  
+  
 
 end

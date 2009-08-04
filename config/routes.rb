@@ -21,6 +21,9 @@ ActionController::Routing::Routes.draw do |map|
     end  
 
     account.resources :pages, :path_prefix => "accounts/:account_id/admin", :controller => "admin/pages"
+    account.resources :comments, 
+      :member => {:flag => :get, :enable => :get, :disable => :get},
+      :path_prefix => "accounts/:account_id/admin", :controller => "admin/comments" 
     
   end
 

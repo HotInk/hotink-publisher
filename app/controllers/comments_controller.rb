@@ -92,8 +92,5 @@ class CommentsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
-  def flag
-    @article = Article.find(params[:article_id], :params => {:account_id => @account.id})  
-  end
+  
 end

@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
     end
     
     def get_theme
-      # @account.name
+      @account.name
     end
     
     # Remote session / User authentication code below

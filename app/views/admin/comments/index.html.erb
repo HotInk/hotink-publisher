@@ -1,0 +1,17 @@
+<h1>Listing Comments</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% for comment in @comments %>
+<tr>
+<td><%= comment.name %></td>
+<td><%= comment.email %></td>
+<td><%= comment.body %></td>	
+<td><%= comment.flags %></td>	
+<td><%= comment.enabled %></td>	
+</tr>
+<% end %>
+
+</table>
