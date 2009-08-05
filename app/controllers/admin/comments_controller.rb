@@ -9,12 +9,27 @@ class Admin::CommentsController < ApplicationController
   end
 
   def index
+    # @comments = Comment.paginate :page => params[:page], :per_page => 50
     @comments = Comment.find_all_by_account_id(@account.id)
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @comments }
     end
+  end
+  
+  def clear_all_flags
+    respond_to do |format|
+      if Comment.clear_all_flags(@account.id)
+        flash[:notice] = 'Flags cleared'
+        format.html { redirect_to(account_comments_path) }
+        format.js { head :ok } 
+        format.xml  { head :ok }
+      else
+        flash[:notice] = "An error has occurred"
+        format.html { redirect_to(account_comments_path) }
+      end
+    end  
   end
 
   def show
@@ -118,7 +133,7 @@ class Admin::CommentsController < ApplicationController
 
   def disable
     @comment = Comment.find(params[:id])    
-
+    debugger
     respond_to do |format|
       if @comment.disable
         flash[:notice] = 'Comment was flagged'

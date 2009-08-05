@@ -11,19 +11,26 @@ class Comment < ActiveRecord::Base
   def article
     Article.find(self.content_id, :params => {:account_id => self.account_id})
   end
-  
-  def clear_flags
-    self.update_attribute(flags, 0)
-  end
-  
-  
+    
   def Comment.clear_all_flags(account_id)
     @comments = Comment.find(:all, :conditions => {:account_id => account_id})
+    @comments.collect{|comment|
+      comment.clear_flags
+    }
   end
   
   def flag
     self.increment(:flags)
     self.save
+  end
+  
+  def clear_flags
+    self.update_attribute(:flags, 0)
+    self.save
+  end
+  
+  def enabled?
+    self.enabled
   end
   
   def enable
@@ -34,6 +41,4 @@ class Comment < ActiveRecord::Base
     self.update_attribute(:enabled, false)
   end
   
-  
-
 end

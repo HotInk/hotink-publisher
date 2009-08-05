@@ -11,7 +11,16 @@
 <td><%= comment.body %></td>	
 <td><%= comment.flags %></td>	
 <td><%= comment.enabled %></td>	
+<td><%= link_to "Flag", flag_account_comment_path(@account, comment) %></td>
+<td>
+	<% if comment.enabled? %>
+		<%= link_to "Disable", disable_account_comment_path(@account, comment) %>
+	<% else %>
+		<%= link_to "Enable", enable_account_comment_path(@account, comment) %>
+	<% end %>
 </tr>
 <% end %>
 
 </table>
+
+<%= link_to "Clear all comments", clear_all_flags_account_comments_path(@account), :confirm => "Are you sure?" %>
