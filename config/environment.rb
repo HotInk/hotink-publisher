@@ -24,6 +24,8 @@ Rails::Initializer.run do |config|
   config.gem "rdiscount",
              :lib    => "rdiscount",
              :source => "http://gems.github.com"
+  # config.gem 'mislav-will_paginate',
+  #             :source => "http://gems.github.com"             
     
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
