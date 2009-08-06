@@ -5,23 +5,23 @@ class Account < ActiveRecord::Base
   end
 
   def articles
-    Article.find(:all, :params => {:account_id => self.id})
+    Article.find(:all, :params => {:account_id => self.account_resource_id})
   end
   
   def sections
-    Section.find(:all, :params => {:account_id => self.id})
+    Section.find(:all, :params => {:account_id => self.account_resource_id})
   end
   
   def issues
-    Issue.find(:all, :params => {:account_id => self.id})
+    Issue.find(:all, :params => {:account_id => self.account_resource_id})
   end
   
   def pages
-    Page.find(:all, :conditions => {:account_id => self.id})
+    Page.find(:all, :conditions => {:account_id => self.account_resource_id})
   end
 
   def blogs
-    Blog.find(:all, :params => {:account_id => self.id})
+    Blog.find(:all, :params => {:account_id => self.account_resource_id})
   end
   
   def account_resource

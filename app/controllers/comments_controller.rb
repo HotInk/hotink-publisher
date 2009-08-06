@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
     if params[:article_id].nil?
       @comments = Comment.find(:all)
     else    
-      @article = Article.find(params[:article_id], :params => {:account_id => @account.id})
+      @article = Article.find(params[:article_id], :params => {:account_id => @account.account_resource_id})
       @comments = @article.comments
     end
 

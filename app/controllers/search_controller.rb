@@ -5,7 +5,7 @@ class SearchController < ApplicationController
   def index
     if params[:search].blank?
     else
-      @articles = Article.find(:all, :params => {:account_id => @account.id, :search => params[:search]})
+      @articles = Article.find(:all, :params => {:account_id => @account.account_resource_id, :search => params[:search]})
     end
       
   end

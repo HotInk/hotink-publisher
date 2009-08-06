@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.xml
   def index
-    @article = Article.find(:all, :params => {:account_id => @account.id})
+    @article = Article.find(:all, :params => {:account_id => @account.account_resource_id})
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,9 +15,9 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id], :params => {:account_id => @account.id})
+    @article = Article.find(params[:id], :params => {:account_id => @account.account_resource_id})
     @comments = @article.comments
-      
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @article }

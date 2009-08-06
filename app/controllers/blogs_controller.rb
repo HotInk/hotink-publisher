@@ -13,7 +13,7 @@ class BlogsController < ApplicationController
   end
 
   def show
-    @blog = Blog.find(params[:id], :params => {:account_id => params[:account_id]})
+    @blog = Blog.find(params[:id], :params => {:account_id => @account.account_resource_id})
     @entries = @blog.entries      
       
     respond_to do |format|

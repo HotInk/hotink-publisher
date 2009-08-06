@@ -4,8 +4,8 @@ class IssuesController < ApplicationController
 
   def show
     
-    @issue = Issue.find(params[:id], :params => {:account_id => @account.id})
-    @articles = Article.find(:all, :params => {:account_id => @account.id})  #FIXME: need articles from issue
+    @issue = Issue.find(params[:id], :params => {:account_id => @account.account_resource_id})
+    @articles = Article.find(:all, :params => {:account_id => @account.account_resource_id})  #FIXME: need articles from issue
     
   end
   
