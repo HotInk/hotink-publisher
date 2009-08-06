@@ -8,16 +8,23 @@ class UsersController < ApplicationController
       access_token = request_token.get_access_token
       @token = OauthToken.new(:token => access_token.token, :secret => access_token.secret, :token_type => "AccessToken" )
       @user = User.create!(:oauth_token => @token )
-      redirect_to :controller=>"admin/pages", :action=>"dashboard"
+      if params[:request_url] # preserve a passed along request url
+        redirect_to params[:request_url]
+      else
+        redirect_to :controller=>"admin/pages", :action=>"dashboard"
+      end
     else  
       consumer = get_consumer
       request_token = consumer.get_request_token
       @token = OauthToken.create!(:token => request_token.token, :secret => request_token.secret, :token_type => "RequestToken")
       if @token
-        redirect_to request_token.authorize_url
+        if params[:request_url] # preserve a passed along request url
+          redirect_to request_token.authorize_url + "&request_url=#{params[:request_url]}"
+        else
+          redirect_to request_token.authorize_url
+        end
       end
     end
   end
-  
   
 end
