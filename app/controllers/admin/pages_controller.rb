@@ -1,6 +1,8 @@
 class Admin::PagesController < ApplicationController
 
   layout 'admin'
+  
+  before_filter :require_user
 
   def dashboard
     

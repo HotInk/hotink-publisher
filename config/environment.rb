@@ -52,6 +52,3 @@ begin
 rescue LoadError
   require 'bluecloth'
 end
-
-
-HOTINK_SETTINGS = Settings.new(:hotink)

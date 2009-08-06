@@ -1,7 +1,10 @@
 class UserSessionsController < ApplicationController
 
+  before_filter :require_user
+
   def new
-    redirect_to root_url
+    redirect_to :controller=>"admin/pages", :action=>"dashboard"
+    
   end
 
   def create

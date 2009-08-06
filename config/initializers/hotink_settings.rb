@@ -1,0 +1,1 @@
+HOTINK_SETTINGS = Settings.new(:hotink)
