@@ -16,5 +16,9 @@ class Article < ActiveResource::Base
   def article_options
     ArticleOptions.find_by_article_id_and_account_id(self.id, self.prefix_options[:account_id])
   end
+  
+  def images
+    self.mediafiles.collect{|mediafile| mediafile.url.medium}
+  end
 
 end

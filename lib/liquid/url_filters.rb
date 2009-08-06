@@ -22,9 +22,16 @@ module Liquid
       link_to title, url
     end
     
+    def link_to_entry(entry, title=nil)
+      @account = Account.find(controller.params[:account_id])
+      url = @account.url + "/blogs/" + 1 + "/entries" + entry["id"].to_s
+      title ||= entry["title"]
+      link_to title, url
+    end
+    
     def link_to_issue(issue_id, title=nil)
       @account = Account.find(controller.params[:account_id])
-      @issue = Issue.find(issue_id, :params => {:account_id => @account.id})
+      @issue = Issue.find(issue_id, :params => {:account_id => @account.account_resource_id})
       url = @account.url + "/issues/" + @issue.id.to_s
       title ||= issue["name"]
       link_to title, url

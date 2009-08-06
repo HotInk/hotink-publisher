@@ -1,5 +1,5 @@
 {% for entry in entries %}
 
-<h1>{{entry.title}}</h1>
+<h1>{{entry | link_to_entry}}</h1>
 <p>{{entry.bodytext | markdown}}</p>
 {% endfor %}

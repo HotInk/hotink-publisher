@@ -1,35 +1,15 @@
-{{ article || link_to_article }}
+<h1>{{article.title}}</h1>
 
-<div class="article-meta">
-	<span class="article-meta-elements">
-			<span class="small quiet date">{{article.published_at | fuzzy_time }}</span>
-		<span class="comments small"></span>
-	</span>
+{% for image in article.images %}	
+<div class="grid_6 media alpha">
+	<img src="{{image}}" / width="340">
+	<small>Martha Pearce</small>
+	<p>Re-elected SFUO VP Finance Roxanne Dubois disapproves of the SAC's arbitration process.</p>
 </div>
+{% endfor %}
+	
+<h2 class="subhead">{{article.subtitle}}</h2>
+<p class="dateline">{{article.published_at}}</p>
+<p class="byline">by {{article.authors_list}}</p>
 
-	<h1>{{article.title}}</h1>
-
-
-
-<div class="article-meta2 dotted-border">
-
-	<h2 class="subtitle">{{article.subtitle}}</h2>	
-
-		<p>{{article.authors_list}}</p>
-</div>
-
-{{ "asd" | test }}
-
-{% include 'layouts/footer' %}
-
-<div class="article-body" style="">
-	{{ article.bodytext | markdown }}
-</div> <!-- /article_body -->
-
-
-
-
-
-<div id="comments" class="clear">
-</div><!-- /comments -->
-
+{{ article.bodytext | markdown }}
