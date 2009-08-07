@@ -11,11 +11,11 @@ class Account < ActiveRecord::Base
   # end
   
   def sections
-    Section.find(:all, :params => {:account_id => self.account_resource_id})
+    Section.find(:all, :account_id => self.account_resource_id)
   end
   
   def issues
-    Issue.find(:all, :params => {:account_id => self.account_resource_id})
+    Issue.find(:all, :account_id => self.account_resource_id)
   end
   
   def pages

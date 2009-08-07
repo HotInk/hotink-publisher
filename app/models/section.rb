@@ -5,6 +5,8 @@ class Section < HyperactiveResource
   self.password = HOTINK_SETTINGS.password
   # self.prefix = "/accounts/:account_id/"
   
+  belongs_to :account, :nested => true
+  
   def to_param
     self.name
   end  

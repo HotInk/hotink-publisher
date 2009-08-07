@@ -28,7 +28,7 @@ class Article < HyperactiveResource
   end
 
   def audiofiles
-    self.mediafiles.select{|mediafile| mediafile.mediafile_type == "Audiofile"}
+    self.mediafiles.select{|mediafile| mediafile.mediafile_type == "Audiofiles"}
   end
 
   
