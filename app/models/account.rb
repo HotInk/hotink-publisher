@@ -38,9 +38,5 @@ class Account < ActiveRecord::Base
       AccountResource.find(self.id)
     end
   end
-  
-  def url
-    return "http://localhost:3000/accounts/#{self.id}"
-  end
-  
+    
 end

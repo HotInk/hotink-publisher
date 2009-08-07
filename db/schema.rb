@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090729165753) do
+ActiveRecord::Schema.define(:version => 20090807174731) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20090729165753) do
     t.string   "time_zone"
     t.text     "settings"
     t.integer  "account_resource_id"
+    t.string   "url"
   end
 
   create_table "article_options", :force => true do |t|
