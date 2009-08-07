@@ -22,3 +22,6 @@
 [submodule "vendor/plugins/viking"]
 	path = vendor/plugins/viking
 	url = git://github.com/technoweenie/viking.git
+[submodule "vendor/plugins/hyperactiveresource"]
+	path = vendor/plugins/hyperactiveresource
+	url = git://github.com/HotInk/hyperactiveresource.git
