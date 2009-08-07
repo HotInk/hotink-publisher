@@ -1,12 +1,14 @@
 class Account < ActiveRecord::Base
 
+  # has_many :articles
+
   def account_resource
     AccountResource.find(self.account_resource_id)
   end
 
-  def articles
-    Article.find(:all, :params => {:account_id => self.account_resource_id})
-  end
+  # def articles
+  #   Article.find(:all, :params => {:account_id => self.account_resource_id})
+  # end
   
   def sections
     Section.find(:all, :params => {:account_id => self.account_resource_id})
@@ -22,6 +24,11 @@ class Account < ActiveRecord::Base
 
   def blogs
     Blog.find(:all, :params => {:account_id => self.account_resource_id})
+  end
+  
+  # hack for HyperactiveResource
+  def nested
+    false
   end
   
   def account_resource

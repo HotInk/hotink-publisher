@@ -1,4 +1,6 @@
-class Issue < ActiveResource::Base
+class Issue < HyperactiveResource
+
+  has_many :article
 
   self.site = HOTINK_SETTINGS.site
   self.user = HOTINK_SETTINGS.user
