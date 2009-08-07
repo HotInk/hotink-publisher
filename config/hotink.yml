@@ -1,4 +1,4 @@
-# site: "http://hotink.theorem.ca"
-site: "http://localhost:3001"
+site: "http://hotink.theorem.ca"
+# site: "http://localhost:3001"
 user: "hyfen"
 password: "blah123"
