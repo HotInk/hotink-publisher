@@ -1,0 +1,18 @@
+<p>
+  <b>Account:</b>
+  <%=h @design.account_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @design.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @design.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_account_design_path([@account, @design]) %> |
+<%= link_to 'Back', account_designs_path(@account) %>

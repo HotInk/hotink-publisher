@@ -1,0 +1,18 @@
+body {
+	font-family: "Helvetica";
+}
+
+.comment-meta {
+	float: left;
+	width: 80px;
+}
+.comment-body {
+	margin-left: 80px;
+	width: 300px;
+}
+
+.comment {
+	width: 600px;
+	clear: both;
+	margin-bottom: 30px;
+}

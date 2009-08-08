@@ -1,0 +1,35 @@
+<h1>New front_page</h1>
+
+<% form_for([@account, @front_page]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :account_id %><br />
+    <%= f.text_field :account_id %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :template_id %><br />
+    <%= f.text_field :template_id %>
+  </p>
+  <p>
+    <%= f.label :design_id %><br />
+    <%= f.text_field :design_id %>
+  </p>
+  <p>
+    <%= f.label :schema %><br />
+    <%= f.text_area :schema %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', account_front_pages_path(@account) %>

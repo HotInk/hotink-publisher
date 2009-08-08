@@ -12,7 +12,8 @@
   <link href="<%= theme_stylesheet_path %>" media="screen" rel="stylesheet" type="text/css" />
 
 
-<%= fb_connect_javascript_tag %>
+<%= #fb_connect_javascript_tag 
+%>
 	
 </head>
 
@@ -25,9 +26,10 @@
 <div id="page">
 	
 	<ul>
-		<li><%= link_to "Pages", account_pages_path%></li>
-		<li><%= link_to "Comments", account_comments_path%></li>
-		<li><%= link_to "Designs", account_pages_path%></li>				
+		<li><%= link_to "Comments", account_comments_path(@account) %></li>
+		<li><%= link_to "Designs", account_designs_path(@account) %></li>		
+		<li><%= link_to "Templates", account_templates_path(@account) %></li>	
+		<li><%= link_to "Front Pages", account_front_pages_path(@account) %></li>											
 	</ul>
 	<hr/>
 	

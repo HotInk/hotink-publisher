@@ -1,0 +1,24 @@
+<h1>Listing designs</h1>
+
+<table>
+  <tr>
+    <th>Account</th>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+
+<% @designs.each do |design| %>
+  <tr>
+    <td><%=h design.account_id %></td>
+    <td><%=h design.name %></td>
+    <td><%=h design.description %></td>
+    <td><%= link_to 'Show', [@account, design] %></td>
+    <td><%= link_to 'Edit', edit_account_design_path([@account, design]) %></td>
+    <td><%= link_to 'Destroy', [@account, design], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New design', new_account_design_path(@account) %>

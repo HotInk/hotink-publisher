@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   before_filter :find_account
   before_filter :set_liquid_variables
   
-  theme :get_theme
+  #theme :get_theme
   
   private
   

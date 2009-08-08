@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  account_id: 1
+  name: MyString
+  description: MyText
+  template_id: 1
+  design_id: 1
+  schema: MyText
+
+two:
+  account_id: 1
+  name: MyString
+  description: MyText
+  template_id: 1
+  design_id: 1
+  schema: MyText

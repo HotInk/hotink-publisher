@@ -1,0 +1,30 @@
+<h1>Listing front_pages</h1>
+
+<table>
+  <tr>
+    <th>Account</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Template</th>
+    <th>Design</th>
+    <th>Schema</th>
+  </tr>
+
+<% @front_pages.each do |front_page| %>
+  <tr>
+    <td><%=h front_page.account_id %></td>
+    <td><%=h front_page.name %></td>
+    <td><%=h front_page.description %></td>
+    <td><%=h front_page.template_id %></td>
+    <td><%=h front_page.design_id %></td>
+    <td><%=h front_page.schema %></td>
+    <td><%= link_to 'Show', [@account, front_page] %></td>
+    <td><%= link_to 'Edit', edit_account_front_page_path(@account, front_page) %></td>
+    <td><%= link_to 'Destroy', [@account, front_page], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New front_page', new_account_front_page_path(@account) %>

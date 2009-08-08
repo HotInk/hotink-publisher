@@ -1,0 +1,24 @@
+<h1>Editing design</h1>
+
+<% form_for([@account, @design]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :account_id %><br />
+    <%= f.text_field :account_id %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', [@account, @design] %> |
+<%= link_to 'Back', account_designs_path(@account) %>

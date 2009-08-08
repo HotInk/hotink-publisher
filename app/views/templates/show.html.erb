@@ -1,0 +1,33 @@
+<p>
+  <b>Account:</b>
+  <%=h @tplate.account_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @tplate.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @tplate.description %>
+</p>
+
+<p>
+  <b>Role:</b>
+  <%=h @template.role %>
+</p>
+
+<p>
+  <b>Code:</b>
+  <%=h @template.code %>
+</p>
+
+<p>
+  <b>Parsed code:</b>
+  <%=h @tplate.parsed_code %>
+</p>
+
+
+<%= link_to 'Edit', edit_account_template_path(@account, @tplate) %> |
+<%= link_to 'Back', account_templates_path(@account) %>

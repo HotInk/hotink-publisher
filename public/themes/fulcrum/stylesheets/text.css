@@ -1,0 +1,132 @@
+/*
+	Hot Ink typography css.
+
+	Licensed under GPL and MIT.
+*/
+
+/* `Basic HTML
+----------------------------------------------------------------------------------------------------*/
+
+body {
+	font: 15px/22px Georgia, "Times New Roman", Times, serif;
+	color: #222222;
+}
+
+a:focus { outline: 1px dotted invert; }
+hr { border: 0 #ccc solid; border-top-width: 1px; clear: both; height: 0; }
+label { font-size: 17px; line-height: 22px; }
+
+/* Sans-serif font family */
+ul.pages, #search, #latest_issue h2, .teasers p, .date, .byline, .media, .dateline, #featured_articles, #inside_nameplate h3,
+.label_bar, .announcements, .info, ol#categories, ol#subcategories, .article p, #footer { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+ul.pages { font-size: 1.1em; }
+ul.pages li { margin-left: 20px; font-weight: 400;}
+
+/* Categories */
+ol#categories li { font-size: 22px; font-weight: 200; color: #888;}
+ol#categories li.current { font-size: 23px; font-weight: 600; color: #333; }
+ol#subcategories li { font-size: 17px; color: #515151; padding: 4px 15px; font-weight: 200; }
+ol#subcategories li.current { font-size: 17px; font-weight: 500; color: #333; }
+ol#subcategories li:hover { text-decoration: underline;}
+ol#subcategories li.current { font-weight: 600; text-decoration: underline; }
+
+ol#categories li:hover, ol#subcategories li:hover { color: #333; cursor: pointer; }
+
+/* Latest issue */
+div#latest_issue h2 { font-size: 1.7em; }
+div#latest_issue .date { font-size: 1.5em; font-weight: 200; }
+div#latest_issue p+p { font-size: 0.9em; }
+
+/* Headlines, subheads, bodytext and excerpts
+----------------------------------------------------------------------------------------------------*/
+h1,h2,h3,h4,h5 { line-height: 1.15; }
+
+h1 { font-size: 2.2em; }
+h2 { font-size: 1.8em; }
+h2.subhead { font-size: 1.5em; font-weight: normal; color: #999; }
+h3 { font-size: 1.5em; font-weight: normal; }
+h4 { font-size: 1.2em; font-weight: normal; }
+h5 { font-size: 1em; font-weight: normal; }
+
+.article h1 { line-height: 1.2; font-size: 2.5em; font-weight: 200; color: #111;}
+.article h2 { font-size: 1.5em; font-weight: normal; color: #515151; }
+.article p { font-size: 0.95em; }
+.excerpt { font-size: 0.85em; line-height: 1.5; }
+.dateline { text-transform: uppercase; font-size: 0.85em; color: blue; margin: 0; margin-bottom: 10px; }
+.byline { line-height: 1.1; font-weight: bold;}
+
+/* Media
+----------------------------------------------------------------------------------------------------*/
+.media small { font-size: 0.66em; text-align: right; text-transform: uppercase; }
+.article .media small { font-size: 0.66em; line-height: 0.95; text-align: right; text-transform: uppercase; }
+.article .media p { color: #333; line-height: 1.2; font-size: 1em;  font-weight: 300;}
+
+/* `Spacing
+----------------------------------------------------------------------------------------------------*/
+ol { list-style: decimal; }
+ul { list-style: square; }
+li { margin-left: 30px; }
+p, dl, hr, h1, h2, h3, h4, h5, h6, ol, ul, pre, table, address, fieldset {	margin-bottom: 20px; }
+
+/* Teasers
+-------------------------------*/
+
+.teasers h1:hover { text-decoration: underline; }
+
+.teaser_10_tall h1 { font-size: 2em; }
+.teaser_10_tall h2 { font-size: 1.2em; font-weight: normal; color: #515151;}
+.teaser_10_tall .byline { font-size: 0.85em; }
+.teaser_10_tall p { font-size: 0.85em; line-height: 1.5;}
+.teaser_10_tall .media p { font-weight: 600; line-height: 1.2; }
+.teaser_10 h1 { font-size: 1.9em; font-weight: normal; }
+.teaser_10 h2 { font-size: 1.2em; font-weight: normal; color: #515151;}
+.teaser_10 .byline { font-size: 0.85em; }
+.teaser_10 p { font-size: 0.85em; line-height: 1.5;}
+
+.teaser_10_wide h1 { font-size: 2em; }
+.teaser_10_wide h2 { font-size: 1.2em; font-weight: normal; color: #515151;}
+.teaser_10_wide .byline { font-size: 0.85em; }
+.teaser_10_wide p { font-size: 0.85em; line-height: 1.5;}
+.teaser_10_wide .media p { font-weight: 600; line-height: 1.2; }
+
+.teaser_4 h1 { font-size: 1.7em; font-weight: normal; }
+.teaser_4 h2 { font-size: 1.2em; font-weight: normal; color: #515151;}
+.teaser_4 .byline { font-size: 0.85em; }
+.teaser_4 p { font-size: 0.85em; line-height: 1.5;}
+
+.teaser_6 h1 { font-size: 1.7em; font-weight: normal; }
+.teaser_6 h2 { font-size: 1.2em; font-weight: normal; color: #515151;}
+.teaser_6 .byline { font-size: 0.85em; }
+.teaser_6 p { font-size: 0.85em; line-height: 1.5;}
+.teaser_6 .media p { font-weight: 600; line-height: 1.2; }
+
+.info { font-size: 0.85em; font-weight: 200; letter-spacing: 1px; color: #333; text-transform: uppercase;}
+.info .section { font-weight: 600; letter-spacing: 1.5px; }
+.info>div { display: inline-block; background-color: white;}
+
+.section .label_bar>h3 { color: #222; font-weight: 600;}
+.section ol li>h1 { font-size: 95%; }
+
+/* Widgets
+-------------------------------*/
+.label_bar>h3 { font-size: 1.4em; color: #515151; font-weight: 200; } 
+.label_bar>h3.tab { font-size: 1.1em; font-weight: 400; }
+.label_bar>h3.tab:hover { text-decoration: underline; }
+
+#featured_articles .label_bar>.indicators { font-size: 1.3em; color: #333; }
+#featured_articles li h1 { font-size: 1.35em; font-weight: 200; }
+#featured_articles li p { font-size: 0.85em; line-height: 1.4; color: #515151; }
+#featured_articles .info { font-size: 12px;}
+
+.article_list h1 { font-size: 1.1em; font-weight: normal; }
+.article_list h1:hover { text-decoration: underline; }
+ol.article_list .byline, ol.article_list .date { text-transform: uppercase; font-size: 0.8em; color: #515151; font-weight: normal;}
+
+.announcements p, .announcements h4 { margin: 10px; } 
+.announcements p { margin-top: 0; font-size: 0.85em; line-height: 1.4; color: #515151; }
+
+
+/* Footer */
+#footer { font-size: 0.8em; color: #999; text-transform: uppercase; text-align: right; }
+#footer ol.pages li { color: #AAA; }

@@ -1,11 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
+
   map.resources :pages
   map.resource :user_session
   map.resources :users
 
   # TODO: add unRESTful admin dashbouard section
 
-  map.resources :accounts, :only => [:index, :issues, :sections, :articles, :blogs, :pages, :comments ] do |account|
+  map.resources :accounts do |account| # :only => [:index, :issues, :sections, :articles, :blogs, :pages, :comments ]
     account.resources :articles do |article|
       article.resources :authors
       article.resources :comments, :only => [:show, :create] 
@@ -20,12 +21,15 @@ ActionController::Routing::Routes.draw do |map|
       end      
     end  
 
-    account.resources :pages, :path_prefix => "accounts/:account_id/admin", :controller => "admin/pages"
     account.resources :comments, 
       :member => {:flag => :get, :enable => :get, :disable => :get},
       :collection => { :clear_all_flags => :get },
       :path_prefix => "accounts/:account_id/admin", :controller => "admin/comments" 
     
+    account.resource :dashboard
+    account.resources :designs
+    account.resources :templates
+    account.resources :front_pages   
   end
 
   map.connect 'accounts/:account_id/admin', :controller => "admin/pages", :action => "dashboard"

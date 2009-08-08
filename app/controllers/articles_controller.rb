@@ -6,7 +6,8 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.xml
   def index
-    @article = Article.find(:all, :params => {:account_id => @account.account_resource_id})
+    @article = Article.find(:all, :account_id => @account.account_resource_id)
+
 
     respond_to do |format|
       format.html # index.html.erb

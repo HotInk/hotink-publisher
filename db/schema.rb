@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090807174731) do
+ActiveRecord::Schema.define(:version => 20090808011751) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -32,6 +32,11 @@ ActiveRecord::Schema.define(:version => 20090807174731) do
     t.integer  "account_id"
   end
 
+  create_table "authors", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "comments", :force => true do |t|
     t.string   "email"
     t.string   "name"
@@ -49,6 +54,30 @@ ActiveRecord::Schema.define(:version => 20090807174731) do
     t.boolean  "enabled"
   end
 
+  create_table "designs", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "front_pages", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "template_id"
+    t.integer  "design_id"
+    t.text     "schema"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "issues", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "oauth_tokens", :force => true do |t|
     t.string   "token",      :null => false
     t.string   "secret",     :null => false
@@ -63,6 +92,41 @@ ActiveRecord::Schema.define(:version => 20090807174731) do
     t.datetime "date"
     t.text     "bodytext"
     t.boolean  "status",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "press_runs", :force => true do |t|
+    t.integer  "account_id"
+    t.integer  "front_page_id"
+    t.integer  "user_id"
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "redesigns", :force => true do |t|
+    t.integer  "account_id"
+    t.integer  "design_id"
+    t.integer  "user_id"
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sections", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "templates", :force => true do |t|
+    t.integer  "account_id"
+    t.integer  "design_id"
+    t.string   "name"
+    t.text     "description"
+    t.string   "role"
+    t.text     "code"
+    t.text     "parsed_code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

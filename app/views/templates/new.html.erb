@@ -1,0 +1,35 @@
+<h1>New template</h1>
+
+<% form_for([@account, @tplate]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :account_id %><br />
+    <%= f.text_field :account_id %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :role %><br />
+    <%= f.text_field :role %>
+  </p>
+  <p>
+    <%= f.label :code %><br />
+    <%= f.text_area :code %>
+  </p>
+  <p>
+    <%= f.label :parsed_code %><br />
+    <%= f.text_area :parsed_code %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', account_templates_path(@account) %>

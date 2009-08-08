@@ -1,0 +1,33 @@
+<p>
+  <b>Account:</b>
+  <%=h @front_page.account_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @front_page.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @front_page.description %>
+</p>
+
+<p>
+  <b>Template:</b>
+  <%=h @front_page.template_id %>
+</p>
+
+<p>
+  <b>Design:</b>
+  <%=h @front_page.design_id %>
+</p>
+
+<p>
+  <b>Schema:</b>
+  <%=h @front_page.schema %>
+</p>
+
+
+<%= link_to 'Edit', edit_account_front_page_path(@account, @front_page) %> |
+<%= link_to 'Back', account_front_pages_path(@account) %>
