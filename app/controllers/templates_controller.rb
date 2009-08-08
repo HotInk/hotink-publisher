@@ -2,6 +2,8 @@ class TemplatesController < ApplicationController
   
   layout 'admin'
   
+  before_filter :find_design
+  
   # Can't use @template as an instance variable!
   
   # GET /templates

@@ -4,6 +4,6 @@ Liquid::Template.register_filter Liquid::HotinkFilters
 Liquid::Template.register_filter Liquid::UrlFilters
 
 # the first value of root will be overwritten by ApplicationController
-Liquid::Template.file_system = Liquid::LocalFileSystem.new("#{RAILS_ROOT}/themes/")
+#Liquid::Template.file_system = Liquid::LocalFileSystem.new("#{RAILS_ROOT}/themes/")
 
-Liquid::Template.register_tag( 'themeitem', Liquid::Themeitem )
+#Liquid::Template.register_tag( 'themeitem', Liquid::Themeitem )

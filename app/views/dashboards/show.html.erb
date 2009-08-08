@@ -1,1 +1,32 @@
-<h1>Show</h1>
+<h1>Publisher</h1>
+
+<div id="current_front_page">
+	<h2>Current front page</h2>
+	<p><%= @account.current_front_page.blank? ? "No current front page" : @account.current_front_page.created_at.to_s  %></p>
+	<h3>New front page</h3>
+	<% if @account.designs.blank? %>
+		<p>You'll need at least one design in order to create a front page, please <%= link_to "create your first design", new_account_design_path(@account) %></p>
+	<% elsif @account.front_pages.blank? %>
+		<p><%= link_to "Create your first front page", new_account_front_page_path(@account) %></p>
+	<% else %>
+		<%- form_for([@account, @press_run]) do |r| -%>
+			<%= r.collection_select :front_page_id, @account.front_pages, :id, :created_at, :prompt => "Choose new front page" %>
+			<%= submit_tag "Update front page" %>
+		<%- end -%>
+	<% end %>
+</div>
+
+
+<div id="current_design">
+	<h2>Current design</h2>
+	<p><%= @account.current_design.blank? ? "No current design" : @account.current_design.name  %></p>
+	<h3>Change design</h3>
+	<% if @account.designs.blank? %>
+		<%= link_to "Create first design", new_account_design_path(@account) %>
+	<% else %>
+		<%- form_for([@account, @redesign]) do |r| -%>
+			<%= r.collection_select :design_id, @account.designs, :id, :name, :prompt => "Choose new design" %>
+			<%= submit_tag "Swap design" %>
+		<%- end -%>
+	<% end %>
+</div>

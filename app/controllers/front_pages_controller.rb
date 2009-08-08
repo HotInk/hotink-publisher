@@ -27,7 +27,7 @@ class FrontPagesController < ApplicationController
   # GET /front_pages/new
   # GET /front_pages/new.xml
   def new
-    @front_page = @account.front_pages.new
+    @front_page = @account.front_pages.build
 
     respond_to do |format|
       format.html # new.html.erb

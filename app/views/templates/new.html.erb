@@ -1,6 +1,6 @@
 <h1>New template</h1>
 
-<% form_for([@account, @tplate]) do |f| %>
+<% form_for([@account, @design, @tplate]) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -32,4 +32,4 @@
   </p>
 <% end %>
 
-<%= link_to 'Back', account_templates_path(@account) %>
+<%= link_to 'Back', account_design_templates_path(@account, @design) %>

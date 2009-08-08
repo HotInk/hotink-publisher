@@ -26,9 +26,12 @@
 <div id="page">
 	
 	<ul>
+		<li><%= link_to "Dashboard", account_dashboard_path(@account) %></li>
 		<li><%= link_to "Comments", account_comments_path(@account) %></li>
-		<li><%= link_to "Designs", account_designs_path(@account) %></li>		
-		<li><%= link_to "Templates", account_templates_path(@account) %></li>	
+		<li><%= link_to "Designs", account_designs_path(@account) %></li>
+		<% if @account.current_design -%>		
+		<li><%= link_to "Templates", account_design_templates_path(@account, @account.current_design) %></li>
+		<% end -%>	
 		<li><%= link_to "Front Pages", account_front_pages_path(@account) %></li>											
 	</ul>
 	<hr/>

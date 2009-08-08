@@ -8,7 +8,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :accounts do |account| # :only => [:index, :issues, :sections, :articles, :blogs, :pages, :comments ]
     account.resources :articles do |article|
-      article.resources :authors
       article.resources :comments, :only => [:show, :create] 
       article.resources :mediafile
     end
@@ -27,9 +26,12 @@ ActionController::Routing::Routes.draw do |map|
       :path_prefix => "accounts/:account_id/admin", :controller => "admin/comments" 
     
     account.resource :dashboard
-    account.resources :designs
-    account.resources :templates
+    account.resources :designs do |design|
+      design.resources :templates
+    end
+    account.resource :redesigns    
     account.resources :front_pages   
+    account.resources :press_runs
   end
 
   map.connect 'accounts/:account_id/admin', :controller => "admin/pages", :action => "dashboard"

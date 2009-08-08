@@ -1,0 +1,2 @@
+class PressRunsController < ApplicationController
+end

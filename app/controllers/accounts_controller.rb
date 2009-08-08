@@ -1,7 +1,6 @@
 class AccountsController < ApplicationController
 
   skip_before_filter :find_account
-  layout 'default'
 
   
   # GET /accounts
@@ -19,11 +18,11 @@ class AccountsController < ApplicationController
   # GET /accounts/1.xml
   def show
     @account = Account.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @account }
+    if @account.current_front_page.blank?
+      render :text => "This site is currently offline", :status => 503
+      return
     end
+    redirect_to account_front_page_path(@account, @account.current_front_page)
   end
 
   # GET /accounts/new

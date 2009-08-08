@@ -3,5 +3,7 @@ class DashboardsController < ApplicationController
   
   
   def show
+    @redesign = @account.redesigns.build
+    @press_run = @account.press_runs.build
   end
 end

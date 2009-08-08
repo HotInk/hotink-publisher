@@ -18,13 +18,13 @@
     <td><%=h template.role %></td>
     <td><%=h template.code %></td>
     <td><%=h template.parsed_code %></td>
-    <td><%= link_to 'Show', template %></td>
-    <td><%= link_to 'Edit', edit_account_template_path(@account, template) %></td>
-    <td><%= link_to 'Destroy', [@account, template], :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', [@account, @design, template] %></td>
+    <td><%= link_to 'Edit', edit_account_design_template_path(@account, @account.current_design, template) %></td>
+    <td><%= link_to 'Destroy', [@account, @design, template], :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New template', new_account_template_path(@account) %>
+<%= link_to 'New template', new_account_design_template_path(@account, @design) %>

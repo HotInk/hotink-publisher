@@ -14,10 +14,7 @@ class ApplicationController < ActionController::Base
   # helper_method :facebook_session
 
   before_filter :find_account
-  before_filter :set_liquid_variables
-  
-  #theme :get_theme
-  
+    
   private
   
     def find_account
@@ -28,9 +25,23 @@ class ApplicationController < ActionController::Base
       else
         false
       end
-      
     end
-
+    
+    def find_design
+      if params[:design_id]
+        @design = @account.designs.find(params[:design_id])
+      else
+        false
+      end
+    end
+    
+    def require_design
+      if @account.current_design.blank?
+        render :text => "This site is currently offline", :status => 503    
+        return
+      end
+    end
+    
     def set_liquid_variables
 
       # looks like we can do this properly in the include tag
@@ -55,7 +66,6 @@ class ApplicationController < ActionController::Base
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.user
     end
-
 
     # This function handles authentication for all application users.
     # First, it checks to see if user is already logged in

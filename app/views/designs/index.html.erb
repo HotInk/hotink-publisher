@@ -13,7 +13,7 @@
     <td><%=h design.name %></td>
     <td><%=h design.description %></td>
     <td><%= link_to 'Show', [@account, design] %></td>
-    <td><%= link_to 'Edit', edit_account_design_path([@account, design]) %></td>
+    <td><%= link_to 'Edit', edit_account_design_path(@account, design) %></td>
     <td><%= link_to 'Destroy', [@account, design], :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>

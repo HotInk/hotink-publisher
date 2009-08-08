@@ -1,13 +1,12 @@
 class ArticlesController < ApplicationController
-
-  layout 'default'
-
+  
+  before_filter :set_liquid_variables
+  before_filter :require_design
   
   # GET /articles
   # GET /articles.xml
   def index
-    @article = Article.find(:all, :account_id => @account.account_resource_id)
-
+    @articles = Article.find(:all, :account_id => @account.account_resource_id)
 
     respond_to do |format|
       format.html # index.html.erb
