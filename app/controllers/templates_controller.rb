@@ -52,7 +52,7 @@ class TemplatesController < ApplicationController
       @tplate = @design.layouts.build(params[:template])
     when 'front_pages/show'
       @tplate = @design.front_page_templates.build(params[:template])
-      @tplate.schema = params[:template][:schema] # assign serialized attribute explicitly
+      @tplate.schema = (params[:template][:schema] || {}) # assign serialized attribute explicitly
     else
       @tplate = @design.page_templates.build(params[:template])
     end
@@ -72,7 +72,7 @@ class TemplatesController < ApplicationController
   # PUT /templates/1.xml
   def update
     @tplate = @design.templates.find(params[:id])
-    @tplate.schema = params[:front_page_template][:schema] if @tplate.is_a? FrontPageTemplate
+    @tplate.schema = (params[:front_page_template][:schema] || {}) if @tplate.is_a? FrontPageTemplate
     
     respond_to do |format|
       if @tplate.update_attributes(params[@tplate.class.name.underscore.to_sym])
