@@ -1,0 +1,51 @@
+<% f.object.schema.each do | name, spec |%>
+<fieldset class="entity">
+	<legend><%= name %></legend>
+	<p><%= spec['description'] %></p>
+	<%= hidden_field_tag "schema[#{name}][description]", spec['description'] %>
+	<%= hidden_field_tag "schema[#{name}][type]", spec['type'] %>
+		<ol>
+			<% spec['ids'].each_index do |index| %>
+				<li id="<%= name %>_<%= index %>">
+					<%= hidden_field_tag "schema[#{name}][ids][]", spec['ids'][index] %>
+					<% if spec['ids'][index] %>
+						<p><%= @schema_articles[spec['ids'][index]].title %><br />
+							<%= @schema_articles[spec['ids'][index]].authors_list %></p>
+					<% else %>
+						<p>No <%= spec['type'].downcase %> in this position</p>
+					<% end%>
+				</li>
+			<% end %>
+		</ol>
+		<%= content_tag :button, "Add" %>
+</fieldset>
+<% end %>
+
+<div class="loaded_articles clearfix">
+	<h2>Articles</h2>
+	<ol id="articles_list">
+		<% for article in @articles %>
+		<li id="article_<%= article.id %>" class="article">
+			<p><%= article.title %><br />
+				<%= article.authors_list %></p>
+		</li>
+		<% end %>
+	</ol>
+</div>
+
+<% content_for :javascript do %>
+<script type="text/javascript" charset="utf-8">
+	$('articles_list').childElements().each( function(li){ 
+		new Draggable(li, { revert: true }); 
+	});
+	$$('fieldset.entity ol li').each( function(article_slot) {
+		Droppables.add(article_slot, { onDrop: function( new_article, spec_holder ){
+			 	var new_article_id = new_article.id.split('_').pop();
+				var spec_holder_id = spec_holder.id.split('_').pop();
+				spec_holder.down().value = new_article_id;
+				spec_holder.down().next().innerHTML = new_article.innerHTML;
+				//alert('Dropped \n\n' + new_article_id + "\n\non\n\n" + spec_holder_id ); 
+		}});
+	});
+</script>
+<% end %>

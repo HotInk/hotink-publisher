@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
       design.resources :templates
     end
     account.resource :redesigns    
-    account.resources :front_pages   
+    account.resources :front_pages  
     account.resources :press_runs
   end
 

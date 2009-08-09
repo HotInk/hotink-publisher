@@ -35,13 +35,19 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    def find_template
+        @current_template = @account.current_design.templates.find_by_role("#{controller_name}/#{action_name}")
+      rescue
+        render :status => :not_found
+    end
+    
     def require_design
       if @account.current_design.blank?
         render :text => "This site is currently offline", :status => 503    
         return
       end
     end
-    
+        
     def set_liquid_variables
 
       # looks like we can do this properly in the include tag

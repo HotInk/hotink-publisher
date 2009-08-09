@@ -5,9 +5,7 @@ class Account < ActiveRecord::Base
   
   has_many :designs, :dependent => :destroy
   has_many :redesigns, :dependent => :destroy
-  
-  has_many :templates, :dependent => :destroy
-  
+    
   # has_many :articles
   
   # Load the current design and front page from the latest redesign and 

@@ -9,7 +9,7 @@ class TemplatesController < ApplicationController
   # GET /templates
   # GET /templates.xml
   def index
-    @tplates = @account.templates.all
+    @tplates = @design.templates.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -20,7 +20,7 @@ class TemplatesController < ApplicationController
   # GET /templates/1
   # GET /templates/1.xml
   def show
-    @tplate = @account.templates.find(params[:id])
+    @tplate = @design.templates.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -31,7 +31,7 @@ class TemplatesController < ApplicationController
   # GET /templates/new
   # GET /templates/new.xml
   def new
-    @tplate = @account.templates.build
+    @tplate = @design.templates.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,19 +41,26 @@ class TemplatesController < ApplicationController
 
   # GET /templates/1/edit
   def edit
-    @tplate = @account.templates.find(params[:id])
+    @tplate = @design.templates.find(params[:id])
   end
 
   # POST /templates
   # POST /templates.xml
   def create
-    @tplate = @account.templates.build(params[:template])
-
+    case params[:template][:role]
+    when 'layout' 
+      @tplate = @design.layouts.build(params[:template])
+    when 'front_pages/show'
+      @tplate = @design.front_page_templates.build(params[:template])
+      @tplate.schema = params[:template][:schema] # assign serialized attribute explicitly
+    else
+      @tplate = @design.page_templates.build(params[:template])
+    end
     respond_to do |format|
       if @tplate.save
         flash[:notice] = 'Template was successfully created.'
-        format.html { redirect_to([@account, @tplate]) }
-        format.xml  { render :xml => @tplate, :status => :created, :location => [@account, @tplate] }
+        format.html { redirect_to account_design_template_path(@account, @design, @tplate) }
+        format.xml  { render :xml => @tplate, :status => :created, :location => [@account, @design, @tplate] }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @tplate.errors, :status => :unprocessable_entity }
@@ -64,28 +71,35 @@ class TemplatesController < ApplicationController
   # PUT /templates/1
   # PUT /templates/1.xml
   def update
-    @tplate = @account.templates.find(params[:id])
-
+    @tplate = @design.templates.find(params[:id])
+    @tplate.schema = params[:front_page_template][:schema] if @tplate.is_a? FrontPageTemplate
+    
     respond_to do |format|
-      if @tplate.update_attributes(params[:template])
+      if @tplate.update_attributes(params[@tplate.class.name.underscore.to_sym])
         flash[:notice] = 'Template was successfully updated.'
-        format.html { redirect_to([@account,@tplate]) }
+        format.html { redirect_to( account_design_template_url(@account,@design,@tplate) ) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @tplate.errors, :status => :unprocessable_entity }
       end
     end
+  rescue Liquid::SyntaxError => e
+    flash[:syntax_error] = "#{e.message}"
+    respond_to do |format|
+      format.html { render :action => "edit" }
+      format.xml  { head :uprocessable_entity }
+    end
   end
 
   # DELETE /templates/1
   # DELETE /templates/1.xml
   def destroy
-    @tplate = @account.templates.find(params[:id])
+    @tplate = @design.templates.find(params[:id])
     @tplate.destroy
 
     respond_to do |format|
-      format.html { redirect_to(account_templates_url(@account)) }
+      format.html { redirect_to(account_design_url(@account, @design)) }
       format.xml  { head :ok }
     end
   end

@@ -6,11 +6,11 @@ class FrontPage < ActiveRecord::Base
   has_many :press_runs
   
   validates_presence_of :account
-  validates_presence_of :template
-  validates_presence_of :design
   
   validates_associated :account
   validates_associated :template
   validates_associated :design
+  
+  serialize :schema 
   
 end

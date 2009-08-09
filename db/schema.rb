@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090808011751) do
+ActiveRecord::Schema.define(:version => 20090808221328) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(:version => 20090808011751) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "layout_id"
+    t.integer  "default_front_page_template_id"
   end
 
   create_table "front_pages", :force => true do |t|
@@ -120,7 +122,6 @@ ActiveRecord::Schema.define(:version => 20090808011751) do
   end
 
   create_table "templates", :force => true do |t|
-    t.integer  "account_id"
     t.integer  "design_id"
     t.string   "name"
     t.text     "description"
@@ -129,6 +130,9 @@ ActiveRecord::Schema.define(:version => 20090808011751) do
     t.text     "parsed_code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "layout_id"
+    t.string   "type"
+    t.text     "schema"
   end
 
   create_table "themes", :force => true do |t|

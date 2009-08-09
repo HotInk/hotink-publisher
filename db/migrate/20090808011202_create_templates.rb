@@ -1,7 +1,6 @@
 class CreateTemplates < ActiveRecord::Migration
   def self.up
     create_table :templates do |t|
-      t.integer :account_id
       t.integer :design_id
       t.string :name
       t.text :description

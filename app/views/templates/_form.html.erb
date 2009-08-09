@@ -1,0 +1,56 @@
+<div>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</p>
+<div>
+  <%= f.label :role, "Template type" %><br />
+  <%= f.select :role, { "Front page" => "front_pages/show", "Article" => "articles/show", "Layout" => "layout"} %>
+</div>
+<% if f.object.is_a? PageTemplate -%>
+<div>
+  <%= f.label :layout_id, "Layout" %><br />
+  <%= f.collection_select :layout_id, @design.layouts, :id, :name, :include_blank => "Design default" %>
+</div>
+<% end -%>
+<div>
+  <%= f.label :description %><br />
+  <%= f.text_area :description, :rows => 4 %>
+</p>
+<% if f.object.is_a? FrontPageTemplate -%>
+<div>
+	  <%= f.label :schema %><br />
+	  <% f.object.schema.each do |entity| -%>
+	  <fieldset class="entity">
+		  <%= link_to_function "x", "if(confirm('Remove this variable from the schema?')) $(this).up().remove();", :style => "float:right; color: red;"%>
+		  Name: <%= text_field_tag "front_page_template[schema][][name]", entity["name"]  %><br />
+		  Data type: <%= select_tag "front_page_template[schema][][model]", options_for_select(["Article"], entity["model"])%><br />
+		  Description: <%= text_field_tag "front_page_template[schema][][description]", entity["description"] %><br />
+		  Quantitiy: <%= select_tag "front_page_template[schema][][quantity]", options_for_select(["1","2","3","4","5","6","7","8","9","10"], "1") %>
+	  </fieldset>
+	  <% end -%>
+	<%= link_to_function "Add entity", "add_empty_schema_tag(this);" %>
+</div>
+	<% content_for :javascript do %>
+		<script type="text/javascript" charset="utf-8">
+			add_empty_schema_tag = function ( add_link_element ) {
+				new_schema_fieldset = Builder.node( 'fieldset', { className: 'entity' }, [
+					Builder.node('a', { style: 'float: right; color: red;', onclick: "if(confirm('Remove this variable from the schema?')) $(this).up().remove(); return false;", href:'#'}, ['x']),
+				 	Builder.node('label', ['Name: ']),
+					Builder.node('input', {type:'text', name:'front_page_template[schema][][name]'}),
+					Builder.node('br'),
+					Builder.node('label', ['Data type: ']),
+					Builder.node('select', { name:'front_page_template[schema][][model]' }, [ Builder.node('option', {value: 'Article'}, ["Article"]) ] ),
+					Builder.node('br'),
+					Builder.node('label', ['Description: ']),
+					Builder.node('input', {type:'text', name:'front_page_template[schema][][description]'}),
+					Builder.node('br')] );
+				// Add blank schema entity to form.
+				$(add_link_element).insert( {before: new_schema_fieldset} );
+			}
+		</script>
+	<%end-%>
+<% end -%>
+<div>
+  <%= f.label :code %><br />
+  <%= f.text_area :code %>
+</div>

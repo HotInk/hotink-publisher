@@ -1,18 +1,24 @@
-<p>
-  <b>Account:</b>
-  <%=h @design.account_id %>
-</p>
+<div id="design">	
+	<p><%= link_to 'Back', account_designs_path(@account) %></p>
 
-<p>
-  <b>Name:</b>
-  <%=h @design.name %>
-</p>
+	<h1>Design: <span class="design_name"><%=h @design.name %></span></h1><p class="options"><%= link_to 'Edit details', edit_account_design_path(@account, @design) %> | <%= link_to 'New template', new_account_design_template_path(@account, @design) %> </p>
+	<%= markdown @design.description %>
+	<div>Default layout: 
+		<% if @design.layouts.blank? %> 
+			<%= link_to "Create a layout template", new_account_design_template_path(@account, @design) %> 
+		<% else %>
+			<% form_for [@account, @design] do |f| %> 
+		  		<%= f.collection_select :layout_id, @design.layouts, :id, :name, :include_blank => "No default" %>
+				<%= submit_tag "Update" %>
+			<% end %>
+		<% end %>
+	</div>
 
-<p>
-  <b>Description:</b>
-  <%=h @design.description %>
-</p>
-
-
-<%= link_to 'Edit', edit_account_design_path(@account, @design) %> |
-<%= link_to 'Back', account_designs_path(@account) %>
+	<ul>
+	<% for template in @design.templates -%>
+		<li>
+			<%= link_to template.name, edit_account_design_template_path(@account, @design, template) %> (<%= template.role.capitalize %>) <small style="color:red;"><%= link_to "delete", account_design_template_path(@account, @design, template), :method => :delete, :confirm => "Are you sure you want to delete this template?" %></small>
+		</li>
+	<% end %>
+	</ul>
+</div>

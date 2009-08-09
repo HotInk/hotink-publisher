@@ -1,7 +1,4 @@
-<p>
-  <b>Account:</b>
-  <%=h @tplate.account_id %>
-</p>
+<p><%= link_to 'Back to design', account_design_path(@account, @design) %></p>
 
 <p>
   <b>Name:</b>
@@ -15,19 +12,20 @@
 
 <p>
   <b>Role:</b>
-  <%=h @template.role %>
+  <%=h @tplate.role %>
 </p>
+
+<% if @tplate.is_a? PageTemplate -%>
+<p>
+  <b>Layout:</b>
+  <%=h @tplate.layout.blank? ? "Design default" : @tplate.layout.name %>
+</p>
+<% end -%>
 
 <p>
   <b>Code:</b>
-  <%=h @template.code %>
-</p>
-
-<p>
-  <b>Parsed code:</b>
-  <%=h @tplate.parsed_code %>
+  <%=h @tplate.code %>
 </p>
 
 
-<%= link_to 'Edit', edit_account_template_path(@account, @tplate) %> |
-<%= link_to 'Back', account_templates_path(@account) %>
+<%= link_to 'Edit', edit_account_design_template_path(@account, @design, @tplate) %>
