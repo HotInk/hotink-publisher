@@ -1,10 +1,9 @@
 <h1>Edit Front Page</h1>
-<h2><%= @front_page.created_at.to_s(:standard) %></h2>
 <% form_for([@account, @front_page]) do |f| %>
   <%= f.error_messages %>
 	<%= render :partial => "form", :locals => { :f => f } %>
   <p>
-    <%= f.submit 'Update' %>
+    <%= button_link_to_submit 'Update' %>
   </p>
 <% end %>
 <%= link_to 'Show', [@account, @front_page] %> |
