@@ -45,7 +45,7 @@ class FrontPagesController < ApplicationController
   def new
     if params[:template]
       @front_page = @account.front_pages.build
-      @articles = Article.find(:all, :per_page => 5, :account_id => @account.id )
+      @articles = Article.find(:all, :per_page => 5, :account_id => @account.account_resource_id )
       # Process the schema template into a real schema
       @front_page_template = FrontPageTemplate.find(params[:template])
       @front_page.schema = @front_page_template.parse_schema
