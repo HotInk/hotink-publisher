@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
   
+  skip_before_filter :require_user, :only => :show
+  
   before_filter :set_liquid_variables
   before_filter :require_design
   
