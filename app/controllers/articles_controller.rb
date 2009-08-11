@@ -26,8 +26,8 @@ class ArticlesController < ApplicationController
     
     page_html = @current_template.parsed_code.render('article' => @article)
     if @current_template.current_layout
-      @current_layout = @current_template.current_layout
-      render :text => @current_layout.parsed_code.render('page_content' => page_html )
+      @current_layout = Liquid::Template.parse(@current_template.current_layout.code)
+      render :text => @current_layout.render('page_content' => page_html )
     else  
       render :text => page_html
     end 
