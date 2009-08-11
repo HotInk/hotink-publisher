@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id], :params => {:account_id => @account.account_resource_id})
     #@comments = @article.comments
-    render :text => @current_template.parsed_code.render('article' => @article), :layout => 'dynamic'
+    render :text => Liquid::Template.parse(@current_template.code).render('article' => @article), :layout => 'dynamic'
     #render :text => "Sorry, the page you were looking for could not be found.", :status => :not_found # If the current deign has no article template we should render 404
   end
 
