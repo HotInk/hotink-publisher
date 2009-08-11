@@ -81,6 +81,9 @@ class TemplatesController < ApplicationController
     @tplate = @design.templates.find(params[:id])
     @tplate.schema = (params[:front_page_template][:schema] || {}) if @tplate.is_a? FrontPageTemplate
     
+    # Pre-parse the template in the controller, it can't happen in the model
+    @tplate.parsed_code = Liquid::Template.parse(@tplate.code)
+    
     respond_to do |format|
       if @tplate.update_attributes(params[@tplate.class.name.underscore.to_sym])
         flash[:notice] = 'Template was successfully updated.'
