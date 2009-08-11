@@ -1,11 +1,12 @@
 class UserSessionsController < ApplicationController
 
   def new
+    @account =  Account.find_by_account_resource_id(params[:account_id])
     if params[:request_url]
       redirect_to params[:request_url] 
       return
     elsif params[:account_id]
-      redirect_to account_dashboard_path(:account_id => params[:account_id])
+      redirect_to account_dashboard_path(:account_id => @account.id)
       return
     end
     render :status => 404

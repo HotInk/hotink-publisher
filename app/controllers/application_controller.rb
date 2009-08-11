@@ -20,10 +20,7 @@ class ApplicationController < ActionController::Base
   
     def find_account
       if params[:account_id]
-        @account = Account.find_by_account_resource_id(params[:account_id])
-        if @account.nil?
-          @account = Account.find_by_account_id(params[:account_id])
-        end
+        @account = Account.find(params[:account_id])
         Time.zone = @account.time_zone
         @account
       else
