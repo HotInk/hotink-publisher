@@ -124,7 +124,7 @@ class ApplicationController < ActionController::Base
         end
 
         # Last resort, this must be a fresh user request. Forward along to Hot Ink to authenticate.
-        redirect_to "#{OAUTH_CREDENTIALS[:site]}/remote_session/new?key=#{OAUTH_CREDENTIALS[:token]}&request_url=#{request.url}"
+        redirect_to "#{OAUTH_CREDENTIALS[:site]}/remote_session/new?key=#{OAUTH_CREDENTIALS[:token]}&request_url=#{request.request_uri}"
         return false
       end
     end

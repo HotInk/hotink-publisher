@@ -49,6 +49,7 @@ class TemplatesController < ApplicationController
   # POST /templates
   # POST /templates.xml
   def create
+    
     case params[:template][:role]
     when 'layout' 
       @tplate = @design.layouts.build(params[:template])
@@ -58,6 +59,10 @@ class TemplatesController < ApplicationController
     else
       @tplate = @design.page_templates.build(params[:template])
     end
+    
+    # Pre-parse the template in the controller, it can't happen in the model
+    @tplate.parsed_code = Liquid::Template.parse(@tplate.code)
+        
     respond_to do |format|
       if @tplate.save
         flash[:notice] = 'Template was successfully created.'
