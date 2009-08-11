@@ -14,7 +14,7 @@ module Liquid
     end
     
     def markdown(text)
-      markdown = Markdown.new(text).to_html
+      markdown = BlueCloth.new(text).to_html
     end
     
     def fuzzy_time(date)
