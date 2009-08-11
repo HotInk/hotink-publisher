@@ -1,7 +1,5 @@
 class UserSessionsController < ApplicationController
 
-  before_filter :require_user
-
   def new
     if params[:request_url]
       redirect_to params[:request_url] 
