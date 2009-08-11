@@ -1,6 +1,6 @@
 class CreateTemplates < ActiveRecord::Migration
   def self.up
-    create_table :templates do |t|
+    create_table :templates, :options => 'DEFAULT CHARSET=utf8' do |t|
       t.integer :design_id
       t.string :name
       t.text :description
