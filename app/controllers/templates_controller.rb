@@ -31,7 +31,9 @@ class TemplatesController < ApplicationController
   # GET /templates/new
   # GET /templates/new.xml
   def new
+    
     @tplate = @design.templates.build
+    @tplate.role = params[:role]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -59,7 +61,7 @@ class TemplatesController < ApplicationController
     respond_to do |format|
       if @tplate.save
         flash[:notice] = 'Template was successfully created.'
-        format.html { redirect_to account_design_template_path(@account, @design, @tplate) }
+        format.html { redirect_to edit_account_design_template_path(@account, @design, @tplate) }
         format.xml  { render :xml => @tplate, :status => :created, :location => [@account, @design, @tplate] }
       else
         format.html { render :action => "new" }
@@ -77,7 +79,7 @@ class TemplatesController < ApplicationController
     respond_to do |format|
       if @tplate.update_attributes(params[@tplate.class.name.underscore.to_sym])
         flash[:notice] = 'Template was successfully updated.'
-        format.html { redirect_to( account_design_template_url(@account,@design,@tplate) ) }
+        format.html { redirect_to( account_design_url(@account,@design) ) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

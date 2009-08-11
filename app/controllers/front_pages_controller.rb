@@ -45,7 +45,7 @@ class FrontPagesController < ApplicationController
   def new
     if params[:template]
       @front_page = @account.front_pages.build
-      @articles = Article.find(:all, :per_page => 5, :account_id => @account.account_resource_id )
+      @articles = Article.find(:all, :per_page => 10, :account_id => @account.account_resource_id )
       # Process the schema template into a real schema
       @front_page_template = FrontPageTemplate.find(params[:template])
       @front_page.schema = @front_page_template.parse_schema
@@ -73,7 +73,7 @@ class FrontPagesController < ApplicationController
     article_resources.each do |article|
       @schema_articles.merge!(article.id => article)
     end
-    @articles = Article.find(:all, :per_page => 5, :account_id => @account.account_resource_id )
+    @articles = Article.find(:all, :per_page => 10, :account_id => @account.account_resource_id )
   end
 
   # POST /front_pages
@@ -84,7 +84,7 @@ class FrontPagesController < ApplicationController
     respond_to do |format|
       if @front_page.save
         flash[:notice] = 'FrontPage was successfully created.'
-        format.html { redirect_to([@account, @front_page]) }
+        format.html { redirect_to(edit_account_front_page_path(@account, @front_page)) }
         format.xml  { render :xml => @front_page, :status => :created, :location => [@account, @front_page] }
       else
         format.html { render :action => "new" }
@@ -101,7 +101,7 @@ class FrontPagesController < ApplicationController
     respond_to do |format|
       if @front_page.update_attributes(params[:front_page])
         flash[:notice] = 'FrontPage was successfully updated.'
-        format.html { redirect_to([@account, @front_page]) }
+        format.html { redirect_to(account_front_pages_path(@account)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

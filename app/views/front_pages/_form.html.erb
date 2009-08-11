@@ -1,14 +1,63 @@
-<%= f.error_messages %>
-<div class="details">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %><br />
-    <%= f.label :description %> <small>(optional)</small><br />
-    <%= f.text_area :description, :rows => 2 %>
-</div>
-  <p>
+<div class="form_title clearfix">
+	<h1>Edit Front Page</h1>	
+	<%= f.error_messages %>
+	<%= f.hidden_field :template_id %>
+	<div class="schema_builder clearfix">
+	 	<%= render :partial => 'schema_builder', :locals => { :f => f } %>
+	</div>
 
-  </p>
-  <div id="schema_builder" class="clearfix">
-	<%= render :partial => 'schema_builder', :locals => { :f => f } %>
-  </div>
-  <%= f.hidden_field :template_id %>
+</div>
+
+
+<div class="name_desc clearfix">
+		<div class="button">
+	  		<%= button_link_to_submit 'Update' %>
+		</div>
+	    <div class="details">
+			<%= f.label :name %> <small>(optional)</small><br />
+	    	<%= f.text_field :name %><br />
+	    	<%= f.label :description %> <small>(optional)</small><br />
+	    	<%= f.text_area :description, :rows => 2 %>
+		</div>
+	<div class="loaded_articles clearfix">
+		<h2>Recent articles</h2><p style="float: left;"><small><small>To add articles to your front page, drag them from here to the right location to the left</small></small></p>
+		<ol id="articles_list">
+			<% for article in @articles %>
+			
+				<li class="published clearfix">
+					<div id="article_<%= article.id %>" class="article clearfix">	
+						<h1><%= article.title %></h1>
+						<div class="article_details clearfix">
+							<div class="authors">
+								<%= article.authors_list %>
+							</div>
+						</div>
+					</div>
+					<div class="section">
+						<p><%= article.attributes['section'].blank? ? "<span style=\"color: #BBB\">No section</span>" : article.attributes['section'] %></p>
+					</div>
+					<div class="date">
+						<%= Time.parse(article.published_at).to_s(:standard) %>
+					</div>
+				</li>
+			<% end %>
+		</ol>
+	</div>
+</div>
+
+<% content_for :javascript do %>
+<script type="text/javascript" charset="utf-8">
+	$('articles_list').childElements().each( function(li){ 
+		new Draggable(li.down(), { revert: true }); 
+	});
+	$$('fieldset.entity ol li').each( function(article_slot) {
+		Droppables.add(article_slot, { onDrop: function( new_article, spec_holder ){
+			 	var new_article_id = new_article.id.split('_').pop();
+				var spec_holder_id = spec_holder.id.split('_').pop();
+				spec_holder.down().value = new_article_id;
+				spec_holder.down().next().innerHTML = new_article.innerHTML;
+				//alert('Dropped \n\n' + new_article_id + "\n\non\n\n" + spec_holder_id ); 
+		}});
+	});
+</script>
+<% end %>
