@@ -1,13 +1,94 @@
+/* Base styles, from Hot Ink */
+html, body { height: 100%; }
+body { background-color: #FFF; color: #333; margin: 0 auto; padding: 0 10px;}
+body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, sans-serif; font-size: 13.34px; line-height: 1.2; }
+#page h1 { margin: 0; padding: 5px 0; font-size: 3em; font-weight: normal; font-family: georgia, "Times New Roman", times, serif; font-style: italic; color: #AAA; }
+
+/* Begin publisher styles */
+#navigation { width: 100%; float: left; list-style: none; margin: 0; padding-left: 10px; margin-left: -10px; background-color: #FFF6DD; }
+#navigation li { float:left; margin: 0.55em 1em 0.5em 0; }
+#navigation li.selected { font-weight: bold; }
+
 div#design h1, div#design p.options,
 li.design h2, p.options { display: inline; }
 p.options { margin-left: 0.5em; }
 fieldset.entity { width: 30%; }
 
-/* Front page builder */
+/* Generic form styles */
+.back_link { float:left; width: 100%; clear: both; margin: 5px 0; }
+input[type="text"] { background: none; font-size: 1.1em; padding: 0.1em; border: 1px solid #DEDEDE; background-color: #FDFDFD; color: #555; }
+textarea {font-size: 1.1em; padding: 0.1em; border: 1px solid #DEDEDE; background-color: #FDFDFD; color: #555; }
 
-#articles_list { height: 250px; width: 300px; clear: both;}
-#schema_builder fieldset { float: left; }
-.loaded_articles { clear: both; float: left;}
+/* Front page builder */
+#edit_front_page { float: left; }
+#edit_front_page h1 { margin-bottom: 20px;}
+#edit_front_page .name_desc, #edit_front_page .button { width: 680px; }
+#edit_front_page .name_desc input, #edit_front_page .name_desc textarea { width: 100%;}
+#edit_front_page .form_title { clear: left; width: 320px; }
+#edit_front_page .details { float: left; }
+#front_page_name { font-size: 1.8em;  }
+#edit_front_page .button { text-align: right; width: 100%; float: left; margin-bottom: 5px;}
+#edit_front_page .loaded_articles { width: 100%; float: left;  }
+#edit_front_page #articles_list { width: 94%; }
+#edit_front_page .schema_builder { float: left; width: 290px; }
+#edit_front_page .schema_builder>p { font-family: georgia,"times new roman",times, serif;}
+#edit_front_page .schema_builder fieldset { border: 1px solid #DEDEDE; margin-bottom: 10px; }
+#edit_front_page .schema_builder fieldset.entity { background-color: #FFF6DD; width: 100%; float:left; }
+#edit_front_page .schema_builder ol { padding-left: 20px; }
+#edit_front_page .schema_builder li { padding-left: 7px; background: #FDFDFD; margin-bottom: 5px; border: 1px solid #DEDEDE; }
+#edit_front_page .schema_builder li h1 { float: none; margin-bottom: 0; font-size: 1.2em; font-style: normal; color: #333; }
+#edit_front_page .schema_builder li .article_details { padding-bottom: 5px; font-size: 0.85em; }
+
+#edit_front_page .schema_builder li.occupied {  }
+#edit_front_page .schema_builder h2 { margin: 2px 0; }
+#edit_front_page .schema_builder li>p { font-size: 1.1em;}
+
+#edit_front_page .loaded_articles h2 { float: left; margin: 3px 0; margin-top: 10px; margin-right: 10px; }
+#edit_front_page .loaded_articles h2+p { margin-top: 20px; margin-bottom: 7px; }
+
+#articles_list { list-style: none; padding-left: 5px; }
+#articles_list {float: left; clear: both; margin: 0.25em 0; padding-left: 0; list-style-type: none; border: 1px dotted #777; border-top: none; }
+#articles_list li { border-top: 1px dotted #777; cursor: default;}
+#articles_list li a { margin: 12px 0px; cursor: pointer;}
+#articles_list a:visited { color: #555;}
+#articles_list a:hover { color: #3399DE;}
+#articles_list a:active { color: #333;}
+#articles_list li>div { display: inline-block; float: left; vertical-align: top; margin: 0.25em;}
+#articles_list li div.date { float: right; width: 9%; color: #515151; font-size: 1.1em; padding: 0.5em 0.2em; text-align:right;}
+#articles_list li div.date p { font-size: 0.65em; color: #515151; margin: 0px; margin-top: 8px; font-style:italic; font-family: georgia,"times new roman",times, serif;}
+#articles_list li div.icons { float: right; width: 1.0em; height: 1.2em; margin-right: 0; }
+#articles_list li.selected_card { background-color: #CDFBDC; }
+#articles_list li .article { width: 61%; height: 100%; line-height: 1.2em; background-color: #FFF; border: 1px dotted #9cf;}
+#articles_list li .article h1 { float: none; font-style: normal; font-size: 1.2em; line-height: 1.2; margin: 0; padding: 0.25em; color: #666; border-bottom: 1px solid #DDD; vertical-align: middle; font-weight: normal; /* font-style: italic; */ font-family: georgia,"times new roman",times, serif;}
+#articles_list li .article div { font-size: .9em; }
+#articles_list li .article .article_details { width: 100%; min-height: 24px;}
+#articles_list li .article .authors { float: left; padding: 0.5em;}
+#articles_list li .article .media { float: right; text-align: right; padding: 0.25em; }
+#articles_list li .article .media img{ float: right; margin: 0 0.125em;}
+#articles_list li div.section { width: 7.5em; overflow: hidden; background-color: #FFF; padding: 0.5em 0; border: 1px dotted #9cf; }
+#articles_list li div.section p { padding: 0px 0px 0px 5px; color: #333; margin: 0;}
+
+
+/* Page template edit */
+#edit_template h1, #edit_front_page h1,
+.name_desc, #edit_template .code,
+.form_title { float: left;  }
+.name_desc { width: auto; margin-left: 5px; }
+#edit_template .name_desc input, #edit_template .name_desc textarea { width: 100%; }
+#edit_template h1 { margin-bottom: 15px; }
+#edit_template .name_desc { width: 380px; }
+#edit_template .form_title { clear: left; width: 315px; }
+#edit_template .form_title select {  width: 100%; background: none; font-size: 1.1em; padding: 0.1em; margin-top: 3px; border: 1px solid #DEDEDE; background-color: #FDFDFD; color: #555; }
+#edit_template .name_desc input { margin-bottom: 10px; }
+#edit_template .template, #edit_template .layout { float: left; width: 47%; margin-right: 3%; }
+#edit_template .entity_definitions { float:left; width: 703px; border: 1px solid #DEDEDE; margin: 15px 0 5px 0; }
+#edit_template .entity_definitions .entity { float: left; width: 26%; margin: 5px 0.5%; }
+#edit_template .code { clear: left; margin: 5px 0; }
+#edit_template .button { text-align: right; width: 700px; float: left; margin-bottom: 5px; }
+
+#edit_template .code textarea { width: 700px; margin-top: 3px; line-height: 1.35; color: black; font-family: courier, monospace, sans-serif; }
+.edit_page_template input, .edit_page_template textarea { color: #333; }
+
 /* Overlay css */
 
 #overlay{ position: absolute; top: 0; left: 0; z-index: 900; width: 100%; height: 500px; background-color: #000; }
@@ -28,4 +109,68 @@ div.small_top_button a img { width: 18px; border: none; }
 .clearfix:after { clear: both; content: ' '; display: block; font-size: 0; line-height: 0; visibility: hidden; width: 0; height: 0; }
 .clearfix { display: inline-block; }
 * html .clearfix { height: 1%; }
-.clearfix {display: block;
+.clearfix {display: block;}
+
+/* Start of custom button CSS
+---------------------------------------- */
+.btn { display:inline-block !important; background:none; margin:0; padding:3px 0; border-width:0; overflow:visible; font:100%/1.2; text-decoration:none; color:#333; }
+* html button.btn { padding-bottom:1px; }
+.btn span { background:#ddd url('/images/bg-button.gif') repeat-x 0 0; margin:0; padding:3px 0; border-left:1px solid #bbb; border-right:1px solid #aaa; }
+* html .btn span {  padding-top:0; }
+.btn span span { position:relative; padding:3px .4em; border-width:0; border-top:1px solid #bbb; border-bottom:1px solid #aaa; }
+.btn:hover span, .btn:hover span span, .btn:focus span, .btn:focus span span { cursor:pointer; border-color:#9cf !important; color:#000; }
+.btn:active span { background-position:0 -400px; outline:none; }
+.btn:focus, .btn:active { outline:none; /* doesn't seem to be respected for <button>, only <a> */ }
+ 
+/* pill classes only needed if using pill style buttons ( LEFT | CENTER | RIGHT ) */
+.pill-l span { border-right-width:0; }
+.pill-l span span { border-right:1px solid #bbb; }
+.pill-c span { border-right-style:none; border-left-color:#fff; }
+.pill-c span span { border-right:1px solid #bbb; }
+.pill-r span { border-left-color:#fff; }
+
+/* tab classes only needed if using tab style buttons ( TOP | BOTTOM ) */
+.tab-t { padding: 1px 0px; }
+.tab-t span { border-bottom: 1px solid #DEDEDE; }
+.tab-t span span { border-bottom-width:0; padding: 1px .4em; }
+
+.tab-b { padding: 1px 0px; }
+.tab-b span { border-top: 1px solid #DEDEDE; } 
+.tab-b span span { border-top-width:0; padding: 1px .5em; }
+
+/* use if one button should be the 'primary' button */
+.primary { font-weight:bold; color:#000; }
+	
+/* Save buttons use a blue background, as opposed to a grey one.*/
+.save { color: #FFF; }
+.save:hover span, .save:hover span span, .save:focus span, .save:focus span span  { color: #CCC; }
+.save:active span { background-position:0 -398px; outline:none; }
+.save span{ background:#699DE3 url('/images/bg-button-blue.gif') repeat-x 0 0; }
+	
+/* Cancel buttons use a red background, as opposed to a grey one.*/
+.cancel { color: #FFF; }
+.cancel:hover span, .cancel:hover span span, .cancel:focus span, .cancel:focus span span{ color: #CCC; }
+.cancel:active span { background-position:0 -395px; color: #FFF; outline:none; }
+.cancel span{ background:#E62424 url('/images/bg-button-red.gif') repeat-x 0 -4px; }
+	
+.selected span { color:#FFF; background-image: none; background-color:  #6A6A6A;/*#75AAF1;*/ }
+.selected:hover span, .selected:hover span span, .selected:focus span, .selected:focus span span { cursor:pointer; border-color:#9cf !important; color:#FFF; }
+
+.publish { color: white; }
+.publish span, .publish span span { border-color:#999 !important; }
+.publish:hover span, .publish:hover span span, .publish:focus span, .publish:focus span span{ color: #EEE; border-color:#9cf !important;}
+.publish:active span { color: #FFF; outline:none; background-position:0 -398px;}
+.publish span{ background: #00af2e url('/images/bg-button-green.gif') repeat-x 0 0px; }
+
+
+/* Button size classes */
+.larger { font-size: 1.2em; line-height: 1.1; }
+.large { font-size: 1em; line-height: 1.2em; }
+.large:active span{ background-position:0 -390px;}
+.small { font-size: 0.85em; line-height: 1; }
+.small span{ background-position: 0px -3px; }
+.tiny { font-size: 0.775em; line-height: 1;  }
+.micro { font-size: 0.75em; line-height: 1em; }
+	
+/* End of custom button CSS
+---------------------------------------- */

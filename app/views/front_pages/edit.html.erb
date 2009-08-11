@@ -1,11 +1,8 @@
-<h1>Edit Front Page</h1>
-<h2><%= @front_page.created_at.to_s(:standard) %></h2>
-<% form_for([@account, @front_page]) do |f| %>
-  <%= f.error_messages %>
-	<%= render :partial => "form", :locals => { :f => f } %>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
-<%= link_to 'Show', [@account, @front_page] %> |
-<%= link_to 'Back', account_front_pages_path(@account) %>
+<p class="back_link"><%= link_to '&laquo; Back to front pages list', account_front_pages_path(@account) %></p>
+
+<div id="edit_front_page">
+	<% form_for([@account, @front_page]) do |f| %>
+	  <%= f.error_messages %>
+		<%= render :partial => "form", :locals => { :f => f } %>
+	<% end %>
+</div>

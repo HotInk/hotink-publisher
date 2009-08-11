@@ -14,23 +14,19 @@
 </head>
 
 <body>
-
-<!-- Set video category -->
-<!-- Set featured category -->
-
-
 <div id="page">
 	
-	<ul>
-		<li><%= link_to "Dashboard", account_dashboard_path(@account) %></li>
-		<li><%= link_to "Comments", account_comments_path(@account) %></li>
-		<li><%= link_to "Designs", account_designs_path(@account) %></li>
-		<li><%= link_to "Front Pages", account_front_pages_path(@account) %></li>											
+	<ul id="navigation" class="clearfix">
+		<li <%= 'class="selected"' if controller_name=="dashboards"%>><%= link_to "Dashboard", account_dashboard_path(@account) %></li>
+		<li <%= 'class="selected"' if controller_name=="front_pages"%>><%= link_to "Front Pages", account_front_pages_path(@account) %></li>											
+		<li <%= 'class="selected"' if controller_name=="comments"%>><%= link_to "Comments", account_comments_path(@account) %></li>
+		<li <%= 'class="selected"' if controller_name=="templates"||controller_name=="designs"%>><%= link_to "Designs", account_designs_path(@account) %></li>
 	</ul>
-	<hr/>
+	
 	<%  flash.each do |name, message| -%>
 	<div id="<%= name %>_flash"><p><%= message %></p></div>
 	<% end %>
+	
 	<%= yield  %>
 	
 

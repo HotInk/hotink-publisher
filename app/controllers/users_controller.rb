@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   
+  skip_before_filter :require_user
+  
   # A "new user" in this context is really just a OAuth request token until we get that token approved, then we can create the user.
   def new
     if params[:oauth_token]

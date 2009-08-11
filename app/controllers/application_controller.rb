@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
   # helper_method :facebook_session
 
   before_filter :find_account
-    
+  before_filter :require_user
+  
   private
   
     def find_account
@@ -78,7 +79,7 @@ class ApplicationController < ActionController::Base
     # Second, it checks params[:session_action], to see if session negotiation is ongoing.
     # Third, it checks for params[:oauth_token] to see if this is a callback_url response to request_token authorization.
     def require_user
-
+      logger.info "Current user: " + current_user.class.name
       #First, check to see if user is already logged in
       unless current_user 
 
@@ -98,6 +99,12 @@ class ApplicationController < ActionController::Base
             # This is where we actually authenticate
             access_token = OauthToken.find_by_token(params[:oauth_token])
 
+            #Log test
+            logger.info "Access Token token: " + access_token.token
+            logger.info "Access Token secret: " + access_token.secret
+            logger.info "Access Token hash: " + Digest::SHA1.hexdigest(access_token.token + access_token.secret)
+            logger.info "Recevied hash: " + params[:sig]
+            
             if access_token&&params[:sig]==Digest::SHA1.hexdigest(access_token.token + access_token.secret)
 
               # Signature matches, it's really Hot Ink and the user checks out. Log 'em in.
@@ -122,10 +129,8 @@ class ApplicationController < ActionController::Base
           end 
         end
 
-
-
         # Last resort, this must be a fresh user request. Forward along to Hot Ink to authenticate.
-        redirect_to "#{OAUTH_CREDENTIALS[:site]}/remote_session/new?key=#{OAUTH_CREDENTIALS[:token]}&request_url=#{request.request_uri}"
+        redirect_to "#{OAUTH_CREDENTIALS[:site]}/remote_session/new?key=#{OAUTH_CREDENTIALS[:token]}&request_url=#{request.url}"
         return false
       end
     end
