@@ -1,14 +1,8 @@
-<h1>New Front Page</h1>
-
-	<%- if @account.current_design&&@account.current_design.templates.blank? -%>
+<%- if @account.current_design&&@account.current_design.templates.blank? -%>
 		<p>Your don't have any templates in your current design, <%= link_to "create one", new_account_design_template_path(@account, @account.current_design) %>.</p>
-	<%- else -%>
+<%- else -%>
 	<% form_for([@account, @front_page]) do |f| %>
 	  	<%= render :partial => "form", :locals => { :f => f } %>
-		<p>
-	    <%= f.submit 'Create' %>
-	  	</p>
 	<% end %>
-	<%- end -%>
+<%- end -%>
 
-<%= link_to 'Back', account_front_pages_path(@account) %>

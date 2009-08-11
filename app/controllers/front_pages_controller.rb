@@ -1,6 +1,8 @@
 class FrontPagesController < ApplicationController
   
   layout 'admin'
+  
+  before_filter :load_access_token
 
   # GET /front_pages
   # GET /front_pages.xml
@@ -66,10 +68,10 @@ class FrontPagesController < ApplicationController
     @front_page = @account.front_pages.find(params[:id])
     schema_ids = Array.new
     @front_page.schema.each_key do |item|
-      schema_ids += @front_page.schema[item]['ids']
+      schema_ids += @front_page.schema[item]['ids'].compact unless @front_page.schema[item]['ids'].blank?
     end
     @schema_articles = {}
-    article_resources = Article.find(:all, :ids => schema_ids, :account_id => @account.account_resource_id )
+    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @access_token )
     article_resources.each do |article|
       @schema_articles.merge!(article.id => article)
     end
