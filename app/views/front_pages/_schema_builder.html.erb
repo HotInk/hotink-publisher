@@ -10,9 +10,9 @@
 					<%= hidden_field_tag "schema[#{name}][ids][]", spec['ids'][index] %>
 					<% if spec['ids'][index] %>
 						<div class="clearfix">
-							<h1><%= @schema_articles[spec['ids'][index]].title %></h1>
+							<h1><%= @schema_articles[spec['ids'][index].to_i].title %></h1>
 							<div class="article_details">
-								<div class="authors"><%= @schema_articles[spec['ids'][index]].authors_list %></div>
+								<div class="authors"><%= @schema_articles[spec['ids'][index].to_i].authors_list %></div>
 							</div>
 						</div>
 					<% else %>
