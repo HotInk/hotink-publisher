@@ -11,7 +11,8 @@ class Template < ActiveRecord::Base
   private
   
   def parse_code
-    self.parsed_code = Marshal.dump( Liquid::Template.parse(code) )
+    parsed_template = Liquid::Template.parse(code)
+    write_attribute("parsed_code", Marshal.dump( parsed_template) )
   end
   
 end

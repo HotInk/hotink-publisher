@@ -1,5 +1,5 @@
 <% if @current_template.current_layout -%>
-<%= @current_template.current_layout.parsed_code.render('page_content' => yield) %>
+<%= @current_template.current_layout.parsed_code.render('page_content' => @current_template.parsed_code.render('article' => @article)) %>
 <% else -%>
-<%= yield %>
+<%=  @current_template.parsed_code.render('article' => @article) %>
 <% end -%>

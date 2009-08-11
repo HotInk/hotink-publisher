@@ -23,8 +23,14 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id], :params => {:account_id => @account.account_resource_id})
     #@comments = @article.comments
-    render :text => @current_template.parsed_code.render('article' => @article), :layout => 'dynamic'
-    #render :text => "Sorry, the page you were looking for could not be found.", :status => :not_found # If the current deign has no article template we should render 404
+    
+    page_html = @current_template.parsed_code.render('article' => @article)
+    if @current_template.current_layout
+      render :text => @current_template.current_layout.parsed_code.render('page_content' => page_html )
+    else  
+      render :text => page_html
+    end 
+    #render :text => "Sorry, the page you were looking for could not be found.", :status => :not_found # If the current deisgn has no article template we should render 404
   end
 
   # GET /articles/new
