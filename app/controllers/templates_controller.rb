@@ -62,7 +62,7 @@ class TemplatesController < ApplicationController
     
     # Pre-parse the template in the controller, it can't happen in the model
     @tplate.parsed_code = Liquid::Template.parse(@tplate.code)
-        
+    
     respond_to do |format|
       if @tplate.save
         flash[:notice] = 'Template was successfully created.'
@@ -79,10 +79,12 @@ class TemplatesController < ApplicationController
   # PUT /templates/1.xml
   def update
     @tplate = @design.templates.find(params[:id])
+
+    # Serialized attributes need to be declared explicitly.
     @tplate.schema = (params[:front_page_template][:schema] || {}) if @tplate.is_a? FrontPageTemplate
-    
     # Pre-parse the template in the controller, it can't happen in the model
     @tplate.parsed_code = Liquid::Template.parse(@tplate.code)
+    @tplate.save # And saved explicitly
     
     respond_to do |format|
       if @tplate.update_attributes(params[@tplate.class.name.underscore.to_sym])
