@@ -4,6 +4,6 @@ class AddSchemaToTemplates < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :templates, :schema, :text
+    remove_column :templates, :schema
   end
 end
