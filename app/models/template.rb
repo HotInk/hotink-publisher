@@ -2,18 +2,14 @@ class Template < ActiveRecord::Base
   belongs_to :account
   belongs_to :design
   
-  before_save :parse_code
-  
-  def parsed_code
-    data = read_attribute("parsed_code")
-    @parsed_code ||= Marshal.load( data )    
+  def code=(template_liquid_code)  
+    parsed_template = Marshal.dump( Liquid::Template.parse(template_liquid_code) )
+    self.parsed_code = parsed_template
+    self.code=code 
   end
   
-  private
-  
-  def parse_code
-    parsed_template = Liquid::Template.parse(code)
-    write_attribute("parsed_code", Marshal.dump( parsed_template) )
+  def parsed_code
+    @parsed_code ||= Marshal.load( self.read_attribute('parsed_code') )
   end
   
 end
