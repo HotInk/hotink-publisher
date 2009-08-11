@@ -5,7 +5,8 @@ class Template < ActiveRecord::Base
   before_save :parse_code
   
   def parsed_code
-    @parsed_code ||= Marshal.load( read_attribute("parsed_code") )    
+    data = read_attribute("parsed_code")
+    @parsed_code ||= Marshal.load( data )    
   end
   
   private
