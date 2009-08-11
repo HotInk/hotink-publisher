@@ -16,10 +16,11 @@ module Liquid
     # 
 
     def link_to_article(article, title=nil)
-      @account = Account.find(controller.params[:account_id])
-      url = @account.url + "/articles/" + article["id"].to_s
-      title ||= article["title"]
-      link_to title, url
+      # @account = Account.find(controller.params[:account_id])
+      # url = @account.url + "/articles/" + article["id"].to_s
+      # title ||= article["title"]
+      # link_to title, url
+      article["title"]
     end
     
     def link_to_entry(entry, title=nil)

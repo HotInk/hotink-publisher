@@ -30,9 +30,18 @@ class Article < HyperactiveResource
   def audiofiles
     self.mediafiles.select{|mediafile| mediafile.mediafile_type == "Audiofiles"}
   end
-
   
+  def account_id
+    self.prefix_options[:account_id]    
+  end
+    
   def section
     
   end
+  
+  def url
+    @account = Account.find(account_id)
+    url = @account.url + "/articles/" + self.id.to_s
+  end
+  
 end
