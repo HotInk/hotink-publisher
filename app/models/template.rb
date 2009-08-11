@@ -5,7 +5,7 @@ class Template < ActiveRecord::Base
   def code=(template_liquid_code)  
     parsed_template = Marshal.dump( Liquid::Template.parse(template_liquid_code) )
     self.parsed_code = parsed_template
-    self.code=code 
+    self.code=template_liquid_code 
   end
   
   def parsed_code
