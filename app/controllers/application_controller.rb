@@ -98,12 +98,6 @@ class ApplicationController < ActionController::Base
 
             # This is where we actually authenticate
             access_token = OauthToken.find_by_token(params[:oauth_token])
-
-            #Log test
-            logger.info "Access Token token: " + access_token.token
-            logger.info "Access Token secret: " + access_token.secret
-            logger.info "Access Token hash: " + Digest::SHA1.hexdigest(access_token.token + access_token.secret)
-            logger.info "Recevied hash: " + params[:sig]
             
             if access_token&&params[:sig]==Digest::SHA1.hexdigest(access_token.token + access_token.secret)
 
