@@ -24,7 +24,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id], :params => {:account_id => @account.account_resource_id})
     #@comments = @article.comments
     
-    page_html = @current_template.parsed_code.render('article' => @article)
+    page_html = Liquid::Template.parse(@current_template.code).render('article' => @article)
     if @current_template.current_layout
       @current_layout = Liquid::Template.parse(@current_template.current_layout.code)
       render :text => @current_layout.render('page_content' => page_html )
