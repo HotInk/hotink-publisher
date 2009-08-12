@@ -1,14 +1,8 @@
-<p><%= link_to 'Back to design', account_design_path(@account, @design) %></p>
-
-
-<h1>New template</h1>
+<p><%= link_to 'Back to design', account_design_path(@account, @design), :Class => "back_link" %></p>
 
 <% form_for([@account, @design, @tplate]) do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :locals => { :f => f } %>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
 <% end %>
 
 <%= link_to 'Back', account_design_templates_path(@account, @design) %>

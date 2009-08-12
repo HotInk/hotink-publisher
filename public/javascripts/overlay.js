@@ -39,11 +39,10 @@ Overlay = Class.create({
 		var objBody = $$('body')[0];
 
 		objBody.appendChild(Builder.node('div',{id:'overlay'}));
-		<div class="small_top_button clearfix"><a href="#" class="close_window" onclick="page_overlay.end();return false;"> <img src="/images/window_x.png" /> </a></div>
-		
+
 		objBody.appendChild(Builder.node('div',{id:'overlaybox'}, [
             			Builder.node('div',{id:'overlay_container'}, [
-							Builder.node('div',{id:'overlay_content', 'class':'clearfix'}), 
+							Builder.node('div',{id:'overlay_content', 'class':'clearfix'}, Builder.node('div', { className:'small_top_button clearfix'}, Builder.node('a', { href:'#', onclick:'page_overlay.end()return false;'}, Builder.node('img', {src:'/images/window_x.png'}) ) ) ), 
 							Builder.node('div',{id:'loading'}, 
                    				Builder.node('a',{id:'loading_link', href: '#' }, 
 	                       			Builder.node('img', {src: this.fileLoadingImage})

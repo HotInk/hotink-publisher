@@ -5,7 +5,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   class_inheritable_reader :liquid_attributes
   write_inheritable_attribute :liquid_attributes, [:id]
 
-  liquid_attributes << :title << :subtitle << :published_at << :id
+  liquid_attributes << :title << :subtitle  << :id
 
   def initialize(source, options = {})
     super source
@@ -20,6 +20,14 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   
   def section
     source.attributes['section']
+  end
+  
+  def published_at
+    Time.parse(source.published_at).to_s(:standard)
+  end
+  
+  def published_at_detailed
+    Time.parse(source.published_at).to_s(:long)
   end
   
   def account_id
