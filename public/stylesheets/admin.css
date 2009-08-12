@@ -87,7 +87,7 @@ textarea {font-size: 1.1em; padding: 0.1em; border: 1px solid #DEDEDE; backgroun
 #edit_template .code { clear: left; margin: 5px 0; }
 #edit_template .button { text-align: right; width: 700px; float: left; margin-bottom: 5px; }
 
-#edit_template .code textarea { width: 700px; margin-top: 3px; line-height: 1.35; color: black; font-family: courier, monospace, sans-serif; }
+#edit_template .code textarea { width: 950px; margin-top: 3px; line-height: 1.35; color: black; font-family: courier, monospace, sans-serif; }
 .edit_page_template input, .edit_page_template textarea { color: #333; }
 
 /* Overlay css */
