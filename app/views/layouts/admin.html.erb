@@ -24,7 +24,7 @@
 	</ul>
 	
 	<%  flash.each do |name, message| -%>
-	<div id="<%= name %>_flash"><p><%= message %></p></div>
+	<div id="<%= name %>_flash" class="flash"><p><%= message %></p></div>
 	<% end %>
 	
 	<%= yield  %>

@@ -40,7 +40,12 @@ class FrontPagesController < ApplicationController
       data_for_render.merge!( item => item_array )
     end
     
-    render :text => @current_template.parsed_code.render(data_for_render), :layout => 'dynamic'
+    page_html = @current_template.parsed_code.render(data_for_render)
+    if @current_template.current_layout
+      render :text => @current_template.current_layout.parsed_code.render('page_content' => page_html )
+    else  
+      render :text => page_html
+    end
   end
 
   # GET /front_pages/new

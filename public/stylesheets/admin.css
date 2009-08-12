@@ -3,6 +3,7 @@ html, body { height: 100%; }
 body { background-color: #FFF; color: #333; margin: 0 auto; padding: 0 10px;}
 body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, sans-serif; font-size: 13.34px; line-height: 1.2; }
 #page h1 { margin: 0; padding: 5px 0; font-size: 3em; font-weight: normal; font-family: georgia, "Times New Roman", times, serif; font-style: italic; color: #AAA; }
+.flash { float: left; margin: 2px 0; clear: both; }
 
 /* Begin publisher styles */
 #navigation { width: 100%; float: left; list-style: none; margin: 0; padding-left: 10px; margin-left: -10px; background-color: #FFF6DD; }
