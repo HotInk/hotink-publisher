@@ -1,7 +1,7 @@
 class AccountsController < ApplicationController
 
   skip_before_filter :find_account
-
+  skip_before_filter :require_user, :only => :show
   
   # GET /accounts
   # GET /accounts.xml
