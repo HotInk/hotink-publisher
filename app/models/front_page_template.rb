@@ -1,6 +1,6 @@
 class FrontPageTemplate < PageTemplate  
   
-  serialize :schema
+  serialize :schema, Array
     
   def parse_schema
     parsed_schema = {}

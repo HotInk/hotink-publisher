@@ -2,7 +2,7 @@
   <h1>Editing template</h1>
  <div class="template">
   <%= f.label :role, "Template type" %><br />
-  <%= f.select :role, { "Front page" => "front_pages/show", "Article" => "articles/show", "Layout" => "layout"} %>
+  <%= f.select :role, { "Front page" => "front_pages/show", "Article" => "articles/show", "Layout" => "layout", "Partial" => "partial"} %>
  </div>
   <% if f.object.is_a? PageTemplate -%>
  <div class="layout">

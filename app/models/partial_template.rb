@@ -1,0 +1,4 @@
+class PartialTemplate < Template
+
+
+end

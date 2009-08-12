@@ -9,6 +9,7 @@ class Design < ActiveRecord::Base
   has_many :layouts
   has_many :page_templates
   has_many :front_page_templates
+  has_many :partial_templates
   
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :account_id

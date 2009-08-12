@@ -53,9 +53,11 @@ class TemplatesController < ApplicationController
     case params[:template][:role]
     when 'layout' 
       @tplate = @design.layouts.build(params[:template])
+    when 'partial'
+       @tplate = @design.partial_templates.build(params[:template])
     when 'front_pages/show'
       @tplate = @design.front_page_templates.build(params[:template])
-      @tplate.schema = (params[:template][:schema] || {}) # assign serialized attribute explicitly
+      @tplate.schema = (params[:template][:schema] || []) # assign serialized attribute explicitly
     else
       @tplate = @design.page_templates.build(params[:template])
     end
