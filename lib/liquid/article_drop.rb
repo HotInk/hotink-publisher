@@ -19,7 +19,11 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   end
   
   def section
-    source.section
+    source.attributes['section']
+  end
+  
+  def account_id
+    source.account_id
   end
   
   def id
