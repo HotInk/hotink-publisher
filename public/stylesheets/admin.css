@@ -75,7 +75,7 @@ textarea {font-size: 1.1em; padding: 0.1em; border: 1px solid #DEDEDE; backgroun
 .form_title { float: left;  }
 .name_desc { width: auto; margin-left: 5px; }
 #edit_template .name_desc input, #edit_template .name_desc textarea { width: 100%; }
-#edit_template h1 { margin-bottom: 15px; }
+#edit_template h1 { margin-bottom: 5px; }
 #edit_template .name_desc { width: 380px; }
 #edit_template .form_title { clear: left; width: 315px; }
 #edit_template .form_title select {  width: 100%; background: none; font-size: 1.1em; padding: 0.1em; margin-top: 3px; border: 1px solid #DEDEDE; background-color: #FDFDFD; color: #555; }
