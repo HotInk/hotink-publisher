@@ -1,6 +1,4 @@
 <div id="design">	
-	<p><%= link_to 'Back', account_designs_path(@account) %></p>
-
 	<h1>Design: <span class="design_name"><%=h @design.name %></span></h1><p class="options"><%= link_to 'Edit details', edit_account_design_path(@account, @design) %> | <%= link_to 'New template', new_account_design_template_path(@account, @design) %> </p>
 	<%= markdown @design.description %>
 	<div>Default layout: 

@@ -2,7 +2,12 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  OAUTH_CREDENTIALS = { :token => "dOZgDp06FMkIjNGQolHYw", :secret => "0jTy6xtVzYL5hKGyYK9ESfw3Ylicygim3WWXj3uaJ3o", :site => HOTINK_SETTINGS.site }
+  #production cred
+  #OAUTH_CREDENTIALS = { :token => "dOZgDp06FMkIjNGQolHYw", :secret => "0jTy6xtVzYL5hKGyYK9ESfw3Ylicygim3WWXj3uaJ3o", :site => HOTINK_SETTINGS.site }
+ 
+  #dev ced
+  OAUTH_CREDENTIALS = { :token => "4iL4tnqIuL8sv2RHQOjQ", :secret => "WSNAza5TIaK7CKggJfSo5cY4MO9xUH7SFItB6gxxE", :site => HOTINK_SETTINGS.site  }
+ 
  
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
