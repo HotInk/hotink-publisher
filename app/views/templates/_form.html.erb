@@ -18,17 +18,20 @@
   <%= f.text_area :description, :rows => 2 %>
 </div>
 <% if f.object.role=='front_pages/show' -%>
-<div class="entity_definitions clearfix">
-	  <% @tplate.schema.each_index do |entity| -%>
-	  <fieldset class="entity">
-		  <%= link_to_function "x", "if(confirm('Remove this variable from the schema?')) $(this).up().remove();", :style => "float:right; color: red;"%>
-		  Name: <%= text_field_tag "front_page_template[schema][][name]", @tplate.schema[entity]["name"]  %><br />
-		  Data type: <%= select_tag "front_page_template[schema][][model]", options_for_select(["Article"], @tplate.schema[entity]["model"])%><br />
-		  Description: <%= text_field_tag "front_page_template[schema][][description]", @tplate.schema[entity]["description"] %><br />
-		  Quantity: <%= select_tag "front_page_template[schema][][quantity]", options_for_select(["1","2","3","4","5","6","7","8","9","10"], @tplate.schema[entity]['quantity']) %>
-	  </fieldset>
-	  <% end -%>
-</div>
+	<div class="entity_definitions clearfix">
+		 <% if @tplate.schema.is_a? Array %>
+		  <% @tplate.schema.each_index do |entity| -%>
+		  <fieldset class="entity">
+			  <%= link_to_function "x", "if(confirm('Remove this variable from the schema?')) $(this).up().remove();", :style => "float:right; color: red;"%>
+			  Name: <%= text_field_tag "front_page_template[schema][][name]", @tplate.schema[entity]["name"]  %><br />
+			  Data type: <%= select_tag "front_page_template[schema][][model]", options_for_select(["Article"], @tplate.schema[entity]["model"])%><br />
+			  Description: <%= text_field_tag "front_page_template[schema][][description]", @tplate.schema[entity]["description"] %><br />
+			  Quantity: <%= select_tag "front_page_template[schema][][quantity]", options_for_select(["1","2","3","4","5","6","7","8","9","10"], @tplate.schema[entity]['quantity']) %>
+		  </fieldset>
+		  <% end -%>
+		<% end -%>
+	</div>
+
 <div class="button">	
   <%= button_link_to_function "Add entity", "add_empty_schema_tag($(this).up().previous());" %>
 </div>
