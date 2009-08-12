@@ -2,3 +2,4 @@ site: "http://hotink.theorem.ca"
 # site: "http://localhost:3001"
 user: "hyfen"
 password: "blah123"
+pageglimpse_devkey: 457f657300753c80082cf50aa1c5e502

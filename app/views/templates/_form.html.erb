@@ -19,13 +19,13 @@
 </div>
 <% if f.object.role=='front_pages/show' -%>
 <div class="entity_definitions clearfix">
-	  <% f.object.schema.each do |entity| -%>
+	  <% YAML::load(@tplate.schema).each do |entity| -%>
 	  <fieldset class="entity">
 		  <%= link_to_function "x", "if(confirm('Remove this variable from the schema?')) $(this).up().remove();", :style => "float:right; color: red;"%>
 		  Name: <%= text_field_tag "front_page_template[schema][][name]", entity["name"]  %><br />
 		  Data type: <%= select_tag "front_page_template[schema][][model]", options_for_select(["Article"], entity["model"])%><br />
 		  Description: <%= text_field_tag "front_page_template[schema][][description]", entity["description"] %><br />
-		  Quantitiy: <%= select_tag "front_page_template[schema][][quantity]", options_for_select(["1","2","3","4","5","6","7","8","9","10"], "1") %>
+		  Quantity: <%= select_tag "front_page_template[schema][][quantity]", options_for_select(["1","2","3","4","5","6","7","8","9","10"], entity['quantity']) %>
 	  </fieldset>
 	  <% end -%>
 </div>
