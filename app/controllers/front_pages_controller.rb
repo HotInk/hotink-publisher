@@ -8,7 +8,7 @@ class FrontPagesController < ApplicationController
   # GET /front_pages
   # GET /front_pages.xml
   def index
-    @front_pages = @account.front_pages.all
+    @front_pages = @account.front_pages.find(:all, :order => 'created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,7 +27,7 @@ class FrontPagesController < ApplicationController
     @front_page.schema.each_key do |item|
       schema_ids += @front_page.schema[item]['ids']
     end
-    article_resources = Article.find(:all, :ids => schema_ids, :account_id => @account.account_resource_id )
+    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id )
     
     # Recontruct front page schema as hash keyed by entity name
     data_for_render = {}

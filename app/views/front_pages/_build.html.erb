@@ -1,4 +1,4 @@
-<div id="build" style="background-color:white;width:500px; padding: 20px;" class="clearfix">
+<div id="build" class="clearfix">
 	<h1>New front page</h1>
 		<% if @account.designs.empty? %>
 			<p>To create a front page, first <%= link_to "create a site design", new_account_design_path(@account) %> and then a front page template.</p>

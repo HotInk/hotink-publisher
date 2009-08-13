@@ -4,7 +4,7 @@
 
 <ol>
 <% @front_pages.each do |front_page| %>
-  <li>
+  <li <%= 'class="current"' if front_page == @account.current_front_page %>>
 	<h2><%= link_to front_page.created_at.to_s(:standard), edit_account_front_page_path(@account, front_page) %></h2>
     <p><%= link_to 'Show', [@account, front_page] %> | <%= link_to 'Edit', edit_account_front_page_path(@account, front_page) %> | <%= link_to 'Destroy', [@account, front_page], :confirm => 'Are you sure?', :method => :delete %></p>
   </li>

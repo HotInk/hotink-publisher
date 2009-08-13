@@ -43,6 +43,10 @@ div.form, div.form div { float: left; }
 div.form_element { margin: 5px 0; clear:left; }
 input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 
+#build { background-color:white;width:500px; padding: 10px;}
+#build fieldset { border:none;}
+#build h1 { margin :5px 0; }
+
 /* Front page builder */
 #edit_front_page { float: left; padding-bottom: 10px; }
 #front_page_form { float: left; }
@@ -95,6 +99,7 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 
 
 /* Page template edit */
+#template_form { float: left; }
 #template_form h1, #edit_front_page h1, #template_form .details,
 .name_desc, #template_form .template_data_info, #template_form .code,
 .form_title { float: left;  }
@@ -117,7 +122,9 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 
 /* Front Page index */
 #front_page_index { float: left; clear: left; }
-
+#front_page_index ol { list-style: none; padding-left: 0; }
+#front_page_index li.current { background-color: #DEFFDB;}
+#front_page_index li { padding: 5px; }
 #front_page_build_form { }
 
 /* Design form */
@@ -138,7 +145,7 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design>h2 { float: left;}
 #design h2 { text-decoration: underline; margin: 0; margin-top: 10px; font-size: 1.25em; }
 #design h3 { float: left; }
-#design .options { margin-left: 255px; }
+#design .options { margin-left: 255px; padding-top: 18px; }
 #design .options .default_layout { margin-right: 10px;}
 #design .options .default_layout form { display: inline;}
 #design .description { width: 240px; margin-right: 10px; float:left; clear: left;}
@@ -158,6 +165,14 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design #templates ul li.partial {background-color: #FFF6DD; }
 #design #templates ul li.page_template {background-color: #DEFFDB; }
 #design #templates ul li.front_page_template { background-color: #FFDBDB }
+
+/* Dashboard */
+#dashboard h1 { margin: 5px 0; clear: left; }
+#dashboard>h2 { float: left;}
+#dashboard h2 { text-decoration: underline; margin: 0; margin-top: 10px; font-size: 1.25em; }
+#dashboard .options { float: left; width: 755px; text-align: right; padding-top: 18px; }
+#dashboard .guide { width: 240px; margin-right: 10px; float:left; clear: left;}
+#dashboard #control_panel { width: 750px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
 
 /* Overlay css */
 
@@ -246,6 +261,6 @@ div.small_top_button a img { width: 18px; border: none; }
 ---------------------------------------- */
 
 
-.footer { float:left; width: 100%; text-align: right; font-size: 0.8em;}
+.footer { float:left; width: 960px; margin-top: 20px; text-align: right; font-size: 0.8em;}
 
 

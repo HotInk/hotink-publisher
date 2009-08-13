@@ -88,6 +88,15 @@ class AccountsController < ApplicationController
     end
   end
   
+  
+  def take_offline
+    @account = Account.find(params[:id])
+    @redesign = @account.redesigns.create!
+    @press_run = @account.press_runs.create!
+    flash[:message] = "Site now offline"
+    redirect_to account_dashboard_url(@account)
+  end
+  
   def link_user_accounts
     if self.current_user.nil?
       #register with fb

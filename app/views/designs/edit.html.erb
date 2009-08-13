@@ -1,20 +1,20 @@
-<h1>Editing design</h1>
+<div id="design_form" class="form clearfix">
+	<p class="back_link"><%= link_to '&laquo; Back to design', account_design_path(@account, @design) %></p>
+	<h1>Edit design details</h1>
 
-<% form_for([@account, @design]) do |f| %>
-  <%= f.error_messages %>
+	<% form_for([@account, @design]) do |f| %>
+	  <%= f.error_messages %>
 
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description, :rows => "4" %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
-
-<%= link_to 'Show', [@account, @design] %> |
-<%= link_to 'Back', account_designs_path(@account) %>
+	  <div class="form_element">
+	    <%= f.label :name %><br />
+	    <%= f.text_field :name %>
+	  </div>
+	  <div class="form_element">
+	    <%= f.label :description %><br />
+	    <%= f.text_area :description, :rows => "4" %>
+	  </div>
+	  <div class="form_element" style="display:inline; float: right;">
+	    <%= button_link_to_submit 'Update', :class => "larger save" %>
+	  </div>
+	<% end %>
+</div>

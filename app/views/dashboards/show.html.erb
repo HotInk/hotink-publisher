@@ -1,36 +1,60 @@
-<h1>Publisher</h1>
+<div id="dashboard">
+	<h2>Publisher</h2>
+	<h1>Dashboard</h1>
+	
+	<div class="options">
+		<% if @account.current_design -%><%= button_link_to "Edit current design", account_design_path(@account, @account.current_design), :class=>"large pill-l" %><%= button_link_to_remote "New front page", :url => new_account_front_page_url(@account), :method => :get, :html => { :class=>"large pill-c" } %><% else -%><%=button_link_to_remote "New front page", :url => new_account_front_page_url(@account), :method => :get, :html => { :class=>"large pill-l" } %><% end -%><%= button_link_to "Hey-o", "#", :onclick => "alert('Heey-oooo!'); return false;", :class=>"large pill-c" %><%= button_link_to "Take site offline", take_offline_account_url(@account), :method => :post, :confirm => "You are about to take you site completely offline. Readers visiting your site will see a notice telling them that your site is temporarily offline.\n\nAre you sure you want to take your site offline?", :class=>"large cancel pill-r" %>
+	</div>
+	
+	<div class="guide">
+		<p>From this page you can control the current content and appearance of your publication's website.</p>
+		<p><strong>Be careful when making changes</strong> as the changes you make here will instantly affect how your site appears to readers.</p> 
+	</div>
+	
+	<div id="control_panel">
+		
+		<div id="current_front_page">
+			<h2>Current front page</h2>
+			<% if @account.current_front_page.blank? %>
+				<p>No current front page</p>
+			<% else %>
+				<p><%= @account.current_front_page.created_at.to_s(:standard) %> - <%= @account.current_front_page.name %></p>
+			<% end%>
+			<h3>New front page</h3>
+			<% if @account.designs.blank? %>
+				<p>You'll need at least one design in order to create a front page, please <%= link_to "create your first design", new_account_design_path(@account) %></p>
+			<% elsif @account.front_pages.blank? %>
+				<p><%= link_to "Create your first front page", new_account_front_page_path(@account) %></p>
+			<% else %>
+				<%- form_for([@account, @press_run], :html => { :onsubmit => "confirm('Are you sure you want to change your current front page? This change will be effective immediately.')" }) do |r| -%>
+					<%= r.collection_select :front_page_id, @account.front_pages, :id, :created_at, :prompt => "Choose new front page" %>
+					<%= button_link_to_submit "Update front page", :confirm => "Are you sure you want to update your front page? This change will be effective immediately." %>
+				<%- end -%>
+			<% end %>
+		</div>
 
-<div id="current_front_page">
-	<h2>Current front page</h2>
-	<% if @account.current_front_page.blank? %>
-		<p>No current front page</p>
-	<% else %>
-		<p><%= @account.current_front_page.created_at.to_s(:standard) %> - <%= @account.current_front_page.name %></p>
-	<% end%>
-	<h3>New front page</h3>
-	<% if @account.designs.blank? %>
-		<p>You'll need at least one design in order to create a front page, please <%= link_to "create your first design", new_account_design_path(@account) %></p>
-	<% elsif @account.front_pages.blank? %>
-		<p><%= link_to "Create your first front page", new_account_front_page_path(@account) %></p>
-	<% else %>
-		<%- form_for([@account, @press_run]) do |r| -%>
-			<%= r.collection_select :front_page_id, @account.front_pages, :id, :created_at, :prompt => "Choose new front page" %>
-			<%= button_link_to_submit "Update front page" %>
-		<%- end -%>
-	<% end %>
-</div>
 
+		<div id="current_design">
+			<h2>Current design</h2>
+			<p><%= @account.current_design.blank? ? "No current design" : @account.current_design.name  %></p>
+			<h3>Change design</h3>
+			<% if @account.designs.blank? %>
+				<%= link_to "Create first design", new_account_design_path(@account) %>
+			<% else %>
+				<%- form_for([@account, @redesign], :html => { :onsubmit => "confirm('Are you sure you want to change your current site design? This change will be effective immediately.')" } ) do |r| -%>
+					<%= r.collection_select :design_id, @account.designs, :id, :name, :prompt => "Choose new design" %>
+					<%= button_link_to_submit "Swap design"  %>
+				<%- end -%>
+			<% end %>
+		</div>
+		
+	</div>
+	
+</div><!-- /#dashboard -->
 
-<div id="current_design">
-	<h2>Current design</h2>
-	<p><%= @account.current_design.blank? ? "No current design" : @account.current_design.name  %></p>
-	<h3>Change design</h3>
-	<% if @account.designs.blank? %>
-		<%= link_to "Create first design", new_account_design_path(@account) %>
-	<% else %>
-		<%- form_for([@account, @redesign]) do |r| -%>
-			<%= r.collection_select :design_id, @account.designs, :id, :name, :prompt => "Choose new design" %>
-			<%= button_link_to_submit "Swap design" %>
-		<%- end -%>
-	<% end %>
-</div>
+<% content_for :javascript do -%>
+	<script type="text/javascript" charset="utf-8">
+		var page_overlay = new Overlay();
+		load_button_fix(); //fix firefox button display
+	</script>
+<% end -%>

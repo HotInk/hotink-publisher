@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # TODO: add unRESTful admin dashbouard section
 
-  map.resources :accounts do |account| # :only => [:index, :issues, :sections, :articles, :blogs, :pages, :comments ]
+  map.resources :accounts, :member => { :take_offline => :post } do |account| # :only => [:index, :issues, :sections, :articles, :blogs, :pages, :comments ]
     account.resources :articles do |article|
       article.resources :comments, :only => [:show, :create] 
       article.resources :mediafile
