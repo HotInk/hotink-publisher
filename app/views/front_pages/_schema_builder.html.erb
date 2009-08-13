@@ -10,17 +10,18 @@
 								
 				<li id="<%= name %>_<%= index %>">
 					<%= hidden_field_tag "schema[#{name}][ids][]", spec['ids'][index] %>
-					
+					<%= link_to_function "x", "empty_schema_position($(this).up());", :class => "empty_link" %>	
 					<% unless spec['ids'][index].blank? %>
 						<div class="clearfix">
-							<%= link_to_function "x", "empty_schema_position($(this).up().up());", :class => "empty_link" %>
 							<h1><%= @schema_articles[spec['ids'][index]].title %></h1>
 							<div class="article_details">
 								<div class="authors"><%= @schema_articles[spec['ids'][index]].authors_list %></div>
 							</div>
 						</div>
 					<% else %>
-						<p>Nothing in this position</p>
+						<div class="clearfix">
+							<p>Nothing in this position</p>
+						</div>
 					<% end%>
 					
 				</li>

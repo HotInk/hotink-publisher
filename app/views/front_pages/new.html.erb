@@ -1,8 +1,1 @@
-<%- if @account.current_design&&@account.current_design.templates.blank? -%>
-		<p>Your don't have any templates in your current design, <%= link_to "create one", new_account_design_template_path(@account, @account.current_design) %>.</p>
-<%- else -%>
-	<% form_for([@account, @front_page]) do |f| %>
-	  	<%= render :partial => "form", :locals => { :f => f } %>
-	<% end %>
-<%- end -%>
-
+<%= render :partial =>'build' %>

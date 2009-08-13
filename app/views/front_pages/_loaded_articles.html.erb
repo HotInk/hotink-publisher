@@ -3,7 +3,7 @@
 	<p style="float: left;">
 		<small><small>To add articles to your front page, drag them from here to the right location to the left</small></small>
 	</p>
-	<p style="float: right;">
+	<p style="float: right;margin:0;margin-top:10px;">
 		<% if params[:page]&&params[:page].to_i>1 %>
 			<%= button_link_to_remote "&laquo;", :url => edit_account_front_page_url(@account, f, :page => params[:page].to_i-1), :after => "$(this).next().setStyle({visibility: 'visible'});$('articles_list').addClassName('transparent');", :method => :get, :html => { :class=>'large pill' } %>
 		<% end %>

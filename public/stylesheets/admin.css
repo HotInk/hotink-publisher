@@ -44,6 +44,7 @@ div.form_element { margin: 5px 0; clear:left; }
 input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 
 /* Front page builder */
+#edit_front_page { float: left; padding-bottom: 10px; }
 #front_page_form { float: left; }
 #front_page_form h1 { margin-bottom: 20px;}
 #front_page_form .name_desc, #front_page_form .button { width: 680px; }
@@ -148,9 +149,10 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design #templates>div h3 { margin: 7px 0; font-size: 1.1em; }
 #design #templates>div+div { border-top: 1px dotted #333; margin-top: 10px; padding-top: 10px;}
 #design #templates ul { float: left; margin: 0; width: 100%; padding-left: 0; list-style: none; }
-#design #templates ul li { padding: 5px; width: 540px; }
+#design #templates ul li { float: left; padding: 5px; width: 540px; }
 #design #templates ul li+li { border-top: 1px solid #999;}
-#design #templates ul li .kill_link { color: red; float:right;}
+#design #templates ul li a { float: left; }
+#design #templates ul li a.kill_link { color: red; float:right;}
 #design #templates ul li .last_updated { float: right; margin-right: 7px; color: #515151; font-size: 0.9em; padding-top: 0.15em; }
 #design #templates ul li.layout { background-color: #CEE4F3; }
 #design #templates ul li.partial {background-color: #FFF6DD; }
@@ -242,3 +244,8 @@ div.small_top_button a img { width: 18px; border: none; }
 	
 /* End of custom button CSS
 ---------------------------------------- */
+
+
+.footer { float:left; width: 100%; text-align: right; font-size: 0.8em;}
+
+

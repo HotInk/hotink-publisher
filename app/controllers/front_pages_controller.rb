@@ -51,22 +51,10 @@ class FrontPagesController < ApplicationController
   # GET /front_pages/new
   # GET /front_pages/new.xml
   def new
-    if params[:template]
-      @front_page = @account.front_pages.build
-      @articles = Article.find(:all, :per_page => 10, :account_id => @account.account_resource_id )
-      # Process the schema template into a real schema
-      @front_page_template = FrontPageTemplate.find(params[:template])
-      @front_page.schema = @front_page_template.parse_schema
-      @front_page.template = @front_page_template
       respond_to do |format|
-        format.html # new.html.erb
-        format.xml  { render :xml => @front_page }
-      end
-    else
-      respond_to do |format|
+        format.html
         format.js
       end
-    end
   end
 
   # GET /front_pages/1/edit
@@ -84,24 +72,30 @@ class FrontPagesController < ApplicationController
     end
     @articles = Article.find(:all, :per_page => 10, :page => page, :account_id => @account.account_resource_id )
     
-  respond_to do |format|
-    format.html
-    format.js
-  end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # POST /front_pages
   # POST /front_pages.xml
   def create
-    @front_page = @account.front_pages.build(params[:front_page])
-    @front_page.schema = params[:schema]
+    @front_page = @account.front_pages.build
+
+    # Process the schema template into a real schema
+    @front_page_template = FrontPageTemplate.find(params[:template])
+    @front_page.schema = @front_page_template.parse_schema
+    @front_page.template = @front_page_template
+        
     respond_to do |format|
       if @front_page.save
         flash[:notice] = 'FrontPage was successfully created.'
         format.html { redirect_to(edit_account_front_page_path(@account, @front_page)) }
         format.xml  { render :xml => @front_page, :status => :created, :location => [@account, @front_page] }
       else
-        format.html { render :action => "new" }
+        flash[:error] = "Error building new front page from template."
+        format.html { redirect_to account_front_pages_url(@account) }
         format.xml  { render :xml => @front_page.errors, :status => :unprocessable_entity }
       end
     end

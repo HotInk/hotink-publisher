@@ -33,15 +33,14 @@
 			 	var new_article_id = new_article.id.split('_').pop();
 				var spec_holder_id = spec_holder.id.split('_').pop();
 				spec_holder.down().value = new_article_id;
-				spec_holder.down().next().innerHTML = new_article.innerHTML;
+				spec_holder.down().next().next().innerHTML = new_article.innerHTML;
 				//alert('Dropped \n\n' + new_article_id + "\n\non\n\n" + spec_holder_id ); 
 		}});
 	});
 	empty_schema_position = function( schema_element ) {
 		schema_element.down().value = "";
-		schema_element.down().next().remove();
-		if (schema_element.down().next()) schema_element.down().next().remove();
-		schema_element.insert( Builder.node('p', 'Nothing in this position'));
+		schema_element.down().next().next().remove();
+		schema_element.insert( Builder.node('div', {className: 'clearfix'}, Builder.node('p', 'Nothing in this position')) );
 	}
 </script>
 <% end %>
