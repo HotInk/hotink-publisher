@@ -42,8 +42,9 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     source.url
   end
   
-  def images
-    source.images.collect{|image| "http://hotink.theorem.ca/" + image}
+  def mediafiles
+    source.mediafiles
   end
+
   
 end
