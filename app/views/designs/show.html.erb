@@ -1,22 +1,68 @@
-<div id="design">	
-	<h1>Design: <span class="design_name"><%=h @design.name %></span></h1><p class="options"><%= link_to 'Edit details', edit_account_design_path(@account, @design) %> | <%= link_to 'New template', new_account_design_template_path(@account, @design) %> </p>
-	<%= markdown @design.description %>
-	<div>Default layout: 
-		<% if @design.layouts.blank? %> 
+<div id="design" class="clearfix">	
+	<h2>Site design</h2>
+	<h1 class="design_name"><%=h @design.name %></span></h1>
+	
+	<p class="options">
+		<span class="default_layout">
+		<% if @design.layouts.blank? -%> 
 			<%= link_to "Create a layout template", new_account_design_template_path(@account, @design) %> 
-		<% else %>
+		<% else -%>
 			<% form_for [@account, @design] do |f| %> 
+			    Default layout: 
 		  		<%= f.collection_select :layout_id, @design.layouts, :id, :name, :include_blank => "No default" %>
-				<%= submit_tag "Update" %>
+				<%= button_link_to_submit "Update" %>
 			<% end %>
-		<% end %>
+		<% end -%>
+		</span>
+		<%= button_link_to 'Edit design details', edit_account_design_path(@account, @design), :class=>"large" %> 
+		
+	</p>
+	
+	<div class="description">
+		<%= markdown @design.description %>
 	</div>
 
-	<ul>
-	<% for template in @design.templates -%>
-		<li>
-			<%= link_to template.name, edit_account_design_template_path(@account, @design, template) %> (<%= template.role.capitalize %>) <small style="color:red;"><%= link_to "delete", account_design_template_path(@account, @design, template), :method => :delete, :confirm => "Are you sure you want to delete this template?" %></small>
-		</li>
-	<% end %>
-	</ul>
+	<div id="templates">
+		<h2>Templates</h2>
+		<div id="front_page_templates" class="clearfix">
+			<h3>Front Page</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'front_pages/show'), :class=>"micro primary" %>
+			<ul>
+			<% for template in @design.front_page_templates -%>
+				<li class="front_page_template">
+					<%= link_to template.name, edit_account_design_template_path(@account, @design, template) %> <%= link_to "x", account_design_template_path(@account, @design, template), :method => :delete, :confirm => "Are you sure you want to delete\n\n#{template.name}\n\nfrom this design? Once deleted it can't be recovered.", :class=>"kill_link" %> <span class="last_updated"><%= template.created_at==template.updated_at ? "Created " : "Last updated "  %><%= template.updated_at.to_s(:standard) %></span>
+				</li>
+			<% end %>
+			</ul>
+		</div>
+		<div id="page_templates" class="clearfix">
+			<h3>Page</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'articles/show'), :class=>"micro primary" %>
+			<ul>
+			<% for template in @design.page_templates -%>
+				<li class="page_template">
+					<%= link_to template.name, edit_account_design_template_path(@account, @design, template) %> <%= link_to "x", account_design_template_path(@account, @design, template), :method => :delete, :confirm => "Are you sure you want to delete\n\n#{template.name}\n\nfrom this design? Once deleted it can't be recovered.", :class=>"kill_link" %> <span class="last_updated"><%= template.created_at==template.updated_at ? "Created " : "Last updated "  %><%= template.updated_at.to_s(:standard) %></span>
+				</li>
+			<% end %>
+			</ul>
+		</div>
+		<div id="partial_templates" class="clearfix">
+			<h3>Partial</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'partial'), :class=>"micro primary" %>
+			<ul>
+			<% for template in @design.partial_templates -%>
+				<li class="partial">
+					<%= link_to template.name, edit_account_design_template_path(@account, @design, template) %> <%= link_to "x", account_design_template_path(@account, @design, template), :method => :delete, :confirm => "Are you sure you want to delete\n\n#{template.name}\n\nfrom this design? Once deleted it can't be recovered.", :class=>"kill_link" %> <span class="last_updated"><%= template.created_at==template.updated_at ? "Created " : "Last updated "  %><%= template.updated_at.to_s(:standard) %></span>
+				</li>
+			<% end %>
+			</ul>
+		</div>
+		<div id="layouts" class="clearfix">
+			<h3>Layouts</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'layout'), :class=>"micro primary" %>
+			<ul>
+			<% for template in @design.layouts -%>
+				<li class="layout">
+					<%= link_to template.name, edit_account_design_template_path(@account, @design, template) %>  <%= link_to "x", account_design_template_path(@account, @design, template), :method => :delete, :confirm => "Are you sure you want to delete\n\n#{template.name}\n\nfrom this design? Once deleted it can't be recovered.", :class=>"kill_link" %> <span class="last_updated"><%= template.created_at==template.updated_at ? "Created " : "Last updated "  %><%= template.updated_at.to_s(:standard) %></span>
+				</li>
+			<% end %>
+			</ul>
+		</div>
+	</div>
 </div>

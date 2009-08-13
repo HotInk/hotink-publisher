@@ -15,7 +15,7 @@
 	<% else %>
 		<%- form_for([@account, @press_run]) do |r| -%>
 			<%= r.collection_select :front_page_id, @account.front_pages, :id, :created_at, :prompt => "Choose new front page" %>
-			<%= submit_tag "Update front page" %>
+			<%= button_link_to_submit "Update front page" %>
 		<%- end -%>
 	<% end %>
 </div>
@@ -30,7 +30,7 @@
 	<% else %>
 		<%- form_for([@account, @redesign]) do |r| -%>
 			<%= r.collection_select :design_id, @account.designs, :id, :name, :prompt => "Choose new design" %>
-			<%= submit_tag "Swap design" %>
+			<%= button_link_to_submit "Swap design" %>
 		<%- end -%>
 	<% end %>
 </div>

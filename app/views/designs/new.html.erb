@@ -1,23 +1,25 @@
-<h1>New design</h1>
+<div id="design_form" class="form clearfix">
 
-<% form_for([@account, @design]) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :account_id %><br />
-    <%= f.text_field :account_id %>
-  </p>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-<% end %>
-
-<%= link_to 'Back', account_designs_path(@account) %>
+	<% form_for([@account, @design]) do |f| %>
+	  <h1>New design</h1>
+	  <%= f.error_messages %>	
+	  <p>A <strong>design</strong> is a collection of <strong>page templates</strong>, <strong>images</strong>, <strong>stylesheets</strong>, and <strong>javascript files</strong> that together make up a complete visual presentation of your publication's website.
+		After creating a new design you can preview it securely and, when you're ready, make it the current design visitors see when they visit your site.<p>  
+	  <p>To create your design, give it a name and write short description describing what this template looks like, who its designers are and why it was created.</p>
+	
+	  <div class="form_element">
+	    <%= f.label :name %><br />
+	    <%= f.text_field :name, :class => "large" %>
+	  </div>
+	  <div class="form_element">
+	    <%= f.label :description %><br />
+	    <%= f.text_area :description, :rows => 4 %>
+	  </div>
+	
+	  <div class="form_element" style="display:inline; float: right;">
+	    <%= button_link_to_submit 'Create', :class=>"larger save" %>
+	  </div>
+	
+	<% end %>
+	
+</div>

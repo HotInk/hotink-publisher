@@ -1,3 +1,5 @@
+<div id="front_page_index">
+
 <h1>Front Pages</h1>
 
 <ol>
@@ -15,4 +17,6 @@
 		var page_overlay = new Overlay();
 	</script>
 <% end -%>
-<%= link_to_remote 'New front_page', :url=>new_account_front_page_path(@account, :format => :js), :method => :get %>
+<%= button_link_to_remote 'New Front Page', :url=>new_account_front_page_path(@account, :format => :js), :method => :get %>
+
+</div>

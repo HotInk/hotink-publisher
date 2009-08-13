@@ -1,9 +1,14 @@
 /* Base styles, from Hot Ink */
 html, body { height: 100%; }
 body { background-color: #FFF; color: #333; margin: 0 auto; padding: 0 10px;}
-body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, sans-serif; font-size: 13.34px; line-height: 1.2; }
-#page h1 { margin: 0; padding: 5px 0; font-size: 3em; font-weight: normal; font-family: georgia, "Times New Roman", times, serif; font-style: italic; color: #AAA; }
-.flash { float: left; margin: 2px 0; clear: both; }
+body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, sans-serif; font-size: 13.34px; line-height: 1.3; }
+#page h1 { float: left; margin: 10px 0; clear: right; font-size: 3em; font-weight: normal; font-family: georgia, "Times New Roman", times, serif; font-style: italic; color: #AAA; }
+.flash { float: right; margin: 0; margin-right: 10px; clear: right; }
+.flash p { margin: 5px;}
+
+/* Dashboard style */
+
+#current_front_page, #current_design { float: left; clear: left; }
 
 /* Begin publisher styles */
 #navigation { width: 100%; float: left; list-style: none; margin: 0; padding-left: 10px; margin-left: -10px; background-color: #FFF6DD; }
@@ -16,9 +21,14 @@ p.options { margin-left: 0.5em; }
 fieldset.entity { width: 30%; }
 
 /* Generic form styles */
-.back_link { float:left; width: 100%; clear: both; margin: 5px 0; }
+.back_link { float:left; clear: left; margin: 5px 0; }
 input[type="text"] { background: none; font-size: 1.1em; padding: 0.1em; border: 1px solid #DEDEDE; background-color: #FDFDFD; color: #555; }
 textarea {font-size: 1.1em; padding: 0.1em; border: 1px solid #DEDEDE; background-color: #FDFDFD; color: #555; }
+select { min-width: 100px; background: none; font-size: 1.1em; padding: 0.1em; margin-top: 3px; border: 1px solid #DEDEDE; background-color: #FDFDFD; color: #555; }
+
+div.form, div.form div { float: left; }
+div.form_element { margin: 5px 0; clear:left; }
+input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 
 /* Front page builder */
 #front_page_form { float: left; }
@@ -71,24 +81,67 @@ textarea {font-size: 1.1em; padding: 0.1em; border: 1px solid #DEDEDE; backgroun
 
 
 /* Page template edit */
-#edit_template h1, #edit_front_page h1,
-.name_desc, #edit_template .code,
+#template_form h1, #edit_front_page h1, #template_form .details,
+.name_desc, #template_form .template_data_info, #template_form .code,
 .form_title { float: left;  }
 .name_desc { width: auto; margin-left: 5px; }
-#edit_template .name_desc input, #edit_template .name_desc textarea { width: 100%; }
-#edit_template h1 { margin-bottom: 5px; }
-#edit_template .name_desc { width: 380px; }
-#edit_template .form_title { clear: left; width: 315px; }
-#edit_template .form_title select {  width: 100%; background: none; font-size: 1.1em; padding: 0.1em; margin-top: 3px; border: 1px solid #DEDEDE; background-color: #FDFDFD; color: #555; }
-#edit_template .name_desc input { margin-bottom: 10px; }
-#edit_template .template, #edit_template .layout { float: left; width: 47%; margin-right: 3%; }
-#edit_template .entity_definitions { float:left; width: 703px; border: 1px solid #DEDEDE; margin: 15px 0 5px 0; }
-#edit_template .entity_definitions .entity { float: left; width: 26%; margin: 5px 0.5%; }
-#edit_template .code { clear: left; margin: 5px 0; }
-#edit_template .button { text-align: right; width: 700px; float: left; margin-bottom: 5px; }
+#template_form .name_desc input, #template_form .name_desc textarea { width: 100%; }
+#template_form h1 { margin: 5px 0; }
+#template_form .name_desc { width: 240px; }
+#template_form .form_title { clear: left; width: 315px; }
+#template_form .template_data_info { width: 386px; height: 60px; margin-left: 15px; border-left: 1px solid #999; padding-left: 15px; }
+#template_form .form_title select {  width: 100%; background: none; font-size: 1.1em; padding: 0.1em; margin-top: 3px; border: 1px solid #DEDEDE; background-color: #FDFDFD; color: #555; }
+#template_form .name_desc input { margin-bottom: 10px; }
+#template_form .template, #template_form .layout { float: left; width: 47%; margin-right: 3%; }
+#template_form .entity_definitions { float:left; width: 703px; border: 1px solid #DEDEDE; margin: 15px 0 5px 0; }
+#template_form .entity_definitions .entity { float: left; width: 26%; margin: 5px 0.5%; }
+#template_form .code { clear: left; margin: 5px 0; width: 98%; margin-right: 2%; }
+#template_form .button { text-align: right; width: 98%; margin-right: 2%;float: left; margin-bottom: 5px; }
 
-#edit_template .code textarea { width: 950px; margin-top: 3px; line-height: 1.35; color: black; font-family: courier, monospace, sans-serif; }
+#template_form .code textarea { width: 100%; margin-top: 3px; line-height: 1.35; color: black; font-family: courier, monospace, sans-serif; }
 .edit_page_template input, .edit_page_template textarea { color: #333; }
+
+/* Front Page index */
+#front_page_index { float: left; clear: left; }
+
+#front_page_build_form { }
+
+/* Design form */
+#design_form, #design_form p, #design_form input[type="text"], #design_form textarea { width: 620px; }
+#design_form h1  { clear: none; }
+#design_form p { line-height: 1.4; width: 100%; clear:both; }
+#design_form input[type="text"], #design_form textarea { }
+
+/* Design index */
+#design_index, #design_index ul { width: 700px; clear:left; float: left; }
+#design_index h1 { clear: left; margin-right: 20px;  }
+#design_index a.btn { margin-top: 29px; }
+#design_index p { width: 30em; line-height: 1.4; clear:left; }
+
+/* Design show */
+#design { float: left; width: 100%; }
+#design h1 { margin: 5px 0;}
+#design h2 { text-decoration: underline; margin: 0; margin-top: 10px; font-size: 1.25em; }
+#design h3 { float: left; }
+#design .options { margin-left: 255px; }
+#design .options .default_layout { margin-right: 10px;}
+#design .options .default_layout form { display: inline;}
+#design .description { width: 240px; margin-right: 10px; line-height:; float:left; clear: left;}
+#design #templates { width: 550px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
+#design #templates h2 { margin-bottom: 10px; }
+#design #templates a.btn { margin-top: 8px; margin-left: 10px; } 
+#design #templates>div { float:left; clear: both; width: 100%; }
+#design #templates>div h3 { margin: 7px 0; font-size: 1.1em; }
+#design #templates>div+div { border-top: 1px dotted #333; margin-top: 10px; padding-top: 10px;}
+#design #templates ul { float: left; margin: 0; width: 100%; padding-left: 0; list-style: none; }
+#design #templates ul li { padding: 5px; width: 540px; }
+#design #templates ul li+li { border-top: 1px solid #999;}
+#design #templates ul li .kill_link { color: red; float:right;}
+#design #templates ul li .last_updated { float: right; margin-right: 7px; color: #515151; font-size: 0.9em; padding-top: 0.15em; }
+#design #templates ul li.layout { background-color: #CEE4F3; }
+#design #templates ul li.partial {background-color: #FFF6DD; }
+#design #templates ul li.page_template {background-color: #DEFFDB; }
+#design #templates ul li.front_page_template { background-color: #FFDBDB }
 
 /* Overlay css */
 

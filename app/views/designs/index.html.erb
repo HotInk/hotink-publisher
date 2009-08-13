@@ -1,15 +1,13 @@
-<h1>Listing designs</h1>
-
-
-<ul>
-<% @designs.each do |design| %>
-  <li id="design_<%= design.id %>" class="design">
-    <h2><%= link_to h(design.name), [@account, design] %></h2>
-    <p class="options"><%= link_to 'Edit', edit_account_design_path(@account, design) %> | <%= link_to 'Destroy', [@account, design], :confirm => 'Are you sure?', :method => :delete %></p>
-	<%= markdown design.description %>
-  </li>
-<% end %>
-</ul>
-<br />
-
-<%= link_to 'New design', new_account_design_path(@account) %>
+<div id="design_index">
+	<h1>Site Designs</h1>	
+	<%= button_link_to 'New design', new_account_design_path(@account) %>
+	<ul>
+	<% @designs.each do |design| %>
+	  <li id="design_<%= design.id %>" class="design">
+	    <h2><%= link_to h(design.name), [@account, design] %></h2>
+	    <p class="options"><%= link_to 'Edit', edit_account_design_path(@account, design) %> | <%= link_to 'Destroy', [@account, design], :confirm => 'Are you sure?', :method => :delete %></p>
+		<%= markdown design.description %>
+	  </li>
+	<% end %>
+	</ul>
+</div>

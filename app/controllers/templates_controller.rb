@@ -32,8 +32,19 @@ class TemplatesController < ApplicationController
   # GET /templates/new.xml
   def new
     
-    @tplate = @design.templates.build
-    @tplate.role = params[:role]
+    case params[:role]
+    when nil
+      @tplate = @design.templates.build
+    when 'layout'
+      @tplate = @design.layouts.build(:role => 'layout')
+    when 'partial'
+      @tplate = @design.partial_templates.build(:role => 'partial')
+    when 'front_pages/show'
+      @tplate = @design.front_page_templates.build(:role => 'front_pages/show')
+      @tplate.schema = []
+    else
+      @tplate = @design.page_templates.build(:role => params[:role])
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -50,16 +61,19 @@ class TemplatesController < ApplicationController
   # POST /templates.xml
   def create
     
-    case params[:template][:role]
+    # Find template attributes
+    model_params = params[:template] || params[:front_page_template] || params[:page_template] || params[:partial_template] || params[:layout]
+    
+    case model_params[:role]
     when 'layout' 
-      @tplate = @design.layouts.build(params[:template])
+      @tplate = @design.layouts.build(model_params)
     when 'partial'
-       @tplate = @design.partial_templates.build(params[:template])
+       @tplate = @design.partial_templates.build(model_params)
     when 'front_pages/show'
-      @tplate = @design.front_page_templates.build(params[:template])
-      @tplate.schema = (params[:template][:schema] || []) # assign serialized attribute explicitly
+      @tplate = @design.front_page_templates.build(model_params)
+      @tplate.schema = (model_params[:schema] || []) # assign serialized attribute explicitly
     else
-      @tplate = @design.page_templates.build(params[:template])
+      @tplate = @design.page_templates.build(model_params)
     end
     
     # Pre-parse the template in the controller, it can't happen in the model
@@ -112,7 +126,7 @@ class TemplatesController < ApplicationController
   def destroy
     @tplate = @design.templates.find(params[:id])
     @tplate.destroy
-
+    flash[:notice] = "Template deleted."
     respond_to do |format|
       format.html { redirect_to(account_design_url(@account, @design)) }
       format.xml  { head :ok }
