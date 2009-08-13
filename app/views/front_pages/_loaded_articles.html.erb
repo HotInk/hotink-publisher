@@ -5,11 +5,11 @@
 	</p>
 	<p style="float: right;">
 		<% if params[:page]&&params[:page].to_i>1 %>
-			<%= button_link_to_remote "&laquo;", :url => edit_account_front_page_url(@account, f, :page => params[:page].to_i-1), :after => "$(this).next().setStyle({visibility: 'visible'})", :method => :get, :html => { :class=>'large pill' } %>
+			<%= button_link_to_remote "&laquo;", :url => edit_account_front_page_url(@account, f, :page => params[:page].to_i-1), :after => "$(this).next().setStyle({visibility: 'visible'});$('articles_list').addClassName('transparent');", :method => :get, :html => { :class=>'large pill' } %>
 		<% end %>
-		<img src="/images/loading_small_white.gif" style="visibility: hidden; margin: 0 2px;"/>
+		<img src="/images/loading_small_white.gif" style="visibility: hidden; margin: 2px; position: relative; top: 5px;"/>
 		<% article_page = params[:page] || 1 -%>
-		<%= button_link_to_remote "&raquo;", :url => edit_account_front_page_url(@account, f, :page => article_page.to_i+1), :after => "$(this).previous().setStyle({visibility: 'visible'})", :method => :get, :html => { :class=>'large pill' } %>
+		<%= button_link_to_remote "&raquo;", :url => edit_account_front_page_url(@account, f, :page => article_page.to_i+1), :after => "$(this).previous().setStyle({visibility: 'visible'});$('articles_list').addClassName('transparent');", :method => :get, :html => { :class=>'large pill' } %>
 	</p>
 	<ol id="articles_list">
 		<% for article in @articles %>

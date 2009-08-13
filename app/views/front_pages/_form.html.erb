@@ -12,7 +12,7 @@
 
 	<div class="name_desc clearfix">
 			<div class="button">
-		  		<%= button_link_to_submit 'Save' %>
+		  		<%= button_link_to_submit 'Save', :class => "larger save" %>
 			</div>
 		    <div class="details">
 				<%= f.label :name %> <small>(optional)</small><br />
@@ -33,9 +33,7 @@
 			 	var new_article_id = new_article.id.split('_').pop();
 				var spec_holder_id = spec_holder.id.split('_').pop();
 				spec_holder.down().value = new_article_id;
-				spec_holder.down().next().remove();
-				if (spec_holder.down().next()) spec_holder.down().next().remove(); // Catch already placed author details.
-				spec_holder.insert(new_article.innerHTML);
+				spec_holder.down().next().innerHTML = new_article.innerHTML;
 				//alert('Dropped \n\n' + new_article_id + "\n\non\n\n" + spec_holder_id ); 
 		}});
 	});
