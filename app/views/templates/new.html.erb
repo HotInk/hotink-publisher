@@ -1,5 +1,5 @@
-<p class="back_link"><%= link_to '&laquo; Back to design', account_design_path(@account, @design) %></p>
 <div id="template_form" class="clearfix">
+	<p class="back_link"><%= link_to '&laquo; Back to design', account_design_path(@account, @design) %></p>
 	<% form_for(@tplate, :url=>account_design_templates_path(@account, @design) ) do |f| %>
 	  <%= f.error_messages %>
 	  <%= render :partial => "form", :locals => { :f => f } %>

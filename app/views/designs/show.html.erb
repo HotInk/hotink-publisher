@@ -2,10 +2,10 @@
 	<h2>Site design</h2>
 	<h1 class="design_name"><%=h @design.name %></span></h1>
 	
-	<p class="options">
+	<div class="options">
 		<span class="default_layout">
 		<% if @design.layouts.blank? -%> 
-			<%= link_to "Create a layout template", new_account_design_template_path(@account, @design) %> 
+			<%= link_to "Create a layout template", new_account_design_template_path(@account, @design, :role => 'layout') %> 
 		<% else -%>
 			<% form_for [@account, @design] do |f| %> 
 			    Default layout: 
@@ -15,8 +15,7 @@
 		<% end -%>
 		</span>
 		<%= button_link_to 'Edit design details', edit_account_design_path(@account, @design), :class=>"large" %> 
-		
-	</p>
+	</div>
 	
 	<div class="description">
 		<% if @design.description.blank? %>
@@ -29,7 +28,7 @@
 	<div id="templates">
 		<h2>Templates</h2>
 		<div id="front_page_templates" class="clearfix">
-			<h3>Front Page</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'front_pages/show'), :class=>"micro primary" %>
+			<h3>Front Pages</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'front_pages/show'), :class=>"micro primary" %>
 			<ul>
 			<% for template in @design.front_page_templates -%>
 				<li class="front_page_template">
@@ -39,7 +38,7 @@
 			</ul>
 		</div>
 		<div id="page_templates" class="clearfix">
-			<h3>Page</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'articles/show'), :class=>"micro primary" %>
+			<h3>Pages</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'articles/show'), :class=>"micro primary" %>
 			<ul>
 			<% for template in @design.page_templates -%>
 				<li class="page_template">
@@ -49,7 +48,7 @@
 			</ul>
 		</div>
 		<div id="partial_templates" class="clearfix">
-			<h3>Partial</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'partial'), :class=>"micro primary" %>
+			<h3>Partials</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'partial'), :class=>"micro primary" %>
 			<ul>
 			<% for template in @design.partial_templates -%>
 				<li class="partial">

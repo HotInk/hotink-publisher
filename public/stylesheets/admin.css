@@ -136,7 +136,7 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #template_form .code { clear: left; margin: 5px 0; width: 98%; margin-right: 2%; }
 #template_form .button { text-align: right; width: 98%; margin-right: 2%;float: left; margin-bottom: 5px; }
 
-#template_form .code textarea { width: 100%; margin-top: 3px; line-height: 1.35; color: black; font-family: courier, monospace, sans-serif; }
+#template_form .code textarea { border-color: #999; width: 100%; margin-top: 3px; line-height: 1.35; color: black; font-family: courier, monospace, sans-serif; }
 .edit_page_template input, .edit_page_template textarea { color: #333; }
 
 /* Front Page index */
@@ -164,18 +164,18 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design>h2 { float: left;}
 #design h2 { text-decoration: underline; margin: 0; margin-top: 10px; font-size: 1.25em; }
 #design h3 { float: left; }
-#design .options { margin-left: 255px; padding-top: 18px; }
+#design .options {  float: left; width: 755px; text-align: right; padding-top: 18px;}
 #design .options .default_layout { margin-right: 10px;}
 #design .options .default_layout form { display: inline;}
 #design .description { width: 240px; margin-right: 10px; float:left; clear: left;}
-#design #templates { width: 550px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
+#design #templates { width: 600px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
 #design #templates h2 { margin-bottom: 10px; }
 #design #templates a.btn { margin-top: 8px; margin-left: 10px; } 
 #design #templates>div { float:left; clear: both; width: 100%; }
 #design #templates>div h3 { margin: 7px 0; font-size: 1.1em; }
 #design #templates>div+div { border-top: 1px dotted #333; margin-top: 10px; padding-top: 10px;}
 #design #templates ul { float: left; margin: 0; width: 100%; padding-left: 0; list-style: none; }
-#design #templates ul li { float: left; padding: 5px; width: 540px; }
+#design #templates ul li { float: left; width: 98%; padding: 5px; }
 #design #templates ul li+li { border-top: 1px solid #999;}
 #design #templates ul li a { float: left; }
 #design #templates ul li a.kill_link { color: red; float:right;}
