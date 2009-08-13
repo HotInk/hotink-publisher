@@ -33,19 +33,31 @@ class Design < ActiveRecord::Base
   
   # Returns a list of the design's javascript files 
   def javascript_files
-    entries = Dir.entries("#{design_root}/javascripts")
-    entries.reject { |f| f=="."||f==".." }
+    begin
+      entries = Dir.entries("#{design_root}/javascripts")
+      entries.reject { |f| f=="."||f==".." }
+    rescue
+      []
+    end
   end
   
   # Returns a list of the design's stylesheets 
   def stylesheets
-    entries = Dir.entries("#{design_root}/stylesheets")
-    entries.reject { |f| f=="."||f==".." }
+    begin 
+      entries = Dir.entries("#{design_root}/stylesheets")
+      entries.reject { |f| f=="."||f==".." }
+    rescue
+      []
+    end   
   end
   
   def template_media
-   entries = Dir.entries("#{design_root}/media")
-   entries.reject { |f| f=="."||f==".." }
+    begin
+      entries = Dir.entries("#{design_root}/media")
+      entries.reject { |f| f=="."||f==".." }
+    rescue
+      []
+    end
   end
   
   private
