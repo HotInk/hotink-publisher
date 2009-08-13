@@ -140,7 +140,7 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design .options { margin-left: 255px; }
 #design .options .default_layout { margin-right: 10px;}
 #design .options .default_layout form { display: inline;}
-#design .description { width: 240px; margin-right: 10px; line-height:; float:left; clear: left;}
+#design .description { width: 240px; margin-right: 10px; float:left; clear: left;}
 #design #templates { width: 550px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
 #design #templates h2 { margin-bottom: 10px; }
 #design #templates a.btn { margin-top: 8px; margin-left: 10px; } 

@@ -19,7 +19,11 @@
 	</p>
 	
 	<div class="description">
-		<%= markdown @design.description %>
+		<%= if @design.description.blank? %>
+			<p><%= link_to "Add a description", edit_account_design_path(@account, @design) %> for this design.</p>	
+		<% else %>
+			<%= markdown @design.description %>
+		<% end %>
 	</div>
 
 	<div id="templates">
