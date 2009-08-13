@@ -34,8 +34,6 @@ class FrontPagesController < ApplicationController
     data_for_render = {}
     schema_articles = {}
     
-    debugger 
-    
     article_resources.each do |article|
       schema_articles.merge!(article.id => article)
     end
