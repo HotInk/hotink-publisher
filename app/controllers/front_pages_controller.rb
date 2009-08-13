@@ -26,15 +26,20 @@ class FrontPagesController < ApplicationController
     schema_ids = Array.new
     @front_page.schema.each_key do |item|
       schema_ids += @front_page.schema[item]['ids']
-    end
-    article_resources = Article.find(:all, :ids => schema_ids, :account_id => @account.account_resource_id )
+    end    
     
+    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id)
+  
     # Recontruct front page schema as hash keyed by entity name
     data_for_render = {}
     schema_articles = {}
+    
+    debugger 
+    
     article_resources.each do |article|
       schema_articles.merge!(article.id => article)
     end
+    
     @front_page.schema.each_key do |item|
       item_array = @front_page.schema[item]['ids'].collect{ |i| schema_articles[i] }
       data_for_render.merge!( item => item_array )
