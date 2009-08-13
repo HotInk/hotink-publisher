@@ -72,16 +72,22 @@ class FrontPagesController < ApplicationController
   # GET /front_pages/1/edit
   def edit
     @front_page = @account.front_pages.find(params[:id])
+    page = params[:page] || 1
     schema_ids = Array.new
     @front_page.schema.each_key do |item|
       schema_ids += @front_page.schema[item]['ids'].compact unless @front_page.schema[item]['ids'].blank?
     end
     @schema_articles = {}
-    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @access_token )
+    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id)
     article_resources.each do |article|
       @schema_articles.merge!(article.id => article)
     end
-    @articles = Article.find(:all, :per_page => 10, :account_id => @account.account_resource_id )
+    @articles = Article.find(:all, :per_page => 10, :page => page, :account_id => @account.account_resource_id )
+    
+  respond_to do |format|
+    format.html
+    format.js
+  end
   end
 
   # POST /front_pages

@@ -40,7 +40,7 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #front_page_name { font-size: 1.8em;  }
 #front_page_form .button { text-align: right; width: 100%; float: left; margin-bottom: 5px;}
 #front_page_form .loaded_articles { width: 100%; float: left;  }
-#front_page_form #articles_list { width: 94%; }
+#front_page_form #articles_list { width: 100%; }
 #front_page_form .schema_builder { float: left; width: 290px; }
 #front_page_form .schema_builder>p { font-family: georgia,"times new roman",times, serif;}
 #front_page_form .schema_builder fieldset { border: 1px solid #DEDEDE; margin-bottom: 10px; }
