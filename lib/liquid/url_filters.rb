@@ -14,7 +14,7 @@ module Liquid
     #   link_for(account_issue_path(@account, @section))
     # end
     # 
-
+    
     def link_to_article(article, title=nil)
        @account = Account.find(article.account_id)
        url = @account.url + "/articles/" + article["id"].to_s

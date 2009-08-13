@@ -67,5 +67,40 @@
 			<% end %>
 			</ul>
 		</div>
+		<div id="stylesheets" class="clearfix">
+			<h3>Stylesheets</h3><%= button_link_to_remote 'New', :url => new_account_design_template_medium_path(@account, @design), :method => :get, :class=>"micro primary" %>
+			<ul>
+			<% for stylesheet in @design.stylesheets %>
+				<li class="stylesheet">
+					<%= stylesheet %>
+				</li>
+			<% end %>
+			</ul>
+		</div>
+		<div id="javascripts" class="clearfix">
+			<h3>Javscript files</h3><%= button_link_to_remote 'New', :url => new_account_design_template_medium_path(@account, @design), :method => :get, :class=>"micro primary" %>
+			<ul>
+			<% for javascript_file in @design.javascript_files %>
+				<li class="javascript_file">
+					<%= javascript_file %>
+				</li>
+			<% end %>
+			</ul>
+		</div>
+		<div id="template_media" class="clearfix">
+			<h3>Template media</h3><%= button_link_to_remote 'New', :url => new_account_design_template_medium_path(@account, @design), :method => :get, :class=>"micro primary" %>
+			<ul>
+			<% for template_mediafile in @design.template_media %>
+				<li class="template_media">
+					<%= template_mediafile %>
+				</li>
+			<% end %>
+			</ul>
+		</div>
 	</div>
 </div>
+<% content_for :javascript do -%>
+	<script type="text/javascript" charset="utf-8">
+		var page_overlay = new Overlay();
+	</script>
+<% end -%>

@@ -5,6 +5,7 @@ body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, s
 #page h1 { float: left; margin: 10px 0; clear: right; font-size: 3em; font-weight: normal; font-family: georgia, "Times New Roman", times, serif; font-style: italic; color: #AAA; }
 .flash { float: right; margin: 0; margin-right: 10px; clear: right; }
 .flash p { margin: 5px;}
+.kill_link { text-decoration: none; }
 
 .translucent  {
 		filter: alpha(opacity=75); /* internet explorer */
@@ -150,6 +151,7 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design_form, #design_form p, #design_form input[type="text"], #design_form textarea { width: 620px; }
 #design_form h1  { clear: none; }
 #design_form p { line-height: 1.4; width: 100%; clear:both; }
+#design_form input[type="text"] { height: 1.5em; }
 #design_form input[type="text"], #design_form textarea { }
 
 /* Design index */
@@ -170,7 +172,8 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design .description { width: 240px; margin-right: 10px; float:left; clear: left;}
 #design #templates { width: 600px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
 #design #templates h2 { margin-bottom: 10px; }
-#design #templates a.btn { margin-top: 8px; margin-left: 10px; } 
+#design #templates a.btn, #design #templates button.btn { margin-top: 8px; margin-left: 10px; }
+#design #templates button.btn { font-weight: bold; font-size: 0.75em; margin-top: 4px; } 
 #design #templates>div { float:left; clear: both; width: 100%; }
 #design #templates>div h3 { margin: 7px 0; font-size: 1.1em; }
 #design #templates>div+div { border-top: 1px dotted #333; margin-top: 10px; padding-top: 10px;}
@@ -180,10 +183,10 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design #templates ul li a { float: left; }
 #design #templates ul li a.kill_link { color: red; float:right;}
 #design #templates ul li .last_updated { float: right; margin-right: 7px; color: #515151; font-size: 0.9em; padding-top: 0.15em; }
-#design #templates ul li.layout { background-color: #CEE4F3; }
-#design #templates ul li.partial {background-color: #FFF6DD; }
+#design #templates ul li.layout, #design #templates ul li.template_media { background-color: #CEE4F3; }
+#design #templates ul li.partial, #design #templates ul li.stylesheet {background-color: #FFF6DD; }
 #design #templates ul li.page_template {background-color: #DEFFDB; }
-#design #templates ul li.front_page_template { background-color: #FFDBDB }
+#design #templates ul li.front_page_template, #design #templates ul li.javascript_file { background-color: #FFDBDB }
 
 /* Overlay css */
 
