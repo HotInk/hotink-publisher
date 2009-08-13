@@ -5,7 +5,7 @@
 	<% @designs.each do |design| %>
 	  <li id="design_<%= design.id %>" class="design">
 	    <h2><%= link_to h(design.name), [@account, design] %></h2>
-	    <p class="options"><%= link_to 'Edit', edit_account_design_path(@account, design) %> | <%= link_to 'Destroy', [@account, design], :confirm => 'Are you sure?', :method => :delete %></p>
+	    <p class="options"><%= link_to 'Edit', edit_account_design_path(@account, design) %> | <%= link_to 'x', [@account, design], :confirm => 'Are you sure?', :style=>'color:red;', :method => :delete %></p>
 		<%= markdown design.description %>
 	  </li>
 	<% end %>

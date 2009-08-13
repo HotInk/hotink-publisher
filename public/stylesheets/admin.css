@@ -93,7 +93,7 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #template_form .form_title select {  width: 100%; background: none; font-size: 1.1em; padding: 0.1em; margin-top: 3px; border: 1px solid #DEDEDE; background-color: #FDFDFD; color: #555; }
 #template_form .name_desc input { margin-bottom: 10px; }
 #template_form .template, #template_form .layout { float: left; width: 47%; margin-right: 3%; }
-#template_form .entity_definitions { float:left; width: 703px; border: 1px solid #DEDEDE; margin: 15px 0 5px 0; }
+#template_form .entity_definitions { float:left; width: 98%; border: 1px solid #DEDEDE; margin: 15px 0 2% 0; }
 #template_form .entity_definitions .entity { float: left; width: 26%; margin: 5px 0.5%; }
 #template_form .code { clear: left; margin: 5px 0; width: 98%; margin-right: 2%; }
 #template_form .button { text-align: right; width: 98%; margin-right: 2%;float: left; margin-bottom: 5px; }
@@ -120,7 +120,8 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 
 /* Design show */
 #design { float: left; width: 100%; }
-#design h1 { margin: 5px 0;}
+#design h1 { margin: 5px 0; clear: left; }
+#design>h2 { float: left;}
 #design h2 { text-decoration: underline; margin: 0; margin-top: 10px; font-size: 1.25em; }
 #design h3 { float: left; }
 #design .options { margin-left: 255px; }

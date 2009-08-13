@@ -6,6 +6,8 @@ class FrontPageTemplate < Template
   end
   
   serialize :schema, Array
+  
+  validates_presence_of :schema, :message => " must be present in order to load content for the front page."
     
   def parse_schema
     parsed_schema = {}

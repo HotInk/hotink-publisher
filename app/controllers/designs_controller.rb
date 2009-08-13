@@ -64,7 +64,6 @@ class DesignsController < ApplicationController
 
     respond_to do |format|
       if @design.update_attributes(params[:design])
-        flash[:notice] = 'Design was successfully updated.'
         format.html { redirect_to([@account, @design]) }
         format.xml  { head :ok }
       else
