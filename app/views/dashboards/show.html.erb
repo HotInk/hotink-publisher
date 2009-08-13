@@ -3,7 +3,7 @@
 	<h1>Dashboard</h1>
 	
 	<div class="options">
-		<% if @account.current_design -%><%= button_link_to "Edit current design", account_design_path(@account, @account.current_design), :class=>"large pill-l" %><%= button_link_to_remote "New front page", :url => new_account_front_page_url(@account), :method => :get, :html => { :class=>"large pill-c" } %><% else -%><%=button_link_to_remote "New front page", :url => new_account_front_page_url(@account), :method => :get, :html => { :class=>"large pill-l" } %><% end -%><%= button_link_to "Hey-o", "#", :onclick => "alert('Heey-oooo!'); return false;", :class=>"large pill-c" %><%= button_link_to "Take site offline", take_offline_account_url(@account), :method => :post, :confirm => "You are about to take you site completely offline. Readers visiting your site will see a notice telling them that your site is temporarily offline.\n\nAre you sure you want to take your site offline?", :class=>"large cancel pill-r" %>
+		<%=button_link_to_remote "New front page", :url => new_account_front_page_url(@account), :method => :get, :html => { :class=>"large pill-l" } %><% if @account.current_design -%><%= button_link_to "Edit current design", account_design_path(@account, @account.current_design), :class=>"large pill-c" %><% end -%><%= button_link_to "Take site offline", take_offline_account_url(@account), :method => :post, :confirm => "You are about to take you site completely offline. Readers visiting your site will see a notice telling them that your site is temporarily offline.\n\nAre you sure you want to take your site offline?", :class=>"large cancel pill-r" %>
 	</div>
 	
 	<div class="guide">
@@ -12,40 +12,69 @@
 	</div>
 	
 	<div id="control_panel">
-		
-		<div id="current_front_page">
-			<h2>Current front page</h2>
-			<% if @account.current_front_page.blank? %>
-				<p>No current front page</p>
-			<% else %>
-				<p><%= @account.current_front_page.created_at.to_s(:standard) %> - <%= @account.current_front_page.name %></p>
-			<% end%>
-			<h3>New front page</h3>
-			<% if @account.designs.blank? %>
-				<p>You'll need at least one design in order to create a front page, please <%= link_to "create your first design", new_account_design_path(@account) %></p>
-			<% elsif @account.front_pages.blank? %>
-				<p><%= link_to "Create your first front page", new_account_front_page_path(@account) %></p>
-			<% else %>
-				<%- form_for([@account, @press_run], :html => { :onsubmit => "confirm('Are you sure you want to change your current front page? This change will be effective immediately.')" }) do |r| -%>
-					<%= r.collection_select :front_page_id, @account.front_pages, :id, :created_at, :prompt => "Choose new front page" %>
-					<%= button_link_to_submit "Update front page", :confirm => "Are you sure you want to update your front page? This change will be effective immediately." %>
-				<%- end -%>
-			<% end %>
+		<div id="front_page_control" class="clearfix">
+			<h2>Front page</h2>		
+			<div id="current_front_page">
+				<h3>Current front page</h3>
+				
+				<% if @account.current_front_page.blank? %>
+					<p>No current front page</p>
+					<p>
+				<% else %>
+					<p><%= @account.current_front_page.created_at.to_s(:standard) %> - <%= @account.current_front_page.name %></p>
+				<% end%>
+			</div>
+			
+			<div id="change_front_page">
+			<h3>Change</h3>
+				<% if @account.designs.blank? %>
+					<p>You'll need at least one design in order to create a front page, please <%= link_to "create your first design", new_account_design_path(@account) %></p>
+				<% elsif @account.front_pages.blank? %>
+					<p><%= link_to "Create your first front page", new_account_front_page_path(@account) %></p>
+				<% else %>
+					<%- form_for([@account, @press_run], :html => { :onsubmit => "confirm('Are you sure you want to change your current front page? This change will be effective immediately.')" }) do |r| -%>
+						<p>You can change your front page by selecting a new one here. <strong>Change your front page as often as you can</strong>, even if you haven't added new content recently.</p>
+						<%= r.collection_select :front_page_id, @account.front_pages, :id, :created_at, :prompt => "Choose new front page" %>
+						<%= button_link_to_submit "Update", :confirm => "Are you sure you want to update your front page? This change will be effective immediately." %>
+					<%- end -%>
+				<% end %>
+			</div>
+			
 		</div>
 
 
-		<div id="current_design">
-			<h2>Current design</h2>
-			<p><%= @account.current_design.blank? ? "No current design" : @account.current_design.name  %></p>
-			<h3>Change design</h3>
-			<% if @account.designs.blank? %>
-				<%= link_to "Create first design", new_account_design_path(@account) %>
-			<% else %>
-				<%- form_for([@account, @redesign], :html => { :onsubmit => "confirm('Are you sure you want to change your current site design? This change will be effective immediately.')" } ) do |r| -%>
-					<%= r.collection_select :design_id, @account.designs, :id, :name, :prompt => "Choose new design" %>
-					<%= button_link_to_submit "Swap design"  %>
-				<%- end -%>
-			<% end %>
+		<div id="design_control">
+			<h2>Site design</h2>
+			
+			<div id="current_design">
+				<h3>Current design</h3>
+				<% if @account.current_design.blank? %>
+					<p>No current design</p> 
+					<% if @account.redesigns.blank? %>
+						<p style="font-weight: bold">This site has never been online.</p>
+					<% else %>
+						<p style="font-weight: bold">Site taken offline <%= time_ago_in_words(@account.current_redesign.created_at) %> ago (<%= @account.current_redesign.created_at.to_s(:standard) %>)</p>
+					<% end %>
+				<% else %> 
+					<h1><%= @account.current_design.name  %></h1>
+					<%= markdown @account.current_design.description %>
+					<p style="font-weight: bold">Site last redesigned <%= time_ago_in_words(@account.current_redesign.created_at) %> ago (<%= @account.current_redesign.created_at.to_s(:standard) %>)</p>
+				<% end %>
+			</div>
+			
+			<div id="change_design">
+				<h3>Change</h3>
+				<% if @account.designs.blank? %>
+					<%= link_to "Create first design", new_account_design_path(@account) %>
+				<% else %>
+					<%- form_for([@account, @redesign], :html => { :onsubmit => "confirm('Are you sure you want to change your current site design? This change will be effective immediately.')" } ) do |r| -%>
+						<p>You can make a new site design the current one displayed to users by selecting it here. Unlike your front page, <strong>change your site design <em style="color: red;">infrequently</em></strong> to prevent reader confusion.</p>
+						<%= r.collection_select :design_id, @account.designs, :id, :name, :prompt => "Choose new design" %>
+						<%= button_link_to_submit "Swap design"  %>
+					<%- end -%>
+				<% end %>
+			</div>
+			
 		</div>
 		
 	</div>

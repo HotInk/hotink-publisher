@@ -21,7 +21,26 @@ body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, s
 
 /* Dashboard style */
 
-#current_front_page, #current_design { float: left; clear: left; }
+#dashboard h1 { margin: 5px 0; clear: left; }
+#dashboard>h2 { float: left;}
+#dashboard h2 { text-decoration: underline; margin: 0; margin-top: 10px; font-size: 1.25em; }
+#dashboard .options { float: left; width: 755px; text-align: right; padding-top: 18px; }
+#dashboard .guide { width: 240px; margin-right: 10px; float:left; clear: left;}
+#dashboard #control_panel { width: 693px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
+#dashboard #control_panel h2 { font-family: georgia, "Times New Roman", times, serif; font-size: 1.7em; text-decoration:none; font-weight: normal; }
+#dashboard #control_panel h3 { margin: 5px 0; }
+#dashboard #control_panel p { font-size: 0.9em;}
+#dashboard #control_panel>div>div { float: left; width: 47.5%; padding: 1%; height: 150px;}
+#dashboard #control_panel>div>div+div { margin-left: 1%; }
+#dashboard #control_panel select { margin-bottom: 5px; }
+#dashboard #current_front_page, #dashboard #current_design { background-color: #DEFFDB;}
+#dashboard #change_front_page { background-color: #CEE4F3; }
+#dashboard #current_design h1 { float:none; font-size: 1.8em; color: #333; text-decoration: underline; }
+#dashboard #current_design p { margin: 5px 0; }
+#dashboard div#control_panel div#current_design { height: auto; min-height: 150px; }
+#dashboard #change_design { background-color: #FFF6DD; }
+#dashboard #design_control { margin-top: 10px; border-top: 1px dotted #333; padding-top: 10px;}
+
 
 /* Begin publisher styles */
 #navigation { width: 100%; float: left; list-style: none; margin: 0; padding-left: 10px; margin-left: -10px; background-color: #FFF6DD; }
@@ -165,14 +184,6 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design #templates ul li.partial {background-color: #FFF6DD; }
 #design #templates ul li.page_template {background-color: #DEFFDB; }
 #design #templates ul li.front_page_template { background-color: #FFDBDB }
-
-/* Dashboard */
-#dashboard h1 { margin: 5px 0; clear: left; }
-#dashboard>h2 { float: left;}
-#dashboard h2 { text-decoration: underline; margin: 0; margin-top: 10px; font-size: 1.25em; }
-#dashboard .options { float: left; width: 755px; text-align: right; padding-top: 18px; }
-#dashboard .guide { width: 240px; margin-right: 10px; float:left; clear: left;}
-#dashboard #control_panel { width: 750px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
 
 /* Overlay css */
 
