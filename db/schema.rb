@@ -32,11 +32,6 @@ ActiveRecord::Schema.define(:version => 20090814004029) do
     t.integer  "account_id"
   end
 
-  create_table "authors", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "comments", :force => true do |t|
     t.string   "email"
     t.string   "name"
@@ -75,15 +70,10 @@ ActiveRecord::Schema.define(:version => 20090814004029) do
     t.datetime "updated_at"
   end
 
-  create_table "issues", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "oauth_tokens", :force => true do |t|
-    t.string   "token",      :null => false
-    t.string   "secret",     :null => false
-    t.string   "token_type", :null => false
+    t.string   "token",      :default => "", :null => false
+    t.string   "secret",     :default => "", :null => false
+    t.string   "token_type", :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -116,11 +106,6 @@ ActiveRecord::Schema.define(:version => 20090814004029) do
     t.datetime "updated_at"
   end
 
-  create_table "sections", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "template_files", :force => true do |t|
     t.integer  "design_id"
     t.string   "type"
@@ -138,7 +123,7 @@ ActiveRecord::Schema.define(:version => 20090814004029) do
     t.text     "description"
     t.string   "role"
     t.text     "code"
-    t.text     "parsed_code"
+    t.binary   "parsed_code"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "layout_id"
@@ -154,10 +139,10 @@ ActiveRecord::Schema.define(:version => 20090814004029) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "persistence_token",                 :null => false
-    t.string   "oauth_token_id",                    :null => false
-    t.integer  "login_count",        :default => 0, :null => false
-    t.integer  "failed_login_count", :default => 0, :null => false
+    t.string   "persistence_token",  :default => "", :null => false
+    t.string   "oauth_token_id",     :default => "", :null => false
+    t.integer  "login_count",        :default => 0,  :null => false
+    t.integer  "failed_login_count", :default => 0,  :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
