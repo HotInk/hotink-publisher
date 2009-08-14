@@ -2,8 +2,7 @@ class FrontPagesController < ApplicationController
   
   layout 'admin'
   
-  skip_before_filter :require_user, :only => :show
-  before_filter :load_access_token, :except => :show
+  before_filter :load_access_token
 
   # GET /front_pages
   # GET /front_pages.xml

@@ -133,7 +133,7 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #template_form .name_desc input { margin-bottom: 10px; }
 #template_form .template, #template_form .layout { float: left; width: 47%; margin-right: 3%; }
 #template_form .entity_definitions { float:left; width: 98%; border: 1px solid #DEDEDE; margin: 15px 0 2% 0; }
-#template_form .entity_definitions .entity { float: left; width: 26%; margin: 5px 0.5%; }
+#template_form .entity_definitions .entity { float: left; width: 210px; margin: 5px 0.5%; }
 #template_form .code { clear: left; margin: 5px 0; width: 98%; margin-right: 2%; }
 #template_form .button { text-align: right; width: 98%; margin-right: 2%;float: left; margin-bottom: 5px; }
 
