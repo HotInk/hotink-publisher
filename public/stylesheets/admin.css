@@ -27,7 +27,7 @@ body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, s
 #dashboard h2 { text-decoration: underline; margin: 0; margin-top: 10px; font-size: 1.25em; }
 #dashboard .options { float: left; width: 755px; text-align: right; padding-top: 18px; }
 #dashboard .guide { width: 240px; margin-right: 10px; float:left; clear: left;}
-#dashboard #control_panel { width: 693px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
+#dashboard #control_panel { width: 680px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
 #dashboard #control_panel h2 { font-family: georgia, "Times New Roman", times, serif; font-size: 1.7em; text-decoration:none; font-weight: normal; }
 #dashboard #control_panel h3 { margin: 5px 0; }
 #dashboard #control_panel p { font-size: 0.9em;}
@@ -128,12 +128,16 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #template_form h1 { margin: 5px 0; }
 #template_form .name_desc { width: 240px; }
 #template_form .form_title { clear: left; width: 315px; }
-#template_form .template_data_info { width: 386px; height: 60px; margin-left: 15px; border-left: 1px solid #999; padding-left: 15px; }
+#template_form .template_data_info { width: 360px; height: 60px; margin-left: 15px; border-left: 1px solid #999; padding-left: 15px; }
 #template_form .form_title select {  width: 100%; background: none; font-size: 1.1em; padding: 0.1em; margin-top: 3px; border: 1px solid #DEDEDE; background-color: #FDFDFD; color: #555; }
 #template_form .name_desc input { margin-bottom: 10px; }
 #template_form .template, #template_form .layout { float: left; width: 47%; margin-right: 3%; }
-#template_form .entity_definitions { float:left; width: 98%; border: 1px solid #DEDEDE; margin: 15px 0 2% 0; }
-#template_form .entity_definitions .entity { float: left; width: 210px; margin: 5px 0.5%; }
+#template_form .entity_definitions { float:left; width: 98%; border: 1px solid #DEDEDE;background-color: #EFEFEF; margin: 15px 0 2% 0; }
+#template_form .entity_definitions .entity { float: left; padding-top: 5px; width: 230px; background-color: #FFF6DD; border-width: 0; margin: 5px; height: 200px; }
+#template_form .entity_definitions .entity input[type="text"] { width: 100%; height: 1.7em; }
+#template_form .entity_definitions .entity label { margin-right: 10px; margin-top: 10px;}
+#template_form .entity_definitions .entity select { width: 140px; margin:10px 0; }
+#template_form .entity_definitions .entity textarea { width: 100%; }
 #template_form .code { clear: left; margin: 5px 0; width: 98%; margin-right: 2%; }
 #template_form .button { text-align: right; width: 98%; margin-right: 2%;float: left; margin-bottom: 5px; }
 
