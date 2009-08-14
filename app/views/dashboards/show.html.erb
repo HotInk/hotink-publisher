@@ -68,7 +68,7 @@
 					<%= link_to "Create first design", new_account_design_path(@account) %>
 				<% else %>
 					<%- form_for([@account, @redesign], :html => { :onsubmit => "confirm('Are you sure you want to change your current site design? This change will be effective immediately.')" } ) do |r| -%>
-						<p>You can make a new site design the current one displayed to users by selecting it here. Unlike your front page, <strong>change your site design <em style="color: red;">infrequently</em></strong> to prevent reader confusion.</p>
+						<p>You can make a new site design the one users see when they visit your page by selecting it here. Unlike your front page, <strong>change your site design <em style="color: red;">infrequently</em></strong> to prevent reader confusion.</p>
 						<%= r.collection_select :design_id, @account.designs, :id, :name, :prompt => "Choose new design" %>
 						<%= button_link_to_submit "Swap design"  %>
 					<%- end -%>
