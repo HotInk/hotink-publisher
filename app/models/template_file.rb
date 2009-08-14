@@ -11,4 +11,12 @@ class TemplateFile < ActiveRecord::Base
     file_file_size
   end
   
+  def url
+    self.file.url
+  end
+
+  def to_liquid(options = {})
+    Liquid::TemplateFileDrop.new self, options
+  end
+  
 end
