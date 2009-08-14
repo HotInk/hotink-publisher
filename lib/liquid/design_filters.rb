@@ -6,9 +6,8 @@ module Liquid
       
       # TODO: get this from the @context somehow
       @account = Account.find(7)
-      
-      design = @account.current_design 
-      template_file = design.template_files.find_by_file_file_name(filename)
+
+      template_file = @account.current_design.template_files.find_by_file_file_name(filename)
 
       if template_file
         # TODO: get this from the context somehow
@@ -19,6 +18,3 @@ module Liquid
   end
   
 end
-
-
-
