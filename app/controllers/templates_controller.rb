@@ -125,8 +125,10 @@ class TemplatesController < ApplicationController
   # DELETE /templates/1.xml
   def destroy
     @tplate = @design.templates.find(params[:id])
-    @tplate.destroy
-    flash[:notice] = "Template deleted."
+
+    @tplate.update_attribute(:active, false) # Instead of @tplate.destroy
+  
+    flash[:notice] = "Template removed."
     respond_to do |format|
       format.html { redirect_to(account_design_url(@account, @design)) }
       format.xml  { head :ok }

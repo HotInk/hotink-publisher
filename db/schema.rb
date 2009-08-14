@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090814004029) do
+ActiveRecord::Schema.define(:version => 20090814191110) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -30,6 +30,11 @@ ActiveRecord::Schema.define(:version => 20090814004029) do
     t.string   "display_format"
     t.integer  "article_id"
     t.integer  "account_id"
+  end
+
+  create_table "authors", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "comments", :force => true do |t|
@@ -70,10 +75,15 @@ ActiveRecord::Schema.define(:version => 20090814004029) do
     t.datetime "updated_at"
   end
 
+  create_table "issues", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "oauth_tokens", :force => true do |t|
-    t.string   "token",      :default => "", :null => false
-    t.string   "secret",     :default => "", :null => false
-    t.string   "token_type", :default => "", :null => false
+    t.string   "token",      :null => false
+    t.string   "secret",     :null => false
+    t.string   "token_type", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -106,6 +116,27 @@ ActiveRecord::Schema.define(:version => 20090814004029) do
     t.datetime "updated_at"
   end
 
+  create_table "sections", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "template_file_versions", :force => true do |t|
+    t.integer  "template_file_id"
+    t.integer  "version"
+    t.integer  "design_id"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "active",            :default => true
+    t.string   "versioned_type"
+  end
+
+  add_index "template_file_versions", ["template_file_id"], :name => "index_template_file_versions_on_template_file_id"
+
   create_table "template_files", :force => true do |t|
     t.integer  "design_id"
     t.string   "type"
@@ -115,7 +146,28 @@ ActiveRecord::Schema.define(:version => 20090814004029) do
     t.datetime "file_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "version"
+    t.boolean  "active",            :default => true
   end
+
+  create_table "template_versions", :force => true do |t|
+    t.integer  "template_id"
+    t.integer  "version"
+    t.integer  "design_id"
+    t.string   "name"
+    t.text     "description"
+    t.string   "role"
+    t.text     "code"
+    t.text     "parsed_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "layout_id"
+    t.text     "schema"
+    t.boolean  "active",         :default => true
+    t.string   "versioned_type"
+  end
+
+  add_index "template_versions", ["template_id"], :name => "index_template_versions_on_template_id"
 
   create_table "templates", :force => true do |t|
     t.integer  "design_id"
@@ -123,12 +175,14 @@ ActiveRecord::Schema.define(:version => 20090814004029) do
     t.text     "description"
     t.string   "role"
     t.text     "code"
-    t.binary   "parsed_code"
+    t.text     "parsed_code"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "layout_id"
     t.string   "type"
     t.text     "schema"
+    t.integer  "version"
+    t.boolean  "active",      :default => true
   end
 
   create_table "themes", :force => true do |t|
@@ -139,10 +193,10 @@ ActiveRecord::Schema.define(:version => 20090814004029) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "persistence_token",  :default => "", :null => false
-    t.string   "oauth_token_id",     :default => "", :null => false
-    t.integer  "login_count",        :default => 0,  :null => false
-    t.integer  "failed_login_count", :default => 0,  :null => false
+    t.string   "persistence_token",                 :null => false
+    t.string   "oauth_token_id",                    :null => false
+    t.integer  "login_count",        :default => 0, :null => false
+    t.integer  "failed_login_count", :default => 0, :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"

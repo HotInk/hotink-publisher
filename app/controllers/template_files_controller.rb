@@ -14,12 +14,18 @@ class TemplateFilesController < ApplicationController
   
   def create
     @design = @account.designs.find(params[:design_id])
-    @template_file = @design.template_files.build(params[:template_file])
-    case @template_file.file_name.split('.')[-1]
-    when 'js', 'htc'
-      @template_file = JavascriptFile.new(@template_file.attributes)
-    when 'css'
-      @template_file = Stylesheet.new(@template_file.attributes) 
+    
+    @template_file = TemplateFile.find_by_file_file_name_and_design_id( sanitized_name_of(params[:template_file][:file]), @design.id )
+    if @template_file
+      @template_file.active = true
+    else
+      @template_file = @design.template_files.build(params[:template_file])
+      case @template_file.file_name.split('.')[-1]
+      when 'js', 'htc'
+        @template_file = JavascriptFile.new(@template_file.attributes)
+      when 'css'
+        @template_file = Stylesheet.new(@template_file.attributes) 
+      end
     end
     
     @template_file.file = params[:template_file][:file]
@@ -61,9 +67,15 @@ class TemplateFilesController < ApplicationController
   def destroy
     @design = @account.designs.find(params[:design_id])
     @template_file = @design.template_files.find(params[:id])
-    @template_file.destroy
-    flash[:notice] = "Template file deleted."
+    @template_file.update_attribute(:active, false) # @template_file.destroy
+    flash[:notice] = "Template file removed."
     redirect_to [@account, @design]
   end
 
+private
+  
+  def sanitized_name_of file
+    File.basename( file.original_filename ).gsub(/[^\w\.\_]/,'_')
+  end
+  
 end

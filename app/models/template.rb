@@ -2,6 +2,8 @@ class Template < ActiveRecord::Base
   belongs_to :account
   belongs_to :design
   
+  acts_as_versioned
+  
   def name
     return read_attribute('name') unless read_attribute('name').blank?
     "(Unnamed template)"

@@ -7,3 +7,7 @@ end
 Paperclip.interpolates :design do |attachment, style|
   attachment.instance.design.id
 end
+
+Paperclip.interpolates :version do |attachement, style|  
+     attachement.instance.version.to_s  
+end
