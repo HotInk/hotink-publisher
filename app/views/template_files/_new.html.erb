@@ -1,0 +1,8 @@
+<div id="new_template_file_form" class="clearfix">
+	<h1>Upload a template media file</h1>
+	<% form_for [@account, @design, @template_file], :html => { :multipart => true } do |f| %>
+	<p>Upload any supporting images or other files you'll need to support this site design</p>
+	<%= f.label(:file, "Select file:") + f.file_field(:file) %>
+	<%= button_link_to_submit "Upload", :class => "larger save" %>
+	<% end %>
+</div>

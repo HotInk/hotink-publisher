@@ -188,6 +188,9 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design #templates ul li.page_template {background-color: #DEFFDB; }
 #design #templates ul li.front_page_template, #design #templates ul li.javascript_file { background-color: #FFDBDB }
 
+#new_template_file_form { width: 420px; padding: 10px; }
+#new_template_file_form label { margin-right: 10px; font-size: 1.2em; }
+#new_template_file_form button { float: right; margin-top: 15px; margin-right: 35px; }
 /* Overlay css */
 
 #overlay{ position: absolute; top: 0; left: 0; z-index: 900; width: 100%; height: 500px; background-color: #000; }

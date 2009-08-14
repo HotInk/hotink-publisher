@@ -1,3 +1,0 @@
-page.assign "build_overlay", render(:partial => 'select_format')
-page << "if($('build')) $('build').remove();"
-page << "page_overlay.render( build_overlay );"

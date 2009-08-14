@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090808221328) do
+ActiveRecord::Schema.define(:version => 20090814004029) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -117,6 +117,17 @@ ActiveRecord::Schema.define(:version => 20090808221328) do
   end
 
   create_table "sections", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "template_files", :force => true do |t|
+    t.integer  "design_id"
+    t.string   "type"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

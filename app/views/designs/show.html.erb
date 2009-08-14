@@ -68,31 +68,31 @@
 			</ul>
 		</div>
 		<div id="stylesheets" class="clearfix">
-			<h3>Stylesheets</h3><%= button_link_to_remote 'New', :url => new_account_design_template_medium_path(@account, @design), :method => :get, :class=>"micro primary" %>
+			<h3>Stylesheets</h3><%= button_link_to_remote 'New', :url => new_account_design_template_file_path(@account, @design, :type => 'stylesheet'), :method => :get, :class=>"micro primary" %>
 			<ul>
 			<% for stylesheet in @design.stylesheets %>
 				<li class="stylesheet">
-					<%= stylesheet %>
+					<%= link_to stylesheet.file_name, edit_account_design_template_file_path(@account, @design, stylesheet) %><%= link_to "x", account_design_template_file_path(@account, @design, stylesheet), :method => :delete, :confirm => "Are you sure you want to delete\n\n#{stylesheet.file_name}\n\nfrom this design? Once deleted it can't be recovered.", :class=>"kill_link" %>  <span class="last_updated"><%= stylesheet.created_at==stylesheet.file_updated_at ? "Created " : "Last updated "  %><%= stylesheet.file_updated_at.to_s(:standard) %></span>
 				</li>
 			<% end %>
 			</ul>
 		</div>
 		<div id="javascripts" class="clearfix">
-			<h3>Javscript files</h3><%= button_link_to_remote 'New', :url => new_account_design_template_medium_path(@account, @design), :method => :get, :class=>"micro primary" %>
+			<h3>Javscript files</h3><%= button_link_to_remote 'New', :url => new_account_design_template_file_path(@account, @design, :type => 'javascript'), :method => :get, :class=>"micro primary" %>
 			<ul>
 			<% for javascript_file in @design.javascript_files %>
 				<li class="javascript_file">
-					<%= javascript_file %>
+					<%= link_to javascript_file.file_name, edit_account_design_template_file_path(@account, @design, javascript_file)  %><%= link_to "x", account_design_template_file_path(@account, @design, javascript_file), :method => :delete, :confirm => "Are you sure you want to delete\n\n#{javascript_file.file_name}\n\nfrom this design? Once deleted it can't be recovered.", :class=>"kill_link" %> <span class="last_updated"><%= javascript_file.created_at==javascript_file.file_updated_at ? "Created " : "Last updated "  %><%= javascript_file.file_updated_at.to_s(:standard) %></span>
 				</li>
 			<% end %>
 			</ul>
 		</div>
 		<div id="template_media" class="clearfix">
-			<h3>Template media</h3><%= button_link_to_remote 'New', :url => new_account_design_template_medium_path(@account, @design), :method => :get, :class=>"micro primary" %>
+			<h3>Template media</h3><%= button_link_to_remote 'New', :url => new_account_design_template_file_path(@account, @design), :method => :get, :class=>"micro primary" %>
 			<ul>
-			<% for template_mediafile in @design.template_media %>
-				<li class="template_media">
-					<%= template_mediafile %>
+			<% for template_file in @design.template_files.select{ |t| t.class == TemplateFile } %>
+				<li class="template_file">
+					<%= link_to template_file.file_name, template_file.file.url %> <%= link_to "x", account_design_template_file_path(@account, @design, template_file), :method => :delete, :confirm => "Are you sure you want to delete\n\n#{template_file.file_name}\n\nfrom this design? Once deleted it can't be recovered.", :class=>"kill_link" %> <span class="last_updated"><%= template_file.created_at==template_file.file_updated_at ? "Created " : "Last updated "  %><%= template_file.file_updated_at.to_s(:standard) %></span>
 				</li>
 			<% end %>
 			</ul>

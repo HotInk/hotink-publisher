@@ -1,0 +1,19 @@
+<div class="form_title clearfix">
+  <h1>Editing file</h1>
+</div>
+<div class="details">
+	<div class="name_desc">
+	  <h3>File name: <%= @template_file.file_name %></h3>
+	  <%= hidden_field_tag :file_name, @template_file.file_name %>
+	  <h3>File size: <%= number_to_human_size @template_file.file_size %></h3>
+	</div>
+	<div class="template_data_info">
+	</div>
+</div>
+<div class="code">
+  <strong>File contents</strong><br />
+  <%= text_area_tag :file_contents, @file_contents, :rows => 20 %>
+</div>
+<div class="button">
+	<%= button_link_to_submit 'Save', :class => "larger save" %>
+</div>

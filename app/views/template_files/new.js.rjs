@@ -1,0 +1,3 @@
+page.assign "build_overlay", render(:partial => 'new')
+page << "if($('build')) $('build').remove();"
+page << "page_overlay.render( build_overlay );"

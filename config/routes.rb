@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
 
   # TODO: add unRESTful admin dashbouard section
-
+  
   map.resources :accounts, :member => { :take_offline => :post } do |account| # :only => [:index, :issues, :sections, :articles, :blogs, :pages, :comments ]
     account.resources :articles do |article|
       article.resources :comments, :only => [:show, :create] 
@@ -28,13 +28,12 @@ ActionController::Routing::Routes.draw do |map|
     account.resource :dashboard
     account.resources :designs do |design|
       design.resources :templates
-      design.resources :template_media
+      design.resources :template_files
     end
     account.resource :redesigns    
     account.resources :front_pages  
     account.resources :press_runs
   end
-
   map.connect 'accounts/:account_id/admin', :controller => "admin/pages", :action => "dashboard"
   map.connect 'accounts/:account_id/search/:action/:id', :controller => 'search'
   map.connect 'accounts/:account_id/:page_name', :controller=> "pages", :action => "show"
