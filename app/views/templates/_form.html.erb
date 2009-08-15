@@ -4,7 +4,7 @@
   <%= f.label :role, "Template type" %><br />
   <%= f.select :role, { "Front page" => "front_pages/show", "Article" => "articles/show", "Layout" => "layout", "Partial" => "partial"} %>
  </div>
-  <% if f.object.is_a? PageTemplate -%>
+  <% if f.object.is_a?(PageTemplate) || f.object.is_a?(FrontPageTemplate) -%>
  <div class="layout">
   		<%= f.label :layout_id, "Layout" %><br />
   		<%= f.collection_select :layout_id, @design.layouts, :id, :name, :include_blank => "Design default" %>

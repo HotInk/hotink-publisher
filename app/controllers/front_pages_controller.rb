@@ -1,8 +1,11 @@
 class FrontPagesController < ApplicationController
   
   layout 'admin'
-  
-  before_filter :load_access_token
+   
+  before_filter :set_liquid_variables
+  before_filter :require_design
+   
+  before_filter :build_registers, :only => :show
 
   # GET /front_pages
   # GET /front_pages.xml
@@ -26,6 +29,8 @@ class FrontPagesController < ApplicationController
     @front_page.schema.each_key do |item|
       schema_ids += @front_page.schema[item]['ids']
     end    
+    @registers[:account] = @account
+    @registers[:design] = @current_template.design
         
     article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id)
   
@@ -34,7 +39,7 @@ class FrontPagesController < ApplicationController
     schema_articles = {}
     
     article_resources.each do |article|
-      schema_articles.merge!(article.id => article)
+      schema_articles.merge!(article.id.to_s => article)
     end
     
     @front_page.schema.each_key do |item|
@@ -42,9 +47,10 @@ class FrontPagesController < ApplicationController
       data_for_render.merge!( item => item_array )
     end
     
-    page_html = @current_template.parsed_code.render(data_for_render)
+    page_html = @current_template.parsed_code.render(data_for_render, :registers => @registers )
+        
     if @current_template.current_layout
-      render :text => @current_template.current_layout.parsed_code.render('page_content' => page_html )
+      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html}, :registers => @registers )
     else  
       render :text => page_html
     end
@@ -65,15 +71,16 @@ class FrontPagesController < ApplicationController
     page = params[:page] || 1
     schema_ids = Array.new
     @front_page.schema.each_key do |item|
-      schema_ids += @front_page.schema[item]['ids'].compact unless @front_page.schema[item]['ids'].blank?
+      schema_ids += @front_page.schema[item]['ids'] unless @front_page.schema[item]['ids'].blank?
     end
     @schema_articles = {}
     article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id)
     article_resources.each do |article|
       @schema_articles.merge!(article.id => article)
     end
+      
     @articles = Article.find(:all, :per_page => 10, :page => page, :account_id => @account.account_resource_id )
-    
+        
     respond_to do |format|
       format.html
       format.js
