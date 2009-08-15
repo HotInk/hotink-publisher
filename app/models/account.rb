@@ -1,9 +1,9 @@
 class Account < ActiveRecord::Base
   
-  has_many :front_pages, :dependent => :destroy
+  has_many :front_pages, :conditions => { :active => true }, :dependent => :destroy
   has_many :press_runs, :dependent => :destroy
   
-  has_many :designs, :dependent => :destroy
+  has_many :designs, :conditions => { :active => true }, :dependent => :destroy
   has_many :redesigns, :dependent => :destroy
     
   # has_many :articles

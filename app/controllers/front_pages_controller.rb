@@ -124,7 +124,7 @@ class FrontPagesController < ApplicationController
   # DELETE /front_pages/1.xml
   def destroy
     @front_page = @account.front_pages.find(params[:id])
-    @front_page.destroy
+    @front_page.update_attribute(:active, false)
 
     respond_to do |format|
       format.html { redirect_to(account_front_pages_url(@account)) }

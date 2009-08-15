@@ -126,8 +126,9 @@ class TemplatesController < ApplicationController
   def destroy
     @tplate = @design.templates.find(params[:id])
 
-    @tplate.update_attribute(:active, false) # Instead of @tplate.destroy
-  
+    @tplate.active = false # Instead of @tplate.destroy
+    @tplate.save
+    
     flash[:notice] = "Template removed."
     respond_to do |format|
       format.html { redirect_to(account_design_url(@account, @design)) }

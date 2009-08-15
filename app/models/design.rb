@@ -20,4 +20,6 @@ class Design < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :account_id
   
+  acts_as_versioned
+  
 end

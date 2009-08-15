@@ -6,7 +6,7 @@ class CreateTemplates < ActiveRecord::Migration
       t.text :description
       t.string :role
       t.text :code
-      t.text :parsed_code
+      t.binary :parsed_code
 
       t.timestamps
     end

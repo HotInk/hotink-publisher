@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090814191110) do
+ActiveRecord::Schema.define(:version => 20090815010052) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -32,11 +32,6 @@ ActiveRecord::Schema.define(:version => 20090814191110) do
     t.integer  "account_id"
   end
 
-  create_table "authors", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "comments", :force => true do |t|
     t.string   "email"
     t.string   "name"
@@ -54,6 +49,21 @@ ActiveRecord::Schema.define(:version => 20090814191110) do
     t.boolean  "enabled"
   end
 
+  create_table "design_versions", :force => true do |t|
+    t.integer  "design_id"
+    t.integer  "version"
+    t.integer  "account_id"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "layout_id"
+    t.integer  "default_front_page_template_id"
+    t.boolean  "active",                         :default => true
+  end
+
+  add_index "design_versions", ["design_id"], :name => "index_design_versions_on_design_id"
+
   create_table "designs", :force => true do |t|
     t.integer  "account_id"
     t.string   "name"
@@ -62,7 +72,25 @@ ActiveRecord::Schema.define(:version => 20090814191110) do
     t.datetime "updated_at"
     t.integer  "layout_id"
     t.integer  "default_front_page_template_id"
+    t.boolean  "active",                         :default => true
+    t.integer  "version"
   end
+
+  create_table "front_page_versions", :force => true do |t|
+    t.integer  "front_page_id"
+    t.integer  "version"
+    t.integer  "account_id"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "template_id"
+    t.integer  "design_id"
+    t.text     "schema"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "active",        :default => true
+  end
+
+  add_index "front_page_versions", ["front_page_id"], :name => "index_front_page_versions_on_front_page_id"
 
   create_table "front_pages", :force => true do |t|
     t.integer  "account_id"
@@ -73,11 +101,8 @@ ActiveRecord::Schema.define(:version => 20090814191110) do
     t.text     "schema"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "issues", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.boolean  "active",      :default => true
+    t.integer  "version"
   end
 
   create_table "oauth_tokens", :force => true do |t|
@@ -116,11 +141,6 @@ ActiveRecord::Schema.define(:version => 20090814191110) do
     t.datetime "updated_at"
   end
 
-  create_table "sections", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "template_file_versions", :force => true do |t|
     t.integer  "template_file_id"
     t.integer  "version"
@@ -146,8 +166,8 @@ ActiveRecord::Schema.define(:version => 20090814191110) do
     t.datetime "file_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "version"
     t.boolean  "active",            :default => true
+    t.integer  "version"
   end
 
   create_table "template_versions", :force => true do |t|
@@ -158,7 +178,7 @@ ActiveRecord::Schema.define(:version => 20090814191110) do
     t.text     "description"
     t.string   "role"
     t.text     "code"
-    t.text     "parsed_code"
+    t.binary   "parsed_code"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "layout_id"
@@ -175,14 +195,14 @@ ActiveRecord::Schema.define(:version => 20090814191110) do
     t.text     "description"
     t.string   "role"
     t.text     "code"
-    t.text     "parsed_code"
+    t.binary   "parsed_code"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "layout_id"
     t.string   "type"
     t.text     "schema"
-    t.integer  "version"
     t.boolean  "active",      :default => true
+    t.integer  "version"
   end
 
   create_table "themes", :force => true do |t|

@@ -13,4 +13,6 @@ class FrontPage < ActiveRecord::Base
   
   serialize :schema 
   
+  acts_as_versioned
+  
 end

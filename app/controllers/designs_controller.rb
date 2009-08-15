@@ -77,7 +77,7 @@ class DesignsController < ApplicationController
   # DELETE /designs/1.xml
   def destroy
     @design = @account.designs.find(params[:id])
-    @design.destroy
+    @design.update_attribute(:active, false)
 
     respond_to do |format|
       format.html { redirect_to(account_designs_url(@account)) }

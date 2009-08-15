@@ -143,5 +143,11 @@ class ApplicationController < ActionController::Base
     def load_access_token
       @access_token = OAuth::AccessToken.new(get_consumer, current_user.oauth_token.token, current_user.oauth_token.secret)
     end
-
+    
+    # Method to build the necessary context registers for Liquid from controller instance variables.
+    def build_registers
+      @registers ||= { :account => @account }
+    end
+      
+    
 end

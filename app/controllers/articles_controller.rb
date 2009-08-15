@@ -6,6 +6,7 @@ class ArticlesController < ApplicationController
   before_filter :require_design
   
   before_filter :find_template, :only => :show
+  before_filter :build_registers, :only => :show
   
   # GET /articles
   # GET /articles.xml
@@ -21,11 +22,15 @@ class ArticlesController < ApplicationController
   # Since the show action is public facing, it should always fail in a predictable
   # informative way.
   def show
-    @article = Article.find(params[:id], :params => {:account_id => @account.account_resource_id})
+    @article = Article.find(params[:id], :account_id => @account.account_resource_id)
     #@comments = @article.comments
-    page_html = @current_template.parsed_code.render({'article' => @article}, :registers => { :account => @account })
+    
+    # Set design register here, in case the user has specified one other than the current.
+    @registers[:design] = @current_template.design
+    
+    page_html = @current_template.parsed_code.render({'article' => @article}, :registers => @registers )
     if @current_template.current_layout
-      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html}, :registers => { :account => @account })
+      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html}, :registers => @registers)
     else  
       render :text => page_html
     end 

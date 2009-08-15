@@ -34,10 +34,6 @@ class Article < HyperactiveResource
   def account_id
     self.prefix_options[:account_id]    
   end
-    
-  def section
-    
-  end
   
   def url
     @account = Account.find(account_id)
