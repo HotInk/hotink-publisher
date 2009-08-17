@@ -27,6 +27,9 @@ ActionController::Routing::Routes.draw do |map|
     
     account.resource :dashboard
     account.resources :designs do |design|
+      design.resources :sections
+      design.resources :front_pages
+      design.resources :articles
       design.resources :templates
       design.resources :template_files
     end

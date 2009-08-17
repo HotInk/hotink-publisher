@@ -42,7 +42,11 @@ class ApplicationController < ActionController::Base
     end
     
     def find_template
+      if params[:design_id] && current_user
+        @current_template = @account.designs.find(params[:design_id]).templates.find_by_role("#{controller_name}/#{action_name}")
+      else
         @current_template = @account.current_design.templates.find_by_role("#{controller_name}/#{action_name}")
+      end
       rescue
         render :status => :not_found
     end
