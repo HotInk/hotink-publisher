@@ -24,8 +24,8 @@ module Liquid
     end
   
     def render(context)      
-      source  = Liquid::Template.file_system.read_template_file(context[@template_name])      
-      partial = Liquid::Template.parse(source)      
+      design = context.registers[:design].blank? ? @context.registers[:account].current_design : context.registers[:design]
+      partial = design.templates.find_by_name(context[@template_name]).parsed_code     
       
       variable = context[@variable_name || @template_name[1..-2]]
       
@@ -51,5 +51,5 @@ module Liquid
     end
   end
 
-  Template.register_tag('include', Include)  
+  Liquid::Template.register_tag('include', Include)  
 end
