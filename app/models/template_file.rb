@@ -1,7 +1,7 @@
 class TemplateFile < ActiveRecord::Base
   belongs_to :design
   
-  has_attached_file :file, :path => ":rails_root/public/system/:account/:design/media/:version/:filename", :url => "/system/:account/:design/media/:version/:filename", :keep_old_files => :version_condition_met?
+  has_attached_file :file, :path => ":rails_root/public/system/:account/:design/media/:version/:basename.:extension", :url => "/system/:account/:design/media/:version/:basename.:extension", :keep_old_files => :version_condition_met?
 
   acts_as_versioned
   
