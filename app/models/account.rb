@@ -68,7 +68,7 @@ class Account < ActiveRecord::Base
   end
 
   def blogs
-    Blog.find(:all, :params => {:account_id => self.account_resource_id})
+    Blog.find(:all, :account_id => self.account_resource_id)
   end
   
   # hack for HyperactiveResource

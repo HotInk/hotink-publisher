@@ -32,7 +32,7 @@ class Article < HyperactiveResource
   end
   
   def account_id
-    self.prefix_options[:account_id]    
+    self.prefix_options[:account_id]
   end
   
   def url

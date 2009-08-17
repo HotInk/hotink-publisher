@@ -10,7 +10,11 @@ class Entry < ActiveResource::Base
   end
   
   def to_liquid(options = {})
-    {'title' => self.title, 'bodytext' => self.bodytext, 'id' => self.id}
+    {'title' => self.title, 'bodytext' => self.bodytext, 'id' => self.id, 'blog_id' => self.blog_id}
+  end
+  
+  def blog_id
+    self.prefix_options[:blog_id]
   end
 
 end

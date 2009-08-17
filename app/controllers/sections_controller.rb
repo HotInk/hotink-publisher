@@ -10,7 +10,7 @@ class SectionsController < ApplicationController
   def show
     @section = Section.find(:one, :from => "/accounts/#{@account.account_resource_id}/sections/#{params[:id]}.xml")
     
-    # TODO: should hit the main article controller with a condition instead
+    # FIXME: doesn't actually pull section articles
     @articles = Article.find(:all, :account_id => @account.account_resource_id, :section_id => params[:id])
    
     @registers[:account] = @account

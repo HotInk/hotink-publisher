@@ -1,12 +1,24 @@
 class EntriesController < ApplicationController
 
-  layout 'default'
-  
-  def show
+  before_filter :set_liquid_variables
+  before_filter :require_design  
+  before_filter :find_template
+  before_filter :build_registers
     
+  def show
+  
     @blog = Blog.find(params[:blog_id].to_i, :params => {:account_id => @account.account_resource_id})    
     @entry = Entry.find(params[:id].to_i, :params => {:blog_id => params[:blog_id], :account_id => @account.account_resource_id})    
-      
-    render :text => @entry.bodytext    
+    
+    # Set design register here, in case the user has specified one other than the current.
+    @registers[:design] = @current_template.design
+
+    page_html = @current_template.parsed_code.render({'entry' => @entry, 'blog' => @blog, 'newspaper' => @newspaper}, :registers => @registers )
+    if @current_template.current_layout
+      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'newspaper' => @newspaper}, :registers => @registers)
+    else  
+      render :text => page_html
+    end
+
   end
 end
