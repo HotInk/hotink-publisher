@@ -2,7 +2,6 @@ class AccountsController < ApplicationController
 
   skip_before_filter :find_account
   skip_before_filter :require_user, :only => :show
-  before_filter :set_liquid_variables, :only => :show
   before_filter :build_registers, :only => :show
   
   # GET /accounts
@@ -24,6 +23,8 @@ class AccountsController < ApplicationController
       render :text => "This site is currently offline", :status => 503
       return
     end
+    @newspaper = Liquid::NewspaperDrop.new(@account)
+    
     @front_page = @account.current_front_page
     @current_template = @front_page.template
     
