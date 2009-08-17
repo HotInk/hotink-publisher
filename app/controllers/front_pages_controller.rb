@@ -2,8 +2,8 @@ class FrontPagesController < ApplicationController
   
   layout 'admin'
    
-  before_filter :set_liquid_variables
-  before_filter :require_design
+  before_filter :set_liquid_variables, :only => :show
+  before_filter :require_design, :only => :show
    
   before_filter :build_registers, :only => :show
 
