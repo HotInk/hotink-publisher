@@ -2,6 +2,7 @@ class AccountsController < ApplicationController
 
   skip_before_filter :find_account
   skip_before_filter :require_user, :only => :show
+  before_filter :build_registers, :only => :show
   
   # GET /accounts
   # GET /accounts.xml
@@ -22,7 +23,41 @@ class AccountsController < ApplicationController
       render :text => "This site is currently offline", :status => 503
       return
     end
-    redirect_to account_front_page_path(@account, @account.current_front_page)
+    @newspaper = Liquid::NewspaperDrop.new(@account)
+    
+    @front_page = @account.current_front_page
+    @current_template = @front_page.template
+    
+    # Build query of only the necessary ids
+    schema_ids = Array.new
+    @front_page.schema.each_key do |item|
+      schema_ids += @front_page.schema[item]['ids']
+    end    
+    @registers[:account] = @account
+    @registers[:design] = @current_template.design
+        
+    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id)
+  
+    # Recontruct front page schema as hash keyed by entity name
+    data_for_render = {}
+    schema_articles = {}
+    
+    article_resources.each do |article|
+      schema_articles.merge!(article.id.to_s => article)
+    end
+    
+    @front_page.schema.each_key do |item|
+      item_array = @front_page.schema[item]['ids'].collect{ |i| schema_articles[i] }
+      data_for_render.merge!( item => item_array )
+    end
+    
+    page_html = @current_template.parsed_code.render(data_for_render.merge('newspaper' => @newspaper), :registers => @registers )
+        
+    if @current_template.current_layout
+      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'newspaper' => @newspaper}, :registers => @registers )
+    else  
+      render :text => page_html
+    end
   end
 
   # GET /accounts/new
