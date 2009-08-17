@@ -10,15 +10,9 @@
 [submodule "vendor/plugins/factory_girl"]
 	path = vendor/plugins/factory_girl
 	url = git://github.com/thoughtbot/factory_girl.git
-[submodule "vendor/plugins/paperclip"]
-	path = vendor/plugins/paperclip
-	url = git://github.com/thoughtbot/paperclip.git
 [submodule "vendor/plugins/rspec-rails"]
 	path = vendor/plugins/rspec-rails
 	url = git://github.com/dchelimsky/rspec-rails.git
-[submodule "vendor/plugins/liquid"]
-	path = vendor/plugins/liquid
-	url = git://github.com/hyfen/liquid.git
 [submodule "vendor/plugins/viking"]
 	path = vendor/plugins/viking
 	url = git://github.com/technoweenie/viking.git
