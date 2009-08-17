@@ -12,6 +12,14 @@ class Liquid::MediafileDrop < Liquid::BaseDrop
     @options  = options
   end
   
+  def is_vertical?
+    source.height.to_i > source.width.to_i
+  end
+  
+  def is_horizontal?
+    source.height.to_i <= source.width.to_i
+  end
+  
   #TODO: figure out a nicer way of doing this other than enumerating the sizes
   def image_url_original
     source.image_url("original")

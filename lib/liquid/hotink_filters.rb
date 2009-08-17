@@ -8,7 +8,7 @@ module Liquid
       (text.split(/[^a-zA-Z]/).join(' ').size / 4.5).round
     end
     
-    def strftime(date, format)
+    def format_time(date, format)
       date = DateTime.parse(date)
       date ? date.strftime(format) : nil
     end

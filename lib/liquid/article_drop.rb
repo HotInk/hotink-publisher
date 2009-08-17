@@ -45,6 +45,18 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   def mediafiles
     source.mediafiles
   end
-
+  
+  def excerpt
+    if source.summary
+      source.summary
+    else
+      words = 120
+      if source.bodytext.nil? then return end
+      wordlist = source.bodytext.split
+      l = words.to_i - 1
+      l = 0 if l < 0
+      wordlist.length > l ? wordlist[0..l].join(" ") + "..." : input
+    end
+  end
   
 end

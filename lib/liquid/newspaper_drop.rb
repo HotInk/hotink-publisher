@@ -12,4 +12,8 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
     @account.name
   end
   
+  def latest_issue
+    Issue.find(:first, :account_id => @account.id)
+  end
+  
 end

@@ -5,7 +5,6 @@ module Liquid
     def template_file(filename)
       
       @account = @context.registers[:account]
-      puts @context.registers.to_s
       if @account
         @design = @context.registers[:design].nil? ? @account.current_design : @context.registers[:design]
 
