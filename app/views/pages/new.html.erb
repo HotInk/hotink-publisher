@@ -1,6 +1,7 @@
 <div id="design_form" class="form clearfix">
-	<p class="back_link"><%= link_to '&laquo; Back to pages', account_pages_path(@account) %></p>
-	<h1>Edit design details</h1>
+	<p class="back_link"><%= link_to '&laquo; Back to pages', account_pages_path(@account, @page) %></p>
+
+	<h1>New Page</h1>
 
 	<% form_for([@account, @page]) do |f| %>
 	  <%= f.error_messages %>

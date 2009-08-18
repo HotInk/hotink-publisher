@@ -1,1 +1,16 @@
-<%= @pages.size %>
+<div id="design_index">
+	<h1>Site Pages</h1>	
+	<%= button_link_to 'New page', new_account_page_path(@account) %>
+	
+	<div class="design_list">
+		<ul>
+		<% @pages.each do |page| %>
+		  <li id="page_<%= page.id %>" class="design">
+		    <h2><%= link_to h(page.name), edit_account_page_path(@account, page) %></h2>
+				    <p class="options"><%= link_to 'View', "#{@account.url}/#{page.name}" %> | 
+		<%= link_to 'x', account_page_path(@account, page), :confirm => 'Are you sure?', :style=>'color:red;', :method => :delete %></p>
+		  </li>
+		<% end %>
+		</ul>
+	</div>
+</div>

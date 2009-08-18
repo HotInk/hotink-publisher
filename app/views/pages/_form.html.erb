@@ -1,0 +1,11 @@
+  <div class="form_element">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="form_element">
+    <%= f.label :bodytext %><br />
+    <%= f.text_area :bodytext, :rows => "10" %>
+  </div>
+  <div class="form_element" style="display:inline; float: right;">
+    <%= button_link_to_submit 'Update', :class => "larger save" %>
+  </div>

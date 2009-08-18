@@ -1,6 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.resources :pages
   map.resource :user_session
   map.resources :users
 
@@ -37,6 +36,7 @@ ActionController::Routing::Routes.draw do |map|
     account.resource :redesigns    
     account.resources :front_pages  
     account.resources :press_runs
+    account.resources :pages, :only => [:edit, :index, :create, :new, :destroy, :update]
   end
   map.connect 'accounts/:account_id/admin', :controller => "admin/pages", :action => "dashboard"
   map.connect 'accounts/:account_id/search/:action/:id', :controller => 'search'

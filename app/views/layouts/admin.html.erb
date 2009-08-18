@@ -23,6 +23,8 @@
 		<li <%= 'class="selected"' if controller_name=="front_pages"%>><%= link_to "Front Pages", account_front_pages_path(@account) %></li>											
 		<li <%= 'class="selected"' if controller_name=="comments"%>><%= link_to "Comments", account_comments_path(@account) %></li>
 		<li <%= 'class="selected"' if controller_name=="templates"||controller_name=="designs"%>><%= link_to "Designs", account_designs_path(@account) %></li>
+		<li <%= 'class="selected"' if controller_name=="pages"%>><%= link_to "Pages", account_pages_path(@account) %></li>
+		
 	</ul>
 	
 	<%  flash.each do |name, message| -%>

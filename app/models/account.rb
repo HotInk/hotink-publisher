@@ -5,6 +5,8 @@ class Account < ActiveRecord::Base
   
   has_many :designs, :conditions => { :active => true }, :dependent => :destroy
   has_many :redesigns, :dependent => :destroy
+  
+  has_many :pages
     
   # has_many :articles
   
@@ -63,9 +65,6 @@ class Account < ActiveRecord::Base
     Issue.find(:all, :account_id => self.account_resource_id)
   end
   
-  def pages
-    Page.find(:all, :conditions => {:account_id => self.account_resource_id})
-  end
 
   def blogs
     Blog.find(:all, :account_id => self.account_resource_id)
