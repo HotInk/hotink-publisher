@@ -3,7 +3,6 @@ module Liquid
   module DesignFilters
     
     def template_file(filename)
-      
       @account = @context.registers[:account]
       if @account
         @design = @context.registers[:design].nil? ? @account.current_design : @context.registers[:design]
@@ -20,9 +19,18 @@ module Liquid
         else
             "<a href=\"#{template_file.url}\" name=\"#{template_file.file_name}\">#{ template_file.file_name }</a>" 
         end
-
       end
-    
+    end
+
+    def template_file_url(filename)
+      @account = @context.registers[:account]
+      if @account
+        @design = @context.registers[:design].nil? ? @account.current_design : @context.registers[:design]
+        template_file = @design.template_files.find_by_file_file_name(filename)
+        template_file.file.url
+      end
+    rescue
+      ""
     end
 
   end
