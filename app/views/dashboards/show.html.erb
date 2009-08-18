@@ -41,18 +41,20 @@
 			</div>
 			
 		</div>
-		<div id="widget_control" class="clearfix">
-			<h2>Current widgets</h2> <%= button_link_to_remote "New", :url => new_account_design_widget_path(@account, @account.current_design), :method => :get, :class=>"micro primary" %>
-			<ul id="widgets">
-				<% for widget in @account.current_design.widgets %>
-					<li>
-						<%= link_to "x", account_design_widget_path(@account, @account.current_design, widget), :method => :delete, :class => "kill_link", :style => "color:red;float:right;margin-right: 3px; margin-top:3px;" %>
-						<p><%= link_to widget.name, edit_account_design_widget_path(@account, @account.current_design, widget) %></p>
-						<p><% for template in widget.templates %><%= "#{template.name}, " %><% end %></p>
-					</li>
-				<% end %>
-			</ul>
-		</div>
+		<%= if @account.current_design %>
+			<div id="widget_control" class="clearfix">
+				<h2>Current widgets</h2> <%= button_link_to_remote "New", :url => new_account_design_widget_path(@account, @account.current_design), :method => :get, :class=>"micro primary" %>
+				<ul id="widgets">
+					<% for widget in @account.current_design.widgets %>
+						<li>
+							<%= link_to "x", account_design_widget_path(@account, @account.current_design, widget), :method => :delete, :class => "kill_link", :style => "color:red;float:right;margin-right: 3px; margin-top:3px;" %>
+							<p><%= link_to widget.name, edit_account_design_widget_path(@account, @account.current_design, widget) %></p>
+							<p><% for template in widget.templates %><%= "#{template.name}, " %><% end %></p>
+						</li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
 	</div>
 	
 </div><!-- /#dashboard -->
