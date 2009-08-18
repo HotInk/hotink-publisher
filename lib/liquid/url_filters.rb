@@ -1,3 +1,5 @@
+require 'uri'
+
 module Liquid
 
   module UrlFilters
@@ -46,14 +48,14 @@ module Liquid
   
     def link_to_section(section, title=nil)
       @account = @context.registers[:account] #Account.find(article.account_id)
-      url = "#{@account.url}/sections/" + section["name"]
+      url = "#{@account.url}/sections/" + URI.escape(section["name"])
       title ||= section["name"]
       link_to title, url
     end
     
     def link_to_page(page_name, title=nil)
       @account = @context.registers[:account] #Account.find(article.account_id)
-      url = @account.url + "/" + page_name
+      url = @account.url + "/" + URI.escape(page_name)
       title ||= page_name
       link_to title, url
     end
