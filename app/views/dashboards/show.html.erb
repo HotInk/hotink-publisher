@@ -41,7 +41,7 @@
 			</div>
 			
 		</div>
-		<%= if @account.current_design %>
+		<% if @account.current_design %>
 			<div id="widget_control" class="clearfix">
 				<h2>Current widgets</h2> <%= button_link_to_remote "New", :url => new_account_design_widget_path(@account, @account.current_design), :method => :get, :class=>"micro primary" %>
 				<ul id="widgets">
