@@ -51,9 +51,8 @@ module Liquid
       link_to title, url
     end
     
-    def link_to_page(page, title=nil)
+    def link_to_page(page_name, title=nil)
       @account = @context.registers[:account] #Account.find(article.account_id)
-      page_name = page.name unless page.is_a?(String)
       url = @account.url + "/" + page_name
       title ||= page_name
       link_to title, url
