@@ -8,6 +8,10 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
     @account.sections
   end
   
+  def pages
+    @account.pages
+  end
+  
   def name
     @account.name
   end
