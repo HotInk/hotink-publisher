@@ -110,8 +110,9 @@ class TemplatesController < ApplicationController
     unless @tplate.class.name=="WidgetTemplate"
      @tplate.widgets.clear 
      @tplate.parsed_code.root.nodelist.select{ |c| c.is_a? Liquid::Widget }.each do |widget|
-      logger.info("Widget: #{widget.widget_name[1..-2]} \n")
-      @tplate.widgets << @design.widgets.find_by_name(widget.widget_name[1..-2])
+      logger.info("Found widget: #{widget.widget_name[1..-2]} \n")
+      widget_object = @design.widgets.find_by_name(widget.widget_name[1..-2])
+      @tplate.widgets << widget_object if widget_object
      end
     end
     
