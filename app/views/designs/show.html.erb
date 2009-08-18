@@ -37,6 +37,16 @@
 			<% end %>
 			</ul>
 		</div>
+		<div id="widget_templates" class="clearfix">
+			<h3>Widgets</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'widget'), :class=>"micro primary" %>
+			<ul>
+			<% for template in @design.widget_templates -%>
+				<li class="widget_template">
+					<%= link_to template.name, edit_account_design_template_path(@account, @design, template) %> <%= link_to "x", account_design_template_path(@account, @design, template), :method => :delete, :confirm => "Are you sure you want to delete\n\n#{template.name}\n\nfrom this design? Once deleted it can't be recovered.", :class=>"kill_link" %> <span class="last_updated"><%= template.created_at==template.updated_at ? "Created " : "Last updated "  %><%= template.updated_at.to_s(:standard) %></span>
+				</li>
+			<% end %>
+			</ul>
+		</div>
 		<div id="page_templates" class="clearfix">
 			<h3>Pages</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'articles/show'), :class=>"micro primary" %>
 			<ul>

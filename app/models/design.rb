@@ -7,9 +7,12 @@ class Design < ActiveRecord::Base
   
   has_many :redesigns
   
+  has_many :widgets
+  
   has_many :templates, :conditions => { :active => true }, :dependent => :destroy
   has_many :layouts, :conditions => { :active => true }
   has_many :page_templates,  :conditions => { :active => true }
+  has_many :widget_templates, :conditions => { :type => "WidgetTemplate", :active => true }
   has_many :front_page_templates, :conditions => { :active => true }
   has_many :partial_templates, :conditions => { :active => true }
   

@@ -42,6 +42,9 @@ class TemplatesController < ApplicationController
     when 'front_pages/show'
       @tplate = @design.front_page_templates.build(:role => 'front_pages/show')
       @tplate.schema = []
+    when 'widget'
+      @tplate = @design.widget_templates.build(:role => 'widget')
+      @tplate.schema = []
     else
       @tplate = @design.page_templates.build(:role => params[:role])
     end
@@ -62,7 +65,7 @@ class TemplatesController < ApplicationController
   def create
     
     # Find template attributes
-    model_params = params[:template] || params[:front_page_template] || params[:page_template] || params[:partial_template] || params[:layout]
+    model_params = params[:template] || params[:widget_template] || params[:front_page_template] || params[:page_template] || params[:partial_template] || params[:layout]
     
     case model_params[:role]
     when 'layout' 
@@ -71,6 +74,9 @@ class TemplatesController < ApplicationController
        @tplate = @design.partial_templates.build(model_params)
     when 'front_pages/show'
       @tplate = @design.front_page_templates.build(model_params)
+      @tplate.schema = (model_params[:schema] || []) # assign serialized attribute explicitly
+    when 'widget'
+      @tplate = @design.widget_templates.build(model_params)
       @tplate.schema = (model_params[:schema] || []) # assign serialized attribute explicitly
     else
       @tplate = @design.page_templates.build(model_params)
@@ -97,11 +103,17 @@ class TemplatesController < ApplicationController
     @tplate = @design.templates.find(params[:id])
 
     # Serialized attributes need to be declared explicitly.
-    @tplate.schema = (params[:front_page_template][:schema] || []) if @tplate.is_a? FrontPageTemplate
+    @tplate.schema = (params[@tplate.class.name.underscore.to_sym][:schema] || []) if @tplate.kind_of? WidgetTemplate
     # Pre-parse the template in the controller, it can't happen in the model
     @tplate.parsed_code = Liquid::Template.parse(params[@tplate.class.name.underscore.to_sym][:code])
-    
-    
+        
+    unless @tplate.class.name=="WidgetTemplate"
+     @tplate.widgets.clear 
+     @tplate.parsed_code.root.nodelist.select{ |c| c.is_a? Liquid::Widget }.each do |widget|
+      logger.info("Widget: #{widget.widget_name[1..-2]} \n")
+      @tplate.widgets << @design.widgets.find_by_name(widget.widget_name[1..-2])
+     end
+    end
     
     respond_to do |format|
       if @tplate.update_attributes(params[@tplate.class.name.underscore.to_sym])
@@ -115,6 +127,7 @@ class TemplatesController < ApplicationController
     end
   rescue Liquid::SyntaxError => e
     flash[:syntax_error] = "#{e.message}"
+    @tplate.code = params[@tplate.class.name.underscore.to_sym][:code]
     respond_to do |format|
       format.html { render :action => "edit" }
       format.xml  { head :uprocessable_entity }

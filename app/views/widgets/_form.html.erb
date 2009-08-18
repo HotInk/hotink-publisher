@@ -1,0 +1,46 @@
+<div id="front_page_form">
+	<div class="form_title clearfix">
+		<h1>Edit widget</h1>	
+		<%= f.error_messages %>
+		<%= f.hidden_field :template_id %>
+		<div class="schema_builder clearfix">
+		 	<%= render :partial => 'schema_builder', :locals => { :f => f } %>
+		</div>
+
+	</div>
+
+
+	<div class="name_desc clearfix">
+			<div class="button">
+		  		<%= button_link_to_submit 'Save', :class => "larger save" %>
+			</div>
+		    <div class="details">
+				<%= f.label :name %> <small style="color:red;">(required)</small><br />
+		    	<%= f.text_field :name %><br />
+		    	<%= f.label :description %> <small>(optional)</small><br />
+		    	<%= f.text_area :description, :rows => 2 %>
+			</div>
+			<%= render :partial => 'loaded_articles', :locals => { :f => f.object }  %>
+	</div>
+</div>
+<% content_for :javascript do %>
+<script type="text/javascript" charset="utf-8">
+	$('articles_list').childElements().each( function(li){ 
+		new Draggable(li.down(), { revert: true }); 
+	});
+	$$('fieldset.entity ol li').each( function(article_slot) {
+		Droppables.add(article_slot, { onDrop: function( new_article, spec_holder ){
+			 	var new_article_id = new_article.id.split('_').pop();
+				var spec_holder_id = spec_holder.id.split('_').pop();
+				spec_holder.down().value = new_article_id;
+				spec_holder.down().next().next().innerHTML = new_article.innerHTML;
+				//alert('Dropped \n\n' + new_article_id + "\n\non\n\n" + spec_holder_id ); 
+		}});
+	});
+	empty_schema_position = function( schema_element ) {
+		schema_element.down().value = "";
+		schema_element.down().next().next().remove();
+		schema_element.insert( Builder.node('div', {className: 'clearfix'}, Builder.node('p', 'Nothing in this position')) );
+	}
+</script>
+<% end %>

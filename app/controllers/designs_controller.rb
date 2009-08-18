@@ -6,6 +6,7 @@ class DesignsController < ApplicationController
   # GET /designs.xml
   def index
     @designs = @account.designs.all
+    @redesign = @account.redesigns.build
 
     respond_to do |format|
       format.html # index.html.erb

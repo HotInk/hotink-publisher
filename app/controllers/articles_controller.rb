@@ -25,7 +25,35 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id], :account_id => @account.account_resource_id)
     #@comments = @article.comments
     
-    # Set design register here, in case the user has specified one other than the current.
+  # Widget data processing -- start  
+    # Build query of only the necessary ids, from the widgets
+    schema_ids = Array.new
+    @current_template.widgets.each do |widget|
+      widget.schema.each_key do |item|
+        schema_ids += widget.schema[item]['ids']
+      end
+    end
+
+    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id)
+
+    widget_data = {}
+    schema_articles = {}
+
+    article_resources.each do |article|
+       schema_articles.merge!(article.id.to_s => article)
+    end
+    
+    @current_template.widgets.each do |widget|
+      widget.schema.each_key do |item|
+        item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i] }
+        widget_data.merge!( "#{item}_#{widget.name}" => item_array )
+      end
+    end
+  # Widget data processing -- end
+ 
+    # Set registers here 
+    @registers[:widget_data] = widget_data
+    @registers[:account] = @account
     @registers[:design] = @current_template.design
     
     page_html = @current_template.parsed_code.render({'article' => @article, 'newspaper' => @newspaper}, :registers => @registers )

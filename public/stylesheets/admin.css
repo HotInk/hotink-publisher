@@ -23,24 +23,31 @@ body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, s
 /* Dashboard style */
 
 #dashboard h1 { margin: 5px 0; clear: left; }
-#dashboard>h2 { float: left;}
-#dashboard h2 { text-decoration: underline; margin: 0; margin-top: 10px; font-size: 1.25em; }
+#dashboard>h2, #widget_control h2 { float: left; }
+#dashboard h2 {  text-decoration: underline; margin: 0; margin-top: 10px; font-size: 1.25em; }
 #dashboard .options { float: left; width: 755px; text-align: right; padding-top: 18px; }
 #dashboard .guide { width: 240px; margin-right: 10px; float:left; clear: left;}
 #dashboard #control_panel { width: 680px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
-#dashboard #control_panel h2 { font-family: georgia, "Times New Roman", times, serif; font-size: 1.7em; text-decoration:none; font-weight: normal; }
-#dashboard #control_panel h3 { margin: 5px 0; }
-#dashboard #control_panel p { font-size: 0.9em;}
-#dashboard #control_panel>div>div { float: left; width: 47.5%; padding: 1%; height: 150px;}
-#dashboard #control_panel>div>div+div { margin-left: 1%; }
-#dashboard #control_panel select { margin-bottom: 5px; }
-#dashboard #current_front_page, #dashboard #current_design { background-color: #DEFFDB;}
+#design_index #control_panel { float:left; }
+#control_panel h2 { font-family: georgia, "Times New Roman", times, serif; font-size: 1.7em; text-decoration:none; font-weight: normal; }
+#control_panel h3 { margin: 5px 0; }
+#control_panel p { font-size: 0.9em;}
+#control_panel>div>div { float: left; width: 47.5%; padding: 1%; height: 150px;}
+#control_panel>div>div+div { margin-left: 1%; }
+#control_panel select { margin-bottom: 5px; }
+#dashboard #current_front_page, #current_design { background-color: #DEFFDB;}
 #dashboard #change_front_page { background-color: #CEE4F3; }
-#dashboard #current_design h1 { float:none; font-size: 1.8em; color: #333; text-decoration: underline; }
-#dashboard #current_design p { margin: 5px 0; }
-#dashboard div#control_panel div#current_design { height: auto; min-height: 150px; }
-#dashboard #change_design { background-color: #FFF6DD; }
-#dashboard #design_control { margin-top: 10px; border-top: 1px dotted #333; padding-top: 10px;}
+
+#widget_control { float:left; width: 100%; margin-top: 10px; border-top: 1px dotted #333; padding-top: 10px; }
+#widget_control h2 { margin-right: 13px; }
+#widget_control button.btn { margin-top: 15px; margin-left: 13px; font-weight: bold; font-size: 0.75em; }
+
+#current_design h1 { float:none; font-size: 1.8em; color: #333; text-decoration: underline; }
+#current_design p { margin: 5px 0; }
+div#control_panel div#current_design { height: auto; min-height: 150px; }
+#change_design { background-color: #FFF6DD; }
+#design_control { float:left; margin-bottom: 10px; border-bottom: 1px dotted #333; padding-bottom: 10px;}
+
 
 
 /* Begin publisher styles */
@@ -162,7 +169,11 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design_index, #design_index ul { width: 700px; clear:left; float: left; }
 #design_index h1 { clear: left; margin-right: 20px;  }
 #design_index a.btn { margin-top: 29px; }
-#design_index p { width: 30em; line-height: 1.4; clear:left; }
+.design_list p { width: 30em; line-height: 1.4; clear:left; }
+.design_list { float: left; }
+.design_list h2 { margin: 5px 0; font-weight: normal; font-family: georgia,"times new roman",times, serif; }
+.design_list>h2 { font-size: 1.9em; }
+.design_list li h2 { font-size: 1.6em; }
 
 /* Design show */
 #design { float: left; width: 100%; }
@@ -187,7 +198,7 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design #templates ul li a { float: left; }
 #design #templates ul li a.kill_link { color: red; float:right;}
 #design #templates ul li .last_updated { float: right; margin-right: 7px; color: #515151; font-size: 0.9em; padding-top: 0.15em; }
-#design #templates ul li.layout, #design #templates ul li.template_media { background-color: #CEE4F3; }
+#design #templates ul li.layout, #design #templates ul li.widget_template { background-color: #CEE4F3; }
 #design #templates ul li.partial, #design #templates ul li.stylesheet {background-color: #FFF6DD; }
 #design #templates ul li.page_template {background-color: #DEFFDB; }
 #design #templates ul li.front_page_template, #design #templates ul li.javascript_file { background-color: #FFDBDB }

@@ -2,6 +2,8 @@ class Template < ActiveRecord::Base
   belongs_to :account
   belongs_to :design
   
+  has_many :widget_placements
+  
   acts_as_versioned
     
   def name

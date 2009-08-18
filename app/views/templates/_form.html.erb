@@ -3,6 +3,7 @@
  <div class="template">
   <%= f.label :role, "Template type" %><br />
   <%= f.select :role, { "Front page" => "front_pages/show", 
+	"Widget" => 'widget',
 	"Article" => "articles/show", 
 	"Blog index" => "blogs/index", 	
 	"Blog" => "blogs/show",
@@ -12,7 +13,7 @@
 	"Partial" => "partial"} 
 	%>
  </div>
-  <% if f.object.is_a?(PageTemplate) || f.object.is_a?(FrontPageTemplate) -%>
+  <% if f.object.is_a?(PageTemplate) || f.object.kind_of?(FrontPageTemplate) -%>
  <div class="layout">
   		<%= f.label :layout_id, "Layout" %><br />
   		<%= f.collection_select :layout_id, @design.layouts, :id, :name, :include_blank => "Design default" %>
@@ -30,16 +31,16 @@
 		<h3>Template data</h3>
 	</div>
 </div>
-<% if f.object.role=='front_pages/show' -%>
+<% if f.object.role=='front_pages/show' || f.object.role=='widget' -%>
 	<div class="entity_definitions clearfix">
 		 <% if @tplate.schema.is_a? Array %>
 		  <% @tplate.schema.each_index do |entity| -%>
 		  <fieldset class="entity">
 			  <%= link_to_function "x", "if(confirm('Remove this variable from the schema?')) $(this).up().remove();", :style => "float:right;color:red;text-decoration:none;margin-bottom: 5px;" %>
-			  <%= label_tag 'front_page_template[schema][][name]', 'Name:' %> <%= text_field_tag "front_page_template[schema][][name]", @tplate.schema[entity]["name"]  %><br />
-			  <%= label_tag 'front_page_template[schema][][model]', 'Data type:' %> <%= select_tag "front_page_template[schema][][model]", options_for_select(["Article"], @tplate.schema[entity]["model"])%><br />
-			  <%= label_tag 'front_page_template[schema][][description]', 'Description:' %> <%= text_area_tag "front_page_template[schema][][description]", @tplate.schema[entity]["description"] %><br />
-			  <%= label_tag 'front_page_template[schema][][quantity]', 'Quantity:' %> <%= select_tag "front_page_template[schema][][quantity]", options_for_select(["1","2","3","4","5","6","7","8","9","10"], @tplate.schema[entity]['quantity']) %>
+			  <%= label_tag @tplate.class.name.underscore.to_s+'[schema][][name]', 'Name:' %> <%= text_field_tag @tplate.class.name.underscore.to_s+"[schema][][name]", @tplate.schema[entity]["name"]  %><br />
+			  <%= label_tag @tplate.class.name.underscore.to_s+'[schema][][model]', 'Data type:' %> <%= select_tag @tplate.class.name.underscore.to_s+"[schema][][model]", options_for_select(["Article"], @tplate.schema[entity]["model"])%><br />
+			  <%= label_tag @tplate.class.name.underscore.to_s+'[schema][][description]', 'Description:' %> <%= text_area_tag @tplate.class.name.underscore.to_s+"[schema][][description]", @tplate.schema[entity]["description"] %><br />
+			  <%= label_tag @tplate.class.name.underscore.to_s+'[schema][][quantity]', 'Quantity:' %> <%= select_tag @tplate.class.name.underscore.to_s+"[schema][][quantity]", options_for_select(["1","2","3","4","5","6","7","8","9","10"], @tplate.schema[entity]['quantity']) %>
 		  </fieldset>
 		  <% end -%>
 		<% end -%>
@@ -50,20 +51,25 @@
 </div>
 	<% content_for :javascript do %>
 		<script type="text/javascript" charset="utf-8">
+		<% if @tplate.is_a?(FrontPageTemplate) -%>
+			model_name = "front_page_template";
+		<% else -%>
+			model_name = "widget_template";
+		<% end -%>
 			add_empty_schema_tag = function ( add_link_element ) {
 				new_schema_fieldset = Builder.node( 'fieldset', { className: 'entity' }, [
 					Builder.node('a', { style: 'float: right; color: red;text-decoration:none;margin-bottom: 5px;', onclick: "if(confirm('Remove this unsaved variable from the schema?')) $(this).up().remove(); return false;", href:'#'}, ['x']),
 				 	Builder.node('label', 'Name: '),
-					Builder.node('input', {type:'text', name:'front_page_template[schema][][name]'}),
+					Builder.node('input', {type:'text', name:model_name+'[schema][][name]'}),
 					Builder.node('br'),
 					Builder.node('label','Data type: '),
-					Builder.node('select', { name:'front_page_template[schema][][model]' }, [ Builder.node('option', {value: 'Article'}, ["Article"]) ] ),
+					Builder.node('select', { name:model_name+'[schema][][model]' }, [ Builder.node('option', {value: 'Article'}, ["Article"]) ] ),
 					Builder.node('br'),
 					Builder.node('label', 'Description: '),
-					Builder.node('textarea', {name:'front_page_template[schema][][description]'}),
+					Builder.node('textarea', {name:model_name+'[schema][][description]'}),
 					Builder.node('br'),
 					Builder.node('label', 'Quantity: '),
-					Builder.node('select', { name:'front_page_template[schema][][quantity]'}, [ Builder.node('option', { value:'1', selected:"selected"}, '1'), Builder.node('option', { value:'2'}, '2'), Builder.node('option',{ value:'3'}, '3'), Builder.node('option',{ value:'4'}, '4'), Builder.node('option',{ value:'5'}, '5'), Builder.node('option',{ value:'6'}, '6'),Builder.node('option',{ value:'7'}, '7'),Builder.node('option',{ value:'8'}, '8'), Builder.node('option',{ value:'9'}, '9'), Builder.node('option',{ value:'10'}, '10') ] )
+					Builder.node('select', { name:model_name+'[schema][][quantity]'}, [ Builder.node('option', { value:'1', selected:"selected"}, '1'), Builder.node('option', { value:'2'}, '2'), Builder.node('option',{ value:'3'}, '3'), Builder.node('option',{ value:'4'}, '4'), Builder.node('option',{ value:'5'}, '5'), Builder.node('option',{ value:'6'}, '6'),Builder.node('option',{ value:'7'}, '7'),Builder.node('option',{ value:'8'}, '8'), Builder.node('option',{ value:'9'}, '9'), Builder.node('option',{ value:'10'}, '10') ] )
 					] );
 				// Add blank schema entity to form.
 				$(add_link_element).insert( new_schema_fieldset );

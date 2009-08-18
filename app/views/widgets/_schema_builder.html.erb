@@ -1,0 +1,33 @@
+<% f.object.schema.each do | name, spec |%>
+<fieldset class="entity">
+	<h2><%= name %></h2>
+	<p><%= spec['description'] %></p>
+	<%= hidden_field_tag "schema[#{name}][description]", spec['description'] %>
+	<%= hidden_field_tag "schema[#{name}][type]", spec['type'] %>
+		
+		<ol class="clearfix">
+			<% spec["ids"].each_index do |index| %>
+								
+				<li id="<%= name %>_<%= index %>">
+					<%= hidden_field_tag "schema[#{name}][ids][]", spec['ids'][index] %>
+					<%= link_to_function "x", "empty_schema_position($(this).up());", :class => "empty_link" %>	
+					<% unless spec["ids"][index].blank? ||  @schema_articles[spec['ids'][index].to_i].blank? %>
+						<div class="clearfix">
+							<h1><%= @schema_articles[spec['ids'][index].to_i].title %></h1>
+							<div class="article_details">
+								<div class="authors"><%= @schema_articles[spec['ids'][index].to_i].authors_list %></div>
+							</div>
+						</div>
+					<% else %>
+						<div class="clearfix">
+							<p>Nothing in this position</p>
+						</div>
+					<% end%>
+					
+				</li>
+				
+			<% end %>
+		</ol>
+		
+</fieldset>
+<% end %>

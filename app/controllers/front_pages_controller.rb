@@ -24,11 +24,17 @@ class FrontPagesController < ApplicationController
     @front_page = @account.front_pages.find(params[:id])
     @current_template = @front_page.template
     
-    # Build query of only the necessary ids
+    # Build query of only the necessary ids, from both the page schema and widget
     schema_ids = Array.new
     @front_page.schema.each_key do |item|
       schema_ids += @front_page.schema[item]['ids']
-    end    
+    end
+    @current_template.widgets.each do |widget|
+      widget.schema.each_key do |item|
+        schema_ids += widget.schema[item]['ids']
+      end
+    end
+    
     @registers[:account] = @account
     @registers[:design] = @current_template.design
         

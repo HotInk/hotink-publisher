@@ -1,0 +1,7 @@
+<div id="edit_front_page" class="clearfix">
+	<p class="back_link"><%= link_to '&laquo; Back to dashboard', account_dashboard_path(@account) %></p>
+	<% form_for([@account, @design, @widget]) do |f| %>
+	  <%= f.error_messages %>
+		<%= render :partial => "form", :locals => { :f => f } %>
+	<% end %>
+</div>

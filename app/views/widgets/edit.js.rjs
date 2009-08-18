@@ -1,0 +1,1 @@
+page.replace 'articles', :partial => 'loaded_articles', :locals => { :f => @widget }

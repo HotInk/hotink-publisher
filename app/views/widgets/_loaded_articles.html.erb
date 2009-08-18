@@ -1,0 +1,40 @@
+<div id="articles" class="loaded_articles clearfix">
+	<h2>Recent articles</h2>
+	<p style="float: left;">
+		<small><small>To add articles to your front page, drag them from here to the right location to the left</small></small>
+	</p>
+	<p style="float: right;margin:0;margin-top:10px;">
+		<% if params[:page]&&params[:page].to_i>1 %>
+			<%= button_link_to_remote "&laquo;", :url => edit_account_design_widget_url(@account, @design, f, :page => params[:page].to_i-1), :after => "$(this).next().setStyle({visibility: 'visible'});$('articles_list').addClassName('transparent');", :method => :get, :html => { :class=>'large pill' } %>
+		<% end %>
+		<img src="/images/loading_small_white.gif" style="visibility: hidden; margin: 2px; position: relative; top: 5px;"/>
+		<% article_page = params[:page] || 1 -%>
+		<%= button_link_to_remote "&raquo;", :url => edit_account_design_widget_url(@account, @design, f, :page => article_page.to_i+1), :after => "$(this).previous().setStyle({visibility: 'visible'});$('articles_list').addClassName('transparent');", :method => :get, :html => { :class=>'large pill' } %>
+	</p>
+	<ol id="articles_list">
+		<% for article in @articles %>
+	
+			<li class="published clearfix">
+				<div id="article_<%= article.id %>" class="article clearfix">	
+					<h1><%= article.title %></h1>
+					<div class="article_details clearfix">
+						<div class="authors">
+							<%= article.authors_list %>
+						</div>
+					</div>
+				</div>
+				<div class="section">
+					<p><%= article.attributes['section'].blank? ? "<span style=\"color: #BBB\">No section</span>" : article.attributes['section'] %></p>
+				</div>
+				<div class="date">
+					<%= Time.parse(article.published_at).to_s(:standard) %>
+				</div>
+			</li>
+		<% end %>
+	</ol>
+</div>
+<script type="text/javascript" charset="utf-8">
+	$('articles_list').childElements().each( function(li){ 
+		new Draggable(li.down(), { revert: true }); 
+	});
+</script>
