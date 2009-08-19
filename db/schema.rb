@@ -178,7 +178,7 @@ ActiveRecord::Schema.define(:version => 20090819032404) do
     t.text     "description"
     t.string   "role"
     t.text     "code"
-    t.binary   "parsed_code"
+    t.text     "parsed_code"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "layout_id"
@@ -195,7 +195,7 @@ ActiveRecord::Schema.define(:version => 20090819032404) do
     t.text     "description"
     t.string   "role"
     t.text     "code"
-    t.binary   "parsed_code"
+    t.text     "parsed_code"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "layout_id"
@@ -239,10 +239,10 @@ ActiveRecord::Schema.define(:version => 20090819032404) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "design_id"
+    t.integer  "template_id"
     t.text     "description"
     t.text     "schema"
     t.integer  "account_id"
-    t.integer  "template_id"
   end
 
 end

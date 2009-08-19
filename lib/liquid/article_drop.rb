@@ -59,4 +59,8 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     end
   end
   
+  def comments
+    source.comments
+  end
+  
 end
