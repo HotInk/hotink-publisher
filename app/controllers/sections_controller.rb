@@ -8,10 +8,10 @@ class SectionsController < ApplicationController
   before_filter :build_registers, :only => :show
 
   def show
-    @section = Section.find(:one, :from => "/accounts/#{@account.account_resource_id}/sections/#{params[:id]}.xml")
+    @section = Section.find(:one, :from => "/accounts/#{@account.account_resource_id}/sections/#{params[:id]}.xml", :as => @access_token)
     
     # FIXME: doesn't actually pull section articles
-    @articles = Article.find(:all, :account_id => @account.account_resource_id, :section_id => params[:id])
+    @articles = Article.find(:all, :account_id => @account.account_resource_id, :section_id => params[:id], :as => @access_token)
    
     @registers[:account] = @account
     @registers[:design] = @current_template.design
