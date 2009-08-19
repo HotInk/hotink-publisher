@@ -24,7 +24,7 @@ class PagesController < ApplicationController
 
     # Set registers here 
     @registers[:account] = @account
-    @registers[:design] = @current_template.design
+    @registers[:design] = @current_template.design if @current_template.design
 
     page_html = @current_template.parsed_code.render({'page' => @page, 'newspaper' => @newspaper}, :registers => @registers )
     if @current_template.current_layout
