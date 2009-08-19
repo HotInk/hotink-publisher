@@ -128,7 +128,7 @@ class ApplicationController < ActionController::Base
             end
 
           else
-            redirect_to new_user_path(:oauth_token => params[:oauth_token], :request_url => params[:request_url])
+            redirect_to new_user_path(:oauth_token => params[:oauth_token], :request_url => params[:request_url], :account_id => params[:account_id])
             return
           end 
         end
