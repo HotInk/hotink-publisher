@@ -5,11 +5,12 @@ class UsersController < ApplicationController
   # A "new user" in this context is really just a OAuth request token until we get that token approved, then we can create the user.
   def new
     if params[:oauth_token]
+      @account = Account.find(params[:account_id])
       token = OauthToken.find_by_token(params[:oauth_token], :conditions => { :token_type => "RequestToken"} )
       request_token = OAuth::RequestToken.new(get_consumer, token.token, token.secret)
       access_token = request_token.get_access_token
       @token = OauthToken.new(:token => access_token.token, :secret => access_token.secret, :token_type => "AccessToken" )
-      @user = User.create!(:oauth_token => @token )
+      @user = User.create!(:oauth_token => @token, :account_id => @account.id )
       if params[:request_url] # preserve a passed along request url
         redirect_to params[:request_url]
       else

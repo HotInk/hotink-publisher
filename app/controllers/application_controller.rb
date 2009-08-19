@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :find_account
   before_filter :require_user
+  before_filter :load_access_token
   
   private
   
@@ -95,9 +96,9 @@ class ApplicationController < ActionController::Base
         # Second, check to see if session negotiation is ongoing  
         if params[:session_action]
           if params[:request_url] # preserve a passed along request url
-            redirect_to new_user_path(:request_url => params[:request_url]) and return if params[:session_action]=="new_user"
+            redirect_to new_user_path(:request_url => params[:request_url], :account_id => params[:account_id]) and return if params[:session_action]=="new_user"
           else
-            redirect_to new_user_path and return if params[:session_action]=="new_user"  
+            redirect_to new_user_path(:account_id => params[:account_id]) and return if params[:session_action]=="new_user"  
           end
         end 
 
@@ -145,7 +146,12 @@ class ApplicationController < ActionController::Base
     end
 
     def load_access_token
-      @access_token = OAuth::AccessToken.new(get_consumer, current_user.oauth_token.token, current_user.oauth_token.secret)
+      if current_user
+        # Use the current user's access token whenever posssible to keep the best records of who's doing what in the Hot Ink logs
+        @access_token = OAuth::AccessToken.new(get_consumer, current_user.oauth_token.token, current_user.oauth_token.secret)
+      else
+        user = 
+        @access_token = 
     end
     
     # Method to build the necessary context registers for Liquid from controller instance variables.

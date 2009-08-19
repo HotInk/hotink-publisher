@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090818030749) do
+ActiveRecord::Schema.define(:version => 20090819032404) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -106,9 +106,9 @@ ActiveRecord::Schema.define(:version => 20090818030749) do
   end
 
   create_table "oauth_tokens", :force => true do |t|
-    t.string   "token",      :default => "", :null => false
-    t.string   "secret",     :default => "", :null => false
-    t.string   "token_type", :default => "", :null => false
+    t.string   "token",      :null => false
+    t.string   "secret",     :null => false
+    t.string   "token_type", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -213,10 +213,10 @@ ActiveRecord::Schema.define(:version => 20090818030749) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "persistence_token",  :default => "", :null => false
-    t.string   "oauth_token_id",     :default => "", :null => false
-    t.integer  "login_count",        :default => 0,  :null => false
-    t.integer  "failed_login_count", :default => 0,  :null => false
+    t.string   "persistence_token",                 :null => false
+    t.string   "oauth_token_id",                    :null => false
+    t.integer  "login_count",        :default => 0, :null => false
+    t.integer  "failed_login_count", :default => 0, :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
@@ -224,6 +224,7 @@ ActiveRecord::Schema.define(:version => 20090818030749) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
 
   create_table "widget_placements", :force => true do |t|
@@ -238,10 +239,10 @@ ActiveRecord::Schema.define(:version => 20090818030749) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "design_id"
-    t.integer  "template_id"
     t.text     "description"
     t.text     "schema"
     t.integer  "account_id"
+    t.integer  "template_id"
   end
 
 end
