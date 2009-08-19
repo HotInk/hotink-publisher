@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
       end
       raise ActiveRecord::RecordNotFound unless @current_template
       rescue
-        render :status => :not_found
+        render :text => "<h1>Out here we all them 404s, Ned</h1><p>Sorry, this page doesn't exist.</p> ", :status => :not_found
         return
     end
     
