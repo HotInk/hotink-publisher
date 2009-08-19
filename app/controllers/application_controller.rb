@@ -48,6 +48,7 @@ class ApplicationController < ActionController::Base
       else
         @current_template = @account.current_design.templates.find_by_role("#{controller_name}/#{action_name}")
       end
+      raise ActiveRecord::RecordNotFound unless @current_template
       rescue
         render :status => :not_found
     end
