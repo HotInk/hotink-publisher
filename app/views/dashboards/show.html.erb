@@ -47,7 +47,7 @@
 				<ul id="widgets">
 					<% for widget in @account.current_design.widgets %>
 						<li>
-							<%= link_to "x", account_design_widget_path(@account, @account.current_design, widget), :method => :delete, :class => "kill_link", :style => "color:red;float:right;margin-right: 3px; margin-top:3px;" %>
+							<%= link_to "x", account_design_widget_path(@account, @account.current_design, widget), :method => :delete, :confirm => "Are you sure you want to remove this widget? You can always recreate it later.\n\nPress 'OK' to delete.", :class => "kill_link", :style => "color:red;float:right;margin-right: 3px; margin-top:3px;" %>
 							<p><%= link_to widget.name, edit_account_design_widget_path(@account, @account.current_design, widget) %></p>
 							<p><% for template in widget.templates %><%= "#{template.name}, " %><% end %></p>
 						</li>

@@ -4,6 +4,10 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
     @account = account
   end
 
+  def url
+    @account.url
+  end
+
   def sections
     @account.sections
   end
