@@ -149,9 +149,7 @@ class ApplicationController < ActionController::Base
       if current_user
         # Use the current user's access token whenever posssible to keep the best records of who's doing what in the Hot Ink logs
         @access_token = OAuth::AccessToken.new(get_consumer, current_user.oauth_token.token, current_user.oauth_token.secret)
-      else
-        user = 
-        @access_token = 
+      end
     end
     
     # Method to build the necessary context registers for Liquid from controller instance variables.
