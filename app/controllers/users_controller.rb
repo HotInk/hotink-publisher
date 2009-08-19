@@ -22,9 +22,9 @@ class UsersController < ApplicationController
       @token = OauthToken.create!(:token => request_token.token, :secret => request_token.secret, :token_type => "RequestToken")
       if @token
         if params[:request_url] # preserve a passed along request url
-          redirect_to request_token.authorize_url + "&request_url=#{params[:request_url]}"
+          redirect_to request_token.authorize_url + "&account_id=#{params[:account_id]}&request_url=#{params[:request_url]}"
         else
-          redirect_to request_token.authorize_url
+          redirect_to request_token.authorize_url + "&account_id=#{params[:account_id]}"
         end
       end
     end
