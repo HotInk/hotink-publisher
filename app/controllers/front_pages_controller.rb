@@ -37,11 +37,12 @@ class FrontPagesController < ApplicationController
     
     @registers[:account] = @account
     @registers[:design] = @current_template.design
-        
+    
     article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @access_token)
   
     # Recontruct front page schema as hash keyed by entity name
     data_for_render = {}
+    widget_data = {}
     schema_articles = {}
     
     article_resources.each do |article|
@@ -52,6 +53,14 @@ class FrontPagesController < ApplicationController
       item_array = @front_page.schema[item]['ids'].collect{ |i| schema_articles[i] }
       data_for_render.merge!( item => item_array )
     end
+    @current_template.widgets.each do |widget|
+      widget.schema.each_key do |item|
+        item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i] }
+        widget_data.merge!( "#{item}_#{widget.name}" => item_array )
+      end
+    end
+    
+    @registers[:widget_data] = widget_data
     
     page_html = @current_template.parsed_code.render(data_for_render.merge('newspaper' => @newspaper), :registers => @registers )
         
