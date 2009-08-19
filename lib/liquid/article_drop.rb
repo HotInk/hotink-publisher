@@ -19,7 +19,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   end
   
   def section
-    source.attributes['section']
+    URI.decode(source.attributes['section'])
   end
   
   def published_at
