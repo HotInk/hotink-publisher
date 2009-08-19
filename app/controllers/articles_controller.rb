@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
   # Since the show action is public facing, it should always fail in a predictable
   # informative way.
   def show
-    @article = Article.find(params[:id], :account_id => @account.account_resource_id, :as => @access_token)
+    @article = Article.find(params[:id], :account_id => @account.account_resource_id, :as => @account.access_token)
     #@comments = @article.comments
     
   # Widget data processing -- start  
@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
       end
     end
 
-    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @access_token)
+    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
 
     widget_data = {}
     schema_articles = {}

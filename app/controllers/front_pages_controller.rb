@@ -38,7 +38,7 @@ class FrontPagesController < ApplicationController
     @registers[:account] = @account
     @registers[:design] = @current_template.design
     
-    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @access_token)
+    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
   
     # Recontruct front page schema as hash keyed by entity name
     data_for_render = {}

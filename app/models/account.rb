@@ -10,6 +10,7 @@ class Account < ActiveRecord::Base
   
   has_many :pages
     
+  attr_accessor :access_token
   # has_many :articles
   
   # Load the current design and front page from the latest redesign and 
@@ -60,16 +61,16 @@ class Account < ActiveRecord::Base
   # end
   
   def sections
-    Section.find(:all, :account_id => self.account_resource_id)
+    Section.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
   end
   
   def issues
-    Issue.find(:all, :account_id => self.account_resource_id)
+    Issue.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
   end
   
 
   def blogs
-    Blog.find(:all, :account_id => self.account_resource_id)
+    Blog.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
   end
   
   # hack for HyperactiveResource
@@ -79,9 +80,9 @@ class Account < ActiveRecord::Base
   
   def account_resource
     if self.account_resource_id
-      AccountResource.find(self.account_resource_id) 
+      AccountResource.find(self.account_resource_id, :as => self.access_token) 
     else
-      AccountResource.find(self.id)
+      AccountResource.find(self.id, :as => self.access_token)
     end
   end
     
