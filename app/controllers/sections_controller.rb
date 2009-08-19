@@ -14,7 +14,7 @@ class SectionsController < ApplicationController
     @articles = Article.find(:all, :account_id => @account.account_resource_id, :section_id => params[:id], :as => @access_token)
    
     @registers[:account] = @account
-    @registers[:design] = @current_template.design
+    @registers[:design] = @current_template.design if @current_template.design
    
     page_html = @current_template.parsed_code.render({'section' => @section, 'articles' => @articles, 'newspaper' => @newspaper}, :registers => @registers )
      if @current_template.current_layout
