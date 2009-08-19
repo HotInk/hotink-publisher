@@ -52,4 +52,6 @@ class ArticlesController < ApplicationController
     end 
     #render :text => "Sorry, the page you were looking for could not be found.", :status => :not_found # If the current deisgn has no article template we should render 404
   end
+
+end
   
