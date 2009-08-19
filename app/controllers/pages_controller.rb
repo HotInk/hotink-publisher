@@ -12,7 +12,7 @@ class PagesController < ApplicationController
 
   def show
     
-    @page = Page.find_by_name(params[:page_name])
+    @page = @account.pages.find_by_name(params[:page_name])
     
     if @page.nil? 
       @section = Section.find(params[:page_name], :params => {:account_id => @account.id})      
