@@ -51,6 +51,7 @@ class ApplicationController < ActionController::Base
       raise ActiveRecord::RecordNotFound unless @current_template
       rescue
         render :status => :not_found
+        return
     end
     
     def require_design
