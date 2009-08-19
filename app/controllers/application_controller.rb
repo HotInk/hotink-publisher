@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
     def require_user
       logger.info "Current user: " + current_user.class.name
       #First, check to see if user is already logged in
-      unless current_user
+      unless current_user && current_user.account==@account
 
         # Second, check to see if session negotiation is ongoing  
         if params[:session_action]
