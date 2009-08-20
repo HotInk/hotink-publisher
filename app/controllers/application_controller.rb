@@ -48,8 +48,10 @@ class ApplicationController < ActionController::Base
       else
         @current_template = @account.current_design.templates.find_by_role("#{controller_name}/#{action_name}")
       end
+      raise ActiveRecord::RecordNotFound unless @current_template
       rescue
-        render :status => :not_found
+        render :text => "<h1>Out here we call them 404s, Ned</h1><p>Sorry, this page doesn't exist.</p> ", :status => :not_found
+        return
     end
     
     def require_design
@@ -146,12 +148,14 @@ class ApplicationController < ActionController::Base
     end
 
     def load_access_token
-      if current_user
+      if current_user && @account
         # Use the current user's access token whenever posssible to keep the best records of who's doing what in the Hot Ink logs
-        @access_token = OAuth::AccessToken.new(get_consumer, current_user.oauth_token.token, current_user.oauth_token.secret)
-      elsif @account.users.find(:first)
+        @account.access_token = OAuth::AccessToken.new(get_consumer, current_user.oauth_token.token, current_user.oauth_token.secret)
+      elsif @account&&@account.users.find(:first)
         default_user = @account.users.find(:first)
-        @access_token = OAuth::AccessToken.new(get_consumer, default_user.oauth_token.token, default_user.oauth_token.secret)
+        @account.access_token = OAuth::AccessToken.new(get_consumer, default_user.oauth_token.token, default_user.oauth_token.secret)
+      else
+        logger.info "No access token for this request."
       end
     end
     
