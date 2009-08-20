@@ -1,6 +1,5 @@
 class Entry < HyperactiveResource
 
-  self.site = HOTINK_SETTINGS.site
   self.prefix = "/accounts/:account_id/blogs/:blog_id/"
 
   def comments

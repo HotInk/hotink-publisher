@@ -1,6 +1,5 @@
 class Section < HyperactiveResource
 
-  self.site = HOTINK_SETTINGS.site
   # self.prefix = "/accounts/:account_id/"
   
   belongs_to :account, :nested => true

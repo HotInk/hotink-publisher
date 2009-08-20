@@ -1,6 +1,5 @@
 class Mediafile < HyperactiveResource
 
-  self.site = HOTINK_SETTINGS.site
   # self.prefix = "/accounts/:account_id/articles/:article_id/"
 
   belongs_to :article, :nested => true
