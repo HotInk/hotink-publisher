@@ -70,7 +70,7 @@ module Liquid
     def section_url(id)
       @s = Account.find(1).sections[0]
       @context.registers[:controller].url_for({:controller => "sections", 
-        :action => "show", :account_id => @context['site'].account_id, :id => @s.name})
+        :action => "show", :account_id => @context['site'].account_id, :id => URI.escape(@s.name)})
     end
 
   end
