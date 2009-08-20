@@ -10,7 +10,7 @@ class SectionsController < ApplicationController
   before_filter :build_registers, :only => :show
 
   def show
-    @section = Section.find(:one, :from => "/accounts/#{@account.account_resource_id}/sections/#{URI.encode(params[:id])}.xml", :as => @account.access_token)
+    @section = Section.find(URI.encode(params[:id]), :account_id => @account.account_resource_id, , :as => @account.access_token)
     
     @articles = Article.find(:all, :account_id => @account.account_resource_id, :section_id => @section.id, :as => @account.access_token)
  
