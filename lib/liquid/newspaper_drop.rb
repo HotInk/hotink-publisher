@@ -9,7 +9,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   end
 
   def sections
-    @account.sections
+    @sections ||= @account.sections
   end
   
   def pages

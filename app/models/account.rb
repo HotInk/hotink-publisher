@@ -61,16 +61,16 @@ class Account < ActiveRecord::Base
   # end
   
   def sections
-    Section.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
+    @sections ||= Section.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
   end
   
   def issues
-    Issue.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
+    @issues ||= Issue.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
   end
   
 
   def blogs
-    Blog.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
+    @blogs ||=  Blog.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
   end
   
   # hack for HyperactiveResource
