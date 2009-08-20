@@ -29,6 +29,10 @@ class ApplicationController < ActionController::Base
         @account = Account.find(params[:account_id])
         Time.zone = @account.time_zone
         @account
+      elsif controller_name=="accounts" && params[:id]
+        @account = Account.find(params[:id])
+        Time.zone = @account.time_zone
+        @account
       else
         false
       end
@@ -151,10 +155,13 @@ class ApplicationController < ActionController::Base
       if current_user && @account
         # Use the current user's access token whenever posssible to keep the best records of who's doing what in the Hot Ink logs
         @account.access_token = OAuth::AccessToken.new(get_consumer, current_user.oauth_token.token, current_user.oauth_token.secret)
+        logger.info "Using current user's access token."
       elsif @account && @account.users.first
+        logger.info "User token belonging to #{@account.users.first.id.to_s}"
         @account.access_token = OAuth::AccessToken.new(get_consumer, @account.users.first.oauth_token.token, @account.users.first.oauth_token.secret)
+        logger.info "Token: #{@account.access_token.token.to_s}"
       else
-        logger.info "No access token for this request."
+        logger.info "No access token for this request. No users on account #{@account.id.to_s}"
       end
     end
     
