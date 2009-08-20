@@ -21,7 +21,9 @@ class Section < HyperactiveResource
     
   #Define class for api child categories
   class Child < Section
-
+    def to_liquid
+      {'name' => self.name, 'position' => self.position, 'id' => self.id, 'subcategories' => self.children}
+    end
   end
   
 end
