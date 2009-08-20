@@ -50,7 +50,7 @@ class SectionsController < ApplicationController
    
     page_html = @current_template.parsed_code.render({'current_section' => @section, 'articles' => @articles, 'newspaper' => @newspaper}, :registers => @registers )
      if @current_template.current_layout
-       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'newspaper' => @newspaper}, :registers => @registers)
+       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'current_section' => @section, 'newspaper' => @newspaper}, :registers => @registers)
      else  
        render :text => page_html
      end
