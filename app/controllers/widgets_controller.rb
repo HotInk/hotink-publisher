@@ -19,12 +19,12 @@ class WidgetsController < ApplicationController
       schema_ids += @widget.schema[item]['ids'] unless @widget.schema[item]['ids'].blank?
     end
     @schema_articles = {}
-    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id)
+    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
     article_resources.each do |article|
       @schema_articles.merge!(article.id => article)
     end
       
-    @articles = Article.find(:all, :per_page => 10, :page => page, :account_id => @account.account_resource_id )
+    @articles = Article.find(:all, :per_page => 10, :page => page, :account_id => @account.account_resource_id, :as => @account.access_token )
         
     respond_to do |format|
       format.html
