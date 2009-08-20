@@ -11,7 +11,7 @@ class Liquid::IssueDrop < Liquid::BaseDrop
   end
 
   def articles
-      @articles ||= Article.find(:all, :from => "/accounts/#{self.account.account_resource_id.to_s}/issues/#{self.id.to_s}/articles.xml", :as => self.account.access_token)
+      @articles ||= Article.find(:all, :from => "/accounts/#{source.account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => source.account.access_token)
   end
   
   def press_pdf_url
