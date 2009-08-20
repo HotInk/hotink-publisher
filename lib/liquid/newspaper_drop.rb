@@ -25,7 +25,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   end
   
   def latest_issues
-    Issue.find(:all, :account_id => @account.id, :as => @account.access_token)
+    @latest_issues ||= Issue.find(:all, :account_id => @account.id, :as => @account.access_token)
   end
   
 end
