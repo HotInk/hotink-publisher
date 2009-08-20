@@ -38,11 +38,11 @@ class ArticlesController < ApplicationController
           widget_data.merge!( "#{item}_#{widget.name}" => item_array )
         end
       end
-    # Widget data processing -- end
  
       # Set registers here 
       @registers[:widget_data] = widget_data
     end
+    # Widget data processing -- end
     
     @registers[:account] = @account
     @registers[:design] = @current_template.design
