@@ -10,7 +10,16 @@ class Account < ActiveRecord::Base
   
   has_many :pages
     
-  attr_accessor :access_token
+  def access_token=(token)
+    @access_token = token
+  end
+  
+  def access_token
+    return @access_token if @access_token
+    return self.users.first.access_token if self.users.first
+    nil
+  end
+  
   # has_many :articles
   
   # Load the current design and front page from the latest redesign and 
