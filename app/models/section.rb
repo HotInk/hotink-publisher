@@ -12,7 +12,7 @@ class Section < HyperactiveResource
   end  
   
   def to_liquid
-    {'name' => self.name, 'position' => self.position, 'id' => self.id}
+    {'name' => self.name, 'position' => self.position, 'id' => self.id, 'subcategories' => self.children}
   end
   
   def test
