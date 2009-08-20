@@ -151,9 +151,8 @@ class ApplicationController < ActionController::Base
       if current_user && @account
         # Use the current user's access token whenever posssible to keep the best records of who's doing what in the Hot Ink logs
         @account.access_token = OAuth::AccessToken.new(get_consumer, current_user.oauth_token.token, current_user.oauth_token.secret)
-      elsif @account&&@account.users.find(:first)
-        default_user = @account.users.find(:first)
-        @account.access_token = OAuth::AccessToken.new(get_consumer, default_user.oauth_token.token, default_user.oauth_token.secret)
+      elsif @account && @account.users.first
+        @account.access_token = OAuth::AccessToken.new(get_consumer, @account.users.first.oauth_token.token, @account.users.first.oauth_token.secret)
       else
         logger.info "No access token for this request."
       end
