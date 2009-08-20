@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
       end
     end
 
-    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
+    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token) unless schema_ids.blank?
 
     widget_data = {}
     schema_articles = {}

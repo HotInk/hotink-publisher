@@ -80,9 +80,9 @@ class Account < ActiveRecord::Base
   
   def account_resource
     if self.account_resource_id
-      AccountResource.find(self.account_resource_id, :as => self.access_token) 
+      @account ||= AccountResource.find(self.account_resource_id, :as => self.access_token) 
     else
-      AccountResource.find(self.id, :as => self.access_token)
+      @account ||= AccountResource.find(self.id, :as => self.access_token)
     end
   end
     
