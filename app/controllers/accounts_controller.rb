@@ -1,6 +1,5 @@
 class AccountsController < ApplicationController
 
-  skip_before_filter :find_account
   skip_before_filter :require_user, :only => :show
   before_filter :build_registers, :only => :show
   
@@ -18,7 +17,6 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   # GET /accounts/1.xml
   def show
-    @account = Account.find(params[:id])
     if @account.current_front_page.blank?
       render :text => "This site is currently offline", :status => 503
       return

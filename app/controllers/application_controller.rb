@@ -29,6 +29,10 @@ class ApplicationController < ActionController::Base
         @account = Account.find(params[:account_id])
         Time.zone = @account.time_zone
         @account
+      elsif controller_name=="accounts" && params[:id]
+        @account = Account.find(params[:id])
+        Time.zone = @account.time_zone
+        @account
       else
         false
       end
