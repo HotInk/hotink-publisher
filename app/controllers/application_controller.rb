@@ -156,7 +156,7 @@ class ApplicationController < ActionController::Base
         @account.access_token = OAuth::AccessToken.new(get_consumer, @account.users.first.oauth_token.token, @account.users.first.oauth_token.secret)
         logger.info "Token: #{@account.access_token.token.to_s}"
       else
-        logger.info "No access token for this request."
+        logger.info "No access token for this request. No users on account #{@account.id.to_s}"
       end
     end
     
