@@ -18,5 +18,12 @@ class Section < HyperactiveResource
   def test
     "dasd"
   end
+    
+  #Define class for api child categories
+  class Child
+    def to_liquid
+      {'name' => self.name, 'position' => self.position, 'id' => self.id, 'subcategories' => self.children}
+    end
+  end
   
 end
