@@ -5,7 +5,7 @@ class Liquid::MediafileDrop < Liquid::BaseDrop
   class_inheritable_reader :liquid_attributes
   write_inheritable_attribute :liquid_attributes, [:id]
 
-  liquid_attributes << :title << :caption  << :date << :authors_list
+  liquid_attributes << :title << :caption  << :date << :authors_list << :mediafile_type
 
   def initialize(source, options = {})
     super source
