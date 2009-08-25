@@ -21,11 +21,24 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   end
   
   def latest_issue
-    @latest_issue ||= Issue.find(:first, :account_id => @account.id, :as => @account.access_token)
+    unless @latest_issues
+      @latest_issues = Issue.find(:all, :account_id => @account.id, :as => @account.access_token)
+    end
+    @latest_issues.first
   end
   
   def latest_issues
     @latest_issues ||= Issue.find(:all, :account_id => @account.id, :as => @account.access_token)
+  end
+  
+  def latest_by_section
+    unless @latest_articles_for_sections
+      @latest_articles_for_sections = {}
+      for article in @account.account_resource.get(:query, :group_by => "section", :count => 1 )
+        @latest_articles_for_sections[article.section] = article
+      end
+    end
+    @latest_articles_for_sections
   end
   
 end
