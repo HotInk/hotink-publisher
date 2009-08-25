@@ -34,7 +34,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   def latest_by_section
     unless @latest_articles_for_sections
       @latest_articles_for_sections = {}
-      for article in Article.find(:all, :from => "/accounts/#{@account.id.to_s}/query.xml", :group_by => "section", :count => 1, :as => @account.access_token )
+      for article in Article.find(:all, :from => "/accounts/#{@account.id.to_s}/query.xml", :params { :group_by => "section", :count => 1 }, :as => @account.access_token )
         @latest_articles_for_sections[article.section] = article
       end
     end
