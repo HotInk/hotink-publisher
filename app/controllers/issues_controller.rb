@@ -9,6 +9,7 @@ class IssuesController < ApplicationController
   
   def show   
     @issue = Issue.find(params[:id], :account_id => @account.account_resource_id, :as => @account.access_token)
+    @issue.account.access_token = @account.access_token # we have to preserve the access token for liquid requests
         # Widget data processing -- start  
         # Build query of only the necessary ids, from the widgets
         schema_ids = Array.new
