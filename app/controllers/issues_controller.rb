@@ -53,7 +53,7 @@ class IssuesController < ApplicationController
   end
     
   def index
-    @issues = @account.issues
+    @issues = Issue.find(:all, :page => (params[:page] || 1), :per_page =>( params[:per_page] || 15),  :account_id => @account.account_resource_id, :as => @account.access_token)
     @issues = @issues.collect do |i|
       i.account.access_token = @account.access_token
       i
