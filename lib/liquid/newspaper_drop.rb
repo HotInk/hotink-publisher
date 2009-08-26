@@ -32,7 +32,10 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
       unless @latest_issues
         @latest_issues = Issue.find(:all, :account_id => @account.id, :as => @account.access_token)
       end
-      @latest_issues.collect{ |i| i.account.access_token = @account.access_token }
+      @latest_issues.collect do |i| 
+        i.account.access_token = @account.access_token
+        i
+      end
   end
   
   def latest_by_section
