@@ -15,6 +15,19 @@ class Liquid::IssueDrop < Liquid::BaseDrop
       @articles ||= Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token)
   end
   
+  def sections
+    @articles = Article.find(:all, :from => "/accounts/#{@account.id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token) unless @articles
+    
+    unless @sections
+      @sections = []
+      for article in @articles
+        @sections << article.section unless @sections.include?(article.section)
+      end
+    end
+    
+    @sections
+  end
+  
   def articles_by_section
       @articles = Article.find(:all, :from => "/accounts/#{@account.id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token) unless @articles
       
