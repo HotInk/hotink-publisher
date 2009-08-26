@@ -11,11 +11,11 @@ class Liquid::IssueDrop < Liquid::BaseDrop
   end
 
   def articles
-      @articles ||= Article.find(:all, :from => "/accounts/#{source.account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => source.account.access_token)
+      @articles ||= Article.find(:all, :from => "/accounts/#{source.account_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => source.account.access_token)
   end
   
   def articles_by_section
-      @articles = Article.find(:all, :from => "/accounts/#{source.account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => source.account.access_token) unless @articles
+      @articles = Article.find(:all, :from => "/accounts/#{source.account_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => source.account.access_token) unless @articles
       
       unless @articles_by_section
         @articles_by_section = {}
