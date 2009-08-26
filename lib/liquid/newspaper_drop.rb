@@ -24,11 +24,15 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
     unless @latest_issues
       @latest_issues = Issue.find(:all, :account_id => @account.id, :as => @account.access_token)
     end
+    @latest_issues.first.account.access_token = @account.access_token # We need to preserve access to this token for nested requests
     @latest_issues.first
   end
   
   def latest_issues
-    @latest_issues ||= Issue.find(:all, :account_id => @account.id, :as => @account.access_token)
+      unless @latest_issues
+        @latest_issues = Issue.find(:all, :account_id => @account.id, :as => @account.access_token)
+      end
+      @latest_issues.collect{ |i| i.account.access_token = @account.access_token }
   end
   
   def latest_by_section
