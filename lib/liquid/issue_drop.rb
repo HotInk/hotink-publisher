@@ -39,5 +39,9 @@ class Liquid::IssueDrop < Liquid::BaseDrop
   def screen_pdf_url
     source.screen_pdf_file
   end
+  
+  def url
+    @account.url + "/issues/" + source.id.to_s
+  end
 
 end
