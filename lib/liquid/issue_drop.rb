@@ -57,7 +57,10 @@ class Liquid::IssueDrop < Liquid::BaseDrop
   private
   
   def get_articles
-    @articles ||= Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token)
+    unless @articles
+      @articles = Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token)
+    end
+    @articles
   end
 
 end
