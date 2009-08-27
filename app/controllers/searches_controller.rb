@@ -8,7 +8,7 @@ class SearchesController < ApplicationController
   
   def show    
     @search_query = params[:q]
-    @search_results = Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/search.xml", :params => { :only => "articles", :q => @search_query, :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15) }, :as => @account.access_token )
+    @search_results = Article.paginate(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/search.xml", :params => { :only => "articles", :q => @search_query, :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15) }, :as => @account.access_token )
     @search_results_pagination = { :current_page => @search_results.current_page, :per_page => @search_results.per_page, :total_entries => @search_results.total_entries }
     
     # Widget data processing -- start  
