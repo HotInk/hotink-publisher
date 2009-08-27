@@ -1,5 +1,11 @@
 class Comment < ActiveRecord::Base
 
+  has_rakismet :author => proc { self.name },
+               :author_email => proc { self.email },
+               :author_url => proc { self.url },               
+               :content => proc { self.body }
+
+
   def to_liquid(options = {})
     Liquid::CommentDrop.new self, options
   end

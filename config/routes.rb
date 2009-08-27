@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :accounts, :member => { :take_offline => :post } do |account| # :only => [:index, :issues, :sections, :articles, :blogs, :pages, :comments ]
     account.resources :articles do |article|
-      article.resources :comments, :only => [:show, :create] 
+      article.resources :comments, :only => [:show, :create, :new] 
       article.resources :mediafile
     end
     account.resources :sections

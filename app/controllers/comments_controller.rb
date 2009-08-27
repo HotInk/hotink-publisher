@@ -2,6 +2,8 @@ class CommentsController < ApplicationController
 
   layout 'default'
 
+  has_rakismet
+
   def index
     
     if params[:article_id].nil?
