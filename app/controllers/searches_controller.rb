@@ -7,8 +7,8 @@ class SearchesController < ApplicationController
   before_filter :build_registers, :only => :show
   
   def show    
-    
-    @search_results = Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/search.xml", :params => { :only => "articles", :q => params[:q] }, :as => @account.access_token )
+    @search_query = params[:q]
+    @search_results = Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/search.xml", :params => { :only => "articles", :q => @search_query }, :as => @account.access_token )
     
     # Widget data processing -- start  
     # Build query of only the necessary ids, from the widgets
@@ -44,9 +44,9 @@ class SearchesController < ApplicationController
     @registers[:account] = @account
     @registers[:design] = @current_template.design if @current_template.design
    
-    page_html = @current_template.parsed_code.render({'newspaper' => @newspaper, 'search_results' => @sarch_results}, :registers => @registers )
+    page_html = @current_template.parsed_code.render({'newspaper' => @newspaper, 'search_results' => @search_results, 'search_query' => @search_query}, :registers => @registers )
      if @current_template.current_layout
-       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'search_results' => @sarch_results, 'newspaper' => @newspaper}, :registers => @registers)
+       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'search_results' => @sarch_results, 'search_query' => @search_query, 'newspaper' => @newspaper}, :registers => @registers)
      else  
        render :text => page_html
      end   
