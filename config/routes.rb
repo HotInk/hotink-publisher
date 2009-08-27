@@ -37,9 +37,9 @@ ActionController::Routing::Routes.draw do |map|
     account.resources :front_pages  
     account.resources :press_runs
     account.resources :pages, :only => [:edit, :index, :create, :new, :destroy, :update]
+    account.resource :search
   end
   map.connect 'accounts/:account_id/admin', :controller => "admin/pages", :action => "dashboard"
-  map.connect 'accounts/:account_id/search/:action/:id', :controller => 'search'
   map.connect 'accounts/:account_id/:page_name', :controller=> "pages", :action => "show"
 
 

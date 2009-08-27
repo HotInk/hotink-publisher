@@ -13,7 +13,7 @@ class Article < HyperactiveResource
   end
   
   def to_liquid(options = {})
-    Liquid::ArticleDrop.new self, options
+   @article_drop ||= Liquid::ArticleDrop.new self, options
   end
 
   def article_options

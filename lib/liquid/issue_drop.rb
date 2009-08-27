@@ -7,11 +7,39 @@ class Liquid::IssueDrop < Liquid::BaseDrop
 
   def initialize(source, options = {})
     super source
+    @account = source.account unless @account
     @options  = options
   end
 
   def articles
-      @articles ||= Article.find(:all, :from => "/accounts/#{source.account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => source.account.access_token)
+    get_articles
+  end
+  
+  def sections    
+    unless @sections
+      @sections = []
+      for article in get_articles
+        @sections << article.section unless @sections.include?(article.section)
+      end
+    end
+    
+    @sections
+  end
+  
+  def articles_by_section
+          
+      unless @articles_by_section
+        @articles_by_section = {}
+        for article in get_articles
+          if @articles_by_section[article.section]
+            @articles_by_section[article.section] << article
+          else
+            @articles_by_section[article.section] = [article]
+          end
+        end
+      end
+      
+      @articles_by_section
   end
   
   def press_pdf_url
@@ -20,6 +48,19 @@ class Liquid::IssueDrop < Liquid::BaseDrop
   
   def screen_pdf_url
     source.screen_pdf_file
+  end
+  
+  def url
+    @account.url + "/issues/" + source.id.to_s
+  end
+  
+  private
+  
+  def get_articles
+    unless @articles
+      @articles = Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token)
+    end
+    @articles
   end
 
 end

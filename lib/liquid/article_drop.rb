@@ -46,6 +46,10 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     source.mediafiles
   end
   
+  def issues
+     source.issues
+  end
+  
   def excerpt
     if source.summary
       source.summary

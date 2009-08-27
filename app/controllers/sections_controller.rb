@@ -12,8 +12,16 @@ class SectionsController < ApplicationController
   def show
     @section = Section.find(URI.encode(params[:id]), :account_id => @account.account_resource_id, :as => @account.access_token)
     
-    @articles = Article.find(:all, :account_id => @account.account_resource_id, :section_id => @section.id, :as => @account.access_token)
- 
+    # We'll get a lot of traffic that thinks it's a section, when really it's a bad request. Give 'em Zissou.
+    unless @section
+      render(:text => "<img src=\"/images/zissou.jpg\" /><h1>Out here we call them 404s, Ned</h1><p>Sorry, this page doesn't exist.</p> ", :status => :not_found)
+      return
+    end
+    
+    @articles = Article.paginate(:all, :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15), :account_id => @account.account_resource_id, :section_id => @section.id, :as => @account.access_token)
+    @article_pagination = { :current_page => @articles.first.current_page, :per_page => @articles.first.per_page, :total_entries => @articles.first.total_entries }
+    @articles = @articles.first.article
+    
       # Widget data processing -- start  
       # Build query of only the necessary ids, from the widgets
       schema_ids = Array.new
@@ -48,9 +56,9 @@ class SectionsController < ApplicationController
     @registers[:account] = @account
     @registers[:design] = @current_template.design if @current_template.design
    
-    page_html = @current_template.parsed_code.render({'current_section' => @section, 'articles' => @articles, 'newspaper' => @newspaper}, :registers => @registers )
+    page_html = @current_template.parsed_code.render({'current_section' => @section, 'articles' => @articles.to_a, 'article_pagination' => @article_pagination, 'newspaper' => @newspaper}, :registers => @registers )
      if @current_template.current_layout
-       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'current_section' => @section, 'newspaper' => @newspaper}, :registers => @registers)
+       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'current_section' => @section, 'articles' => @articles.to_a, 'article_pagination' => @article_pagination, 'newspaper' => @newspaper}, :registers => @registers)
      else  
        render :text => page_html
      end
