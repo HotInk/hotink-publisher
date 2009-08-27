@@ -12,6 +12,12 @@ class SectionsController < ApplicationController
   def show
     @section = Section.find(URI.encode(params[:id]), :account_id => @account.account_resource_id, :as => @account.access_token)
     
+    # We'll get a lot of traffic that thinks it's a section, when really it's a bad request. Give 'em Zissou.
+    unless @section
+      render(:text => "<img src=\"/images/zissou.jpg\" /><h1>Out here we call them 404s, Ned</h1><p>Sorry, this page doesn't exist.</p> ", :status => :not_found)
+      return
+    end
+    
     @articles = Article.paginate(:all, :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15), :account_id => @account.account_resource_id, :section_id => @section.id, :as => @account.access_token)
     @article_pagination = { :current_page => @articles.first.current_page, :per_page => @articles.first.per_page, :total_entries => @articles.first.total_entries }
     @articles = @articles.first.article
