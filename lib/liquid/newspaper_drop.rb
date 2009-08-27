@@ -22,7 +22,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   
   def latest_issue
     unless @latest_issues
-      @latest_issues = Issue.find(:all, :account_id => @account.id, :as => @account.access_token)
+      @latest_issues = Issue.find(:all, :account_id => @account.id, :page => 1, :as => @account.access_token)
     end
     @latest_issues.first.account.access_token = @account.access_token # We need to preserve access to this token for nested requests
     @latest_issues.first
@@ -30,7 +30,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   
   def latest_issues
       unless @latest_issues
-        @latest_issues = Issue.find(:all, :account_id => @account.id, :as => @account.access_token)
+        @latest_issues = Issue.find(:all, :account_id => @account.id, :page => 1, :as => @account.access_token)
       end
       @latest_issues.collect do |i| 
         i.account.access_token = @account.access_token

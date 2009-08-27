@@ -58,6 +58,7 @@ class IssuesController < ApplicationController
       i.account.access_token = @account.access_token
       i
     end
+    @issue_pagination = { :current_page => @issues.current_page, :per_page => @issues.per_page, :total_entries => @issues.total_entries }
     
       # Widget data processing -- start  
       # Build query of only the necessary ids, from the widgets
@@ -93,9 +94,9 @@ class IssuesController < ApplicationController
     @registers[:account] = @account
     @registers[:design] = @current_template.design if @current_template.design
 
-    page_html = @current_template.parsed_code.render({'issues' => @issues, 'articles' => @articles, 'newspaper' => @newspaper}, :registers => @registers )
+    page_html = @current_template.parsed_code.render({'issues' => @issues.to_a, 'issue_pagination' => @issue_pagination,  'newspaper' => @newspaper}, :registers => @registers )
      if @current_template.current_layout
-       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'issues' => @issues, 'newspaper' => @newspaper}, :registers => @registers)
+       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'issues' => @issues.to_a, 'issue_pagination' => @issue_pagination, 'newspaper' => @newspaper}, :registers => @registers)
      else  
        render :text => page_html
      end
