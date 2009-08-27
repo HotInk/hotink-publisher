@@ -10,8 +10,11 @@ class ArticlesController < ApplicationController
   # Since the show action is public facing, it should always fail in a predictable
   # informative way.
   def show
+    
+    # debugger
+    
     @article = Article.find(params[:id], :account_id => @account.account_resource_id, :as => @account.access_token)
-    #@comments = @article.comments
+    @comments = @article.comments
     
   # Widget data processing -- start  
     # Build query of only the necessary ids, from the widgets
@@ -46,6 +49,8 @@ class ArticlesController < ApplicationController
     
     @registers[:account] = @account
     @registers[:design] = @current_template.design
+    @registers[:form_authenticity_token] = self.form_authenticity_token
+    @registers[:article] = @article
     
     page_html = @current_template.parsed_code.render({'article' => @article, 'newspaper' => @newspaper}, :registers => @registers )
     if @current_template.current_layout
