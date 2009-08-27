@@ -50,9 +50,9 @@ class Account < ActiveRecord::Base
   # Only make the Resource reload when absolutely necessart
   def account_resource(reload = false)
     unless reload
-      @account_resource ||= AccountResource.find(self.account_resource_id)
+      @account_resource ||= AccountResource.find(self.account_resource_id, :as => self.access_token)
     else
-      @account_resource = AccountResource.find(self.account_resource_id)
+      @account_resource = AccountResource.find(self.account_resource_id, :as => self.access_token)
     end
   end
 

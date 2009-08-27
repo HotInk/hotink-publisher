@@ -2,7 +2,9 @@ class AccountResource < HyperactiveResource
 
   # TODO: make this a configuration option
 
-  # self.site = "http://192.168.1.1"
+  self.site = "http://hotink.theorem.ca"
+  self.nested = false
+  self.prefix = "/"
   self.element_name = "account"
 
   def comments
