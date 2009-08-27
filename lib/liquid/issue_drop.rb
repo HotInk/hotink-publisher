@@ -12,15 +12,13 @@ class Liquid::IssueDrop < Liquid::BaseDrop
   end
 
   def articles
-      @articles ||= Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token)
+    get_articles
   end
   
-  def sections
-    @articles = Article.find(:all, :from => "/accounts/#{@account.id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token) unless @articles
-    
+  def sections    
     unless @sections
       @sections = []
-      for article in @articles
+      for article in get_articles
         @sections << article.section unless @sections.include?(article.section)
       end
     end
@@ -29,11 +27,10 @@ class Liquid::IssueDrop < Liquid::BaseDrop
   end
   
   def articles_by_section
-      @articles = Article.find(:all, :from => "/accounts/#{@account.id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token) unless @articles
-      
+          
       unless @articles_by_section
         @articles_by_section = {}
-        for article in @articles
+        for article in get_articles
           if @articles_by_section[article.section]
             @articles_by_section[article.section] << article
           else
@@ -55,6 +52,12 @@ class Liquid::IssueDrop < Liquid::BaseDrop
   
   def url
     @account.url + "/issues/" + source.id.to_s
+  end
+  
+  private
+  
+  def get_articles
+    @articles ||= Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token)
   end
 
 end
