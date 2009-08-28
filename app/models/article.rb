@@ -37,4 +37,8 @@ class Article < HyperactiveResource
     url = @account.url + "/articles/" + self.id.to_s
   end
   
+  #Define class for api child categories
+  class Category < Section
+  end
+  
 end
