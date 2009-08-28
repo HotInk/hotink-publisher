@@ -65,6 +65,5 @@ module ApplicationHelper
      
      content_tag(:button,"<span><span>" + name + "</span></span>", html_options.merge( :type => "submit"))
  end
- 
    
 end
