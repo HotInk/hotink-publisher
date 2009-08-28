@@ -21,7 +21,7 @@ module Liquid
     def render(context)      
 
       
-      s = <<-end
+      s = <<-FIN
         <form id="comment-form" method="post" action="/accounts/#{context.registers[:account].id}/articles/#{context.registers[:article].id}/comments/">
         <input name="authenticity_token" type="hidden" value="#{context.registers[:form_authenticity_token]}" />
         <input type="hidden" id="comment_content_id" name="comment[content_id]" value="#{context.registers[:article].id" />
@@ -39,7 +39,7 @@ module Liquid
         <input type="text" id="comment_url" name="comment[url]"/><br />
         
         <input type="submit" value="Post" />
-      end
+      FIN
       
       return s
       
