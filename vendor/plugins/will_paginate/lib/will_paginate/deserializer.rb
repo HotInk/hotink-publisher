@@ -59,7 +59,12 @@ module WillPaginate
         options = wp_parse_options(args.pop)
         results = find(:all, options)
         options.merge!(options[:params]) if options[:params]
-        results.is_a?(WillPaginate::Collection) ? results : results.paginate(:page => options[:page], :per_page => options[:per_page])
+        
+        # The line below doesn't actually work, since the collections are being instatiated as an array (results.is_a?(WillPaginate::Collection) always is false)
+        # This elads to an interested error, whereby the first page works and none others do. The publisher is hacked to fix this for now.
+        # 
+        #results.is_a?(WillPaginate::Collection) ? results : results.paginate(:page => options[:page], :per_page => options[:per_page])
+        results
       end
       
       # Takes the format that Hash.from_xml produces out of an unknown type
