@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
     # Build query of only the necessary ids, from the widgets
     schema_ids = Array.new
     found_widgets = @current_template.widgets
-    found_widgets += @current_template.layout.widgets if @current_template.layout
+    found_widgets += @current_template.current_layout.widgets if @current_template.current_layout
     found_widgets.each do |widget|
       widget.schema.each_key do |item|
         schema_ids += widget.schema[item]['ids']
@@ -37,7 +37,7 @@ class ArticlesController < ApplicationController
          schema_articles.merge!(article.id.to_s => article)
       end
     
-      @current_template.widgets.each do |widget|
+      found_widgets.each do |widget|
         widget.schema.each_key do |item|
           item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i] }
           widget_data.merge!( "#{item}_#{widget.name}" => item_array )
