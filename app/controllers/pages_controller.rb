@@ -16,7 +16,9 @@ class PagesController < ApplicationController
     
     if @page.nil? 
       @section = Section.find(params[:page_name], :account_id => @account.id, :as => @account.access_token)      
-      unless @section.nil?
+      if @section.nil?
+        zissou
+      else
         redirect_to account_section_url(@account, @section), :status=>:moved_permanently
         return
       end
