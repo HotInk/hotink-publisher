@@ -29,7 +29,9 @@ class FrontPagesController < ApplicationController
     @front_page.schema.each_key do |item|
       schema_ids += @front_page.schema[item]['ids']
     end
-    @current_template.widgets.each do |widget|
+    found_widgets = @current_template.widgets
+    found_widgets += @current_template.current_layout.widgets if @current_template.current_layout
+    found_widgets.each do |widget|
       widget.schema.each_key do |item|
         schema_ids += widget.schema[item]['ids']
       end
@@ -54,7 +56,7 @@ class FrontPagesController < ApplicationController
         item_array = @front_page.schema[item]['ids'].collect{ |i| schema_articles[i] }
         data_for_render.merge!( item => item_array )
       end
-      @current_template.widgets.each do |widget|
+      found_widgets.widgets.each do |widget|
         widget.schema.each_key do |item|
           item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i] }
           widget_data.merge!( "#{item}_#{widget.name}" => item_array )
