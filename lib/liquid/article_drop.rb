@@ -46,6 +46,10 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     source.mediafiles
   end
   
+  def categories
+    source.categories
+  end
+  
   def issues
      source.issues
   end
@@ -65,6 +69,6 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   
   def comments
     source.comments
-  end
+  end  
   
 end
