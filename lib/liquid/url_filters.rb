@@ -40,7 +40,6 @@ module Liquid
     
     def link_to_issue(issue, title=nil)
       @account = @context.registers[:account] #Account.find(article.account_id)
-      @issue = Issue.find(issue.id, :params => {:account_id => @account.account_resource_id})
       url = @account.url + "/issues/" + @issue.id.to_s
       title ||= @issue["name"]
       link_to title, url
