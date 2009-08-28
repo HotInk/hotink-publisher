@@ -39,6 +39,8 @@ class Article < HyperactiveResource
   
   #Define class for api child categories
   class Category < Section
+    class Child < Category
+    end
   end
   
 end
