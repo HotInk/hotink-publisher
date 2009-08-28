@@ -19,7 +19,9 @@ class ArticlesController < ApplicationController
   # Widget data processing -- start  
     # Build query of only the necessary ids, from the widgets
     schema_ids = Array.new
-    @current_template.widgets.each do |widget|
+    found_widgets = @current_template.widgets
+    found_widgets += @current_template.layout.widgets if @current_template.layout
+    found_widgets.each do |widget|
       widget.schema.each_key do |item|
         schema_ids += widget.schema[item]['ids']
       end
