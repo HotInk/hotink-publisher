@@ -98,9 +98,13 @@ class FrontPagesController < ApplicationController
     @front_page = @account.front_pages.find(params[:id])
     page = params[:page] || 1
     schema_ids = Array.new
-    @front_page.schema.each_key do |item|
-      schema_ids += @front_page.schema[item]['ids'] unless @front_page.schema[item]['ids'].blank?
+
+    if @front_page.schema.respond_to?(:each_key)
+      @front_page.schema.each_key do |item|
+        schema_ids += @front_page.schema[item]['ids'] unless @front_page.schema[item]['ids'].blank?
+      end
     end
+    
     @schema_articles = {}
     article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
     article_resources.each do |article|
