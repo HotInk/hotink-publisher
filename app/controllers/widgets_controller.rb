@@ -25,7 +25,6 @@ class WidgetsController < ApplicationController
     end
       
     @articles = Article.paginate(:per_page => 10, :page => page, :account_id => @account.account_resource_id, :as => @account.access_token )
-    @articles = @articles.first.article    
     
     respond_to do |format|
       format.html
