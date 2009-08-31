@@ -22,7 +22,7 @@ class SectionsController < ApplicationController
     else
       @article_pagination = {}
     end
-    @articles = @articles.first.article
+    #@articles = @articles.first.article
     
     
       # Widget data processing -- start  
