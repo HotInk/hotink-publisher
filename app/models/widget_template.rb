@@ -1,9 +1,7 @@
 class WidgetTemplate < Template  
 
   serialize :schema, Array
-  
-  validates_presence_of :schema, :message => " must be present in order to load content for this template."
-    
+      
   def parse_schema
     parsed_schema = {}
     self.schema.each do |entity|
