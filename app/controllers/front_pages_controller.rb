@@ -28,7 +28,7 @@ class FrontPagesController < ApplicationController
     schema_ids = Array.new
     
     # Only load the Front Page schema if it's provided  
-    if @front_page.schema.respond_to(:each_key)
+    if @front_page.schema.responds_to(:each_key)
       @front_page.schema.each_key do |item|
         schema_ids += @front_page.schema[item]['ids']
       end
@@ -57,7 +57,7 @@ class FrontPagesController < ApplicationController
         schema_articles.merge!(article.id.to_s => article)
       end
     
-      if @front_page.schema.respond_to(:each_key)
+      if @front_page.schema.responds_to(:each_key)
         @front_page.schema.each_key do |item|
           item_array = @front_page.schema[item]['ids'].collect{ |i| schema_articles[i] }
           data_for_render.merge!( item => item_array )
