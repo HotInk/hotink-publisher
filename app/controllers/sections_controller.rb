@@ -22,8 +22,10 @@ class SectionsController < ApplicationController
     else
       @article_pagination = {}
     end
-    if @articles.first.kind_of?(Array)
+    if @articles.first.article.kind_of?(Array)
       @articles = @articles.first.article
+    else
+      @articles = nil
     end
     
       # Widget data processing -- start  
