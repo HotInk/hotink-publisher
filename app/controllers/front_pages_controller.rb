@@ -26,9 +26,14 @@ class FrontPagesController < ApplicationController
     
     # Build query of only the necessary ids, from both the page schema and widget
     schema_ids = Array.new
-    @front_page.schema.each_key do |item|
-      schema_ids += @front_page.schema[item]['ids']
+    
+    # Only load the Front Page schema if it's provided  
+    if @front_page.schema.respond_to(:each_key)
+      @front_page.schema.each_key do |item|
+        schema_ids += @front_page.schema[item]['ids']
+      end
     end
+    
     found_widgets = @current_template.widgets
     found_widgets += @current_template.current_layout.widgets if @current_template.current_layout
     found_widgets.each do |widget|
@@ -52,10 +57,13 @@ class FrontPagesController < ApplicationController
         schema_articles.merge!(article.id.to_s => article)
       end
     
-      @front_page.schema.each_key do |item|
-        item_array = @front_page.schema[item]['ids'].collect{ |i| schema_articles[i] }
-        data_for_render.merge!( item => item_array )
+      if @front_page.schema.respond_to(:each_key)
+        @front_page.schema.each_key do |item|
+          item_array = @front_page.schema[item]['ids'].collect{ |i| schema_articles[i] }
+          data_for_render.merge!( item => item_array )
+        end
       end
+    
       found_widgets.each do |widget|
         widget.schema.each_key do |item|
           item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i] }
