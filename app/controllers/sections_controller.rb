@@ -17,8 +17,7 @@ class SectionsController < ApplicationController
 
     
     @articles = Article.paginate(:all, :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15), :account_id => @account.account_resource_id, :section_id => @section.id, :as => @account.access_token)
-    @article_pagination = { :current_page => @articles.first.current_page, :per_page => @articles.first.per_page, :total_entries => @articles.first.total_entries }
-    @articles = @articles.first.article
+    @article_pagination = { :current_page => @articles.current_page, :per_page => @articles.per_page, :total_entries => @articles.total_entries }
     
       # Widget data processing -- start  
       # Build query of only the necessary ids, from the widgets      
