@@ -45,14 +45,15 @@ class FrontPagesController < ApplicationController
     @registers[:account] = @account
     @registers[:design] = @current_template.design
     
+    # Variables for data sorting
+    data_for_render = {}
+    widget_data = {}
+    schema_articles = {}
+    
     unless schema_ids.blank?    
       article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)  unless schema_ids.blank?
   
       # Recontruct front page schema as hash keyed by entity name
-      data_for_render = {}
-      widget_data = {}
-      schema_articles = {}
-    
       article_resources.each do |article|
         schema_articles.merge!(article.id.to_s => article)
       end
