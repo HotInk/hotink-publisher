@@ -22,8 +22,9 @@ class SectionsController < ApplicationController
     else
       @article_pagination = {}
     end
-    #@articles = @articles.first.article
-    
+    if @articles.first.kind_of?(Array)
+      @articles = @articles.first.article
+    end
     
       # Widget data processing -- start  
       # Build query of only the necessary ids, from the widgets      
