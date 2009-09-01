@@ -28,10 +28,24 @@ module Liquid
     end
     
     def paginated_with(collection, pagination={})
-      @collection = WillPaginate::Collection.create(pagination["current_page"], pagination["per_page"], pagination["total_entries"]) do |pager|
-        pager.replace collection
+      begin
+      if pagination["current_page"]&& pagination["per_page"]&&pagination["total_entries"]
+        @collection = WillPaginate::Collection.create(pagination["current_page"], pagination["per_page"], pagination["total_entries"]) do |pager|
+          pager.replace collection
+        end
+        will_paginate @collection
+      elsif pagination["current_page"]
+        if pagination["current_page"].to_i>1
+          "<a href=\"?page=#{(pagination["current_page"].to_i - 1).to_s}\"> &laquo; Newer entries</a> <a href=\"?page=#{(pagination["current_page"].to_i + 1).to_s}\">Older entries &raquo;</a>"
+        else
+          "<a href=\"?page=2\">Older entries &raquo;</a>"
+        end
+      else
+        "<a href=\"?page=2\">Older entries &raquo;</a>"
       end
-      will_paginate @collection
+      rescue
+        "<!-- no pagination -->"
+      end
     end
     
   end
