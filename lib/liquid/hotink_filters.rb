@@ -43,8 +43,8 @@ module Liquid
       else
         "<a href=\"?page=2\">Older entries &raquo;</a>"
       end
-      rescue
-        "<!-- no pagination -->"
+      rescue => e
+        "<!-- no pagination #{ e.inspect.to_s } -->"
       end
     end
     
