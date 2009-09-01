@@ -18,7 +18,7 @@ class SectionsController < ApplicationController
     
     @articles = Article.paginate(:all, :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15), :account_id => @account.account_resource_id, :section_id => @section.id, :as => @account.access_token)
     if @articles.first.respond_to?(:current_page)
-      @article_pagination = { :current_page => @articles.first.current_page, :per_page => @articles.first.per_page, :total_entries => @articles.first.total_entries }
+      @article_pagination = { 'current_page' => @articles.first.current_page, 'per_page' => @articles.first.per_page, 'total_entries' => @articles.first.total_entries }
     else
       @article_pagination = {}
     end
