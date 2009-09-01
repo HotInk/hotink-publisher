@@ -27,7 +27,7 @@ module Liquid
       Liquid::Template.parse("{% include 'fulcrum/views/layouts/footer' %}").render      
     end
     
-    def paginated_with(collection, pagination={})
+    def paginated_with(collection, pagination )
       begin
       if pagination["current_page"]&& pagination["per_page"]&&pagination["total_entries"]
         @collection = WillPaginate::Collection.create(pagination["current_page"], pagination["per_page"], pagination["total_entries"]) do |pager|
