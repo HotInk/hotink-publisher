@@ -54,11 +54,16 @@ class IssuesController < ApplicationController
     
   def index
     @issues = Issue.paginate(:all, :page => (params[:page] || 1), :per_page =>( params[:per_page] || 15),  :account_id => @account.account_resource_id, :as => @account.access_token)
-    @issue_pagination = { :current_page => @issues.first.current_page, :per_page => @issues.first.per_page, :total_entries => @issues.first.total_entries }
-    @issues = @issues.first.issue.collect do |i|
-      i.account.access_token = @account.access_token
-      i
-    end
+    if @issues.first.respond_to?(:current_page)
+      @issue_pagination = { 'current_page' => @issues.first.current_page, 'per_page' => @issues.first.per_page, 'total_entries' => @issues.first.total_entries }
+      @issues = @issues.first.issue.collect do |i|
+            i.account.access_token = @account.access_token
+            i
+      end
+    else
+      @issues = nil
+      @issue_pagination = {}
+    end 
     
       # Widget data processing -- start  
       # Build query of only the necessary ids, from the widgets

@@ -8,6 +8,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
     @account.url
   end
 
+  # Array of newspaper sections
   def sections
     @sections ||= @account.sections
   end
