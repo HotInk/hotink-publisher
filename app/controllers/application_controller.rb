@@ -54,8 +54,7 @@ class ApplicationController < ActionController::Base
       end
       raise ActiveRecord::RecordNotFound unless @current_template
       rescue
-        render :text => "<img src=\"/images/zissou.jpg\" /><h1>Out here we call them 404s, Ned</h1><p>Sorry, this page doesn't exist.</p> ", :status => :not_found
-        return
+        zissou
     end
     
     def require_design
@@ -169,6 +168,10 @@ class ApplicationController < ActionController::Base
     def build_registers
       @registers ||= { :account => @account }
     end
-      
+    
+    def zissou
+      render :text => "<img src=\"/images/zissou.jpg\" /><h1>Out here we call them 404s, Ned</h1><p>Sorry, this page doesn't exist.</p> ", :status => :not_found
+      return
+    end
     
 end

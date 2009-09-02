@@ -13,19 +13,27 @@ class SectionsController < ApplicationController
     @section = Section.find(URI.encode(params[:id]), :account_id => @account.account_resource_id, :as => @account.access_token)
     
     # We'll get a lot of traffic that thinks it's a section, when really it's a bad request. Give 'em Zissou.
-    unless @section
-      render(:text => "<img src=\"/images/zissou.jpg\" /><h1>Out here we call them 404s, Ned</h1><p>Sorry, this page doesn't exist.</p> ", :status => :not_found)
-      return
-    end
+    zissou unless @section
+
     
     @articles = Article.paginate(:all, :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15), :account_id => @account.account_resource_id, :section_id => @section.id, :as => @account.access_token)
-    @article_pagination = { :current_page => @articles.first.current_page, :per_page => @articles.first.per_page, :total_entries => @articles.first.total_entries }
-    @articles = @articles.first.article
+    if @articles.first.respond_to?(:current_page)
+      @article_pagination = { 'current_page' => @articles.first.current_page, 'per_page' => @articles.first.per_page, 'total_entries' => @articles.first.total_entries }
+    else
+      @article_pagination = {}
+    end
+    if @articles.first.article.kind_of?(Array)
+      @articles = @articles.first.article
+    else
+      @articles = nil
+    end
     
       # Widget data processing -- start  
-      # Build query of only the necessary ids, from the widgets
+      # Build query of only the necessary ids, from the widgets      
       schema_ids = Array.new
-      @current_template.widgets.each do |widget|
+      found_widgets = @current_template.widgets
+      found_widgets += @current_template.current_layout.widgets if @current_template.current_layout
+      found_widgets.each do |widget|
         widget.schema.each_key do |item|
           schema_ids += widget.schema[item]['ids']
         end
@@ -41,7 +49,7 @@ class SectionsController < ApplicationController
            schema_articles.merge!(article.id.to_s => article)
         end
 
-        @current_template.widgets.each do |widget|
+        found_widgets.each do |widget|
           widget.schema.each_key do |item|
             item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i] }
             widget_data.merge!( "#{item}_#{widget.name}" => item_array )

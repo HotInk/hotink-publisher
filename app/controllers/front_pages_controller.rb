@@ -26,10 +26,17 @@ class FrontPagesController < ApplicationController
     
     # Build query of only the necessary ids, from both the page schema and widget
     schema_ids = Array.new
-    @front_page.schema.each_key do |item|
-      schema_ids += @front_page.schema[item]['ids']
+    
+    # Only load the Front Page schema if it's provided  
+    if @front_page.schema.respond_to?(:each_key)
+      @front_page.schema.each_key do |item|
+        schema_ids += @front_page.schema[item]['ids']
+      end
     end
-    @current_template.widgets.each do |widget|
+    
+    found_widgets = @current_template.widgets
+    found_widgets += @current_template.current_layout.widgets if @current_template.current_layout
+    found_widgets.each do |widget|
       widget.schema.each_key do |item|
         schema_ids += widget.schema[item]['ids']
       end
@@ -38,23 +45,27 @@ class FrontPagesController < ApplicationController
     @registers[:account] = @account
     @registers[:design] = @current_template.design
     
+    # Variables for data sorting
+    data_for_render = {}
+    widget_data = {}
+    schema_articles = {}
+    
     unless schema_ids.blank?    
-      article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)  unless schema_ids.blank?
+      article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }.uniq, :account_id => @account.account_resource_id, :as => @account.access_token)  unless schema_ids.blank?
   
       # Recontruct front page schema as hash keyed by entity name
-      data_for_render = {}
-      widget_data = {}
-      schema_articles = {}
-    
       article_resources.each do |article|
         schema_articles.merge!(article.id.to_s => article)
       end
     
-      @front_page.schema.each_key do |item|
-        item_array = @front_page.schema[item]['ids'].collect{ |i| schema_articles[i] }
-        data_for_render.merge!( item => item_array )
+      if @front_page.schema.respond_to?(:each_key)
+        @front_page.schema.each_key do |item|
+          item_array = @front_page.schema[item]['ids'].collect{ |i| schema_articles[i] }
+          data_for_render.merge!( item => item_array )
+        end
       end
-      @current_template.widgets.each do |widget|
+    
+      found_widgets.each do |widget|
         widget.schema.each_key do |item|
           item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i] }
           widget_data.merge!( "#{item}_#{widget.name}" => item_array )
@@ -87,17 +98,22 @@ class FrontPagesController < ApplicationController
     @front_page = @account.front_pages.find(params[:id])
     page = params[:page] || 1
     schema_ids = Array.new
-    @front_page.schema.each_key do |item|
-      schema_ids += @front_page.schema[item]['ids'] unless @front_page.schema[item]['ids'].blank?
+
+    if @front_page.schema.respond_to?(:each_key)
+      @front_page.schema.each_key do |item|
+        schema_ids += @front_page.schema[item]['ids'] unless @front_page.schema[item]['ids'].blank?
+      end
     end
+    
     @schema_articles = {}
     article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
     article_resources.each do |article|
       @schema_articles.merge!(article.id => article)
     end
       
-    @articles = Article.find(:all, :per_page => 10, :page => page, :account_id => @account.account_resource_id, :as => @account.access_token )
-        
+    @articles = Article.paginate(:all, :per_page => 10, :page => page, :account_id => @account.account_resource_id, :as => @account.access_token )
+    @articles = @articles.first.article
+    
     respond_to do |format|
       format.html
       format.js

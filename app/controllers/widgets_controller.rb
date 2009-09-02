@@ -15,17 +15,21 @@ class WidgetsController < ApplicationController
     @widget = @design.widgets.find(params[:id])
     page = params[:page] || 1
     schema_ids = Array.new
-    @widget.schema.each_key do |item|
-      schema_ids += @widget.schema[item]['ids'] unless @widget.schema[item]['ids'].blank?
+    
+    if @widget.schema.respond_to?(:each_key)    
+      @widget.schema.each_key do |item|
+        schema_ids += @widget.schema[item]['ids'] unless @widget.schema[item]['ids'].blank?
+      end
     end
+    
     @schema_articles = {}
     article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
     article_resources.each do |article|
       @schema_articles.merge!(article.id => article)
     end
       
-    @articles = Article.find(:all, :per_page => 10, :page => page, :account_id => @account.account_resource_id, :as => @account.access_token )
-        
+    @articles = Article.paginate(:per_page => 10, :page => page, :account_id => @account.account_resource_id, :as => @account.access_token )
+    @articles = @articles.first.article
     respond_to do |format|
       format.html
       format.js

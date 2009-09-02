@@ -1,3 +1,4 @@
+<% if f.object.schema.respond_to?(:each) %>
 <% f.object.schema.each do | name, spec |%>
 <fieldset class="entity">
 	<h2><%= name %></h2>
@@ -30,4 +31,5 @@
 		</ol>
 		
 </fieldset>
+<% end %>
 <% end %>
