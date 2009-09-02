@@ -38,7 +38,7 @@
 			</ul>
 		</div>
 		<div id="widget_templates" class="clearfix">
-			<h3>Widget Templatess</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'widget'), :class=>"micro primary" %>
+			<h3>Widget Templates</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'widget'), :class=>"micro primary" %>
 			<ul>
 			<% for template in @design.widget_templates -%>
 				<li class="widget_template">
