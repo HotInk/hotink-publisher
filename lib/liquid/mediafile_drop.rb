@@ -22,17 +22,17 @@ class Liquid::MediafileDrop < Liquid::BaseDrop
   
   def height
     if source.height
-      return source.height
+      return source.height.to_i
     else
-      "0"
+      0
     end
   end
   
   def width
     if source.width
-      return source.width
+      return source.width.to_i
     else
-      "0"
+      0
     end
   end
   
