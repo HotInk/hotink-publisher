@@ -24,7 +24,7 @@ class Liquid::MediafileDrop < Liquid::BaseDrop
     if source.height
       return source.height
     else
-      ""
+      "0"
     end
   end
   
@@ -32,7 +32,7 @@ class Liquid::MediafileDrop < Liquid::BaseDrop
     if source.width
       return source.width
     else
-      ""
+      "0"
     end
   end
   
