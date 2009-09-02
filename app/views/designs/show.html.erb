@@ -28,7 +28,7 @@
 	<div id="templates">
 		<h2>Templates</h2>
 		<div id="front_page_templates" class="clearfix">
-			<h3>Front Pages</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'front_pages/show'), :class=>"micro primary" %>
+			<h3>Front Page Templates</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'front_pages/show'), :class=>"micro primary" %>
 			<ul>
 			<% for template in @design.front_page_templates -%>
 				<li class="front_page_template">
@@ -38,7 +38,7 @@
 			</ul>
 		</div>
 		<div id="widget_templates" class="clearfix">
-			<h3>Widgets</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'widget'), :class=>"micro primary" %>
+			<h3>Widget Templatess</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'widget'), :class=>"micro primary" %>
 			<ul>
 			<% for template in @design.widget_templates -%>
 				<li class="widget_template">
@@ -48,7 +48,7 @@
 			</ul>
 		</div>
 		<div id="page_templates" class="clearfix">
-			<h3>Pages</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'articles/show'), :class=>"micro primary" %>
+			<h3>Page Templates</h3><%= button_link_to 'New', new_account_design_template_path(@account, @design, :role => 'articles/show'), :class=>"micro primary" %>
 			<ul>
 			<% for template in @design.page_templates -%>
 				<li class="page_template">
