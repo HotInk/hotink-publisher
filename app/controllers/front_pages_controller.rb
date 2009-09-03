@@ -51,7 +51,7 @@ class FrontPagesController < ApplicationController
     schema_articles = {}
     
     unless schema_ids.blank?    
-      article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)  unless schema_ids.blank?
+      article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }.uniq, :account_id => @account.account_resource_id, :as => @account.access_token)  unless schema_ids.blank?
   
       # Recontruct front page schema as hash keyed by entity name
       article_resources.each do |article|
