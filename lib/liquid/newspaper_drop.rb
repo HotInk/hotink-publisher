@@ -5,7 +5,11 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   end
 
   def url
-    @account.url
+    if @account.url.blank?
+      "/"
+    else
+      @account.url
+    end
   end
 
   # Array of newspaper sections
