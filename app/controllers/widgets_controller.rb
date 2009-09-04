@@ -28,7 +28,7 @@ class WidgetsController < ApplicationController
       @schema_articles.merge!(article.id => article)
     end
       
-    @articles = Article.paginate(:page => page, :account_id => @account.account_resource_id, :as => @account.access_token )
+    @articles = Article.paginate(:page => page, :per_page => 10, :account_id => @account.account_resource_id, :as => @account.access_token )
     @articles = @articles.first.article
     respond_to do |format|
       format.html
