@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
         Time.zone = @account.time_zone
         @account
       else
-        false
+        @account = nil
       end
     end
     

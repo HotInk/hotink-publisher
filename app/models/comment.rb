@@ -1,5 +1,7 @@
 class Comment < ActiveRecord::Base
 
+  belongs_to :account
+
   has_rakismet :author => proc { self.name },
                :author_email => proc { self.email },
                :author_url => proc { self.url },               

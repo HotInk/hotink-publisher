@@ -3,6 +3,8 @@ class CommentsController < ApplicationController
   layout 'default'
 
   has_rakismet
+  
+  before_filter :find_account
 
   def index
     
@@ -49,6 +51,7 @@ class CommentsController < ApplicationController
 
     @comment = Comment.new(params[:comment])
     @comment.content_id = params[:article_id]
+    @comment.account = @account
     
     if facebook_session
       @comment.type = "FacebookComment"
