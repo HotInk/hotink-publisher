@@ -10,7 +10,7 @@ class Blog < HyperactiveResource
 
   def entries(access_token = nil)
     raise ArgumentError unless access_token
-    Entry.find(:all, :params => {:account_id => self.account_id, :blog_id => self.id}, :as => access_token)
+    Entry.find(:all, :account_id => self.account_id, :blog_id => self.id, :as => access_token)
   end
   
   def account_id

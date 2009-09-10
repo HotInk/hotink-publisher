@@ -1,6 +1,6 @@
 class Entry < HyperactiveResource
 
-  self.prefix = "/accounts/:account_id/blogs/:blog_id/"
+  belongs_to :blog, :nested => true
 
   def comments
     Comment.find_all_by_content_id(self.id)
