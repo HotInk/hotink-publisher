@@ -25,7 +25,7 @@ class BlogsController < ApplicationController
     @entries = Entry.paginate(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/blogs/#{@blog.id.to_s}/entries.xml", :params => { :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15) }, :as => @account.access_token )
     if @entries.first.respond_to?(:current_page)
         @entries_pagination = { 'current_page' => @entries.first.current_page, 'per_page' => @entries.first.per_page, 'total_entries' => @entries.first.total_entries }
-        @entries = @entries.first.entry
+        @entries = @entries.first.article
     else
     page_html = @current_template.parsed_code.render({'blog' => @blog, 'entries' => @entries, 'newspaper' => @newspaper}, :registers => @registers )
     if @current_template.current_layout
