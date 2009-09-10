@@ -27,6 +27,9 @@ class BlogsController < ApplicationController
         @entries_pagination = { 'current_page' => @entries.first.current_page, 'per_page' => @entries.first.per_page, 'total_entries' => @entries.first.total_entries }
         @entries = @entries.first.article
     else
+        @entries_pagination = {}
+        @entires = []
+    end
     page_html = @current_template.parsed_code.render({'blog' => @blog, 'entries' => @entries, 'newspaper' => @newspaper}, :registers => @registers )
     if @current_template.current_layout
       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'newspaper' => @newspaper}, :registers => @registers)
