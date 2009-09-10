@@ -7,8 +7,8 @@ class EntriesController < ApplicationController
     
   def show
   
-    @blog = Blog.find(params[:blog_id].to_i, :params => {:account_id => @account.account_resource_id})    
-    @entry = Entry.find(params[:id].to_i, :params => {:blog_id => params[:blog_id], :account_id => @account.account_resource_id})    
+    @blog = Blog.find(params[:blog_id].to_i, :account_id => @account.account_resource_id, :as => @account.access_token )    
+    @entry = Entry.find(params[:id], :blog_id => @blog.id, :account_id => @account.account_resource_id, :as => @account.access_token )    
     
     # Set design register here, in case the user has specified one other than the current.
     @registers[:design] = @current_template.design
