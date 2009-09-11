@@ -61,7 +61,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   # Returns 5 most recent blog entries
   def latest_entries
     unless @latest_entries
-     @latest_entries = Entry.paginate(:all, :account_id=>@account.id, :page => 1, :per_page => 5, :as => @account.access_token ) 
+     @latest_entries = Entry.paginate(:all, :from => "/accounts/#{@account.id.to_s}/entries.xml", :params => { :page => 1, :per_page => 5}, :as => @account.access_token ) 
     end
     @latest_entries.first.article.collect do |i| 
       i.account.access_token = @account.access_token
