@@ -5,7 +5,7 @@ class Blog < HyperactiveResource
   belongs_to :account, :nested => true
 
   def to_liquid
-    {'title' => title, 'id' => id, 'description' => description, 'updated_at' => updated_at}
+    @blog_drop ||= Liquid::BlogDrop.new self, options
   end
 
   def entries(access_token = nil)
