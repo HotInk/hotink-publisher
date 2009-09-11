@@ -1,5 +1,7 @@
 class BlogsController < ApplicationController
   
+  skip_before_filter :require_user
+  
   before_filter :set_liquid_variables
   before_filter :require_design  
   before_filter :find_template
