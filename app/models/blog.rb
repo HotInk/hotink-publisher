@@ -4,7 +4,7 @@ class Blog < HyperactiveResource
   
   belongs_to :account, :nested => true
 
-  def to_liquid
+  def to_liquid(options = {})
     @blog_drop ||= Liquid::BlogDrop.new self, options
   end
 
