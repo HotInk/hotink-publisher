@@ -7,7 +7,7 @@ class Entry < HyperactiveResource
   end
   
   def to_liquid(options = {})
-    {'title' => self.title, 'bodytext' => self.bodytext, 'id' => self.id, 'blog_id' => self.blog_id}
+    @article_drop ||= Liquid::ArticleDrop.new self, options
   end
   
   def blog_id
