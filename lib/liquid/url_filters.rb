@@ -33,7 +33,7 @@ module Liquid
     
     def link_to_entry(entry, title=nil)
       @account = @context.registers[:account] #Account.find(article.account_id)
-      url = "#{@account.url}/blogs/" + entry["blog_id"].to_s + "/entries/" + entry["id"].to_s
+      url = "#{@account.url}/blogs/" + entry["blog"]["id"].to_s + "/entries/" + entry["id"].to_s
       title ||= entry["title"]
       link_to title, url
     end
