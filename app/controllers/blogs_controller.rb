@@ -31,7 +31,7 @@ class BlogsController < ApplicationController
         @entries = @entries.first.article
     else
         @entries_pagination = {}
-        @entires = []
+        @entries = []
     end
     page_html = @current_template.parsed_code.render({'blog' => @blog, 'entries' => @entries, 'newspaper' => @newspaper}, :registers => @registers )
     if @current_template.current_layout
