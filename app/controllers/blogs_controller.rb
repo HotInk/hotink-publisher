@@ -26,7 +26,7 @@ class BlogsController < ApplicationController
   def show
     @blog = Blog.find(params[:id], :account_id => @account.account_resource_id, :as => @account.access_token)
     @entries = Entry.paginate(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/blogs/#{@blog.id.to_s}/entries.xml", :params => { :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15) }, :as => @account.access_token )
-    if @entries.first.respond_to?(:current_page) && @entries.first.article
+    if @entries.first.respond_to?(:current_page) && @entries.first.respond_to?(:article)
         @entries_pagination = { 'current_page' => @entries.first.current_page, 'per_page' => @entries.first.per_page, 'total_entries' => @entries.first.total_entries }
         @entries = @entries.first.article
     else
