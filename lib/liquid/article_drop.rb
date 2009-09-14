@@ -14,6 +14,11 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
       'bodytext' => @source.bodytext
   end
   
+  # If this article is a blog entry, make the blog available.
+  def blog
+    source.blog
+  end
+  
   def authors_list
     source.authors_list
   end
