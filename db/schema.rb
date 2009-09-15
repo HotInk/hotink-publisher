@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090819032404) do
+ActiveRecord::Schema.define(:version => 20090915205836) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20090819032404) do
     t.string   "url"
     t.text     "body"
     t.integer  "content_id"
-    t.integer  "flags"
+    t.integer  "flags",        :default => 0
     t.integer  "account_id"
     t.string   "content_type"
     t.datetime "created_at"
@@ -46,7 +46,8 @@ ActiveRecord::Schema.define(:version => 20090819032404) do
     t.integer  "fb_user_id"
     t.string   "email_hash"
     t.string   "type"
-    t.boolean  "enabled"
+    t.boolean  "enabled",      :default => true
+    t.string   "ip"
   end
 
   create_table "design_versions", :force => true do |t|
@@ -178,7 +179,7 @@ ActiveRecord::Schema.define(:version => 20090819032404) do
     t.text     "description"
     t.string   "role"
     t.text     "code"
-    t.text     "parsed_code"
+    t.binary   "parsed_code"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "layout_id"
@@ -195,7 +196,7 @@ ActiveRecord::Schema.define(:version => 20090819032404) do
     t.text     "description"
     t.string   "role"
     t.text     "code"
-    t.text     "parsed_code"
+    t.binary   "parsed_code"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "layout_id"

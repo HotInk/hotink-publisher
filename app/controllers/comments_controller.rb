@@ -51,7 +51,8 @@ class CommentsController < ApplicationController
 
     @comment = Comment.new(params[:comment])
     @comment.content_id = params[:article_id]
-    @comment.account = @account
+    @comment.account_id = @account.id
+    @comment.ip = request.remote_ip
     
     if facebook_session
       @comment.type = "FacebookComment"
