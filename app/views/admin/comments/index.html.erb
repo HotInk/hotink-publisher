@@ -1,5 +1,7 @@
 <h1>Listing Comments</h1>
 
+<%= button_link_to 'Clear all comments', clear_all_flags_account_comments_path(@account), :confirm => "Are you sure?" %>
+
 <table style="clear: both;">
   <tr>
   </tr>
@@ -7,8 +9,9 @@
 <% for comment in @comments %>
 <tr>
 <td><%= comment.name %></td>
+<td><%= comment.created_at %></td>
 <td><%= comment.email %></td>
-<td><%= comment.body %></td>	
+<td><%= h comment.body %></td>	
 <td><%= comment.flags %></td>	
 <td><%= comment.enabled %></td>	
 <td><%= link_to "Flag", flag_account_comment_path(@account, comment) %></td>
@@ -23,4 +26,4 @@
 
 </table>
 
-<%= link_to "Clear all comments", clear_all_flags_account_comments_path(@account), :confirm => "Are you sure?" %>
+<%= will_paginate @comments %>
