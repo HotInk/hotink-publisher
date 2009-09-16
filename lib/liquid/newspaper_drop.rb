@@ -59,7 +59,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
       end
   end
   
-  # Returns has of most recent articles keyed by section.
+  # Returns hash of most recent articles keyed by section.
   def latest_by_section
     unless @latest_articles_for_sections
       @latest_articles_for_sections = {}
@@ -82,6 +82,21 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
     @latest_entries.first.article.collect do |i| 
       i
     end
+  end
+  
+  # Returns hashof recent blog entries, keyed by blog title
+  def latest_from_blog
+    unless @latest_entries_from_blogs
+      @latest_entries_from_blogs = {}
+      for entry in Entry.find(:all, :from => "/accounts/#{@account.id.to_s}/query.xml", :params => { :group_by => "blog", :count => 5 }, :as => @account.access_token )
+        if @latest_entries_from_blogs[entry.blogs.first.title]
+          @latest_entries_from_blogs[entry.blogs.first.title] << entry
+        else
+          @latest_entries_from_blogs[entry.blogs.first.title] = [entry]
+        end
+      end
+    end
+    @latest_entries_from_blogs
   end
   
 end
