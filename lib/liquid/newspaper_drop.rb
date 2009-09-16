@@ -4,6 +4,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
     @account = account
   end
 
+  # we need to phase this out. Semantically confusing
   def url
     if @account.url.blank?
       "/"
@@ -11,6 +12,21 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
       @account.url
     end
   end
+  
+  # used for linking to the home page. Prevents empty href's
+  def homepage_url
+    if @account.url.blank?
+      "/"
+    else
+      @account.url
+    end
+  end
+  
+  # eg. doing {{newspaper.url}}/blogs - will work with or without a domain string
+  def root_url
+    @account.url
+  end
+  
 
   # Array of newspaper sections
   def sections

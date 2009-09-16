@@ -10,7 +10,10 @@ class Admin::CommentsController < ApplicationController
 
   def index
     # @comments = Comment.paginate :page => params[:page], :per_page => 50
-    @comments = Comment.find_all_by_account_id(@account.id)
+    
+    conditions = {:account_id => @account.id, :enabled => true}
+    
+    @comments = Comment.paginate(:page => params[:page], :per_page => 3, :conditions => conditions, :order => "created_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -133,7 +136,7 @@ class Admin::CommentsController < ApplicationController
 
   def disable
     @comment = Comment.find(params[:id])    
-    debugger
+    
     respond_to do |format|
       if @comment.disable
         flash[:notice] = 'Comment was flagged'
