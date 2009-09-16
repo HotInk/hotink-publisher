@@ -170,7 +170,7 @@ class ApplicationController < ActionController::Base
     end
     
     def zissou
-      render :text => "<img src=\"/images/zissou.jpg\" /><h1>Out here we call them 404s, Ned</h1><p>Sorry, this page doesn't exist.</p> ", :status => :not_found
+      render :file => "#{RAILS_ROOT}/public/zissou.html", :status => :not_found
       return
     end
     
