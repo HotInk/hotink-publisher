@@ -166,6 +166,7 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design_form input[type="text"], #design_form textarea { }
 
 /* Design index */
+#design_control { width: 700px; }
 #design_index, #design_index ul { width: 700px; clear:left; float: left; }
 #design_index h1 { clear: left; margin-right: 20px;  }
 #design_index a.btn { margin-top: 29px; }
