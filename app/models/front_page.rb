@@ -15,4 +15,8 @@ class FrontPage < ActiveRecord::Base
   
   acts_as_versioned
   
+  def friendly_date
+    return "#{self.created_at.to_formatted_s(:long_date)} #{self.created_at.to_formatted_s(:time)}"
+  end
+  
 end
