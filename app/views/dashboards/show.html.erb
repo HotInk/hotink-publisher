@@ -34,7 +34,7 @@
 				<% else %>
 					<%- form_for([@account, @press_run], :html => { :onsubmit => "confirm('Are you sure you want to change your current front page? This change will be effective immediately.')" }) do |r| -%>
 						<p>You can change your front page by selecting a new one here. <strong>Change your front page as often as you can</strong>, even if you haven't added new content recently.</p>
-						<%= r.collection_select :front_page_id, @account.front_pages, :id, :created_at, :prompt => "Choose new front page" %>
+						<%= r.collection_select :front_page_id, @account.front_pages, :id, :friendly_date, :prompt => "Choose new front page" %>
 						<%= button_link_to_submit "Update", :confirm => "Are you sure you want to update your front page? This change will be effective immediately." %>
 					<%- end -%>
 				<% end %>
