@@ -37,6 +37,10 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
     @account.pages
   end
   
+  def blogs
+    @account.blogs
+  end
+  
   def name
     @account.name
   end
