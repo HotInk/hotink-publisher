@@ -3,7 +3,7 @@
 	<h1>Dashboard</h1>
 	
 	<div class="options">
-		<%=button_link_to_remote "New front page", :url => new_account_front_page_url(@account), :method => :get, :html => { :class=>"large pill-l" } %><% if @account.current_design -%><%= button_link_to "Edit current design", account_design_path(@account, @account.current_design), :class=>"large pill-c" %><% end -%><%= button_link_to "Change design", account_designs_url(@account), :class=>"large pill-c" %><%= button_link_to "Take site offline", take_offline_account_url(@account), :method => :post, :confirm => "You are about to take you site completely offline. Readers visiting your site will see a notice telling them that your site is temporarily offline.\n\nAre you sure you want to take your site offline?", :class=>"large cancel pill-r" %>
+		<%=button_link_to_remote "New front page", :url => new_account_front_page_url(@account), :method => :get, :html => { :class=>"large pill-l" } %><% if @account.current_design -%><%= button_link_to "View site", account_path(@account), :class=>"large pill-c", :target => "_blank" %><%= button_link_to "Edit current design", account_design_path(@account, @account.current_design), :class=>"large pill-c" %><% end -%><%= button_link_to "Change design", account_designs_url(@account), :class=>"large pill-c" %><%= button_link_to "Take site offline", take_offline_account_url(@account), :method => :post, :confirm => "You are about to take you site completely offline. Readers visiting your site will see a notice telling them that your site is temporarily offline.\n\nAre you sure you want to take your site offline?", :class=>"large cancel pill-r" %>
 	</div>
 	
 	<div class="guide">
