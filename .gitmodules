@@ -1,18 +1,12 @@
 [submodule "vendor/plugins/theme_support"]
 	path = vendor/plugins/theme_support
 	url = git://github.com/jystewart/theme_support.git
-[submodule "vendor/plugins/cucumber"]
-	path = vendor/plugins/cucumber
-	url = git://github.com/aslakhellesoy/cucumber.git
 [submodule "vendor/plugins/facebooker"]
 	path = vendor/plugins/facebooker
 	url = git://github.com/mmangino/facebooker.git
 [submodule "vendor/plugins/factory_girl"]
 	path = vendor/plugins/factory_girl
 	url = git://github.com/thoughtbot/factory_girl.git
-[submodule "vendor/plugins/rspec-rails"]
-	path = vendor/plugins/rspec-rails
-	url = git://github.com/dchelimsky/rspec-rails.git
 [submodule "vendor/plugins/viking"]
 	path = vendor/plugins/viking
 	url = git://github.com/technoweenie/viking.git
