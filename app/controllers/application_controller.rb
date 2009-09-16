@@ -170,7 +170,7 @@ class ApplicationController < ActionController::Base
     end
     
     def zissou
-      render :file => "#{RAILS_ROOT}/public/zissou.html", :status => :not_found
+      render :file => "zissou.html", :status => 404
       return
     end
     
