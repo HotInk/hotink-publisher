@@ -11,12 +11,26 @@ module Liquid
         # Previous link, if appropriate
         pagination_html += "<a href=\"?page=#{pagination_info["current_page"].to_i - 1}\" class=\"prev_page\" rel=\"prev\">&laquo; Newer</a>" if pagination_info["current_page"].to_i > 1 
 
+        # Pagination start-window
+        case pagination_info["current_page"].to_i
+        when 3
+          pagination_html += "<a href=\"?page=1\" rel=\"start\">1</a>"
+        when 4
+          pagination_html += "<a href=\"?page=1\" rel=\"start\">1</a><a href=\"?page=2\">2</a>"
+        when 5
+          pagination_html += "<a href=\"?page=1\" rel=\"start\">1</a><a href=\"?page=2\">2</a><a href=\"?page=3\">3</a>"
+        else
+          if pagination_info["current_page"].to_i > 5
+            pagination_html += "<a href=\"?page=1\" rel=\"start\">1</a><a href=\"?page=2\">2</a><span class=\"gap\">&hellip;</span>"
+          end
+        end
         
         # Current page and pagination window
         pagination_html += "<a href=\"?page=#{pagination_info["current_page"].to_i - 1}\" rel=\"prev\">#{pagination_info["current_page"].to_i - 1}</a>" if pagination_info["current_page"] > 1
         pagination_html += "<span class=\"current\">#{pagination_info["current_page"]}</span>"
         pagination_html += "<a href=\"?page=#{pagination_info["current_page"].to_i + 1}\" rel=\"next\">#{pagination_info["current_page"].to_i + 1}</a>" if (pagination_info["current_page"].to_i * pagination_info["per_page"].to_i) < pagination_info["total_entries"].to_i
         
+        # Pagination end-window
         
         # Next link, if appropriate
         if (pagination_info["current_page"].to_i * pagination_info["per_page"].to_i) < pagination_info["total_entries"].to_i
