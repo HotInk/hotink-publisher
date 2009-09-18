@@ -5,9 +5,9 @@ module Liquid
     def paginate(pagination_info)
       pagination_html = ""
       if pagination_info.is_a? Hash
-        pagination_html = "<h6>Working</h6>"  
-      else
-        pagination_html = "<h6>Nothing to paginate</h6>"
+        if pagination_info["current_page"] && (pagination_info["current_page"].to_i > 1) 
+          pagination_html += "<a href=\"?page=#{pagination_info["current_page"].to_i - 1}\" class=\"prev_page\" rel=\"prev\">&laquo; Previous</a> "
+        end  
       end
       pagination_html
     end
