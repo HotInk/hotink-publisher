@@ -17,7 +17,7 @@ class Liquid::CommentDrop < Liquid::BaseDrop
   end
   
   def date
-    source.created_at
+    Time.parse(source.created_at).to_s(:standard)
   end
     
 end
