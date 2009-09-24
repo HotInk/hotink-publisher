@@ -13,7 +13,7 @@ class Admin::CommentsController < ApplicationController
     
     conditions = {:account_id => @account.id, :enabled => true}
     
-    @comments = Comment.paginate(:page => params[:page], :per_page => 3, :conditions => conditions, :order => "created_at DESC")
+    @comments = Comment.paginate(:page => params[:page], :per_page => 50, :conditions => conditions, :order => "created_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb
