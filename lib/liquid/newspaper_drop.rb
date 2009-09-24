@@ -22,7 +22,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
     end
   end
   
-  # eg. doing {{newspaper.url}}/blogs - will work with or without a domain string
+  # eg. doing {{newspaper.root_url}}/blogs - will work with or without a domain string
   def root_url
     @account.url
   end
