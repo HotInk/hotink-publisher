@@ -6,12 +6,11 @@ class ArticlesController < ApplicationController
   before_filter :require_design, :only => :show
   before_filter :find_template, :only => :show
   before_filter :build_registers, :only => :show
+
   
   # Since the show action is public facing, it should always fail in a predictable
   # informative way.
   def show
-    
-    # debugger
     
     @article = Article.find(params[:id], :account_id => @account.account_resource_id, :as => @account.access_token)
     @comments = @article.comments
@@ -61,6 +60,13 @@ class ArticlesController < ApplicationController
       render :text => page_html
     end 
     #render :text => "Sorry, the page you were looking for could not be found.", :status => :not_found # If the current deisgn has no article template we should render 404
+  end
+  
+  
+  # temporary redirect action until legacy url code is complete
+  def legacy_show
+    # grab the id from slugged urls like "3818-cops-bust-frat-boys-for"
+    redirect_to account_article_url(@account, params[:id].split("-")[0]), :status=>:moved_permanently
   end
 
 end

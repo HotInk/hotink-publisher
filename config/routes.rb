@@ -40,8 +40,12 @@ ActionController::Routing::Routes.draw do |map|
     account.resource :search
   end
   map.connect 'accounts/:account_id/admin', :controller => "admin/pages", :action => "dashboard"
+  
+  # legacy urls  
+  map.connect 'accounts/:account_id/article/:id', :controller => 'articles', :action => 'legacy_show'  
+  map.connect 'accounts/:account_id/:string', :controller => 'redirects', :action => 'lookup'    
   map.connect 'accounts/:account_id/:page_name', :controller=> "pages", :action => "show"
-
+  
 
 # map.resources :photos, :path_prefix => 'admin', :controller => 'admin/photos' 
 # map.resources :tags, :name_prefix => 'admin_photo_', :path_prefix => 'admin/photos/:photo_id', :controller => 'admin/photo_tags' 
