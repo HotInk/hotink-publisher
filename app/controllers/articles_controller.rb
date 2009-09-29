@@ -66,7 +66,8 @@ class ArticlesController < ApplicationController
   # temporary redirect action until legacy url code is complete
   def legacy_show
     # grab the id from slugged urls like "3818-cops-bust-frat-boys-for"
-    redirect_to account_article_url(@account, params[:id].split("-")[0]), :status=>:moved_permanently
+    # skip the account part of the URL - this only runs on deployed Hot Ink
+    redirect_to "/articles/#{params[:id].split("-")[0]}", :status=>:moved_permanently
   end
 
 end
