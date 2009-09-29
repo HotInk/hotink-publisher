@@ -14,10 +14,10 @@ xml.rss("version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/") do
         xml.guid "http://" + request.host_with_port + "/articles/#{article.id}"
         xml.description do
           if article.authors_list
-            xml << "<p style=\"font-weight: bold\">#{article.authors_list}</p>"
+            xml << "<p><strong>#{article.authors_list}</strong></p>"
           end
           if article.attributes['section']
-            xml << "<p style=\"font-weight: bold\">#{article.attributes['section']}</p>"
+            xml << "<p><strong>#{article.attributes['section']}</strong></p>"
           end
           xml << markdown(article.bodytext)
         end
