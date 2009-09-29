@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
         entry.resource :mediafiles
       end      
     end  
-
+    account.resource :feed
     account.resources :comments, 
       :member => {:flag => :get, :enable => :get, :disable => :get},
       :collection => { :clear_all_flags => :get },
