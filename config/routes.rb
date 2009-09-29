@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
   
   # legacy urls  
   map.connect 'accounts/:account_id/article/:id', :controller => 'articles', :action => 'legacy_show'  
-  map.connect 'accounts/:account_id/:string', :controller => 'redirects', :action => 'lookup'    
+  # map.connect 'accounts/:account_id/:string', :controller => 'redirects', :action => 'lookup'    
   map.connect 'accounts/:account_id/:page_name', :controller=> "pages", :action => "show"
   
 
