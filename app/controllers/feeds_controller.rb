@@ -17,7 +17,10 @@ class FeedsController < ApplicationController
     @feed_url = "http://" + request.host_with_port + request.request_uri
     
     response.headers['Content-Type'] = 'application/rss+xml'
-           
+     
+    # Squid caching headers
+    expires_in 10.minutes, :public => true
+          
     respond_to do |format|
       format.xml #show.rxml
     end

@@ -80,9 +80,6 @@ class AccountsController < ApplicationController
     
     page_html = @current_template.parsed_code.render(data_for_render.merge('newspaper' => @newspaper), :registers => @registers )
     
-    # Squid caching headers
-    expires_in 3.minutes, :public => true
-    
     if @current_template.current_layout
       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'newspaper' => @newspaper}, :registers => @registers )
     else  
