@@ -1,4 +1,4 @@
-require 'cgi'
+require 'uri'
 
 module Liquid
 
@@ -51,14 +51,14 @@ module Liquid
   
     def link_to_section(section, title=nil)
       @account = @context.registers[:account] #Account.find(article.account_id)
-      url = "#{@account.url}/sections/" + CGI.escape(section["name"])
+      url = "#{@account.url}/sections/" + URI.escape(section["name"])
       title ||= section["name"]
       link_to title, url
     end
     
     def link_to_page(page_name, title=nil)
       @account = @context.registers[:account] #Account.find(article.account_id)
-      url = @account.url + "/" + CGI.escape(page_name)
+      url = @account.url + "/" + URI.escape(page_name)
       title ||= page_name
       link_to title, url
     end
@@ -73,7 +73,7 @@ module Liquid
     def section_url(id)
       @s = Account.find(1).sections[0]
       @context.registers[:controller].url_for({:controller => "sections", 
-        :action => "show", :account_id => @context['site'].account_id, :id => CGI.escape(@s.name)})
+        :action => "show", :account_id => @context['site'].account_id, :id => URI.escape(@s.name)})
     end
 
   end
