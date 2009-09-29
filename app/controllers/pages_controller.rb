@@ -19,7 +19,7 @@ class PagesController < ApplicationController
       if @section.nil?
         zissou
       else
-        redirect_to account_section_url(@account, @section), :status=>:moved_permanently
+        redirect_to "/sections/#{@section.name}", :status=>:moved_permanently
         return
       end
     end
