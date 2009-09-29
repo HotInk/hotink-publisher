@@ -51,6 +51,7 @@ class SearchesController < ApplicationController
     # Widget data processing -- end
 
     @registers[:account] = @account
+    @registers[:query] = @search_query
     @registers[:design] = @current_template.design if @current_template.design
    
     page_html = @current_template.parsed_code.render({'newspaper' => @newspaper, 'search_results' => @search_results.to_a, 'search_results_pagination' => @search_results_pagination, 'search_query' => @search_query}, :registers => @registers )
