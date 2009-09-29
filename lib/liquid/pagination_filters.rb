@@ -1,4 +1,4 @@
-require 'uri'
+require 'cgi'
 
 module Liquid
 
@@ -74,11 +74,11 @@ module Liquid
         pagination_html += "<div class=\"pagination\">"
         
         # Previous link, if appropriate
-        pagination_html += "<a href=\"??q=#{URI.escape(@context.registers[:query])}&page=#{pagination_info["current_page"].to_i - 1}\" class=\"prev_page\" rel=\"prev\">&laquo; Previous</a>" if pagination_info["current_page"].to_i > 1 
+        pagination_html += "<a href=\"??q=#{CGI.escape(@context.registers[:query])}&page=#{pagination_info["current_page"].to_i - 1}\" class=\"prev_page\" rel=\"prev\">&laquo; Previous</a>" if pagination_info["current_page"].to_i > 1 
 
         # Next link, if appropriate
         if (pagination_info["current_page"].to_i * pagination_info["per_page"].to_i) < pagination_info["total_entries"].to_i
-          pagination_html += "<a href=\"?q=#{URI.escape(@context.registers[:query])}&page=#{pagination_info["current_page"].to_i + 1}\" class=\"next_page\" rel=\"next\">Next &raquo;</a>"
+          pagination_html += "<a href=\"?q=#{CGI.escape(@context.registers[:query])}&page=#{pagination_info["current_page"].to_i + 1}\" class=\"next_page\" rel=\"next\">Next &raquo;</a>"
         end
         
         pagination_html += "</div>"
