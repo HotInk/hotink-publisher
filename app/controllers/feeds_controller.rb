@@ -12,7 +12,7 @@ class FeedsController < ApplicationController
        @articles = nil
     end
     
-    @feed_title = (@account.formal_name||@account.name.capitalize) + " feed"
+    @feed_title = (@account.formal_name||@account.name.capitalize) + " main article feed"
     @feed_description = "Most recent articles from " + (@account.formal_name||@account.name.capitalize)
     @feed_url = "http://" + request.host_with_port + request.request_uri
     
