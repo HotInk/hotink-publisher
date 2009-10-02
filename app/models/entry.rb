@@ -15,7 +15,7 @@ class Entry < HyperactiveResource
   end
 
   def audiofiles
-    self.mediafiles.select{|mediafile| mediafile.mediafile_type == "Audiofiles"}
+    self.mediafiles.select{|mediafile| mediafile.mediafile_type == "Audiofile"}
   end
   
   def blog_id
