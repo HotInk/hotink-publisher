@@ -46,6 +46,14 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     source.mediafiles
   end
   
+  def images
+    source.images
+  end
+  
+  def audiofiles
+    source.audiofiles
+  end
+  
   def categories
     source.categories
   end
