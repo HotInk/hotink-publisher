@@ -36,6 +36,10 @@ class Liquid::MediafileDrop < Liquid::BaseDrop
     end
   end
   
+  def original_url
+     source.original_url
+  end
+  
   #TODO: figure out a nicer way of doing this other than enumerating the sizes
   def image_url_original
     source.image_url("original")
