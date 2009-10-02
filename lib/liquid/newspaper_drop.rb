@@ -106,13 +106,13 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   private
   
   def latest_articles_for_sections
-    Rails.cache([@account.cache_key, '/latest_article_for_sections'], :expires_in => 10.minutes) do
+    Rails.cache.fetch([@account.cache_key, '/latest_article_for_sections'], :expires_in => 10.minutes) do
       Article.find(:all, :from => "/accounts/#{@account.id.to_s}/query.xml", :params => { :group_by => "section", :count => 5 }, :as => @account.access_token )
     end
   end
   
   def latest_entries_from_blogs
-    Rails.cache([@account.cache_key, '/latest_entries_from_blogs'], :expires_in => 10.minutes) do
+    Rails.cache.fetch([@account.cache_key, '/latest_entries_from_blogs'], :expires_in => 10.minutes) do
       Entry.find(:all, :from => "/accounts/#{@account.id.to_s}/query.xml", :params => { :group_by => "blog", :count => 5 }, :as => @account.access_token )
     end
   end
