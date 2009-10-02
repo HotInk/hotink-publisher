@@ -13,6 +13,7 @@ xml.rss("version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/") do
         xml.link "http://" + request.host_with_port + "/articles/#{article.id}"
         xml.guid "http://" + request.host_with_port + "/articles/#{article.id}"
         xml.description do
+          xml << "<![CDATA["
           if article.authors_list
             xml << "<p><strong>#{article.authors_list}</strong></p>"
           end
@@ -20,6 +21,7 @@ xml.rss("version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/") do
             xml << "<p><strong>#{article.attributes['section']}</strong></p>"
           end
           xml << markdown(article.bodytext)
+          xml << "]]>"
         end
       end
     end
