@@ -12,4 +12,7 @@ class Mediafile < HyperactiveResource
     self.url.attributes[size]
   end
   
+  def original_url
+    self.url.attributes["original"]
+  end
 end

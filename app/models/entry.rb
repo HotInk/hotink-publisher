@@ -10,6 +10,14 @@ class Entry < HyperactiveResource
     @article_drop ||= Liquid::ArticleDrop.new self, options
   end
   
+  def images
+    self.mediafiles.select{|mediafile| mediafile.mediafile_type == "Image"}
+  end
+
+  def audiofiles
+    self.mediafiles.select{|mediafile| mediafile.mediafile_type == "Audiofiles"}
+  end
+  
   def blog_id
     self.prefix_options[:blog_id]
   end
