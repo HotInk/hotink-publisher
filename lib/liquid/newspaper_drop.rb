@@ -67,7 +67,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   def latest_by_section
     unless @latest_articles_for_sections
       @latest_articles_for_sections = {}
-      for article in Article.find(:all, :from => "/accounts/#{@account.id.to_s}/query.xml", :params => { :group_by => "section", :count => 5 }, :as => @account.access_token )
+      for article in latest_articles_for_sections
         if @latest_articles_for_sections[article.section]
           @latest_articles_for_sections[article.section] << article
         else
@@ -92,7 +92,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   def latest_from_blog
     unless @latest_entries_from_blogs
       @latest_entries_from_blogs = {}
-      for entry in Entry.find(:all, :from => "/accounts/#{@account.id.to_s}/query.xml", :params => { :group_by => "blog", :count => 5 }, :as => @account.access_token )
+      for entry in latest_entries_from_blogs
         if @latest_entries_from_blogs[entry.blogs.first.title]
           @latest_entries_from_blogs[entry.blogs.first.title] << entry
         else
@@ -101,6 +101,20 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
       end
     end
     @latest_entries_from_blogs
+  end
+  
+  private
+  
+  def latest_articles_for_sections
+    Rails.cache([@account.cache_key, '/latest_article_for_sections'], :expires_in => 10.minutes) do
+      Article.find(:all, :from => "/accounts/#{@account.id.to_s}/query.xml", :params => { :group_by => "section", :count => 5 }, :as => @account.access_token )
+    end
+  end
+  
+  def latest_entries_from_blogs
+    Rails.cache([@account.cache_key, '/latest_entries_from_blogs'], :expires_in => 10.minutes) do
+      Entry.find(:all, :from => "/accounts/#{@account.id.to_s}/query.xml", :params => { :group_by => "blog", :count => 5 }, :as => @account.access_token )
+    end
   end
   
 end

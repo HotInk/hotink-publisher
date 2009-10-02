@@ -61,7 +61,9 @@ class Account < ActiveRecord::Base
   # end
   
   def sections
-    @sections ||= Section.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
+    Rails.cache.fetch([self.cache_key, '/sections'], :expires_in => 10.minutes) do
+      Section.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
+    end
   end
   
   def issues
@@ -84,6 +86,10 @@ class Account < ActiveRecord::Base
     else
       @account ||= AccountResource.find(self.id, :as => self.access_token)
     end
+  end
+  
+  def cache_key
+    "accounts/#{self.account_resource_id}"
   end
     
 end
