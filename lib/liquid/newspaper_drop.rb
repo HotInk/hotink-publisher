@@ -81,7 +81,9 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   # Returns 5 most recent blog entries
   def latest_entries
     unless @latest_entries
-     @latest_entries = Entry.paginate(:all, :from => "/accounts/#{@account.id.to_s}/entries.xml", :params => { :page => 1, :per_page => 5}, :as => @account.access_token ) 
+      Rails.cache.fetch([@account.cache_key, '/latest_entries'], :expires_in => 10.minutes) do
+          @latest_entries = Entry.paginate(:all, :from => "/accounts/#{@account.id.to_s}/entries.xml", :params => { :page => 1, :per_page => 5}, :as => @account.access_token ) 
+      end
     end
     @latest_entries.first.article.collect do |i| 
       i
