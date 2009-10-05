@@ -75,7 +75,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
       wordlist = source.bodytext.split
       l = words.to_i - 1
       l = 0 if l < 0
-      wordlist.length > l ? wordlist[0..l].join(" ") + "..." : input
+      wordlist.length > l ? wordlist[0..l].join(" ") + "..." : source.bodytext
     end
   end
   
