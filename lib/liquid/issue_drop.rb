@@ -58,7 +58,9 @@ class Liquid::IssueDrop < Liquid::BaseDrop
   
   def get_articles
     unless @articles
-      @articles = Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token)
+      @articles = Rails.cache.fetch([@issue.cache_key, '/articles'], :expires_in => 10.minutes) do
+         Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token)
+      end
     end
     @articles
   end

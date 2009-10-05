@@ -8,5 +8,9 @@ class Issue < HyperactiveResource
   def to_liquid(options = {})
     @issue_drop ||= Liquid::IssueDrop.new self, options
   end
+  
+  def cache_key
+    "issues/#{self.id}"
+  end
 
 end
