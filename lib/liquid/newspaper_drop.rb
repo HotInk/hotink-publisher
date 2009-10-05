@@ -47,7 +47,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   
   def latest_issue
     unless @latest_issues
-      @latest_issues = Issue.paginate(:all, :account_id => @account.account_resource_id, :page => 1, :per_page => 15, :as => @account.access_token)
+      @latest_issues = latest_issues
     end
     @latest_issues.first.issue.first.account.access_token = @account.access_token # We need to preserve access to this token for nested requests
     @latest_issues.first.issue.first
@@ -55,7 +55,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   
   def latest_issues
       unless @latest_issues
-        @latest_issues = Issue.paginate(:all, :account_id => @account.account_resource_id, :page => 1, :per_page => 15, :as => @account.access_token)
+        @latest_issues = latest_issues
       end
       @latest_issues.first.issue.collect do |i| 
         i.account.access_token = @account.access_token
@@ -106,6 +106,12 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   end
   
   private
+  
+  def latest_issues
+    Rails.cache.fetch([@account.cache_key, '/latest_issues'], :expires_in => 10.minutes) do
+      Issue.paginate(:all, :account_id => @account.account_resource_id, :page => 1, :per_page => 15, :as => @account.access_token)
+    end
+  end
   
   def latest_articles_for_sections
     Rails.cache.fetch([@account.cache_key, '/latest_article_for_sections'], :expires_in => 10.minutes) do
