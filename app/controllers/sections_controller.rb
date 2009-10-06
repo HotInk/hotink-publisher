@@ -10,8 +10,11 @@ class SectionsController < ApplicationController
   before_filter :build_registers, :only => :show
 
   def show
-    @section = Section.find(URI.encode(params[:id]), :account_id => @account.account_resource_id, :as => @account.access_token)
-    
+    begin
+      @section = Section.find(URI.encode(params[:id]), :account_id => @account.account_resource_id, :as => @account.access_token)
+    rescue NoMethodError
+      zissou
+    end
     # We'll get a lot of traffic that thinks it's a section, when really it's a bad request. Give 'em Zissou.
     zissou unless @section
 
