@@ -21,7 +21,7 @@ class PagesController < ApplicationController
           zissou
           return
         else
-          redirect_to "/sections/#{@section.name}", :status=>:moved_permanently
+          redirect_to "/sections/#{URI.escape(@section.name)}", :status=>:moved_permanently
           return
         end
       rescue NoMethodError # Catch case that "section" we think we have isn't a real section at all 
