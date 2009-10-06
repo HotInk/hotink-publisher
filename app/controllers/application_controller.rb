@@ -3,10 +3,10 @@
 
 class ApplicationController < ActionController::Base
   #dev cred
-  OAUTH_CREDENTIALS = { :token => "HdLS8aGol4BKblPnR8xNA", :secret => "mVMjBHaCZd4bztcN5ANjFdqm10G94Ia529eK3Q2Lc", :site => "http://hotink.theorem.ca"  }
+  #OAUTH_CREDENTIALS = { :token => "HdLS8aGol4BKblPnR8xNA", :secret => "mVMjBHaCZd4bztcN5ANjFdqm10G94Ia529eK3Q2Lc", :site => "http://hotink.theorem.ca"  }
  
   #Production cred
-  #OAUTH_CREDENTIALS = { :token => "4iL4tnqIuL8sv2RHQOjQ", :secret => "WSNAza5TIaK7CKggJfSo5cY4MO9xUH7SFItB6gxxE", :site => "http://hotink.theorem.ca"  }
+  OAUTH_CREDENTIALS = { :token => "4iL4tnqIuL8sv2RHQOjQ", :secret => "WSNAza5TIaK7CKggJfSo5cY4MO9xUH7SFItB6gxxE", :site => "http://hotink.theorem.ca"  }
  
  
   helper :all # include all helpers, all the time
