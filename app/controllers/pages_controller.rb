@@ -16,7 +16,7 @@ class PagesController < ApplicationController
     
     if @page.nil? 
       begin
-        @section = Section.find(params[:page_name], :account_id => @account.account_resource_id, :as => @account.access_token)      
+        @section = Section.find(URI.escape(params[:page_name]), :account_id => @account.account_resource_id, :as => @account.access_token)      
         if @section.nil?
           zissou
           return
