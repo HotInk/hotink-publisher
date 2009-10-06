@@ -14,9 +14,10 @@ class SectionsController < ApplicationController
       @section = Section.find(URI.encode(params[:id]), :account_id => @account.account_resource_id, :as => @account.access_token)
     rescue NoMethodError
       zissou
+      return
     end
     # We'll get a lot of traffic that thinks it's a section, when really it's a bad request. Give 'em Zissou.
-    zissou unless @section
+    zissou and return unless @section
 
     
     @articles = Article.paginate(:all, :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15), :account_id => @account.account_resource_id, :section_id => @section.id, :as => @account.access_token)
