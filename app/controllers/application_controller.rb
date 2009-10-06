@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
         else
           raise ActiveRecord::RecordNotFound
         end
-      rescue
+      rescue # Any errors while finding the account mean you're in at the wrong URL.
         zissou
       end
     end

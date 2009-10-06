@@ -25,6 +25,7 @@ class PagesController < ApplicationController
         end
       rescue NoMethodError # Catch case that "section" we think we have isn't a real section at all 
         zissou
+      end
     end
 
     # Widget data processing -- start  
