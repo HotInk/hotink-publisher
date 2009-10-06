@@ -25,20 +25,21 @@ class ApplicationController < ActionController::Base
   private
   
     def find_account
-      if params[:account_id]
-        @account = Account.find(params[:account_id])
-        Time.zone = @account.time_zone
-        @account
-      elsif controller_name=="accounts" && params[:id]
-        @account = Account.find(params[:id])
-        Time.zone = @account.time_zone
-        @account
-      else
-        @account = nil
-      end
-      raise ActiveRecord::RecordNotFound unless @account
+      begin
+        if params[:account_id]
+          @account = Account.find(params[:account_id])
+          Time.zone = @account.time_zone
+          @account
+        elsif controller_name=="accounts" && params[:id]
+          @account = Account.find(params[:id])
+          Time.zone = @account.time_zone
+          @account
+        else
+          raise ActiveRecord::RecordNotFound
+        end
       rescue
         zissou
+      end
     end
     
     def find_design
