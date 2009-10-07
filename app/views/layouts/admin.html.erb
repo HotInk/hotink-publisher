@@ -3,7 +3,7 @@
 <head profile="http://gmpg.org/xfn/11">
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>Articles: <%= controller.action_name %></title>
+  <title>Hot Ink Publisher</title>
   <%= stylesheet_link_tag 'admin' %>
   <%= stylesheet_link_tag 'scaffold' %>
   <%= stylesheet_link_tag 'hotink' %>
@@ -24,6 +24,7 @@
 		<li <%= 'class="selected"' if controller_name=="dashboards"%>><%= link_to "Dashboard", account_dashboard_path(@account) %></li>
 		<li <%= 'class="selected"' if controller_name=="front_pages"%>><%= link_to "Front Pages", account_front_pages_path(@account) %></li>											
 		<li <%= 'class="selected"' if controller_name=="comments"%>><%= link_to "Comments", account_comments_path(@account) %></li>
+		<li <%= 'class="selected"' if controller_name=="article_options"%>><%= link_to "Article Options", account_article_options_path(@account) %></li>
 		<li <%= 'class="selected"' if controller_name=="templates"||controller_name=="designs"%>><%= link_to "Designs", account_designs_path(@account) %></li>
 		<li <%= 'class="selected"' if controller_name=="pages"%>><%= link_to "Pages", account_pages_path(@account) %></li>
 		

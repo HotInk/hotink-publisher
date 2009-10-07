@@ -102,6 +102,8 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #front_page_form .loaded_articles h2 { float: left; margin: 3px 0; margin-top: 10px; margin-right: 10px; }
 #front_page_form .loaded_articles h2+p { margin-top: 20px; margin-bottom: 7px; }
 
+
+/* Ajax paginated article list styles, used for front page/widget population and article options */
 #articles_list { list-style: none; padding-left: 5px; }
 #articles_list {float: left; clear: both; margin: 0.25em 0; padding-left: 0; list-style-type: none; border: 1px dotted #777; border-top: none; }
 #articles_list li { border-top: 1px dotted #777; background-color: #CEE4F3; cursor: default;}
@@ -207,6 +209,18 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #new_template_file_form { width: 420px; padding: 10px; }
 #new_template_file_form label { margin-right: 10px; font-size: 1.2em; }
 #new_template_file_form button { float: right; margin-top: 15px; margin-right: 35px; }
+
+/* Article options */
+.article_options #articles_list, .article_options>p { width: 940px; }
+.article_options>p  { float: left; text-align: right; clear: both; margin:0 0 5px 0; }
+.article_options #articles_list li div.date { float: left; width: 6%; }
+.article_options #articles_list li .article { width: 47%; }
+.article_options #articles_list li div.comment_controls { overflow: hidden; background-color: #FFF; padding: 0.5em; border: 1px dotted #9cf; }
+.article_options #articles_list li div.comment_controls a { padding: 0 3px; }
+#articles_list li div.comment_controls a.on.selected, #articles_list li div.comment_controls a.on:hover { background-color: green; color: white; } 
+#articles_list li div.comment_controls a.closed.selected, #articles_list li div.comment_controls a.closed:hover { background-color: yellow; } 
+#articles_list li div.comment_controls a.off.selected, #articles_list li div.comment_controls a.off:hover { background-color: red; color: white; } 
+
 /* Overlay css */
 
 #overlay{ position: absolute; top: 0; left: 0; z-index: 900; width: 100%; height: 500px; background-color: #000; }

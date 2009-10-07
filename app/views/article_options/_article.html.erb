@@ -1,0 +1,48 @@
+<li id="article_<%= article.id %>" class="clearfix">
+	<div class="article clearfix">	
+		<h1><%= article.title %></h1>
+		<div class="article_details clearfix">
+			<div class="authors">
+				<%= article.authors_list %>
+			</div>
+			<div class="media">
+				<% article.mediafiles.each do | i | %>
+					<% if i.mediafile_type=="Image" %>
+						<%= image_tag("http://hotink.theorem.ca" + i.image_url("system_icon"), :border => 1) %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="section">
+		<p><%= article.attributes['section'].blank? ? "<span style=\"color: #BBB\">No section</span>" : article.attributes['section'] %></p>
+	</div>
+	<div class="date">
+		<%= Time.parse(article.published_at).to_s(:standard) %>
+	</div>
+	<div class="comment_controls">
+		Comments: 
+		<% article_options = @article_options.to_a.detect { |ao| ao.article_id == article.id} -%>
+		<% if article_options -%>
+			<% if article_options.comments_enabled -%>
+				<% if article_options.comments_locked -%>
+					<%= link_to_remote "On", :url => start_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "on" } %>
+					<%= link_to_remote "Closed", :url => close_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "closed selected" } %>
+					<%= link_to_remote "Off", :url => end_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "off" } %>
+				<% else -%>
+					<%= link_to_remote "On", :url => start_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "on selected" } %>
+					<%= link_to_remote "Close", :url => close_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "closed" } %>
+					<%= link_to_remote "Off", :url => end_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "off" } %>
+				<% end -%>
+			<% else -%>
+				<%= link_to_remote "On", :url => start_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "on" } %>
+				<%= link_to_remote "Close", :url => close_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "closed" } %>
+				<%= link_to_remote "Off", :url => end_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "off selected" } %>
+			<% end -%>
+		<% else -%>
+			<%= link_to_remote "On", :url => start_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "on selected" } %>
+			<%= link_to_remote "Close", :url => close_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "closed" } %>
+			<%= link_to_remote "Off", :url => end_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "off" } %>
+		<% end -%>
+	</div>
+</li>

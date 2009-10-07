@@ -15,11 +15,17 @@ class PagesController < ApplicationController
     @page = @account.pages.find_by_name(params[:page_name])
     
     if @page.nil? 
-      @section = Section.find(params[:page_name], :account_id => @account.account_resource_id, :as => @account.access_token)      
-      if @section.nil?
+      begin
+        @section = Section.find(URI.escape(params[:page_name]), :account_id => @account.account_resource_id, :as => @account.access_token)      
+        if @section.nil?
+          zissou
+          return
+        else
+          redirect_to "/sections/#{URI.escape(@section.name)}", :status=>:moved_permanently
+          return
+        end
+      rescue NoMethodError # Catch case that "section" we think we have isn't a real section at all 
         zissou
-      else
-        redirect_to "/sections/#{@section.name}", :status=>:moved_permanently
         return
       end
     end

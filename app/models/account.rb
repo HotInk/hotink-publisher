@@ -9,6 +9,8 @@ class Account < ActiveRecord::Base
   has_many :redesigns, :dependent => :destroy
   
   has_many :pages
+  
+  has_many :article_options
     
   attr_accessor :access_token
   # has_many :articles

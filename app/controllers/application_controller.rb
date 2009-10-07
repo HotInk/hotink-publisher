@@ -2,10 +2,10 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  #production cred
-  #OAUTH_CREDENTIALS = { :token => "dOZgDp06FMkIjNGQolHYw", :secret => "0jTy6xtVzYL5hKGyYK9ESfw3Ylicygim3WWXj3uaJ3o", :site => HOTINK_SETTINGS.site }
- 
   #dev cred
+  #OAUTH_CREDENTIALS = { :token => "HdLS8aGol4BKblPnR8xNA", :secret => "mVMjBHaCZd4bztcN5ANjFdqm10G94Ia529eK3Q2Lc", :site => "http://hotink.theorem.ca"  }
+ 
+  #Production cred
   OAUTH_CREDENTIALS = { :token => "4iL4tnqIuL8sv2RHQOjQ", :secret => "WSNAza5TIaK7CKggJfSo5cY4MO9xUH7SFItB6gxxE", :site => "http://hotink.theorem.ca"  }
  
  
@@ -25,16 +25,20 @@ class ApplicationController < ActionController::Base
   private
   
     def find_account
-      if params[:account_id]
-        @account = Account.find(params[:account_id])
-        Time.zone = @account.time_zone
-        @account
-      elsif controller_name=="accounts" && params[:id]
-        @account = Account.find(params[:id])
-        Time.zone = @account.time_zone
-        @account
-      else
-        @account = nil
+      begin
+        if params[:account_id]
+          @account = Account.find(params[:account_id])
+          Time.zone = @account.time_zone
+          @account
+        elsif controller_name=="accounts" && params[:id]
+          @account = Account.find(params[:id])
+          Time.zone = @account.time_zone
+          @account
+        else
+          @account = nil
+        end
+      rescue # Any errors while finding the account mean you're in at the wrong URL.
+        zissou
       end
     end
     

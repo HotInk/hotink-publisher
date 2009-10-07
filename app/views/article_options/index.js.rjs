@@ -1,0 +1,1 @@
+page.replace 'articles', :partial => 'articles'
