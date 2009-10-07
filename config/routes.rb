@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
       :member => {:flag => :get, :enable => :get, :disable => :get},
       :collection => { :clear_all_flags => :get },
       :path_prefix => "accounts/:account_id/admin", :controller => "admin/comments" 
-    
+    account.resources :article_options, :collection => { :end_comments => :post, :close_comments => :post, :start_comments => :post }
     account.resource :dashboard
     account.resources :designs do |design|
       design.resources :widgets
