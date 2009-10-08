@@ -66,6 +66,10 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
      source.issues
   end
   
+  def tags
+    source.tags
+  end
+  
   def excerpt
     if source.summary
       source.summary

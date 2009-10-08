@@ -32,6 +32,7 @@ class ArticleOptionsController < ApplicationController
     @article = Article.find(params[:article_id], :account_id => @account.account_resource_id, :as => @account.access_token)
     @article_options = @account.article_options.find_or_initialize_by_article_id(@article.id)
     @article_options.comments_enabled = true
+    @article_options.comments_locked = false
     @article_options.save
         
     respond_to do |format|

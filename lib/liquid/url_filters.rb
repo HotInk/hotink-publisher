@@ -1,4 +1,5 @@
 require 'uri'
+require 'cgi'
 
 module Liquid
 
@@ -60,6 +61,13 @@ module Liquid
       @account = @context.registers[:account] #Account.find(article.account_id)
       url = @account.url + "/" + URI.escape(page_name)
       title ||= page_name
+      link_to title, url
+    end
+    
+    def link_to_tag(tag, title=nil)
+      @account = @context.registers[:account] #Account.find(article.account_id)
+      url = "#{@account.url}/search?tagged_with=" + CGI.escape(tag["name"]) + "&page=1"
+      title ||= tag["name"]
       link_to title, url
     end
 

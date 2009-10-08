@@ -26,23 +26,23 @@
 		<% if article_options -%>
 			<% if article_options.comments_enabled -%>
 				<% if article_options.comments_locked -%>
-					<%= link_to_remote "On", :url => start_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "on" } %>
-					<%= link_to_remote "Closed", :url => close_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "closed selected" } %>
-					<%= link_to_remote "Off", :url => end_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "off" } %>
+					<%= link_to_remote "On", :url => start_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :after => "$('article_options_spinner').setStyle({visibility: 'visible'});", :html => { :class => "on" } %>
+					<%= link_to_remote "Closed", :url => close_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :after => "$('article_options_spinner').setStyle({visibility: 'visible'});", :html => { :class => "closed selected" } %>
+					<%= link_to_remote "Off", :url => end_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :after => "$('article_options_spinner').setStyle({visibility: 'visible'});", :html => { :class => "off" } %>
 				<% else -%>
-					<%= link_to_remote "On", :url => start_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "on selected" } %>
-					<%= link_to_remote "Close", :url => close_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "closed" } %>
-					<%= link_to_remote "Off", :url => end_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "off" } %>
+					<%= link_to_remote "On", :url => start_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :after => "$('article_options_spinner').setStyle({visibility: 'visible'});", :html => { :class => "on selected" } %>
+					<%= link_to_remote "Close", :url => close_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :after => "$('article_options_spinner').setStyle({visibility: 'visible'});", :html => { :class => "closed" } %>
+					<%= link_to_remote "Off", :url => end_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :after => "$('article_options_spinner').setStyle({visibility: 'visible'});", :html => { :class => "off" } %>
 				<% end -%>
 			<% else -%>
-				<%= link_to_remote "On", :url => start_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "on" } %>
-				<%= link_to_remote "Close", :url => close_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "closed" } %>
-				<%= link_to_remote "Off", :url => end_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "off selected" } %>
+				<%= link_to_remote "On", :url => start_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :after => "$('article_options_spinner').setStyle({visibility: 'visible'});", :html => { :class => "on" } %>
+				<%= link_to_remote "Close", :url => close_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :after => "$('article_options_spinner').setStyle({visibility: 'visible'});", :html => { :class => "closed" } %>
+				<%= link_to_remote "Off", :url => end_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :after => "$('article_options_spinner').setStyle({visibility: 'visible'});", :html => { :class => "off selected" } %>
 			<% end -%>
 		<% else -%>
-			<%= link_to_remote "On", :url => start_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "on selected" } %>
-			<%= link_to_remote "Close", :url => close_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "closed" } %>
-			<%= link_to_remote "Off", :url => end_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :html => { :class => "off" } %>
+			<%= link_to_remote "On", :url => start_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :after => "$('article_options_spinner').setStyle({visibility: 'visible'});", :html => { :class => "on selected" } %>
+			<%= link_to_remote "Close", :url => close_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :after => "$('article_options_spinner').setStyle({visibility: 'visible'});", :html => { :class => "closed" } %>
+			<%= link_to_remote "Off", :url => end_comments_account_article_options_url(@account, :article_id => article.id, :format => :js), :method => :post, :after => "$('article_options_spinner').setStyle({visibility: 'visible'});", :html => { :class => "off" } %>
 		<% end -%>
 	</div>
 </li>

@@ -8,7 +8,14 @@ class SearchesController < ApplicationController
   
   def show    
     @search_query = params[:q]
-    @search_results = Article.paginate(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/search.xml", :params => { :only => "articles", :q => @search_query, :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15) }, :as => @account.access_token )
+    @tag_query = params[:tagged_with]
+    
+    if @search_query
+      @search_results = Article.paginate(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/search.xml", :params => { :only => "articles", :q => @search_query, :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15) }, :as => @account.access_token )
+    else
+      @search_results = Article.paginate(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/articles.xml", :params => {:tagged_with => @tag_query, :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15) }, :as => @account.access_token )
+    end
+    
     if @search_results.first.respond_to?(:current_page)  && @search_results.first.respond_to?(:article)
       @search_results_pagination = { 'current_page' => @search_results.first.current_page, 'per_page' => @search_results.first.per_page, 'total_entries' => @search_results.first.total_entries }
       @search_results = @search_results.first.article
@@ -52,11 +59,12 @@ class SearchesController < ApplicationController
 
     @registers[:account] = @account
     @registers[:query] = @search_query
+    @registers[:tagged_with] = @tag_query
     @registers[:design] = @current_template.design if @current_template.design
    
-    page_html = @current_template.parsed_code.render({'newspaper' => @newspaper, 'search_results' => @search_results.to_a, 'search_results_pagination' => @search_results_pagination, 'search_query' => @search_query}, :registers => @registers )
+    page_html = @current_template.parsed_code.render({'newspaper' => @newspaper, 'search_results' => @search_results.to_a, 'search_results_pagination' => @search_results_pagination, 'search_query' => @search_query, 'tag_query' => @tag_query}, :registers => @registers )
      if @current_template.current_layout
-       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'search_results' => @sarch_results.to_a, 'search_results_pagination' => @search_results_pagination, 'search_query' => @search_query, 'newspaper' => @newspaper}, :registers => @registers)
+       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'search_results' => @sarch_results.to_a, 'search_results_pagination' => @search_results_pagination, 'search_query' => @search_query, 'tag_query' => @tag_query, 'newspaper' => @newspaper}, :registers => @registers)
      else  
        render :text => page_html
      end   

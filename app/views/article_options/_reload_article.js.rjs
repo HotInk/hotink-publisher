@@ -1,1 +1,2 @@
 page.replace "article_#{@article.id.to_s}", :partial => 'article', :object => @article
+page << "$('article_options_spinner').setStyle({visibility: 'hidden'});"
