@@ -29,7 +29,7 @@ module Liquid
         
         # Current page and pagination window
         pagination_html += "<a href=\"?page=#{pagination_info["current_page"].to_i - 1}\" rel=\"prev\">#{pagination_info["current_page"].to_i - 1}</a>" if pagination_info["current_page"] > 1
-        pagination_html += "<span class=\"current\">#{pagination_info["current_page"]}</span>"
+        pagination_html += "<span class=\"current\">#{pagination_info["current_page"]}</span>" unless pagination_info["per_page"].to_i > pagination_info["total_entries"].to_i
         pagination_html += "<a href=\"?page=#{pagination_info["current_page"].to_i + 1}\" rel=\"next\">#{pagination_info["current_page"].to_i + 1}</a>" if (pagination_info["current_page"].to_i * pagination_info["per_page"].to_i) < pagination_info["total_entries"].to_i
         
         # TODO: Pagination end-window
@@ -73,12 +73,22 @@ module Liquid
        
         pagination_html += "<div class=\"pagination\">"
         
-        # Previous link, if appropriate
-        pagination_html += "<a href=\"??q=#{CGI.escape(@context.registers[:query])}&page=#{pagination_info["current_page"].to_i - 1}\" class=\"prev_page\" rel=\"prev\">&laquo; Previous</a>" if pagination_info["current_page"].to_i > 1 
+        if !(@context.registers[:query].blank?)
+          # Previous link, if appropriate
+          pagination_html += "<a href=\"?q=#{CGI.escape(@context.registers[:query])}&page=#{pagination_info["current_page"].to_i - 1}\" class=\"prev_page\" rel=\"prev\">&laquo; Previous</a>" if pagination_info["current_page"].to_i > 1 
 
-        # Next link, if appropriate
-        if (pagination_info["current_page"].to_i * pagination_info["per_page"].to_i) < pagination_info["total_entries"].to_i
-          pagination_html += "<a href=\"?q=#{CGI.escape(@context.registers[:query])}&page=#{pagination_info["current_page"].to_i + 1}\" class=\"next_page\" rel=\"next\">Next &raquo;</a>"
+          # Next link, if appropriate
+          if (pagination_info["current_page"].to_i * pagination_info["per_page"].to_i) < pagination_info["total_entries"].to_i
+            pagination_html += "<a href=\"?q=#{CGI.escape(@context.registers[:query])}&page=#{pagination_info["current_page"].to_i + 1}\" class=\"next_page\" rel=\"next\">Next &raquo;</a>"
+          end
+        elsif !(@context.registers[:tagged_with].blank?)
+          # Previous link, if appropriate
+          pagination_html += "<a href=\"?tagged_with=#{CGI.escape(@context.registers[:tagged_with])}&page=#{pagination_info["current_page"].to_i - 1}\" class=\"prev_page\" rel=\"prev\">&laquo; Previous</a>" if pagination_info["current_page"].to_i > 1 
+
+          # Next link, if appropriate
+          if (pagination_info["current_page"].to_i * pagination_info["per_page"].to_i) < pagination_info["total_entries"].to_i
+            pagination_html += "<a href=\"?tagged_with=#{CGI.escape(@context.registers[:tagged_width])}&page=#{pagination_info["current_page"].to_i + 1}\" class=\"next_page\" rel=\"next\">Next &raquo;</a>"
+          end
         end
         
         pagination_html += "</div>"
