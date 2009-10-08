@@ -55,7 +55,7 @@ class Comment < ActiveRecord::Base
   
   def mark_spam
     self.spam!
-    self.spam = true
+    self.update_attribute(:spam, true)
   end  
   
 end
