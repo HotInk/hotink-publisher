@@ -58,4 +58,9 @@ class Comment < ActiveRecord::Base
     self.update_attribute(:spam, true)
   end  
   
+  def mark_ham
+    self.ham!
+    self.update_attribute(:spam, false)
+  end
+  
 end
