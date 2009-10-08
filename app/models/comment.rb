@@ -2,12 +2,12 @@ class Comment < ActiveRecord::Base
 
   belongs_to :account
 
-  has_rakismet :author => proc { self.name },
-               :author_email => proc { self.email },
-               :author_url => proc { self.url },               
-               :content => proc { self.body }
-
-
+  has_rakismet :author => :name,
+               :author_email => :email,
+               :author_url => :url,
+               :content => :body,
+               :user_ip => :ip
+  
   def to_liquid(options = {})
     Liquid::CommentDrop.new self, options
   end
@@ -16,9 +16,9 @@ class Comment < ActiveRecord::Base
     Account.find(self.account_id)
   end
   
-  def article
-    Article.find(self.content_id, :params => {:account_id => self.account_id})
-  end
+  # def article
+  #   Article.find(self.content_id, :params => {:account_id => self.account_id})
+  # end
     
   def Comment.clear_all_flags(account_id)
     @comments = Comment.find(:all, :conditions => {:account_id => account_id})
@@ -48,5 +48,14 @@ class Comment < ActiveRecord::Base
   def disable
     self.update_attribute(:enabled, false)
   end
+  
+  def flagged?
+    self.flags > 0
+  end
+  
+  def mark_spam
+    self.spam!
+    self.spam = true
+  end  
   
 end

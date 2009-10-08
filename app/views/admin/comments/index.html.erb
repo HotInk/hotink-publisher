@@ -1,29 +1,81 @@
-<h1>Listing Comments</h1>
+<div id="comments" class="index">
 
-<%= button_link_to 'Clear all flags', clear_all_flags_account_comments_path(@account), :confirm => "Are you sure?" %>
+<div class="title_bar clearfix">
+	<h1>Listing Comments</h1>
 
-<table style="clear: both;">
-  <tr>
-  </tr>
+	<%= button_link_to 'Clear all flags', clear_all_flags_account_comments_path(@account), :confirm => "Are you sure?" %>
+</div>
 
-<% for comment in @comments %>
-<tr>
-<td><%= comment.name %></td>
-<td><%= comment.created_at %></td>
-<td><%= comment.email %></td>
-<td><%= h comment.body %></td>	
-<td><%= comment.flags %></td>	
-<td><%= comment.enabled %></td>	
-<td><%= link_to "Flag", flag_account_comment_path(@account, comment) %></td>
-<td>
-	<% if comment.enabled? %>
-		<%= link_to "Disable", disable_account_comment_path(@account, comment) %>
-	<% else %>
-		<%= link_to "Enable", enable_account_comment_path(@account, comment) %>
-	<% end %>
-</tr>
-<% end %>
+<div class="select_all_wrap clearfix">
+	<input id="select_all_head" type="checkbox" class="select_all"/> <label for="select_all_head">&nbsp;Select all</label>
+</div>
+
+<% form_tag bulk_action_account_comments_url(@account), :method => :post do %>
+<%= hidden_field_tag "content_types[]", 'comments'%>
+<%= hidden_field_tag "action_name", '', :id=>"comment_action_name"%>
+
+
+	<div id="actions" class="clearfix">
+		<%= button_link_to_submit "Clear flags", :onclick => "$('comment_action_name').value='clear';return true;", :class => "pill-l" %>
+		<%= button_link_to_submit "Remove", :onclick => "$('comment_action_name').value='remove';return true;", :class => "pill-c" %>
+		<%= button_link_to_submit "Mark as Spam", :onclick => "$('comment_action_name').value='spam';return true;", :class => "pill-c" %>		
+	</div>
+
+</div>
+
+<div class="top_pagination clearfix">
+	<div id="" class="">
+		<%= page_entries_info @comments %>
+	</div>
+	<%= will_paginate(@comments, :inner_window => 1, :outer_window => 1) %>
+</div>
+
+<div class="comments">
+<table>
+
+	<tbody id="the-comment-list" class="list:comment">
+		<%= render :partial => "comment", :collection => @comments %>
+	</tbody>
 
 </table>
+</div>
+<% end %>
 
-<%= will_paginate @comments %>
+
+<script type="text/javascript" charset="utf-8">
+
+//Load each article <li> as a Card and check to see if any checkboxes are pre-checked and need to be pre-selected 
+	$('comments').select('ol#comments_list>li').each( function (t) { a = new Card(t); if (a.checkbox.checked) a.select(); });
+	
+	
+	// Activate table header checkboxes select_all functionality
+	$$('.select_all').each(	function(element) { 
+			Event.observe(element, 'click', function( event ) { 
+					if (element.checked){ 
+						$$('ol#comments_list>li').each(
+								function(el){ 
+									el.card.select(); 
+								}
+						); 
+						$$('.select_all').each(
+							function(el) {
+								el.checked = true;
+							}
+						);						
+					} else {
+						$$('ol#comments_list>li').each( 	
+							function(el){ 
+								el.card.deselect(); 
+							}
+						); 
+						$$('.select_all').each(
+							function(el) {
+								el.checked = null;
+							}
+						);
+					} 
+			})
+	});
+	
+</script>
+</div>

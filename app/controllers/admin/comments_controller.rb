@@ -7,13 +7,51 @@ class Admin::CommentsController < ApplicationController
   def dashboard
     
   end
+  
+  
+  def bulk_action
+    
+    for comment_id in params[:comment_ids]
+      
+      comment = Comment.find(comment_id.to_i)
+      
+      if params[:action_name] == "clear"
+        comment.clear_flags
+      elsif params[:action_name] == "remove"
+        comment.disable
+      elsif params[:action_name] == "spam"
+        comment.mark_spam
+      end
+    end
+        
+    redirect_to(account_comments_path) 
+  end
+  
 
   def index
     # @comments = Comment.paginate :page => params[:page], :per_page => 50
+        
+    conditions = {:account_id => @account.id, :enabled => true, :spam => false}
     
-    conditions = {:account_id => @account.id, :enabled => true}
+    if params[:spam_comments]
+      conditions[:spam] = true
+    end
     
-    @comments = Comment.paginate(:page => params[:page], :per_page => 50, :conditions => conditions, :order => "created_at DESC")
+    if params[:flagged_comments]
+    end
+    
+    if params[:disabled_comments]
+      conditions[:enabled] = false
+    end
+    
+    @comments = Comment.paginate(:page => params[:page], :per_page => 20, :conditions => conditions, :order => "created_at DESC")
+    
+    @article_resources = Article.find(:all, :ids => @comments.collect { |x| x.content_id }.uniq, :account_id => @account.account_resource_id, :as => @account.access_token)
+    
+    @articles = {}
+    for a in @article_resources
+      @articles[a.id] = a
+    end    
 
     respond_to do |format|
       format.html # index.html.erb

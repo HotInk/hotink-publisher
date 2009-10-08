@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090915205836) do
+ActiveRecord::Schema.define(:version => 20091005205830) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20090915205836) do
     t.string   "type"
     t.boolean  "enabled",      :default => true
     t.string   "ip"
+    t.boolean  "spam",         :default => false
   end
 
   create_table "design_versions", :force => true do |t|

@@ -8,8 +8,10 @@ class CommentsController < ApplicationController
 
   def index
     
+    conditions = { :spam => "false" }
+    
     if params[:article_id].nil?
-      @comments = Comment.find(:all)
+      @comments = Comment.find(:all, :conditions => conditions)
     else    
       @article = Article.find(params[:article_id], :params => {:account_id => @account.account_resource_id})
       @comments = @article.comments
@@ -58,10 +60,13 @@ class CommentsController < ApplicationController
       @comment.type = "FacebookComment"
       @comment.fb_user_id = facebook_session.user.id
     end
-
+    
+    if @comment.spam?
+      @comment.spam = true
+    end
+    
     respond_to do |format|
       if @comment.save
-        flash[:notice] = 'Comment was successfully created.'
         format.html { redirect_to(account_article_path(@account, @comment.content_id)) }
         format.xml  { render :xml => @comment, :status => :created, :location => @comment }
       else

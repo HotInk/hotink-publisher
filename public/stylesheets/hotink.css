@@ -147,3 +147,6 @@ body {
 .flagged-comment {
  background-color: #FFF6DD; 
 }
+.spam-comment {
+  background-color: #ffccaa;
+}

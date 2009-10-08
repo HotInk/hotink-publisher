@@ -1,0 +1,37 @@
+<% comment_class = "" %>
+<% comment_class += " flagged-comment" if comment.flagged? %>
+<% comment_class += " spam-comment" if comment.spam? %>
+<% comment_class += " disabled-comment" unless comment.enabled? %>
+
+<tr id='comment-<%= comment.id %>' class='<%= cycle("even-row", "odd-row") %> <%= comment_class %> comment'>
+<th class="check-column column-check" scope="row">
+	<input type="checkbox" value="<%= comment.id %>" name="comment_ids[]"/>
+</td>
+
+<td class="author column-author">
+	<strong><%= h comment.name %></strong><br/>
+	<%= h comment.email %> <br/>	
+	<%= h comment.ip %> <br/>		
+</td>
+	
+<td class="comment column-comment">
+	<strong><%= comment.created_at.strftime("%b %e, %G at %l:%M:%S %p") %></strong><br/>
+	<%= h comment.body %>
+</td>
+
+<td class="status column-status">
+	<%= comment.flags %> flags <br/>
+	<%= comment.spam? ? "Spam" : "Not spam" %> <br/>
+	<%= comment.enabled? ? "Enabled" : "Disabled" %> 
+</td>
+
+
+<td class="response column-response">
+	<% if @articles[comment.content_id] %>
+		<%= link_to @articles[comment.content_id].title, account_article_url(@account, @articles[comment.content_id].id)+"#comment-#{comment.id}" %> <br/>
+		<%= @articles[comment.content_id].comments.size %> comments
+	<% end %>
+</td>
+
+</td>
+</tr>

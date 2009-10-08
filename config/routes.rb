@@ -21,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
     account.resource :feed
     account.resources :comments, 
       :member => {:flag => :get, :enable => :get, :disable => :get},
-      :collection => { :clear_all_flags => :get },
+      :collection => { :clear_all_flags => :get, :bulk_action => :post },
       :path_prefix => "accounts/:account_id/admin", :controller => "admin/comments" 
     account.resources :article_options, :collection => { :end_comments => :post, :close_comments => :post, :start_comments => :post }
     account.resource :dashboard
