@@ -63,7 +63,7 @@ class CommentsController < ApplicationController
     
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to("/articles/"+@comment.content_id) }
+        format.html { redirect_to("/articles/"+@comment.content_id.to_s) }
       end
     end
   end
