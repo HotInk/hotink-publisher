@@ -4,6 +4,8 @@ class CommentsController < ApplicationController
 
   has_rakismet
   
+  skip_before_filter :require_user, :only => [:index, :show, :new, :create]
+  
   before_filter :find_account
 
   def index
@@ -43,12 +45,6 @@ class CommentsController < ApplicationController
     end
   end
 
-
-  def edit
-    @comment = Comment.find(params[:id])
-  end
-
-
   def create
 
     @comment = Comment.new(params[:comment])
@@ -77,31 +73,7 @@ class CommentsController < ApplicationController
   end
 
 
-  def update
-    @comment = Comment.find(params[:id])
-
-    respond_to do |format|
-      if @comment.update_attributes(params[:Comment])
-        flash[:notice] = 'Comment was successfully updated.'
-        format.html { redirect_to(@comment) }
-        format.js { head :ok } 
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
 
 
-  def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(Comments_url) }
-      format.xml  { head :ok }
-    end
-  end
   
 end
