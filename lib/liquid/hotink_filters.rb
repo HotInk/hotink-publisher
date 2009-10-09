@@ -27,6 +27,10 @@ module Liquid
       Liquid::Template.parse("{% include 'fulcrum/views/layouts/footer' %}").render      
     end
     
+    def proxy(title = "")
+      return title + @context.registers[:proxy]
+    end
+    
     def paginate(collection, pagination )
       case collection
       when "articles"
