@@ -87,4 +87,24 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     source.comments
   end  
   
+  # default: unlocked. TODO: put this into an account configuration option
+  def comments_locked
+    begin
+      account = Account.find_by_account_resource_id(source.account_id)
+      account.article_options.find_by_article_id(source.id).comments_locked
+    rescue
+      false      
+    end
+  end
+
+  # default: enabled. TODO: put this into an account configuration option  
+  def comments_enabled
+    begin
+      account = Account.find_by_account_resource_id(source.account_id)
+      account.article_options.find_by_article_id(source.id).comments_enabled
+    rescue
+      true
+    end
+  end  
+  
 end
