@@ -57,6 +57,10 @@ module Liquid
       link_to title, url
     end
     
+   def link_to_category(category, title=nil)
+     link_to_section(category, title)
+   end
+    
     def link_to_page(page_name, title=nil)
       @account = @context.registers[:account] #Account.find(article.account_id)
       url = @account.url + "/" + URI.escape(page_name)
