@@ -18,14 +18,6 @@
 /* Hot Ink index styles
 --------------------------------*/
 
-.index .title_bar { width: 100%; }
-.index div.title_bar { margin-top: 0; margin-bottom: 5px; }
-.index .title_bar .actions { float: left; margin: 0.25em 0em; margin-bottom: 2em;}
-.index .title_bar .actions a { vertical-align: 0.25em;}
-.index .title_bar h1 { display:inline; margin: 0; margin-right: 0.5em; font-size: 3em; font-weight: normal; font-family: georgia, "Times New Roman", times, serif; font-style: italic; color: #AAA;}
-.index .title_bar .search { display: inline-block; float: right; clear: right;}
-.index .title_bar .search input { padding: 0.25em; font-size: 1.2em; color: #515151;}
-.index .title_bar .search button { font-size: 1em; }
 .index .select_all_wrap { float: left; clear: left; padding-left: 0.3em; }
 .index .function_bar p.select_all_wrap { margin: 0; margin-top: 0.25em;}
 .index #actions { float: left; margin: 0 2em;  padding-bottom: 0.25em; }
