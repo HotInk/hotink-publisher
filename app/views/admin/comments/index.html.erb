@@ -43,10 +43,14 @@
 <% end %>
 
 
+<% content_for :javascript do -%>
 <script type="text/javascript" charset="utf-8">
+		var page_overlay = new Overlay();
+		
+		load_button_fix(); //fix firefox button display
 
-//Load each article <li> as a Card and check to see if any checkboxes are pre-checked and need to be pre-selected 
-	$('comments').select('ol#comments_list>li').each( function (t) { a = new Card(t); if (a.checkbox.checked) a.select(); });
+		//Load each article <li> as a Card and check to see if any checkboxes are pre-checked and need to be pre-selected 
+		$('comments').select('ol#comments_list>li').each( function (t) { a = new Card(t); if (a.checkbox.checked) a.select(); });
 	
 	
 	// Activate table header checkboxes select_all functionality
@@ -79,4 +83,6 @@
 	});
 	
 </script>
+<% end -%>
+
 </div>
