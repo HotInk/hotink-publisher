@@ -61,11 +61,10 @@ class SectionsController < ApplicationController
         @registers[:widget_data] = widget_data
       end
       # Widget data processing -- end
-    @registers[:proxy] = request.env['X_HTTP_FORWARDED_FOR']
     @registers[:account] = @account
     @registers[:design] = @current_template.design if @current_template.design
    
-    page_html = @current_template.parsed_code.render({'current_section' => @section, 'articles' => @articles.to_a, 'articles_pagination' => @articles_pagination, 'newspaper' => @newspaper}, :registers => @registers )
+    page_html = @current_template.parsed_code.render({'current_section' => @section, 'articles' => @articles.to_a, 'articles_pagination' => @articles_pagination, 'newspaper' => @newspaper}, :registers => @registers ) + '<div class="forwarding-servers" style="display:none;">' + request.env["X_HTTP_FORWARDED_FOR"] + '</div>'
      if @current_template.current_layout
        render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'current_section' => @section, 'articles' => @articles.to_a, 'article_pagination' => @article_pagination, 'newspaper' => @newspaper}, :registers => @registers)
      else  
