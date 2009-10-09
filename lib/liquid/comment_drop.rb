@@ -5,7 +5,7 @@ class Liquid::CommentDrop < Liquid::BaseDrop
   class_inheritable_reader :liquid_attributes
   write_inheritable_attribute :liquid_attributes, [:id]
 
-  liquid_attributes << :name << :body << :type << :id
+  liquid_attributes << :name << :body << :type
 
   def initialize(source, options = {})
     super source
@@ -19,5 +19,9 @@ class Liquid::CommentDrop < Liquid::BaseDrop
   def date
     source.created_at
   end
+
+  def id
+    source.id
+  end   
     
 end

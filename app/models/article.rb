@@ -9,7 +9,8 @@ class Article < HyperactiveResource
   has_many :authors
 
   def comments
-    Comment.find_all_by_content_id(self.id)
+    conditions = {:enabled => true, :spam => false}
+    Comment.find_all_by_content_id(self.id, :conditions => conditions)
   end
   
   def to_liquid(options = {})
