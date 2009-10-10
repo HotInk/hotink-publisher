@@ -14,10 +14,6 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
       'bodytext' => @source.bodytext
   end
   
-  def authors_list
-    source.authors_list
-  end
-  
   def section
     URI.decode(source.attributes['section'])
   end
@@ -66,8 +62,44 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
      source.issues
   end
   
+  # Tags and lists
   def tags
     source.tags
+  end
+  
+  def tags_list
+    "I got your list right here."
+  end
+  
+  # Authors and lists
+  def authors
+    source.authors
+  end
+  
+  def authors_list
+    source.authors_list
+  end
+  
+  # Returns list of article's author names as a readable list, separated by commas and the word "and".
+  def authors_list_with_links
+     case self.authors.length
+     when 0
+       return nil
+     when 1
+       return self.authors.first.blank? ? "" : self.authors.first.name
+     when 2
+      #Catch cases where the second author is actually an editorial title, this is weirdly common.
+      if self.authors.second.name =~ / editor| Editor| writer| Writer| Columnist/
+        return self.authors.first.name + " - " + self.authors.second.name
+      else
+        return self.authors.first.name + " and " + self.authors.second.name
+      end
+     else
+      list = String.new
+      (0..(self.authors.count - 3)).each{ |i| list += authors[i].name + ", " }
+      list += authors[self.authors.length-2].name + " and " + authors[self.authors.length-1].name # last two authors get special formatting
+      return list
+    end         
   end
   
   def excerpt
