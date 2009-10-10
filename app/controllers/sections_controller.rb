@@ -61,7 +61,6 @@ class SectionsController < ApplicationController
         @registers[:widget_data] = widget_data
       end
       # Widget data processing -- end
-    @registers[:proxy] = request.env['X_HTTP_FORWARDED_FOR']
     @registers[:account] = @account
     @registers[:design] = @current_template.design if @current_template.design
    
