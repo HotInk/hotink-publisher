@@ -3,11 +3,11 @@
 
 class ApplicationController < ActionController::Base
  
-  #production cred
+ #production cred - THIS IS THE HOTINK-PUBLISHER MAIN THEOREM INSTANCE PRODUCION CRED
  OAUTH_CREDENTIALS = { :token => "4iL4tnqIuL8sv2RHQOjQ", :secret => "WSNAza5TIaK7CKggJfSo5cY4MO9xUH7SFItB6gxxE", :site => "http://hotink.theorem.ca"  }
  
-     # OAUTH_CREDENTIALS = { :token => "KBfxg6RpTYPgMeMIgkZpeA", :secret => "5mSJVXfA44qBACSDO1xpzzfuk7MkVTg4mdkifUcHB0", :site => "http://localhost:3001" }
- 
+ # Chris D's Macbook Pro cred
+ #OAUTH_CREDENTIALS = { :token => "sh2W3WFO4PWYz8FvBO8g", :secret => "Q2BskVRYyhv5tAEPaevpAav90LRZQ61VpvyId0opI", :site => "http://hotink.theorem.ca" }
  
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
