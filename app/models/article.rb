@@ -44,4 +44,8 @@ class Article < HyperactiveResource
     end
   end
   
+  # Shell class for Article::Author
+  class Author < Author
+  end
+  
 end
