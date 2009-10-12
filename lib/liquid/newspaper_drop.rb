@@ -82,7 +82,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   def latest_entries
     unless @latest_entries
       @latest_entries = Rails.cache.fetch([@account.cache_key, '/latest_entries'], :expires_in => 10.minutes) do
-          Entry.paginate(:all, :from => "/accounts/#{@account.id.to_s}/entries.xml", :params => { :page => 1, :per_page => 5}, :as => @account.access_token ) 
+          Entry.paginate(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/entries.xml", :params => { :page => 1, :per_page => 5}, :as => @account.access_token ) 
       end
     end
     @latest_entries.first.article.collect do |i| 
@@ -115,13 +115,13 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   
   def latest_articles_for_sections
     Rails.cache.fetch([@account.cache_key, '/latest_article_for_sections'], :expires_in => 10.minutes) do
-      Article.find(:all, :from => "/accounts/#{@account.id.to_s}/query.xml", :params => { :group_by => "section", :count => 5 }, :as => @account.access_token )
+      Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/query.xml", :params => { :group_by => "section", :count => 5 }, :as => @account.access_token )
     end
   end
   
   def latest_entries_from_blogs
     Rails.cache.fetch([@account.cache_key, '/latest_entries_from_blogs'], :expires_in => 10.minutes) do
-      Entry.find(:all, :from => "/accounts/#{@account.id.to_s}/query.xml", :params => { :group_by => "blog", :count => 5 }, :as => @account.access_token )
+      Entry.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/query.xml", :params => { :group_by => "blog", :count => 5 }, :as => @account.access_token )
     end
   end
   

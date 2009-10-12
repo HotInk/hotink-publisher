@@ -70,8 +70,15 @@ module Liquid
     
     def link_to_tag(tag, title=nil)
       @account = @context.registers[:account] #Account.find(article.account_id)
-      url = "#{@account.url}/search?tagged_with=" + CGI.escape(tag["name"]) + "&page=1"
-      title ||= tag["name"]
+      url = "#{@account.url}/search?tagged_with=" + CGI.escape(tag.name) + "&page=1"
+      title ||= tag.name
+      link_to title, url
+    end
+
+    def link_to_author(author, title=nil)
+      @account = @context.registers[:account] #Account.find(article.account_id)
+      url = "#{@account.url}/search?q=" + CGI.escape(author.name) + "&page=1"
+      title ||= author.name
       link_to title, url
     end
 

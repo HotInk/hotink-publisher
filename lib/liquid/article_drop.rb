@@ -1,7 +1,8 @@
 class Liquid::ArticleDrop < Liquid::BaseDrop
   
   include ERB::Util # So we can simply use <tt>h(...)</tt>.
-  
+  include Liquid::UrlFilters
+    
   class_inheritable_reader :liquid_attributes
   write_inheritable_attribute :liquid_attributes, [:id]
 
@@ -68,7 +69,34 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   end
   
   def tags_list
-    "I got your list right here."
+    case source.tags.length
+     when 0
+       return nil
+     when 1
+       return source.tags.first.blank? ? "" : source.tags.first.name
+     when 2
+        return source.tags.first.name + ", " + source.tags.second.name
+     else
+      list = String.new
+      (0..(source.tags.count - 3)).each{ |i| list += source.tags[i].name + ", " }
+      list += source.tags[source.tags.length-2].name + ", " + source.tags[source.tags.length-1].name # last two authors get special formatting
+      return list
+    end  end
+  
+  def tags_list_with_links  
+    case source.tags.length
+     when 0
+       return nil
+     when 1
+       return source.tags.first.blank? ? "" : link_to_tag(source.tags.first)
+     when 2
+        return link_to_tag(source.tags.first) + ", " + link_to_tag(source.tags.second)
+     else
+      list = String.new
+      (0..(source.tags.count - 3)).each{ |i| list += link_to_tag(source.tags[i]) + ", " }
+      list += link_to_tag(source.tags[source.tags.length-2]) + ", " + link_to_tag(source.tags[source.tags.length-1]) # last two authors get special formatting
+      return list
+    end
   end
   
   # Authors and lists
@@ -82,22 +110,22 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   
   # Returns list of article's author names as a readable list, separated by commas and the word "and".
   def authors_list_with_links
-     case self.authors.length
+     case source.authors.length
      when 0
        return nil
      when 1
-       return self.authors.first.blank? ? "" : self.authors.first.name
+       return source.authors.first.blank? ? "" : link_to_author(source.authors.first)
      when 2
       #Catch cases where the second author is actually an editorial title, this is weirdly common.
-      if self.authors.second.name =~ / editor| Editor| writer| Writer| Columnist/
-        return self.authors.first.name + " - " + self.authors.second.name
+      if source.authors.second.name =~ / editor| Editor| writer| Writer|Columnist/
+        return link_to_author(source.authors.first)+ " - " + link_to_author(source.authors.second)
       else
-        return self.authors.first.name + " and " + self.authors.second.name
+        return link_to_author(source.authors.first) + " and " + link_to_author(source.authors.second)
       end
      else
       list = String.new
-      (0..(self.authors.count - 3)).each{ |i| list += authors[i].name + ", " }
-      list += authors[self.authors.length-2].name + " and " + authors[self.authors.length-1].name # last two authors get special formatting
+      (0..(source.authors.count - 3)).each{ |i| list += link_to_author(source.authors[i]) + ", " }
+      list += link_to_author(source.authors[source.authors.length-2]) + " and " + link_to_author(source.authors[source.authors.length-1]) # last two authors get special formatting
       return list
     end         
   end
@@ -137,6 +165,6 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     rescue
       true
     end
-  end  
+  end 
   
 end
