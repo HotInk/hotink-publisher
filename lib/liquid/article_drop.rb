@@ -147,6 +147,10 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     source.comments
   end  
   
+  def comment_count
+    return source.comments.length.to_i.to_s
+  end
+  
   # default: unlocked. TODO: put this into an account configuration option
   def comments_locked
     begin
