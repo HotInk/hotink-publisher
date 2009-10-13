@@ -9,7 +9,7 @@ class Article < HyperactiveResource
   has_many :authors
 
   def comments
-    conditions = {:enabled => true, :spam => false}
+    conditions = {}
     Comment.find_all_by_content_id(self.id, :conditions => conditions)
   end
   

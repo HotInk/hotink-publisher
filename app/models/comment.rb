@@ -7,6 +7,9 @@ class Comment < ActiveRecord::Base
                :author_url => :url,
                :content => :body,
                :user_ip => :ip
+               
+               
+  default_scope :conditions => {:enabled => true, :spam => false}
   
   def to_liquid(options = {})
     Liquid::CommentDrop.new self, options
