@@ -4,9 +4,9 @@
 class ApplicationController < ActionController::Base
  
   #production cred
- # OAUTH_CREDENTIALS = { :token => "4iL4tnqIuL8sv2RHQOjQ", :secret => "WSNAza5TIaK7CKggJfSo5cY4MO9xUH7SFItB6gxxE", :site => "http://hotink.theorem.ca"  }
+ OAUTH_CREDENTIALS = { :token => "4iL4tnqIuL8sv2RHQOjQ", :secret => "WSNAza5TIaK7CKggJfSo5cY4MO9xUH7SFItB6gxxE", :site => "http://hotink.theorem.ca"  }
  
-     OAUTH_CREDENTIALS = { :token => "KBfxg6RpTYPgMeMIgkZpeA", :secret => "5mSJVXfA44qBACSDO1xpzzfuk7MkVTg4mdkifUcHB0", :site => "http://localhost:3001" }
+     # OAUTH_CREDENTIALS = { :token => "KBfxg6RpTYPgMeMIgkZpeA", :secret => "5mSJVXfA44qBACSDO1xpzzfuk7MkVTg4mdkifUcHB0", :site => "http://localhost:3001" }
  
  
   helper :all # include all helpers, all the time
