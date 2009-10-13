@@ -50,7 +50,9 @@ module BrainBusterSystem
 
   # Has the user already passed the captcha, signifying we can trust them?
   def captcha_passed?
-    cookies[:captcha_status] == encrypt("passed")
+    # hard to handle this situation with liquid
+    # cookies[:captcha_status] == encrypt("passed")
+    return false
   end
   alias :captcha_previously_passed? :captcha_passed?
   
