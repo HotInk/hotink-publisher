@@ -1,7 +1,8 @@
 class Liquid::ArticleDrop < Liquid::BaseDrop
   
   include ERB::Util # So we can simply use <tt>h(...)</tt>.
-  
+  include Liquid::UrlFilters
+    
   class_inheritable_reader :liquid_attributes
   write_inheritable_attribute :liquid_attributes, [:id]
 
@@ -12,10 +13,6 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     @options  = options
     @liquid.update \
       'bodytext' => @source.bodytext
-  end
-  
-  def authors_list
-    source.authors_list
   end
   
   def section
@@ -66,8 +63,71 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
      source.issues
   end
   
+  # Tags and lists
   def tags
     source.tags
+  end
+  
+  def tags_list
+    case source.tags.length
+     when 0
+       return nil
+     when 1
+       return source.tags.first.blank? ? "" : source.tags.first.name
+     when 2
+        return source.tags.first.name + ", " + source.tags.second.name
+     else
+      list = String.new
+      (0..(source.tags.count - 3)).each{ |i| list += source.tags[i].name + ", " }
+      list += source.tags[source.tags.length-2].name + ", " + source.tags[source.tags.length-1].name # last two authors get special formatting
+      return list
+    end  end
+  
+  def tags_list_with_links  
+    case source.tags.length
+     when 0
+       return nil
+     when 1
+       return source.tags.first.blank? ? "" : link_to_tag(source.tags.first)
+     when 2
+        return link_to_tag(source.tags.first) + ", " + link_to_tag(source.tags.second)
+     else
+      list = String.new
+      (0..(source.tags.count - 3)).each{ |i| list += link_to_tag(source.tags[i]) + ", " }
+      list += link_to_tag(source.tags[source.tags.length-2]) + ", " + link_to_tag(source.tags[source.tags.length-1]) # last two authors get special formatting
+      return list
+    end
+  end
+  
+  # Authors and lists
+  def authors
+    source.authors
+  end
+  
+  def authors_list
+    source.authors_list
+  end
+  
+  # Returns list of article's author names as a readable list, separated by commas and the word "and".
+  def authors_list_with_links
+     case source.authors.length
+     when 0
+       return nil
+     when 1
+       return source.authors.first.blank? ? "" : link_to_author(source.authors.first)
+     when 2
+      #Catch cases where the second author is actually an editorial title, this is weirdly common.
+      if source.authors.second.name =~ / editor| Editor| writer| Writer|Columnist/
+        return link_to_author(source.authors.first)+ " - " + link_to_author(source.authors.second)
+      else
+        return link_to_author(source.authors.first) + " and " + link_to_author(source.authors.second)
+      end
+     else
+      list = String.new
+      (0..(source.authors.count - 3)).each{ |i| list += link_to_author(source.authors[i]) + ", " }
+      list += link_to_author(source.authors[source.authors.length-2]) + " and " + link_to_author(source.authors[source.authors.length-1]) # last two authors get special formatting
+      return list
+    end         
   end
   
   def excerpt
@@ -87,6 +147,10 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     source.comments
   end  
   
+  def comment_count
+    return source.comments.length.to_i.to_s
+  end
+  
   # default: unlocked. TODO: put this into an account configuration option
   def comments_locked
     begin
@@ -105,6 +169,6 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     rescue
       true
     end
-  end  
+  end 
   
 end
