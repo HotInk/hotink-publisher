@@ -5,6 +5,8 @@ class Design < ActiveRecord::Base
   belongs_to :default_layout, :foreign_key => "layout_id", :class_name => "Layout"
   belongs_to :default_front_page_template, :class_name => "FrontPageTemplate"
   
+  belongs_to :parent, :class_name => "Design"
+  
   has_many :redesigns
   
   has_many :widgets
@@ -24,5 +26,15 @@ class Design < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :account_id
   
   acts_as_versioned
+  
+  before_validation :make_sure_name_is_unique
+  
+  def make_sure_name_is_unique
+    old_design = Design.find_by_name_and_account_id(self.name, self.account_id)
+    if old_design && old_design!=self
+      self.name = self.name + " *"
+      make_sure_name_is_unique
+    end
+  end
   
 end

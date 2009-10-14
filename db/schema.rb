@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091005205830) do
+ActiveRecord::Schema.define(:version => 20091014003756) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20091005205830) do
     t.integer  "layout_id"
     t.integer  "default_front_page_template_id"
     t.boolean  "active",                         :default => true
+    t.boolean  "public"
+    t.integer  "parent_id"
   end
 
   add_index "design_versions", ["design_id"], :name => "index_design_versions_on_design_id"
@@ -76,6 +78,8 @@ ActiveRecord::Schema.define(:version => 20091005205830) do
     t.integer  "default_front_page_template_id"
     t.boolean  "active",                         :default => true
     t.integer  "version"
+    t.boolean  "public"
+    t.integer  "parent_id"
   end
 
   create_table "front_page_versions", :force => true do |t|

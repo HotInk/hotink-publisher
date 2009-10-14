@@ -33,6 +33,7 @@ ActionController::Routing::Routes.draw do |map|
       design.resources :templates
       design.resources :template_files
     end
+    account.resource :design_import
     account.resource :redesigns    
     account.resources :front_pages  
     account.resources :press_runs

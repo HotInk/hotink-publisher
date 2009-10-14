@@ -1,0 +1,5 @@
+<li id="public_design_<%= public_design.id %>">
+<h3><%= public_design.name %></h3>
+<%= markdown public_design.description %>
+<%= button_link_to_remote "Import", :url => account_design_import_url(@account, :design_id => public_design.id ) %>
+</li>

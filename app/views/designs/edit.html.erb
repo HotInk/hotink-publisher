@@ -13,6 +13,13 @@
 	    <%= f.label :description %><br />
 	    <%= f.text_area :description, :rows => "4" %>
 	  </div>
+	<% if @account.id == 1 %>
+	 <div class="form_element">
+		<%= f.label :public, "Public?" %>
+		<%= f.check_box :public %>
+		<small>If checked, this design will be available for others to import.</small>
+	 </div>
+	<% end %>
 	  <div class="form_element" style="display:inline; float: right;">
 	    <%= button_link_to_submit 'Update', :class => "larger save" %>
 	  </div>

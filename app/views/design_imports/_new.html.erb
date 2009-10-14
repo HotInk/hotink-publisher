@@ -1,0 +1,11 @@
+<div class="small_top_button clearfix"><a href="#" class="close_window" onclick="page_overlay.end();return false;"> <img src="/images/window_x.png" /> </a></div>
+<div id="design_import" class="clearfix">
+	<h1>Import a design</h1>
+	<% if @designs.first %>
+	<ol class="public_designs">
+		<%= render :partial => 'public_design', :collection => @designs %>
+	</ol>
+	<% else %>
+	<p>No designs currently available to import. Check back soon.</p>
+	<% end %>
+</div>

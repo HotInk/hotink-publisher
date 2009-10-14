@@ -1,6 +1,6 @@
 <div id="design_index">
 	<h1>Site Designs</h1>	
-	<%= button_link_to 'New design', new_account_design_path(@account) %>
+	<%= button_link_to 'New design', new_account_design_path(@account), :class => "pill-l" %><%= button_link_to_remote 'Import design', :url => new_account_design_import_path(@account), :method => :get, :html => { :class => "large pill-r" } %>
 	
 	<div id="control_panel" class="clearfix">
 	<div id="design_control">
@@ -48,3 +48,9 @@
 		</ul>
 	</div>
 </div>
+<% content_for :javascript do -%>
+	<script type="text/javascript" charset="utf-8">
+		var page_overlay = new Overlay();
+		load_button_fix(); //fix firefox button display
+	</script>
+<% end -%>

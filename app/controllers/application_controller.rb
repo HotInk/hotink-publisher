@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
  
  # Chris D's Macbook Pro cred
  #OAUTH_CREDENTIALS = { :token => "sh2W3WFO4PWYz8FvBO8g", :secret => "Q2BskVRYyhv5tAEPaevpAav90LRZQ61VpvyId0opI", :site => "http://hotink.theorem.ca" }
+ # Chris D's Macbook Pro local Hot Ink instance cred
+ #OAUTH_CREDENTIALS = { :token => "Ox561thufVrAdMDLOeM2YQ", :secret => "uhXUK2XaCOPEraG3wrvc2JjffyIujr6iQjno6i8Q", :site => "http://0.0.0.0:3000" }
+ 
  
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details

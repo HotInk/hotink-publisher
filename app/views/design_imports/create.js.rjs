@@ -1,0 +1,3 @@
+page.assign "build_overlay", render(:partial => 'show')
+page << "if($('design_import')) $('design_import').remove();"
+page << "page_overlay.render( build_overlay );"

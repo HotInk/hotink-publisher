@@ -210,6 +210,10 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #new_template_file_form label { margin-right: 10px; font-size: 1.2em; }
 #new_template_file_form button { float: right; margin-top: 15px; margin-right: 35px; }
 
+/* Design import overlay styles */
+#design_import { width: 500px; padding: 0 10px; }
+
+
 /* Article options */
 .article_options #articles_list, .article_options>p { width: 940px; }
 .article_options>p  { float: left; text-align: right; clear: both; margin:0 0 5px 0; }
