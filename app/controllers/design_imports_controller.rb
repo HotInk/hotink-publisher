@@ -12,6 +12,21 @@ class DesignImportsController < ApplicationController
     @design.public = false
     @design.account = @account
     @design.save  
+    
+    for template in @design_to_import.templates
+      new_template = template.clone
+      new_template.design = @design
+      new_template.parsed_code = Liquid::Template.parse(template.code)
+      new_template.save
+    end
+    
+    for template_file in @design_to_import.template_files
+      new_template_file = template_file.clone
+      new_template_file.design = @design
+      new_template_file.file = template_file.file
+      new_template_file.save
+    end
+    
   end
   
   def show
