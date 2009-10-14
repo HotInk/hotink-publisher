@@ -82,7 +82,7 @@ module BrainBusterSystem
   end
   
   def render_or_redirect_for_captcha_failure
-    render :text => brain_buster_failure_message, :layout => true
+    render :text => brain_buster_failure_message, :layout => false
   end
   
   def set_captcha_failure_message
