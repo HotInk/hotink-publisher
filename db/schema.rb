@@ -10,7 +10,7 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20091014003756) do
-
+  
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.string   "formal_name"
@@ -30,6 +30,11 @@ ActiveRecord::Schema.define(:version => 20091014003756) do
     t.string   "display_format"
     t.integer  "article_id"
     t.integer  "account_id"
+  end
+
+  create_table "brain_busters", :force => true do |t|
+    t.string "question"
+    t.string "answer"
   end
 
   create_table "comments", :force => true do |t|

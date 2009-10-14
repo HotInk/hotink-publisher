@@ -5,6 +5,9 @@ class CommentsController < ApplicationController
   has_rakismet
   
   skip_before_filter :require_user, :only => [:index, :show, :new, :create]
+
+  before_filter :validate_brain_buster, :only => [:create]
+
   
   before_filter :find_account
 
@@ -61,6 +64,7 @@ class CommentsController < ApplicationController
       @comment.spam = true
     end
     
+      
     respond_to do |format|
       if @comment.save
         format.html { redirect_to("/articles/"+@comment.content_id.to_s) }

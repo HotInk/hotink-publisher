@@ -21,13 +21,16 @@ module Liquid
           
           context['form'] = {
             'body'   => %(<textarea id="comment_body" name="comment[body]">#{submitted['body']}</textarea>),
-            'name'   => %(<input type="text" id="comment_name" name="comment[name]" value="#{submitted['author']}" />),
-            'email'  => %(<input type="text" id="comment_email" name="comment[email]" value="#{submitted['email']}" />),
-            'url'    => %(<input type="text" id="comment_url" name="comment[url]" value="#{submitted['url']}" />),
-            'submit' => %(<input type="submit" value="Submit" />)
+             'name'   => %(<input type="text" id="comment_name" name="comment[name]" value="#{submitted['author']}" />),
+             'email'  => %(<input type="text" id="comment_email" name="comment[email]" value="#{submitted['email']}" />),
+             'url'    => %(<input type="text" id="comment_url" name="comment[url]" value="#{submitted['url']}" />),
+             'captcha_answer'    => %(<input type="text" id="captcha_answer" name="captcha_answer" value="" />),            
+             'captcha_question' => %(#{context.registers[:captcha_question]}),
+             'submit' => %(<input type="submit" value="Submit" />)
+
           }
           
-          result << %(<form id="comment-form" method="post" action="#{context.registers[:account].url}/articles/#{context['article'].id}/comments"><input name="authenticity_token" type="hidden" value="#{context.registers[:form_authenticity_token]}" />#{[errors]+render_all(@nodelist, context)}</form>)
+          result << %(<form id="comment-form" method="post" action="#{context.registers[:account].url}/articles/#{context['article'].id}/comments"><input name="authenticity_token" type="hidden" value="#{context.registers[:form_authenticity_token]}" /><input name="captcha_id" type="hidden" value="#{context.registers[:captcha_id]}" />#{[errors]+render_all(@nodelist, context)}</form>)
         else
           result << %(<p id="comment-message">#{context['message']}</p>)
         end
