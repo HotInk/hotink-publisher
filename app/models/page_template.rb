@@ -8,8 +8,11 @@ class PageTemplate < Template
   # Returns all widgets, not just those belonging to this template
   # but also those belonging to this page's layout
   def all_widgets
-    found_widgets = self.widgets
-    found_widgets += self.current_layout.widgets if self.current_layout
+    if self.current_layout
+      return self.widgets + self.current_layout.widgets
+    else 
+      return self.widgets
+    end
   end
   
 end
