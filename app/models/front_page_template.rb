@@ -6,4 +6,11 @@ class FrontPageTemplate < WidgetTemplate
     self.layout || self.design.default_layout
   end
   
+  # Returns all widgets, not just those belonging to this template
+  # but also those belonging to this page's layout
+  def all_widgets
+    found_widgets = self.widgets
+    found_widgets += self.current_layout.widgets if self.current_layout
+  end
+  
 end

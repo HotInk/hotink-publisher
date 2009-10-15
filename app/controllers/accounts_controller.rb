@@ -35,18 +35,8 @@ class AccountsController < ApplicationController
         schema_ids += @front_page.schema[item]['ids']
       end
     end    
-
-    found_widgets = @current_template.widgets
-    found_widgets += @current_template.current_layout.widgets if @current_template.current_layout
-    found_widgets.each do |widget|
-      widget.schema.each_key do |item|
-        schema_ids += widget.schema[item]['ids']
-      end
-    end
-    
-    @registers[:account] = @account
-    @registers[:design] = @current_template.design
-    
+    schema_ids += @current_template.widget_data_ids
+        
     # Variables for data sorting
     data_for_render = {}
     widget_data = {}
@@ -68,7 +58,7 @@ class AccountsController < ApplicationController
         end
       end
       
-      found_widgets.each do |widget|
+      @current_template.all_widgets.each do |widget|
         widget.schema.each_key do |item|
           item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i] }
           widget_data.merge!( "#{item}_#{widget.name}" => item_array )

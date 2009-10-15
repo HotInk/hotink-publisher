@@ -118,7 +118,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
      when 2
       #Catch cases where the second author is actually an editorial title, this is weirdly common.
       if source.authors.second.name =~ / editor| Editor| writer| Writer|Columnist/
-        return link_to_author(source.authors.first)+ " - " + link_to_author(source.authors.second)
+        return link_to_author(source.authors.first)+ " - " + source.authors.second.name
       else
         return link_to_author(source.authors.first) + " and " + link_to_author(source.authors.second)
       end

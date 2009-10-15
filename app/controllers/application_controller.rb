@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
  #OAUTH_CREDENTIALS = { :token => "sh2W3WFO4PWYz8FvBO8g", :secret => "Q2BskVRYyhv5tAEPaevpAav90LRZQ61VpvyId0opI", :site => "http://hotink.theorem.ca" }
  # Chris D's Macbook Pro local Hot Ink instance cred
  #OAUTH_CREDENTIALS = { :token => "Ox561thufVrAdMDLOeM2YQ", :secret => "uhXUK2XaCOPEraG3wrvc2JjffyIujr6iQjno6i8Q", :site => "http://0.0.0.0:3000" }
- 
+ # Chris D's office iMac dev cred
+ #OAUTH_CREDENTIALS = { :token => "HdLS8aGol4BKblPnR8xNA", :secret => "mVMjBHaCZd4bztcN5ANjFdqm10G94Ia529eK3Q2Lc", :site => "http://hotink.theorem.ca"  }
  
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -171,9 +172,39 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    # This method loads widget data for public templates
+    def load_widget_data
+     if @current_template && @account
+        # Build query of only the necessary ids, from the widgets      
+        schema_ids = @current_template.widget_data_ids     
+
+        unless schema_ids.blank?  
+          article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
+
+          widget_data = {}
+          schema_articles = {}
+
+          article_resources.each do |article|
+             schema_articles.merge!(article.id.to_s => article)
+          end
+
+          @current_template.all_widgets.each do |widget|
+            widget.schema.each_key do |item|
+              item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i] }
+              widget_data.merge!( "#{item}_#{widget.name}" => item_array )
+            end
+          end
+
+          # Set registers here 
+          @registers[:widget_data] = widget_data
+        end
+      end
+    end
+    
     # Method to build the necessary context registers for Liquid from controller instance variables.
     def build_registers
       @registers ||= { :account => @account }
+      @registers[:design] = @current_template.design if @current_template && @current_template.design
     end
     
     def zissou
