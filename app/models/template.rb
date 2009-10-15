@@ -8,8 +8,8 @@ class Template < ActiveRecord::Base
   acts_as_versioned
     
   # Returns an array of the ids of all articles used in widgets 
-  # inside this template.
-  def widget_data_ids
+  # or used in template code.
+  def required_article_ids
     data_ids = []
     self.all_widgets.each do |widget|
       widget.schema.each_key do |item|

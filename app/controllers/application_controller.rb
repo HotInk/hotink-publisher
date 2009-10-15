@@ -176,7 +176,7 @@ class ApplicationController < ActionController::Base
     def load_widget_data
      if @current_template && @account
         # Build query of only the necessary ids, from the widgets      
-        schema_ids = @current_template.widget_data_ids     
+        schema_ids = @current_template.required_article_ids     
 
         unless schema_ids.blank?  
           article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)

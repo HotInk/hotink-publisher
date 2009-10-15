@@ -35,7 +35,7 @@ class AccountsController < ApplicationController
         schema_ids += @front_page.schema[item]['ids']
       end
     end    
-    schema_ids += @current_template.widget_data_ids
+    schema_ids += @current_template.required_article_ids
         
     # Variables for data sorting
     data_for_render = {}
