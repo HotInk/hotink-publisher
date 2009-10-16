@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
     end
     
     def require_design
-      if @account.current_design.blank?
+      unless @account && @account.current_design
         render :text => "This site is currently offline", :status => 503    
         return
       end

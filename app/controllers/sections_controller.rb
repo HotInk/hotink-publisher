@@ -4,6 +4,7 @@ class SectionsController < ApplicationController
 
   skip_before_filter :require_user, :only => :show
   
+  before_filter :require_design, :only => :show
   before_filter :set_liquid_variables, :only => :show
   before_filter :find_template, :only => :show
   before_filter :build_registers, :only => :show

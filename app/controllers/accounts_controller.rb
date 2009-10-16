@@ -1,9 +1,10 @@
 class AccountsController < ApplicationController
 
   skip_before_filter :require_user, :only => :show
+  
+  before_filter :require_design, :only => :show
   before_filter :build_registers, :only => :show
   before_filter :set_liquid_variables, :only => :show
-  before_filter :require_design, :only => :show
   before_filter :require_current_front_page, :only => :show
   
   # GET /accounts
