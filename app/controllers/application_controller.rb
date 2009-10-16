@@ -61,12 +61,15 @@ class ApplicationController < ActionController::Base
         return
       end
     end
+    
+    def require_current_front_page
+      if @account.current_front_page.blank?
+        render :text => "This site is currently offline", :status => 503
+        return
+      end
+    end
         
-    def set_liquid_variables
-
-      # looks like we can do this properly in the include tag
-      # Liquid::Template.file_system.root = "#{RAILS_ROOT}/themes/#{self.current_theme}/views"
-      
+    def set_liquid_variables      
       @newspaper = Liquid::NewspaperDrop.new(@account)
       @site = Liquid::SiteDrop.new(self)
     end

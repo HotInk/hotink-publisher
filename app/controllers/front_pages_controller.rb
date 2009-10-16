@@ -28,10 +28,6 @@ class FrontPagesController < ApplicationController
     schema_ids = @current_template.required_article_ids + @front_page.schema_article_ids
     schema_articles = {}
     
-    # Build query of only the necessary ids
-    schema_ids = @current_template.required_article_ids + @front_page.schema_article_ids
-    schema_articles = {}
-
     # One request to find them all
     schema_articles = Article.find_and_key_by_id(:ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)  unless schema_ids.blank?
 

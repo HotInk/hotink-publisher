@@ -2,6 +2,9 @@ class AccountsController < ApplicationController
 
   skip_before_filter :require_user, :only => :show
   before_filter :build_registers, :only => :show
+  before_filter :set_liquid_variables, :only => :show
+  before_filter :require_design, :only => :show
+  before_filter :require_current_front_page, :only => :show
   
   # GET /accounts
   # GET /accounts.xml
@@ -17,21 +20,14 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   # GET /accounts/1.xml
   def show
-    if @account.current_front_page.blank?
-      render :text => "This site is currently offline", :status => 503
-      return
-    end
-    
-    @newspaper = Liquid::NewspaperDrop.new(@account)
-    
+
     @front_page = @account.current_front_page
     @current_template = @front_page.template
     
     # Build query of only the necessary ids
     schema_ids = @current_template.required_article_ids + @front_page.schema_article_ids
-    schema_articles = {}
-    
     # One request to find them all
+    schema_articles = {}
     schema_articles = Article.find_and_key_by_id(:ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)  unless schema_ids.blank?
   
     @registers[:widget_data] = @current_template.parsed_widget_data(schema_articles)
