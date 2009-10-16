@@ -166,27 +166,16 @@ class ApplicationController < ActionController::Base
     def load_widget_data
      if @current_template && @account
         # Build query of only the necessary ids, from the widgets      
-        schema_ids = @current_template.required_article_ids     
+        unless @current_template.required_article_ids.blank?  
+          article_resources = Article.find(:all, :ids => @current_template.required_article_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
 
-        unless schema_ids.blank?  
-          article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
-
-          widget_data = {}
           schema_articles = {}
 
           article_resources.each do |article|
              schema_articles.merge!(article.id.to_s => article)
           end
-
-          @current_template.all_widgets.each do |widget|
-            widget.schema.each_key do |item|
-              item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i] }
-              widget_data.merge!( "#{item}_#{widget.name}" => item_array )
-            end
-          end
-
-          # Set registers here 
-          @registers[:widget_data] = widget_data
+          
+          @registers[:widget_data] = @current_template.parsed_widget_data(schema_articles)
         end
       end
     end

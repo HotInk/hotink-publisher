@@ -26,6 +26,21 @@ class Template < ActiveRecord::Base
     self.widgets
   end
   
+  # Takes a collection of fetched articles (presumably including all articles required by this template's widgets)
+  # and returns a hash of widget articles keyed according to schema entity and widget_name
+  def parsed_widget_data(schema_articles = {})
+    widget_articles = {}
+    unless schema_articles.blank?
+      self.all_widgets.each do |widget|
+        widget.schema.each_key do |item|
+          item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i] }
+          widget_articles.merge!( "#{item}_#{widget.name}" => item_array.compact )
+        end
+      end
+    end
+    widget_articles
+  end
+  
   def name
     return read_attribute('name') unless read_attribute('name').blank?
     "(Unnamed template)"
