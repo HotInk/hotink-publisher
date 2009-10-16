@@ -8,6 +8,17 @@ class Article < HyperactiveResource
   has_many :mediafiles
   has_many :authors
 
+  def self.find_and_key_by_id(options={})
+    # One request to find them all
+    article_resources = Article.find(:all, options)
+    articles_keyed_by_id = {}
+    # Recontruct fetched articles as hash keyed by article id
+    article_resources.each do |article|
+      articles_keyed_by_id.merge!(article.id.to_s => article)
+    end
+    articles_keyed_by_id
+  end
+
   def comments
     conditions = {}
     Comment.find_all_by_content_id(self.id, :conditions => conditions)

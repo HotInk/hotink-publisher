@@ -166,18 +166,10 @@ class ApplicationController < ActionController::Base
     def load_widget_data
      if @current_template && @account
         # Build query of only the necessary ids, from the widgets      
-        unless @current_template.required_article_ids.blank?  
-          article_resources = Article.find(:all, :ids => @current_template.required_article_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
-
-          schema_articles = {}
-
-          article_resources.each do |article|
-             schema_articles.merge!(article.id.to_s => article)
-          end
-          
-          @registers[:widget_data] = @current_template.parsed_widget_data(schema_articles)
+        unless @current_template.required_article_ids.blank?           
+          @registers[:widget_data] = @current_template.parsed_widget_data( Article.find_and_key_by_id(:ids => @current_template.required_article_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token) )
         end
-      end
+     end
     end
     
     # Method to build the necessary context registers for Liquid from controller instance variables.

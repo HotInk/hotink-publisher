@@ -31,17 +31,10 @@ class AccountsController < ApplicationController
     schema_ids = @current_template.required_article_ids + @front_page.schema_article_ids
     schema_articles = {}
     
-    unless schema_ids.blank?          
-      # One request to find them all
-      article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)  unless schema_ids.blank?
+    # One request to find them all
+    schema_articles = Article.find_and_key_by_id(:ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)  unless schema_ids.blank?
   
-      # Recontruct fetched articles as hash keyed by article id
-      article_resources.each do |article|
-        schema_articles.merge!(article.id.to_s => article)
-      end
-         
-      @registers[:widget_data] = @current_template.parsed_widget_data(schema_articles)
-    end
+    @registers[:widget_data] = @current_template.parsed_widget_data(schema_articles)
     
     page_html = @current_template.parsed_code.render(@front_page.sorted_schema_articles(schema_articles).merge('newspaper' => @newspaper), :registers => @registers )
     
