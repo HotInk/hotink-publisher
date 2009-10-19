@@ -47,6 +47,14 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     source.images
   end
   
+  def has_image?
+    if source.images.detect{|i| i }
+      return true
+    else
+      return false
+    end
+  end
+
   def has_horizontal_image?
     if source.images.detect { |image| image.height.to_i <= image.width.to_i }
       return true
@@ -55,8 +63,24 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     end
   end
   
+  def has_vertical_image?
+    if source.images.detect { |image| image.height.to_i > image.width.to_i }
+      return true
+    else
+      return false
+    end
+  end
+  
   def audiofiles
     source.audiofiles
+  end
+  
+  def has_audiofile?
+    if source.audiofiles.detect {|a| a }
+      return true
+    else
+      return false
+    end
   end
   
   def categories
