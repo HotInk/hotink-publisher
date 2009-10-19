@@ -7,7 +7,6 @@ class ArticlesController < ApplicationController
   before_filter :find_template, :only => :show
   before_filter :build_registers, :only => :show
   before_filter :load_widget_data, :only => :show
-
   before_filter :create_brain_buster, :only => [:show]
   
   # Since the show action is public facing, it should always fail in a predictable
@@ -19,9 +18,8 @@ class ArticlesController < ApplicationController
     
     @registers[:form_authenticity_token] = self.form_authenticity_token
     @registers[:captcha_id] = @captcha.id
-    @registers[:captcha_question] = @captcha.question
-    @registers[:article] = @article
-  
+    @registers[:captcha_question] = @captcha.question    
+    @registers[:form_action] = "#{@account.url}/articles/#{@article.id.to_s}/comments"
     
     page_html = @current_template.parsed_code.render({'article' => @article, 'newspaper' => @newspaper}, :registers => @registers )
     if @current_template.current_layout
