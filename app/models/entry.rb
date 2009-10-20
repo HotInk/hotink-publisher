@@ -22,4 +22,14 @@ class Entry < HyperactiveResource
     self.prefix_options[:blog_id]
   end
 
+  #Define class for api child categories
+  class Category < Section
+    class Child < Category
+    end
+  end
+  
+  # Shell class for Entry::Author
+  class Author < Author
+  end
+
 end
