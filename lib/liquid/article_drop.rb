@@ -63,12 +63,20 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     end
   end
   
+  def first_horizontal_image
+    source.images.detect { |image| image.height.to_i <= image.width.to_i }
+  end
+  
   def has_vertical_image?
     if source.images.detect { |image| image.height.to_i > image.width.to_i }
       return true
     else
       return false
     end
+  end
+  
+  def first_vertical_image
+    source.images.detect { |image| image.height.to_i > image.width.to_i }
   end
   
   def audiofiles

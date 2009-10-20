@@ -23,9 +23,9 @@ class ArticlesController < ApplicationController
     @registers[:article] = @article
   
     
-    page_html = @current_template.parsed_code.render({'article' => @article, 'newspaper' => @newspaper}, :registers => @registers )
+    page_html = @current_template.parsed_code.render({'article' => @article, 'current_section' => @account.sections.detect{ |s| s.name == @article.section }, 'newspaper' => @newspaper}, :registers => @registers )
     if @current_template.current_layout
-      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'article' => @article, 'newspaper' => @newspaper}, :registers => @registers)
+      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'current_section' => @account.sections.detect{ |s| s.name == @article.section }, 'article' => @article, 'newspaper' => @newspaper}, :registers => @registers)
     else  
       render :text => page_html
     end 
