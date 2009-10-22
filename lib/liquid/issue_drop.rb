@@ -42,6 +42,10 @@ class Liquid::IssueDrop < Liquid::BaseDrop
       @articles_by_section
   end
   
+  def has_pdf?
+    source.press_pdf_file!="/images/no_issue_cover_small.jpg"
+  end
+  
   def press_pdf_url
     source.press_pdf_file
   end
