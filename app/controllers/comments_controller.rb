@@ -49,9 +49,20 @@ class CommentsController < ApplicationController
   end
 
   def create
-
+    
     @comment = Comment.new(params[:comment])
-    @comment.content_id = params[:article_id]
+    
+    if params[:entry_id]
+      @comment.content_id = params[:entry_id]
+      @comment.content_type = "Entry"
+      redirect_url = "#{@account.url}/blogs/#{params[:blog_id]}/entries/#{params[:entry_id]}"
+      
+    elsif params[:article_id]
+      @comment.content_id = params[:article_id]
+      @comment.content_type = "Article"
+      redirect_url = "#{@account.url}/articles/#{params[:article_id]}"
+    end
+    
     @comment.account_id = @account.id
     @comment.ip = request.remote_ip
     
@@ -63,11 +74,12 @@ class CommentsController < ApplicationController
     if @comment.spam?
       @comment.spam = true
     end
+  
     
       
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to("/articles/"+@comment.content_id.to_s) }
+        format.html { redirect_to("#{redirect_url}#comment-#{@comment.id}") }
       end
     end
   end

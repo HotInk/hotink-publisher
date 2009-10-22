@@ -30,7 +30,7 @@ module Liquid
 
           }
           
-          result << %(<form id="comment-form" method="post" action="#{context.registers[:account].url}/articles/#{context['article'].id}/comments"><input name="authenticity_token" type="hidden" value="#{context.registers[:form_authenticity_token]}" /><input name="captcha_id" type="hidden" value="#{context.registers[:captcha_id]}" />#{[errors]+render_all(@nodelist, context)}</form>)
+          result << %(<form id="comment-form" method="post" action="#{context.registers[:form_action]}"><input name="authenticity_token" type="hidden" value="#{context.registers[:form_authenticity_token]}" /><input name="captcha_id" type="hidden" value="#{context.registers[:captcha_id]}" />#{[errors]+render_all(@nodelist, context)}</form>)
         else
           result << %(<p id="comment-message">#{context['message']}</p>)
         end

@@ -6,11 +6,17 @@ class EntriesController < ApplicationController
   before_filter :require_design  
   before_filter :find_template
   before_filter :build_registers
+  before_filter :create_brain_buster, :only => [:show]
     
   def show
   
     @blog = Blog.find(params[:blog_id].to_i, :account_id => @account.account_resource_id, :as => @account.access_token )    
     @entry = Entry.find(params[:id], :blog_id => @blog.id, :account_id => @account.account_resource_id, :as => @account.access_token )    
+    
+    @registers[:form_authenticity_token] = self.form_authenticity_token
+    @registers[:captcha_id] = @captcha.id
+    @registers[:captcha_question] = @captcha.question    
+    @registers[:form_action] = "#{@account.url}/blogs/#{@entry.blog_id}/entries/#{@entry.id}/comments"
     
     # Set design register here, in case the user has specified one other than the current.
     @registers[:design] = @current_template.design
