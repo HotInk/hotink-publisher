@@ -16,7 +16,11 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   end
   
   def section
-    URI.decode(source.attributes['section'])
+    if source.attributes['section'].nil?
+      nil
+    else
+      URI.decode(source.attributes['section'])
+    end
   end
   
   def published_at

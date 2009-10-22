@@ -48,7 +48,7 @@ class Article < HyperactiveResource
     @account = Account.find(account_id)
     url = @account.url + "/articles/" + self.id.to_s
   end
-  
+    
   #Define class for api child categories
   class Category < Section
     class Child < Category

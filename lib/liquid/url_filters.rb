@@ -52,8 +52,13 @@ module Liquid
   
     def link_to_section(section, title=nil)
       @account = @context.registers[:account] #Account.find(article.account_id)
-      url = "#{@account.url}/sections/" + URI.escape(section["name"])
-      title ||= section["name"]
+      if section.is_a? Hash
+        url = "#{@account.url}/sections/" + URI.escape(section["name"])
+        title ||= section["name"]
+      else
+        url = "#{@account.url}/sections/" + URI.escape(section.name)
+        title ||= section.name
+      end
       link_to title, url
     end
     
