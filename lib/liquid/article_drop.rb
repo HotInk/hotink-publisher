@@ -24,7 +24,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   end
   
   def published_at
-    Time.parse(source.published_at).to_s(:standard)
+    Time.parse(source.published_at).to_s(:standard).gsub(' ', '&nbsp;')
   end
   
   def published_at_detailed
