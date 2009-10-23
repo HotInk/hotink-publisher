@@ -9,8 +9,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091014003756) do
-  
+ActiveRecord::Schema.define(:version => 20091014181927) do
+
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.string   "formal_name"
@@ -130,6 +130,20 @@ ActiveRecord::Schema.define(:version => 20091014003756) do
     t.datetime "date"
     t.text     "bodytext"
     t.boolean  "status",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "podcasts", :force => true do |t|
+    t.string   "category"
+    t.string   "copyright"
+    t.string   "title"
+    t.string   "subtitle"
+    t.string   "author_name"
+    t.string   "author_email"
+    t.text     "description"
+    t.integer  "account_id"
+    t.integer  "blog_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

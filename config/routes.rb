@@ -19,6 +19,7 @@ ActionController::Routing::Routes.draw do |map|
       end      
     end  
     account.resource :feed
+    account.resources :podcasts
     account.resources :comments, 
       :member => {:flag => :get, :enable => :get, :disable => :get},
       :collection => { :clear_all_flags => :get, :bulk_action => :post },

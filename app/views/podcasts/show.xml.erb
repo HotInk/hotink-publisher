@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<channel>
+<title><%= @podcast.title %></title>
+<link><%= "#{request.host_with_port}/blogs/#{@entries[0].blogs[0].id}"%></link>
+<language>en-us</language>
+<copyright><%= @podcast.copyright %></copyright>
+<itunes:subtitle><%= @podcast.subtitle %></itunes:subtitle>
+<itunes:author><%= @account.formal_name %></itunes:author>
+<itunes:summary><%= @podcast.description %></itunes:summary>
+<description><%= @podcast.description %></description>
+<itunes:owner>
+<itunes:name><%= @podcast.author_name %></itunes:name>
+<itunes:email><%= @podcast.author_email %></itunes:email>
+</itunes:owner>
+<itunes:image href="http://example.com/podcasts/everything/AllAboutEverything.jpg" />
+<itunes:category text="<%= @podcast.category %>"/>
+
+<% for entry in @entries %>
+<item>
+	<title><%= entry.attributes["title"] %></title>
+	<itunes:author><%= @account.formal_name %></itunes:author>
+	<itunes:subtitle><%= entry.attributes["subtitle"]%></itunes:subtitle>
+	<itunes:summary><![CDATA[<%= markdown(entry.attributes["bodytext"]) %> ]]></itunes:summary>
+
+	<enclosure url="http://hotink.theorem.ca<%= entry.audiofiles[0].url.attributes["original"] %>" type="<%= entry.audiofiles[0].attributes["content_type"]%>" />
+	<guid><%= "http://#{request.host_with_port}#{@account.url}/blogs/#{entry.blogs[0].id}/entries/#{entry.id}" %></guid>
+	<pubDate><%= DateTime.parse(entry.published_at) %></pubDate>
+</item>
+<% end %>
+</channel>
+</rss>

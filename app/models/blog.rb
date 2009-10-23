@@ -3,6 +3,7 @@ class Blog < HyperactiveResource
   # self.prefix = "/accounts/:account_id/"
   
   belongs_to :account, :nested => true
+  has_many :podcasts
 
   def to_liquid(options = {})
     @blog_drop ||= Liquid::BlogDrop.new self, options

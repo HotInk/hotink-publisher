@@ -9,6 +9,7 @@ class Account < ActiveRecord::Base
   has_many :redesigns, :dependent => :destroy
   
   has_many :pages
+  has_many :podcasts
   
   has_many :article_options
     
