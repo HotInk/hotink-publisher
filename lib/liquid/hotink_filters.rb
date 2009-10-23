@@ -20,8 +20,8 @@ module Liquid
       markdown = BlueCloth.new(text).to_html
     end
     
-    def pluralize(count, singular, plural = nil)
-      ActionView::Helpers::TextHelper.pluralize(count.to_i, singular, plural)
+    def pluralized(count, singular, plural = nil)
+      pluralize(count.to_i, singular, plural)
     end
     
     def fuzzy_time(date)
