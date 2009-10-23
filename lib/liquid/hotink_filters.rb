@@ -3,6 +3,7 @@ module Liquid
   module HotinkFilters
 
     include ActionView::Helpers::DateHelper
+    include ActionView::Helpers::TextHelper
     include WillPaginate::ViewHelpers
     include Liquid::UrlFilters
     
@@ -17,6 +18,10 @@ module Liquid
     
     def markdown(text)
       markdown = BlueCloth.new(text).to_html
+    end
+    
+    def pluralize(count, singular, plural = nil)
+      ActionView::Helpers::TextHelper.pluralize(count.to_i, singular, plural)
     end
     
     def fuzzy_time(date)
