@@ -31,9 +31,5 @@ class Entry < HyperactiveResource
   # Shell class for Entry::Author
   class Author < Author
   end
-  
-  def bodytext
-    self.article[0].attributes["bodytext"]
-  end
 
 end
