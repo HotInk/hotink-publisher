@@ -23,14 +23,24 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     end
   end
   
+  # Article date methods
   def published_at
-    Time.parse(source.published_at).to_s(:standard)
+    Time.parse(source.published_at).to_s(:standard).gsub(' ', '&nbsp;')
   end
   
   def published_at_detailed
     Time.parse(source.published_at).to_s(:long)
   end
   
+  def updated_at
+    Time.parse(source.updated_at).to_s(:standard).gsub(' ', '&nbsp;')
+  end
+  
+  def updated_at_detailed
+    Time.parse(source.updated_at).to_s(:long)
+  end
+  
+  # Article data 
   def account_id
     source.account_id
   end
