@@ -4,21 +4,39 @@
 		<%= f.error_messages %>
 		<%= f.hidden_field :template_id %>
 		<div class="schema_builder clearfix">
+			<h3>Widget articles:</h3>
 		 	<%= render :partial => 'schema_builder', :locals => { :f => f } %>
 		</div>
-
+		<div class="controls">
+			<%= button_link_to "Delete this widget", account_design_widget_path(@account, @account.current_design, f.object), :method => :delete, :confirm => "Are you sure you want to remove this widget? You can always recreate it later.\n\nPress 'OK' to delete.", :class => "cancel" %>
+		</div>
+		<div class="help">
+			<h3>How to use widgets</h3>
+			<p>Widgets are special layout tools that allow you gather a collection of articles and include them on any page in your site using a display template.</p>
+			<p>You can edit this widget's appearence by editing this widget's template&mdash;it's linked above.</p>
+			<p>To include a widget in a page template, use the widget liquid tag:</p>
+			<code>{% widget "Your widget name" %}</code>
+		</div>
 	</div>
 
 
 	<div class="name_desc clearfix">
 			<div class="button">
-		  		<%= button_link_to_submit 'Save', :class => "larger save" %>
+				<div class="template">
+					<h3>Template:</h3>
+					<p><%= link_to f.object.template.name, edit_account_design_template_url(@account, @account.current_design, f.object.template) %></p>
+				</div>
+		  		<%= button_link_to_submit 'Save changes', :class => "larger save" %>
 			</div>
-		    <div class="details">
+		    <div class="details column_holder">
+				<div class="quarter_column">
 				<%= f.label :name %> <small style="color:red;">(required)</small><br />
-		    	<%= f.text_field :name %><br />
+		    	<%= f.text_field :name %>
+				</div>
+				<div class="two_thirds_column">
 		    	<%= f.label :description %> <small>(optional)</small><br />
 		    	<%= f.text_area :description, :rows => 2 %>
+				</div>
 			</div>
 			<%= render :partial => 'loaded_articles', :locals => { :f => f.object }  %>
 	</div>

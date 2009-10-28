@@ -23,8 +23,12 @@ body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, s
 /* Dashboard style */
 
 #dashboard h1 { margin: 5px 0; clear: left; }
-#dashboard>h2, #widget_control h2 { float: left; }
-#dashboard h2 {  text-decoration: underline; margin: 0; margin-top: 10px; font-size: 1.25em; }
+#dashboard>h2, #widget_control h2, #front_page_control h2 { float: left; }
+#widget_control h2, #front_page_control h2 { margin-right: 13px; }
+#widget_control button.btn { margin-top: 15px; font-weight: bold; font-size: 0.8em; }
+
+
+#dashboard h2 {  text-decoration: underline; margin-bottom: 0; margin-top: 10px; font-size: 1.25em; }
 #dashboard .options { float: left; width: 755px; text-align: right; padding-top: 18px; }
 #dashboard .guide { width: 240px; margin-right: 10px; float:left; clear: left;}
 #dashboard #control_panel { width: 680px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
@@ -32,15 +36,29 @@ body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, s
 #control_panel h2 { font-family: georgia, "Times New Roman", times, serif; font-size: 1.7em; text-decoration:none; font-weight: normal; }
 #control_panel h3 { margin: 5px 0; }
 #control_panel p { font-size: 0.9em;}
-#control_panel>div>div { float: left; width: 47.5%; padding: 1%; height: 150px;}
+#control_panel>div>div { float: left; width: 47.5%; padding: 1%; }
 #control_panel>div>div+div { margin-left: 1%; }
-#control_panel select { margin-bottom: 5px; }
+#control_panel select { margin-bottom: 5px; width: 240px; }
 #dashboard #current_front_page, #current_design { background-color: #DEFFDB;}
 #dashboard #change_front_page { background-color: #CEE4F3; }
 
+#front_page_control .column_holder h3, #front_page_control .column_holder p { margin: 5px 0; font-size: 1.1em; }
+#front_page_control .column_holder p { padding-left: 10px; }
+
 #widget_control { float:left; width: 100%; margin-top: 10px; border-top: 1px dotted #333; padding-top: 10px; }
-#widget_control h2 { margin-right: 13px; }
-#widget_control button.btn { margin-top: 15px; margin-left: 13px; font-weight: bold; font-size: 0.75em; }
+
+#widgets { list-style: none; padding-left: 0px; }
+#widgets>li { float: left; padding: 10px; margin-right: 10px; margin-bottom: 10px;  width: 140px; background-color: #FFF6DD; }
+#widgets>li .btn { width: 138px; }
+#widgets h4 { margin: 0 0 1px 0; padding-bottom: 2px; border-bottom: 1px dotted #515151; }
+#widgets h4 { font-weight: 200; font-size: 1.25em; line-height:1.1; }
+#widgets h4+p { font-size: 0.8em; color: #515151; font-style: italic; margin: 0 0 10px 0; }
+#widgets h5 { margin-bottom: 1px; margin-top: 5px; font-size: 1em; }
+#widgets h5+p { margin-top: 0; }
+#widgets li ul { list-style: none; padding-left: 0; margin-bottom: 5px; }
+#widgets li ul li { margin: 2px; padding: 3px; font-size: 0.9em; float: left; background-color: #CEE4F3; -moz-border-radius: 2px; -webkit-border-radius: 2px; }
+#widgets li ul li a { text-decoration: none; color: #515151; }
+#widgets li ul li a:hover { text-decoration: underline; }
 
 #current_design h1 { float:none; font-size: 1.8em; color: #333; text-decoration: underline; }
 #current_design p { margin: 5px 0; }
@@ -77,19 +95,33 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 /* Front page builder */
 #edit_front_page { float: left; padding-bottom: 10px; }
 #front_page_form { float: left; }
-#front_page_form h1 { margin-bottom: 20px;}
+#front_page_form h1 { margin-bottom: 10px;}
+#front_page_form .name_desc { margin-left: 10px; }
 #front_page_form .name_desc, #front_page_form .button { width: 680px; }
-#front_page_form .name_desc input, #front_page_form .name_desc textarea { width: 678px;}
+#front_page_form .name_desc textarea { width: 100%; height: 40px; }
+#front_page_form .name_desc .quarter_column { margin-right: 45px; }
 #front_page_form .form_title { clear: left; width: 320px; }
-#front_page_form .details { float: left; }
-#front_page_name { font-size: 1.8em;  }
+#front_page_form .details, #front_page_form .help, #front_page_form .template, 
+#front_page_form .template h3, #front_page_form .template p { float: left; }
+#front_page_form .template h3, #front_page_form .template p { margin: 0; font-size: 1em; }
+#front_page_form .template { margin-bottom: 10px; }
+#front_page_form .template p { margin-left: 5px; }
+#front_page_form .help { margin-right: 5px; }
+#front_page_form .help h3 { text-decoration: underline; margin: 5px 0; }
+#front_page_form .help p, #front_page_form .help code { font-size: 0.9em; }
+#front_page_form .controls { margin: 5px 0 10px 0; float: left; clear: left; width: 100%; }
+#front_page_name, #widget_name { font-size: 1.5em; width: 110%; margin: 0px; height: 38px; }
 #front_page_form .button { text-align: right; width: 100%; float: left; margin-bottom: 5px;}
 #front_page_form .loaded_articles { width: 100%; float: left;  }
 #front_page_form #articles_list { width: 100%; }
-#front_page_form .schema_builder { float: left; width: 290px; }
+#front_page_form .schema_builder { float: left; width: 99%; }
+#front_page_form .schema_builder h3 { margin-top: 0; margin-bottom: 5px; }
 #front_page_form .schema_builder>p { font-family: georgia,"times new roman",times, serif;}
-#front_page_form .schema_builder fieldset { border: 1px solid #DEDEDE; margin-bottom: 10px; }
-#front_page_form .schema_builder fieldset.entity { background-color: #FFF6DD; width: 100%; float:left; }
+#front_page_form .schema_builder fieldset { border: 1px solid #DEDEDE; margin-bottom: 10px; margin-left: 0; margin-right: 0; }
+#front_page_form .schema_builder fieldset.entity { background-color: #FFF6DD; width: 95%; float:left; padding: 7px 2.5%; }
+#front_page_form .schema_builder fieldset.entity h1, #front_page_form .schema_builder fieldset.entity div.article_details { float: none;}
+#front_page_form .schema_builder fieldset.entity div.article_details .authors { float: left; }
+#front_page_form .schema_builder fieldset.entity div.article_details .media { float: right; padding: 3px; }
 #front_page_form .schema_builder ol { padding-left: 20px; }
 #front_page_form .schema_builder li { padding-left: 7px; background: #FDFDFD; margin-bottom: 5px; border: 1px solid #DEDEDE; }
 #front_page_form .schema_builder li h1 { float: left; width: 245px; clear:none; margin-top: 2px; margin-bottom: 0; font-size: 1.2em; font-style: normal; color: #333; }
@@ -258,6 +290,13 @@ div.small_top_button a img { width: 18px; border: none; }
 .btn:active span { background-position:0 -400px; outline:none; }
 .btn:focus, .btn:active { outline:none; /* doesn't seem to be respected for <button>, only <a> */ }
  
+/* Extra wide buttons, good for building intuitive UI */
+/*.btn.extra_wide span span { padding: 3px 3.5em; } */
+.extra_wide span { display:inline-block !important; }
+.extra_wide, .extra_wide span,.extra_wide span span { width: 100%; }
+.extra_wide>span { padding: 0;}
+.extra_wide span span { padding: 3px 0; margin: -1px 0; height: 100%; text-align: center;  }
+
 /* pill classes only needed if using pill style buttons ( LEFT | CENTER | RIGHT ) */
 .pill-l span { border-right-width:0; }
 .pill-l span span { border-right:1px solid #bbb; }
@@ -310,6 +349,24 @@ div.small_top_button a img { width: 18px; border: none; }
 	
 /* End of custom button CSS
 ---------------------------------------- */
+
+/* Column management CSS */
+
+.column_holder { float: none; }
+.third_column { float: left; width: 33%; }
+.quarter_column { float: left; width: 25%; }
+.four_tenths_column { float:left; width: 40%;}
+.half_column { float: left; width: 49%; }
+.left { margin-right: 2%;}
+.right { margin-left: 2%;}
+.six_tenths_column { float:left; width: 60%;}
+.two_thirds_column { float: left; width:66%; }
+.three_quarters_column { float: left; width: 75%;}
+.tenth_column { float: left; width: 10%;}
+.nine_tenths_column { float: left; width: 90%;}
+.full_column { float: left; width: 100%;}
+.left_column { text-align: right; }
+.right_column { text-align: left; }
 
 
 .footer { float:left; width: 960px; margin-top: 20px; text-align: right; font-size: 0.8em;}

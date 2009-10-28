@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091014181927) do
+ActiveRecord::Schema.define(:version => 20091028041354) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -56,6 +56,19 @@ ActiveRecord::Schema.define(:version => 20091014181927) do
     t.boolean  "spam",         :default => false
   end
 
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "design_versions", :force => true do |t|
     t.integer  "design_id"
     t.integer  "version"
@@ -98,7 +111,11 @@ ActiveRecord::Schema.define(:version => 20091014181927) do
     t.text     "schema"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",        :default => true
+    t.boolean  "active",                :default => true
+    t.string   "webthumb_file_name"
+    t.string   "webthumb_content_type"
+    t.integer  "webthumb_file_size"
+    t.datetime "webthumb_updated_at"
   end
 
   add_index "front_page_versions", ["front_page_id"], :name => "index_front_page_versions_on_front_page_id"
@@ -112,8 +129,12 @@ ActiveRecord::Schema.define(:version => 20091014181927) do
     t.text     "schema"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",      :default => true
+    t.boolean  "active",                :default => true
     t.integer  "version"
+    t.string   "webthumb_file_name"
+    t.string   "webthumb_content_type"
+    t.integer  "webthumb_file_size"
+    t.datetime "webthumb_updated_at"
   end
 
   create_table "oauth_tokens", :force => true do |t|

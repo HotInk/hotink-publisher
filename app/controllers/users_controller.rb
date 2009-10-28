@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       if params[:request_url] # preserve a passed along request url
         redirect_to params[:request_url]
       else
-        redirect_to :controller=>"admin/pages", :action=>"dashboard"
+        redirect_to account_control_panel_url(@account)
       end
     else  
       consumer = get_consumer

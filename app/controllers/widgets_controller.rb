@@ -53,7 +53,7 @@ class WidgetsController < ApplicationController
         format.xml  { render :xml => @widget, :status => :created, :location => [@account, @design, @widget] }
       else
         flash[:error] = "Error building new widget from template."
-        format.html { redirect_to account_dashboard_url(@account) }
+        format.html { redirect_to account_control_panel_url(@account) }
         format.xml  { render :xml => @widget.errors, :status => :unprocessable_entity }
       end
     end
@@ -67,7 +67,7 @@ class WidgetsController < ApplicationController
     respond_to do |format|
       if @widget.update_attributes(params[:widget])
         flash[:notice] = 'Widget was successfully updated.'
-        format.html { redirect_to(account_dashboard_path(@account)) }
+        format.html { redirect_to(account_control_panel_path(@account)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -82,7 +82,7 @@ class WidgetsController < ApplicationController
     @widget.destroy
     flash[:notice] = "Widget destroyed"
     respond_to do |format|
-      format.html { redirect_to(account_dashboard_url(@account)) }
+      format.html { redirect_to(account_control_panel_url(@account)) }
       format.xml  { head :ok }
     end
   end

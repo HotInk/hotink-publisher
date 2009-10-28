@@ -25,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
       :collection => { :clear_all_flags => :get, :bulk_action => :post },
       :path_prefix => "accounts/:account_id/admin", :controller => "admin/comments" 
     account.resources :article_options, :collection => { :end_comments => :post, :close_comments => :post, :start_comments => :post }
-    account.resource :dashboard
+    account.resource :control_panel
     account.resources :designs do |design|
       design.resources :widgets
       design.resources :sections
@@ -41,7 +41,6 @@ ActionController::Routing::Routes.draw do |map|
     account.resources :pages, :only => [:edit, :index, :create, :new, :destroy, :update]
     account.resource :search
   end
-  map.connect 'accounts/:account_id/admin', :controller => "admin/pages", :action => "dashboard"
   
   # legacy urls  
   map.connect 'accounts/:account_id/article/:id', :controller => 'articles', :action => 'legacy_show'  

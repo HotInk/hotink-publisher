@@ -12,13 +12,21 @@
 
 	<div class="name_desc clearfix">
 			<div class="button">
+				<div class="template">
+					<h3>Template:</h3>
+					<p><%= link_to f.object.template.name, edit_account_design_template_url(@account, @account.current_design, f.object.template) %></p>
+				</div>
 		  		<%= button_link_to_submit 'Save', :class => "larger save" %>
 			</div>
-		    <div class="details">
+		    <div class="details column_holder">
+				<div class="quarter_column">
 				<%= f.label :name %> <small>(optional)</small><br />
-		    	<%= f.text_field :name %><br />
+		    	<%= f.text_field :name %>
+				</div>
+				<div class="two_thirds_column">
 		    	<%= f.label :description %> <small>(optional)</small><br />
 		    	<%= f.text_area :description, :rows => 2 %>
+				</div>
 			</div>
 			<%= render :partial => 'loaded_articles', :locals => { :f => f.object }  %>
 	</div>

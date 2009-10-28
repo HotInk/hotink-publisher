@@ -6,7 +6,7 @@ class UserSessionsController < ApplicationController
       redirect_to params[:request_url] 
       return
     elsif params[:account_id]
-      redirect_to account_dashboard_path(:account_id => @account.id)
+      redirect_to account_control_panel_path(:account_id => @account.id)
       return
     end
     render :status => 404
@@ -16,7 +16,7 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:notice] = "Login successful!"
-      redirect_back_or_default account_dashboard_path(:account_id => params[:account_id])
+      redirect_back_or_default account_control_panel_path(:account_id => params[:account_id])
     else
       render :action => :new
     end

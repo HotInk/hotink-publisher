@@ -1,4 +1,4 @@
-class DashboardsController < ApplicationController
+class ControlPanelsController < ApplicationController
   layout 'admin'
   
   

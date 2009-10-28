@@ -21,6 +21,10 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
 
   config.gem 'oauth'
+  config.gem 'simplificator-rwebthumb',
+              :lib => 'rwebthumb',
+              :source => "http://gems.github.com"
+  
   config.gem "rdiscount",
              :lib    => "rdiscount",
              :source => "http://gems.github.com"

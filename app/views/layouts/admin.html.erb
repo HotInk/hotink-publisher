@@ -21,7 +21,7 @@
 <div id="page">
 	
 	<ul id="navigation" class="clearfix">
-		<li <%= 'class="selected"' if controller_name=="dashboards"%>><%= link_to "Dashboard", account_dashboard_path(@account) %></li>
+		<li <%= 'class="selected"' if controller_name=="control_panels"%>><%= link_to "Control Panel", account_control_panel_path(@account) %></li>
 		<li <%= 'class="selected"' if controller_name=="front_pages"%>><%= link_to "Front Pages", account_front_pages_path(@account) %></li>											
 		<li <%= 'class="selected"' if controller_name=="comments"%>><%= link_to "Comments", account_comments_path(@account) %></li>
 		<li <%= 'class="selected"' if controller_name=="article_options"%>><%= link_to "Article Options", account_article_options_path(@account) %></li>

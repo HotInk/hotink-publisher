@@ -17,6 +17,11 @@
 							<h1><%= @schema_articles[spec['ids'][index].to_i].title %></h1>
 							<div class="article_details">
 								<div class="authors"><%= @schema_articles[spec['ids'][index].to_i].authors_list %></div>
+								<div class="media">
+										<% @schema_articles[spec['ids'][index].to_i].images.each do | j | %>
+												<%= image_tag("http://hotink.theorem.ca" + j.image_url("system_icon"), :border => 1) %>
+										<% end %>
+								</div>
 							</div>
 						</div>
 					<% else %>
