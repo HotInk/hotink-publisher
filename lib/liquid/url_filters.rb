@@ -55,6 +55,9 @@ module Liquid
       if section.is_a? Hash
         url = "#{@account.url}/sections/" + URI.escape(section["name"])
         title ||= section["name"]
+      elsif section.is_a? String
+        url = "#{@account.url}/sections/" + URI.escape(section)
+        title ||= section
       else
         url = "#{@account.url}/sections/" + URI.escape(section.name)
         title ||= section.name
