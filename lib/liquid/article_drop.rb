@@ -159,7 +159,11 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   end
   
   def authors_list
-    source.authors_list.gsub(' ', '&nbsp;')
+    if source.authors_list.blank?
+      ""
+    else
+      source.authors_list.gsub(' ', '&nbsp;')
+    end
   end
   
   # Returns list of article's author names as a readable list, separated by commas and the word "and".

@@ -26,7 +26,7 @@
 					</div>
 				<% end %>
 		  		<% if f.object == @account.current_front_page %>
-					<%= button_link_to_submit 'Publish changes', :class => "large publish pill-r" %>
+					<%= button_link_to_submit 'Save changes', :class => "large save pill-r" %>
 				<% else %>
 					<%= button_link_to_submit "Save draft", :class=>"large pill-l" %><%= button_link_to_submit 'Save & publish', :onclick =>"$('publish').value=1;", :class => "large publish pill-r" %>
 				<% end %>

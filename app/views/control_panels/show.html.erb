@@ -12,7 +12,7 @@
 	
 	<div id="control_panel">
 		<div id="front_page_control" class="clearfix">
-			<h2>Front page</h2><%= button_link_to "Edit current front page", edit_account_front_page_path(@account, @account.current_front_page), :class=>"publish pill-l" %><%= button_link_to_remote "New front page", :url => new_account_front_page_path(@account), :method => :get, :html => { :class => "large pill-r" }  %>
+			<h2>Front page</h2><%= button_link_to "Edit current front page", edit_account_front_page_path(@account, @account.current_front_page), :class=>"small primary pill-l" %><%= button_link_to_remote "New front page", :url => new_account_front_page_path(@account), :method => :get, :html => { :class => "pill-r" }  %>
 			<% if @account.current_front_page.blank? %>
 				<h3 style="margin-left: 60px;">No current front page</h3>
 			<% else %>
