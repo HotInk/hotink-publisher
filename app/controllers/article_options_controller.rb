@@ -8,7 +8,11 @@ class ArticleOptionsController < ApplicationController
     @articles = Article.paginate(:page => page, :per_page => 15, :account_id => @account.account_resource_id, :as => @account.access_token )
     @articles = @articles.first.article
     
-    @article_options = @account.article_options.find_all_by_article_id(@articles.collect { |a| a.id })
+    if @article.respond_to? :collect
+      @article_options = @account.article_options.find_all_by_article_id(@articles.collect { |a| a.id })
+    else
+      @article_options = @account.article_options.find_all_by_article_id(@articles.id)
+    end
     
     respond_to do |format|
       format.html
