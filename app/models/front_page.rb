@@ -41,6 +41,21 @@ class FrontPage < ActiveRecord::Base
   # Delayed::Job.enqueue WebthumbJob.new(front_page.id) # Reload Webthumb after update
   #end
   
+  # Since front pages are initialzed and save as blank, we can tell whether they've been changed
+  # based on whether or not the time created equals the time last updated, (e.g. only one save
+  # operation has been performed, no effective updates.)
+  def unchanged?
+    created_at == updated_at
+  end
+  
+  def display_name
+    if self.name and self.name.strip != ""
+      return self.name
+    else 
+      return "Front page"
+    end
+  end
+  
   # Return the Front Page schema article ids if provided  
   def schema_article_ids
     ids = []

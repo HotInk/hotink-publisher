@@ -1,40 +1,7 @@
 <div id="design_index">
 	<h1>Site Designs</h1>	
 	<%= button_link_to 'New design', new_account_design_path(@account), :class => "pill-l" %><%= button_link_to_remote 'Import design', :url => new_account_design_import_path(@account), :method => :get, :html => { :class => "large pill-r" } %>
-	
-	<div id="control_panel" class="clearfix">
-	<div id="design_control">
-		<div id="current_design">
-			<h3>Current design</h3>
-			<% if @account.current_design.blank? %>
-				<p>No current design</p> 
-				<% if @account.current_redesign %>
-					<p style="font-weight: bold">Site taken offline <%= time_ago_in_words(@account.current_redesign.created_at) %> ago (<%= @account.current_redesign.created_at.to_s(:standard) %>)</p>
-				<% else %>
-					<p style="font-weight: bold">This site has never been online.</p>
-				<% end %>
-			<% else %> 
-				<h1><%= @account.current_design.name  %></h1>
-				<%= markdown @account.current_design.description %>
-				<p style="font-weight: bold">Site last redesigned <%= time_ago_in_words(@account.current_redesign.created_at) %> ago (<%= @account.current_redesign.created_at.to_s(:standard) %>)</p>
-			<% end %>
-		</div>
-		
-		<div id="change_design">
-			<h3>Change</h3>
-			<% if @account.designs.blank? %>
-				<%= link_to "Create first design", new_account_design_path(@account) %>
-			<% else %>
-				<%- form_for([@account, @redesign], :html => { :onsubmit => "confirm('Are you sure you want to change your current site design? This change will be effective immediately.')" } ) do |r| -%>
-					<p>You can make a new site design the one users see when they visit your page by selecting it here. Unlike your front page, <strong>change your site design <em style="color: red;">infrequently</em></strong> to prevent reader confusion.</p>
-					<%= r.collection_select :design_id, @account.designs, :id, :name, :prompt => "Choose new design" %>
-					<%= button_link_to_submit "Swap design"  %>
-				<%- end -%>
-			<% end %>
-		</div>
-		
-	</div>
-	</div>
+
 	<div class="design_list">
 		<h2>All designs</h2>
 		<ul>

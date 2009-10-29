@@ -2,22 +2,21 @@
 	<h2>Publisher</h2>
 	<h1>Control Panel</h1>
 	
-	<div class="options">
-		<%=button_link_to_remote "New front page", :url => new_account_front_page_url(@account), :method => :get, :html => { :class=>"large pill-l" } %><% if @account.current_design -%><%= button_link_to "View site", account_path(@account), :class=>"large pill-c", :target => "_blank" %><%= button_link_to "Edit current design", account_design_path(@account, @account.current_design), :class=>"large pill-c" %><% end -%><%= button_link_to "Change design", account_designs_url(@account), :class=>"large pill-c" %><%= button_link_to "Take site offline", take_offline_account_url(@account), :method => :post, :confirm => "You are about to take you site completely offline. Readers visiting your site will see a notice telling them that your site is temporarily offline.\n\nAre you sure you want to take your site offline?", :class=>"large cancel pill-r" %>
-	</div>
-	
 	<div class="guide">
 		<p>From this page you can control the current content and appearance of your publication's website.</p>
 		<p><strong>Be careful when making changes</strong> as the changes you make here will instantly affect how your site appears to readers.</p> 
+		<div class="options">
+			<%= button_link_to "View site", account_path(@account), :class=>"larger", :target => "_blank" %>
+		</div>
 	</div>
 	
 	<div id="control_panel">
 		<div id="front_page_control" class="clearfix">
-			<h2>Current front page</h2>
+			<h2>Front page</h2><%= button_link_to "Edit current front page", edit_account_front_page_path(@account, @account.current_front_page), :class=>"publish pill-l" %><%= button_link_to_remote "New front page", :url => new_account_front_page_path(@account), :method => :get, :html => { :class => "large pill-r" }  %>
 			<% if @account.current_front_page.blank? %>
 				<h3 style="margin-left: 60px;">No current front page</h3>
 			<% else %>
-				<div class="column_holder" style="width: 63%; float: left; clear: left;">
+				<div class="column_holder" style="width: 100%; float: left; clear: left;">
 				  <% unless @account.current_front_page.name.blank? %>
 					<div class="third_column left_column">
 						<h3>Name</h3>
@@ -26,6 +25,12 @@
 						<p><%= @account.current_front_page.name %></p>
 					</div>
 				  <% end %>
+					<div class="third_column left_column">
+						<h3>Live since</h3>
+					</div>
+					<div class="two_thirds_column right_column">
+						<p style="color: purple;"><%= "#{@account.current_press_run.updated_at.to_s(:standard)} (#{time_ago_in_words(@account.current_press_run.updated_at)} ago)" %></p>
+					</div>
 					<div class="third_column left_column">
 						<h3>Last updated</h3>
 					</div>
@@ -40,33 +45,32 @@
 						<h3>Template</h3>
 					</div>
 					<div class="two_thirds_column right_column">
-						<p><%= @account.current_front_page.template.name %></p>
+						<p><%= link_to @account.current_front_page.template.name, edit_account_design_template_path(@account, @account.current_design, @account.current_front_page.template) %>
+						</p>
+					</div>
+					<div class="third_column left_column">
+						<h3>Drafts</h3>
+					</div>
+					<div class="two_thirds_column right_column">
+						<ol>
+							<% for front_page in @draft_front_pages %>
+							<li>
+								<h5><%= front_page.name.blank? ? "Draft front page" : front_page.name %></h5> <%= button_link_to "Edit", edit_account_front_page_path(@account, front_page), :class=>"micro pill-l" %><%= button_link_to "Preview", account_front_page_path(@account, front_page), :target => "_blank", :class=>"micro pill-c" %><%= button_link_to "Run", account_front_page_path(@account, front_page, :publish => 1), :method =>:put, :confirm => "Make this your current front page? This will take effect immediately." ,:class=>"micro save pill-r" %> <%= link_to "x", account_front_page_url(@account, front_page), :method => :delete, :confirm => "Delete this front page draft?", :class => "kill_link" %>
+								<p class="template_name"><%= front_page.template.name %></p>
+								<div>Last updated <%= front_page.updated_at.to_s(:standard) %></div>
+							</li>
+							<% end %>
+							<% if @draft_front_pages.empty? %>
+							<li style="background:none;"><h5><em>No drafts</em></h5></li>
+							<% end %>
+						</ol>
 					</div>
 				</div>
-				<div class="column_holder" style="width: 30%; float:left;">
-					<%= button_link_to "Edit front page", edit_account_front_page_path(@account, @account.current_front_page), :class=>"large extra_wide publish" %>
-				</div>
 			<% end %>
-			
-		<!--	<div id="change_front_page">
-			<h3>Change</h3>
-				<% if @account.designs.blank? %>
-					<p>You'll need at least one design in order to create a front page, please <%= link_to "create your first design", new_account_design_path(@account) %></p>
-				<% elsif @account.front_pages.blank? %>
-					<p><%= link_to "Create your first front page", new_account_front_page_path(@account) %></p>
-				<% else %>
-					<%- form_for([@account, @press_run], :html => { :onsubmit => "confirm('Are you sure you want to change your current front page? This change will be effective immediately.')" }) do |r| -%>
-						<p>You can change your front page by selecting a new one here. <strong>Change your front page as often as you can</strong>, even if you haven't added new content recently.</p>
-						<%= r.collection_select :front_page_id, @account.front_pages, :id, :friendly_date, :prompt => "Choose new front page" %>
-						<%= button_link_to_submit "Update", :confirm => "Are you sure you want to update your front page? This change will be effective immediately." %>
-					<%- end -%>
-				<% end %>
-			</div> -->
-			
 		</div>
 		<% if @account.current_design %>
 			<div id="widget_control" class="clearfix">
-				<h2>Current widgets</h2> <%= button_link_to_remote "New", :url => new_account_design_widget_path(@account, @account.current_design), :method => :get, :class=>"micro primary" %>
+				<h2>Widgets</h2> <%= button_link_to_remote "New", :url => new_account_design_widget_path(@account, @account.current_design), :method => :get, :class=>"micro primary" %>
 				<ul id="widgets" class="clearfix">
 					<% for widget in @account.current_design.widgets %>
 						<li>
@@ -94,6 +98,20 @@
 				</ul>
 			</div>
 		<% end %>
+		<div id="design_control" class="clearfix">
+			<h2>Design</h2><% unless @account.current_design.blank? %><%= button_link_to "Edit current design", account_design_path(@account, @account.current_design), :class=>"micro primary" %><% end %>
+			<div>
+			<% if @account.designs.blank? %>
+				<%= link_to "Create first design", new_account_design_path(@account) %>
+			<% else %>
+				<%- form_for([@account, @redesign], :html => { :onsubmit => "confirm('Are you sure you want to change your current site design? This change will be effective immediately.')" } ) do |r| -%>
+					<p>You can make a new site design the one users see when they visit your page by selecting it here.</p>
+					<label>Current design: </label><%= r.collection_select :design_id, @account.designs, :id, :name, :include_blank => "No design (take site offline)" %>
+					<%= button_link_to_submit "Swap design", :class=>"save"  %>
+				<%- end -%>
+			<% end %>
+			</div>
+		</div>
 	</div>
 	
 </div><!-- /#dashboard -->

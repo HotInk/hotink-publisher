@@ -81,8 +81,13 @@ class FrontPagesController < ApplicationController
   # POST /front_pages
   # POST /front_pages.xml
   def create
+    
+    if @account.front_pages.last.unchanged?  
+      @account.front_pages.last.destroy
+    end
+    
     @front_page = @account.front_pages.build
-
+    
     # Process the schema template into a real schema
     @front_page_template = FrontPageTemplate.find(params[:template])
     @front_page.schema = @front_page_template.parse_schema
@@ -90,7 +95,7 @@ class FrontPagesController < ApplicationController
         
     respond_to do |format|
       if @front_page.save
-        flash[:notice] = 'FrontPage was successfully created.'
+        flash[:notice] = 'Front page was created.'
         format.html { redirect_to(edit_account_front_page_path(@account, @front_page)) }
         format.xml  { render :xml => @front_page, :status => :created, :location => [@account, @front_page] }
       else
@@ -105,11 +110,18 @@ class FrontPagesController < ApplicationController
   # PUT /front_pages/1.xml
   def update
     @front_page = @account.front_pages.find(params[:id])
-    @front_page.schema = params[:schema]
+    @front_page.schema = params[:schema] if params[:schema]
+    
     respond_to do |format|
       if @front_page.update_attributes(params[:front_page])
+        
+        if params[:publish] && params[:publish]=="1"
+          @account.press_runs.create(:front_page_id => @front_page.id)
+        end
+        
+        
         flash[:notice] = 'FrontPage was successfully updated.'
-        format.html { redirect_to(account_front_pages_path(@account)) }
+        format.html { redirect_to(account_control_panel_path(@account)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -125,7 +137,7 @@ class FrontPagesController < ApplicationController
     @front_page.update_attribute(:active, false)
 
     respond_to do |format|
-      format.html { redirect_to(account_front_pages_url(@account)) }
+      format.html { redirect_to(account_control_panel_url(@account)) }
       format.xml  { head :ok }
     end
   end

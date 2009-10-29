@@ -3,7 +3,7 @@ html, body { height: 100%; }
 body { background-color: #FFF; color: #333; margin: 0 auto; padding: 0 10px;}
 body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, sans-serif; font-size: 13.34px; line-height: 1.3; }
 #page h1 { float: left; margin: 10px 0; clear: right; font-size: 3em; font-weight: normal; font-family: georgia, "Times New Roman", times, serif; font-style: italic; color: #AAA; }
-.flash { width:710px; text-align: right; margin-left: 250px; margin-right: 10px; position: absolute; top: 30px; color: red; }
+.flash { width:750px; text-align: right; margin-left: 250px; margin-right: 10px; position: absolute; top: 30px; color: red; }
 .flash p { margin: 5px;}
 .kill_link { text-decoration: none; }
 
@@ -23,27 +23,36 @@ body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, s
 /* Dashboard style */
 
 #dashboard h1 { margin: 5px 0; clear: left; }
-#dashboard>h2, #widget_control h2, #front_page_control h2 { float: left; }
-#widget_control h2, #front_page_control h2 { margin-right: 13px; }
-#widget_control button.btn { margin-top: 15px; font-weight: bold; font-size: 0.8em; }
-
+#dashboard>h2, #widget_control h2, #front_page_control h2, #design_control h2 { float: left; }
+#control_panel div h2 { margin-right: 13px; }
+#widget_control button.btn, #design_control a.btn { margin-top: 15px; font-weight: bold; font-size: 0.8em; }
+#front_page_control a.btn { margin-top: 5px; }
 
 #dashboard h2 {  text-decoration: underline; margin-bottom: 0; margin-top: 10px; font-size: 1.25em; }
-#dashboard .options { float: left; width: 755px; text-align: right; padding-top: 18px; }
+#dashboard .options { padding-top: 20px; text-align: center; }
 #dashboard .guide { width: 240px; margin-right: 10px; float:left; clear: left;}
 #dashboard #control_panel { width: 680px; float:left;clear:right; border-left: 1px solid #999; padding-left: 15px;}
 #design_index #control_panel { float:left; }
 #control_panel h2 { font-family: georgia, "Times New Roman", times, serif; font-size: 1.7em; text-decoration:none; font-weight: normal; }
 #control_panel h3 { margin: 5px 0; }
 #control_panel p { font-size: 0.9em;}
-#control_panel>div>div { float: left; width: 47.5%; padding: 1%; }
+#control_panel>div>div { float: left; }
 #control_panel>div>div+div { margin-left: 1%; }
 #control_panel select { margin-bottom: 5px; width: 240px; }
 #dashboard #current_front_page, #current_design { background-color: #DEFFDB;}
 #dashboard #change_front_page { background-color: #CEE4F3; }
 
-#front_page_control .column_holder h3, #front_page_control .column_holder p { margin: 5px 0; font-size: 1.1em; }
+#front_page_control h2 { margin-top: 0; }
+#front_page_control .column_holder { margin-top: 10px; padding: 5px 0; background-color: #CEE4F3; }
+#front_page_control .column_holder h3, #front_page_control .column_holder>div>p { margin: 5px 0; font-size: 1.1em; }
 #front_page_control .column_holder p { padding-left: 10px; }
+#front_page_control ol { list-style: none; margin: 5px 0 10px 0; padding-left: 10px; }
+#front_page_control ol li { padding: 3px 5px; width: 265px; overflow: hidden; background-color: #FFF6DD; }
+#front_page_control ol li .kill_link { color: red; float: right; }
+#front_page_control ol li h5 { padding: 0 2px 5px 5px; display: inline; margin: 0; font-size: 0.95em; font-weight: normal; }
+#front_page_control ol li p.template_name { padding: 2px 5px 0 5px; margin: 0; font-size: 0.8em; font-style: italic; }
+#front_page_control ol li div { font-size: 0.8em; padding-left: 5px; color: green; text-align: right;  }
+#front_page_control ol li+li { border-top: 1px dotted #515151; }
 
 #widget_control { float:left; width: 100%; margin-top: 10px; border-top: 1px dotted #333; padding-top: 10px; }
 
@@ -64,8 +73,9 @@ body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, s
 #current_design p { margin: 5px 0; }
 div#control_panel div#current_design { height: auto; min-height: 150px; }
 #change_design { background-color: #FFF6DD; }
-#design_control { float:left; margin-bottom: 10px; border-bottom: 1px dotted #333; padding-bottom: 10px;}
-
+#design_control { float:left; margin-top: 0; border-top: 1px dotted #333; padding-top: 10px;}
+#design_control div { clear: left;}
+#design_control select { width: 250px; font-size: 1.2em; margin-left: 20px; margin-right: 5px; }
 
 
 /* Begin publisher styles */
@@ -106,11 +116,14 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #front_page_form .template h3, #front_page_form .template p { margin: 0; font-size: 1em; }
 #front_page_form .template { margin-bottom: 10px; }
 #front_page_form .template p { margin-left: 5px; }
+#front_page_form #status { display: inline; padding: 3px; margin-right: 25px; }
+#front_page_form #status.current { background-color: #DEFFDB; border: 1px solid #00af2e; color: #00af2e; -moz-border-radius: 2px; -webkit-border-radius:2px; }
+#front_page_form #status.draft { background-color: #FFF6DD; border: 1px solid #EDE6DD; -moz-border-radius: 2px; -webkit-border-radius:2px; }
 #front_page_form .help { margin-right: 5px; }
 #front_page_form .help h3 { text-decoration: underline; margin: 5px 0; }
 #front_page_form .help p, #front_page_form .help code { font-size: 0.9em; }
 #front_page_form .controls { margin: 5px 0 10px 0; float: left; clear: left; width: 100%; }
-#front_page_name, #widget_name { font-size: 1.5em; width: 110%; margin: 0px; height: 38px; }
+#front_page_name, #widget_name { font-size: 1.2em; width: 110%; margin: 0px; height: 38px; }
 #front_page_form .button { text-align: right; width: 100%; float: left; margin-bottom: 5px;}
 #front_page_form .loaded_articles { width: 100%; float: left;  }
 #front_page_form #articles_list { width: 100%; }
@@ -339,7 +352,7 @@ div.small_top_button a img { width: 18px; border: none; }
 
 
 /* Button size classes */
-.larger { font-size: 1.2em; line-height: 1.1; }
+.larger { font-size: 1.2em; line-height: 1.2; }
 .large { font-size: 1em; line-height: 1.2em; }
 .large:active span{ background-position:0 -390px;}
 .small { font-size: 0.85em; line-height: 1; }

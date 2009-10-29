@@ -16,7 +16,21 @@
 					<h3>Template:</h3>
 					<p><%= link_to f.object.template.name, edit_account_design_template_url(@account, @account.current_design, f.object.template) %></p>
 				</div>
-		  		<%= button_link_to_submit 'Save', :class => "larger save" %>
+				<% if f.object == @account.current_front_page %>
+					<div id="status" class="current">
+					Current front page
+					</div>					
+				<% else %>
+					<div id="status" class="draft">
+					Draft front page
+					</div>
+				<% end %>
+		  		<% if f.object == @account.current_front_page %>
+					<%= button_link_to_submit 'Publish changes', :class => "large publish pill-r" %>
+				<% else %>
+					<%= button_link_to_submit "Save draft", :class=>"large pill-l" %><%= button_link_to_submit 'Save & publish', :onclick =>"$('publish').value=1;", :class => "large publish pill-r" %>
+				<% end %>
+				<%= hidden_field_tag :publish, 0 %>
 			</div>
 		    <div class="details column_holder">
 				<div class="quarter_column">
