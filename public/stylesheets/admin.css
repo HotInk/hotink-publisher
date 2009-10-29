@@ -43,6 +43,7 @@ body, p, ol, ul, td { font-family: "lucida grande", verdana, arial, helvetica, s
 #dashboard #change_front_page { background-color: #CEE4F3; }
 
 #front_page_control h2 { margin-top: 0; }
+#front_page_control h2+h3, #front_page_control h2+button+h3 { float: left; clear: left; margin-top: 15px; }
 #front_page_control .column_holder { margin-top: 10px; padding: 5px 0; background-color: #CEE4F3; }
 #front_page_control .column_holder h3, #front_page_control .column_holder>div>p { margin: 5px 0; font-size: 1.1em; }
 #front_page_control .column_holder p { padding-left: 10px; }
