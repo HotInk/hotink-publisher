@@ -230,7 +230,7 @@ input[type="text"].large { width: 20em; font-size: 2em; height: 1.2em; }
 #design>h2 { float: left;}
 #design h2 { text-decoration: underline; margin: 0; margin-top: 10px; font-size: 1.25em; }
 #design h3 { float: left; }
-#design .options {  float: left; width: 755px; text-align: right; padding-top: 18px;}
+#design .options {  float: left; clear:left; text-align: right; width: 600px; margin-left: 265px;}
 #design .options .default_layout { margin-right: 10px;}
 #design .options .default_layout form { display: inline;}
 #design .description { width: 240px; margin-right: 10px; float:left; clear: left;}
