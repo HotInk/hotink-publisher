@@ -50,6 +50,7 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
       @latest_issues = latest_issues
     end
     @latest_issues.first.issue.first.account.access_token = @account.access_token # We need to preserve access to this token for nested requests
+    @latest_issues.first.issue.to_a unless @latest_issues.first.issue.respond_to? :first # If there's only one issue, it won't respond to "first"
     @latest_issues.first.issue.first
   end
   
