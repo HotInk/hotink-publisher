@@ -72,6 +72,8 @@ class FrontPagesController < ApplicationController
     @articles = Article.paginate(:page => page, :per_page => 10, :account_id => @account.account_resource_id, :as => @account.access_token )
     @articles = @articles.first.article
     
+    @articles = @articles.to_a unless @articles.respond_to? :first
+    
     respond_to do |format|
       format.html
       format.js
