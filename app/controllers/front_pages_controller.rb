@@ -82,7 +82,7 @@ class FrontPagesController < ApplicationController
   # POST /front_pages.xml
   def create
     
-    if @account.front_pages.last.unchanged?  
+    if @account.front_pages.last && @account.front_pages.last.unchanged?  
       @account.front_pages.last.destroy
     end
     
