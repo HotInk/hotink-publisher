@@ -147,7 +147,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
         return link_to_tag(source.tags.first) + ", " + link_to_tag(source.tags.second)
      else
       list = String.new
-      (0..(source.tags.count - 3)).each{ |i| list += link_to_tag(source.tags[i]) + ", " }
+      (0..(source.tags.length - 3)).each{ |i| list += link_to_tag(source.tags[i]) + ", " }
       list += link_to_tag(source.tags[source.tags.length-2]) + ", " + link_to_tag(source.tags[source.tags.length-1]) # last two authors get special formatting
       return list
     end
@@ -182,7 +182,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
       end
      else
       list = String.new
-      (0..(source.authors.count - 3)).each{ |i| list += link_to_author(source.authors[i]) + ", " }
+      (0..(source.authors.length - 3)).each{ |i| list += link_to_author(source.authors[i]) + ", " }
       list += link_to_author(source.authors[source.authors.length-2]) + " and " + link_to_author(source.authors[source.authors.length-1]) # last two authors get special formatting
       return list
     end         
