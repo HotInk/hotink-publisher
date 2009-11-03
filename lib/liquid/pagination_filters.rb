@@ -116,6 +116,8 @@ module Liquid
     def page_info(pagination_info, label="entries")
      if pagination_info["total_entries"].to_i < pagination_info["per_page"].to_i
        return "#{pagination_info["total_entries"]} #{ label }"
+     if pagination_info["total_entries"].to_i < 2
+       return ""
      else
        return "#{ page_start_count(pagination_info) }&nbsp;–&nbsp;#{ page_end_count(pagination_info)} of #{ pagination_info["total_entries"] } #{ label }"
      end
