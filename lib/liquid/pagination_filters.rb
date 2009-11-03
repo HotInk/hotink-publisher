@@ -99,7 +99,7 @@ module Liquid
     
     def page_start_count(pagination_info)\
        start_point = pagination_info["page"].to_i * pagination_info["per_page"].to_i
-       unless start_point > pagination_info["total_entries"] 
+       unless start_point < pagination_info["total_entries"] 
          return start_point 
        else
          return nil
