@@ -4,6 +4,8 @@ module Liquid
 
   module PaginationFilters
   
+    include ActionView::Helpers::TextHelper  
+  
     def paginate(pagination_info)
       pagination_html = ""
       if pagination_info.is_a?(Hash) && (pagination_info["current_page"] && pagination_info["per_page"] && pagination_info["total_entries"])
@@ -113,14 +115,13 @@ module Liquid
       end
     end
     
-    def page_info(pagination_info, label="entries")
-     if pagination_info["total_entries"].to_i < pagination_info["per_page"].to_i
-       return "#{pagination_info["total_entries"]} #{ label }"
-     elsif pagination_info["total_entries"].to_i == 1
-       return ""
-     else
-       return "#{ page_start_count(pagination_info) }&nbsp;–&nbsp;#{ page_end_count(pagination_info)} of #{ pagination_info["total_entries"] } #{ label }"
-     end
+    def page_info(pagination_info, label_singular="item", label_plural = nil)
+      total_entries = pagination_info["total_entries"].to_i
+      if total_entries < pagination_info["per_page"].to_i
+        return "#{total_entries.to_s} #{ pluralize(total_entries, label_singular, label_plural) }"
+      else
+        return "#{ page_start_count(pagination_info) }&nbsp;–&nbsp;#{ page_end_count(pagination_info)} of #{ total_entries.to_s } #{ pluralize(total_entries, label_singular, label_plural) }"
+      end
     end
     
   end
