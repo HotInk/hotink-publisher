@@ -97,16 +97,17 @@ module Liquid
       pagination_html
     end
     
-    def page_start_count(pagination_info)\
-       start_point = pagination_info["current_page"].to_i * pagination_info["per_page"].to_i
-       return start_point unless start_point > pagination_info["total_entries"] 
+    def page_start_count(pagination_info)
+       start_point = 1 + (pagination_info["current_page"].to_i - 1) * pagination_info["per_page"].to_i
+       return start_point unless start_point > pagination_info["total_entries"].to_i 
        nil
     end
     
     def page_end_count(pagination_info)
-     start_point = pagination_info["current_page"].to_i * pagination_info["per_page"].to_i
-      unless ( (pagination_info["current_page"].to_i + 1) * pagination_info["per_page"].to_i) > pagination_info["total_entries"].to_i # unless this is the last page
-       return start_point + pagination_info["per_page"].to_i - 1 # minus 1 is key
+      start_point = page_start_count(pagination_info)
+      return nil unless start_point
+      unless (pagination_info["current_page"].to_i * pagination_info["per_page"].to_i) > pagination_info["total_entries"].to_i # unless this is the last page
+       return start_point + (pagination_info["per_page"].to_i - 1)
       else
        return start_point + ( pagination_info["total_entries"].to_i %  pagination_info["per_page"].to_i )
       end
