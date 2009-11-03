@@ -109,13 +109,19 @@ module Liquid
       unless (pagination_info["current_page"].to_i * pagination_info["per_page"].to_i) > pagination_info["total_entries"].to_i # unless this is the last page
        return start_point + (pagination_info["per_page"].to_i - 1)
       else
-       return start_point + ( pagination_info["total_entries"].to_i %  pagination_info["per_page"].to_i )
+       return start_point + ( pagination_info["total_entries"].to_i %  pagination_info["per_page"].to_i ) - 1
       end
     end
     
-    
-    
-    
+    def page_info(pagination_info, label="total")
+     if pagination_info["total_entries"].to_i < pagination_info["per_page"].to_i
+       return "All #{ pagination_info["total_entries"] } #{ label }"
+     elsif pagination_info["total_entries"].to_i < 2
+       return "#{ pagination_info["total_entries"] } found"
+     else
+       return "#{ page_start_count(pagination_info) }&nbsp;–&nbsp;#{ page_end_count(pagination_info)} of #{ pagination_info["total_entries"] } #{ label }"
+     end
+    end
     
   end
 
