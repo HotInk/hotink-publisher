@@ -113,11 +113,9 @@ module Liquid
       end
     end
     
-    def page_info(pagination_info, label="total")
+    def page_info(pagination_info, label="entries")
      if pagination_info["total_entries"].to_i < pagination_info["per_page"].to_i
-       return "All #{ pagination_info["total_entries"] } #{ label }"
-     elsif pagination_info["total_entries"].to_i < 2
-       return "#{ pagination_info["total_entries"] } found"
+       return "#{pagination_info["total_entries"]} #{ label }"
      else
        return "#{ page_start_count(pagination_info) }&nbsp;–&nbsp;#{ page_end_count(pagination_info)} of #{ pagination_info["total_entries"] } #{ label }"
      end
