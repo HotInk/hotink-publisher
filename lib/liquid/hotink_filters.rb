@@ -37,16 +37,6 @@ module Liquid
       return title + @context.registers[:proxy]
     end
     
-    def paginate(collection, pagination )
-      case collection
-      when "articles"
-         @collection = WillPaginate::Collection.create(pagination["current_page"], pagination["per_page"], pagination["total_entries"]) do |pager|
-            pager.replace context['articles']
-          end
-          will_paginate  @collection
-      end
-    end
-    
     def categories_drilldown(article, separator = " / ")
       drilldown = ""
       if article && article.section
