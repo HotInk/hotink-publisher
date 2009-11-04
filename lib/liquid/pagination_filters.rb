@@ -89,7 +89,7 @@ module Liquid
 
           # Next link, if appropriate
           if (pagination_info["current_page"].to_i * pagination_info["per_page"].to_i) < pagination_info["total_entries"].to_i
-            pagination_html += "<a href=\"?tagged_with=#{CGI.escape(@context.registers[:tagged_width])}&page=#{pagination_info["current_page"].to_i + 1}\" class=\"next_page\" rel=\"next\">Next &raquo;</a>"
+            pagination_html += "<a href=\"?tagged_with=#{CGI.escape(@context.registers[:tagged_with])}&page=#{pagination_info["current_page"].to_i + 1}\" class=\"next_page\" rel=\"next\">Next &raquo;</a>"
           end
         end
         
