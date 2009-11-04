@@ -1,7 +1,7 @@
 class DesignImportsController < ApplicationController
   
   def new
-    @designs = Design.find_all_by_account_id_and_public(1, true, :order => "created_at DESC")
+    @designs = Design.find_all_by_public(true, :order => "created_at DESC")
   end
   
   def create

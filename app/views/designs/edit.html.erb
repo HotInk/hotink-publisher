@@ -13,7 +13,7 @@
 	    <%= f.label :description %><br />
 	    <%= f.text_area :description, :rows => "4" %>
 	  </div>
-	<% if @account.id == 1 %>
+	<% if current_user.account.id == 1 %>
 	 <div class="form_element">
 		<%= f.label :public, "Public?" %>
 		<%= f.check_box :public %>
