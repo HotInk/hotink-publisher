@@ -48,6 +48,7 @@ class ApplicationController < ActionController::Base
     def find_template
       if params[:design_id] && current_user
         @current_template = @account.designs.find(params[:design_id]).templates.find_by_role("#{controller_name}/#{action_name}")
+        @account.url = "/accounts/#{@account.account_resource_id}/designs/#{params[:design_id]}"
       else
         @current_template = @account.current_design.templates.find_by_role("#{controller_name}/#{action_name}")
       end

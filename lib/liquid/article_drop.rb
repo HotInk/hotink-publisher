@@ -162,7 +162,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     if source.authors_list.blank?
       nil
     else
-      source.authors_list.gsub(' ', '&nbsp;')
+      source.authors_list
     end
   end
   
