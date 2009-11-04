@@ -4,7 +4,7 @@ class FrontPagesController < ApplicationController
    
   before_filter :set_liquid_variables, :only => :show
   before_filter :require_design, :only => :show
-   
+  before_filter :find_template, :only => :show
   before_filter :build_registers, :only => :show
 
   # GET /front_pages
@@ -22,7 +22,6 @@ class FrontPagesController < ApplicationController
   # GET /front_pages/1.xml
   def show
     @front_page = @account.front_pages.find(params[:id])
-    @current_template = @front_page.template
     
     # Build query of only the necessary ids
     schema_ids = @current_template.required_article_ids + @front_page.schema_article_ids
