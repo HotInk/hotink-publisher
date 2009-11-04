@@ -7,7 +7,7 @@ class DesignImportsController < ApplicationController
   def create
     if current_user.account.id == 1
       @design = Design.new
-      @design_to_import = Design.find_by_id_and_account_id(params[:design_id])
+      @design_to_import = Design.find_by_id(params[:design_id])
       @design.attributes = @design_to_import.attributes
       @design.parent = @design_to_import
       @design.public = false
