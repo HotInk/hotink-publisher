@@ -45,7 +45,7 @@
 						<h3>Template</h3>
 					</div>
 					<div class="two_thirds_column right_column">
-						<p><%= link_to @account.current_front_page.template.name, edit_account_design_template_path(@account, @account.current_design, @account.current_front_page.template) %>
+						<p><%= link_to @account.current_front_page.template.name, edit_account_design_template_path(@account, @account.current_design, @account.current_front_page.template) if @account.current_design %>
 						</p>
 					</div>
 					<div class="third_column left_column">
