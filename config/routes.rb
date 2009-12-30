@@ -27,12 +27,17 @@ ActionController::Routing::Routes.draw do |map|
     account.resources :article_options, :collection => { :end_comments => :post, :close_comments => :post, :start_comments => :post }
     account.resource :control_panel
     account.resources :designs do |design|
-      design.resources :widgets
+      design.resources :widgets    
+      design.resources :templates
+      design.resources :template_files
+      
+      # Designs have almost the entire public site routing nested beneath
+      # to allow for testing of alternate designs
       design.resources :sections
       design.resources :front_pages
       design.resources :articles
-      design.resources :templates
-      design.resources :template_files
+      design.resource  :search
+      design.resources :pages, :only => [:edit, :index, :create, :new, :destroy, :update]
     end
     account.resource :design_import
     account.resource :redesigns    
