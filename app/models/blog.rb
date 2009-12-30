@@ -1,9 +1,9 @@
-class Blog < HyperactiveResource
+class Blog < ActiveResource::Base
 
-  # self.prefix = "/accounts/:account_id/"
-  
-  belongs_to :account, :nested => true
-  has_many :podcasts
+  self.site = HOTINK_SETTINGS[:site]
+  self.prefix = "/accounts/:account_id/"
+    
+  #has_many :podcasts
 
   def to_liquid(options = {})
     @blog_drop ||= Liquid::BlogDrop.new self, options

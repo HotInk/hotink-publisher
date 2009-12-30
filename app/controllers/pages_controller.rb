@@ -17,7 +17,7 @@ class PagesController < ApplicationController
     
     if @page.nil? 
       begin
-        @section = Section.find(URI.escape(params[:page_name]), :account_id => @account.account_resource_id, :as => @account.access_token)      
+        @section = Section.find(URI.escape(params[:page_name]), :params => { :account_id => @account.account_resource_id })      
         if @section.nil?
           zissou
           return
@@ -31,12 +31,7 @@ class PagesController < ApplicationController
       end
     end
 
-    page_html = @current_template.parsed_code.render({'page' => @page, 'newspaper' => @newspaper}, :registers => @registers )
-    if @current_template.current_layout
-      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'newspaper' => @newspaper}, :registers => @registers)
-    else  
-      render :text => page_html
-    end    
+    render :text => @current_template.render({'page' => @page, 'newspaper' => @newspaper}, :registers => @registers )
     
   end
   

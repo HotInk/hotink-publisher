@@ -3,7 +3,7 @@ class Widget < ActiveRecord::Base
   belongs_to :design
   belongs_to :template 
 
-  has_many :widget_placements
+  has_many :widget_placements, :dependent => :destroy
   has_many :templates, :through => :widget_placements
 
   serialize :schema

@@ -9,9 +9,8 @@ class EntriesController < ApplicationController
   before_filter :create_brain_buster, :only => [:show]
     
   def show
-  
-    @blog = Blog.find(params[:blog_id].to_i, :account_id => @account.account_resource_id, :as => @account.access_token )    
-    @entry = Entry.find(params[:id], :blog_id => @blog.id, :account_id => @account.account_resource_id, :as => @account.access_token )    
+    @blog = Blog.find(params[:blog_id].to_i, :params => { :account_id => @account.account_resource_id } )    
+    @entry = Entry.find(params[:id], :params => { :blog_id => @blog.id, :account_id => @account.account_resource_id } )    
     
     @registers[:form_authenticity_token] = self.form_authenticity_token
     @registers[:captcha_id] = @captcha.id
@@ -20,13 +19,7 @@ class EntriesController < ApplicationController
     
     # Set design register here, in case the user has specified one other than the current.
     @registers[:design] = @current_template.design
-
-    page_html = @current_template.parsed_code.render({'entry' => @entry, 'blog' => @blog, 'newspaper' => @newspaper}, :registers => @registers )
-    if @current_template.current_layout
-      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'newspaper' => @newspaper}, :registers => @registers)
-    else  
-      render :text => page_html
-    end
-
+ 
+    render :text => @current_template.render({'entry' => @entry, 'blog' => @blog, 'newspaper' => @newspaper}, :registers => @registers )
   end
 end

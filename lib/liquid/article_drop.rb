@@ -6,13 +6,13 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   class_inheritable_reader :liquid_attributes
   write_inheritable_attribute :liquid_attributes, [:id]
 
-  liquid_attributes << :title << :subtitle  << :id
+  liquid_attributes << :title << :subtitle
 
   def initialize(source, options = {})
     super source
     @options  = options
     @liquid.update \
-      'bodytext' => @source.bodytext
+      'bodytext' => @source.bodytext.nil? ? "" : @source.bodytext
   end
   
   def section
@@ -53,12 +53,14 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     source.url
   end
   
+  # Mediafiles
+  
   def mediafiles
     source.mediafiles
   end
   
   def images
-    source.images
+    source.mediafiles.select{ |a| a.mediafile_type == "Image" }
   end
   
   def has_image?
@@ -162,7 +164,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     if source.authors_list.blank?
       nil
     else
-      source.authors_list.gsub(' ', '&nbsp;')
+      source.authors_list
     end
   end
   

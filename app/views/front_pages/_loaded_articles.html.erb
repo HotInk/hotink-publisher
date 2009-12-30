@@ -24,7 +24,7 @@
 						<div class="media">
 							<% article.mediafiles.each do | i | %>
 								<% if i.mediafile_type=="Image" %>
-									<%= image_tag("http://hotink.theorem.ca" + i.image_url("system_icon"), :border => 1) %>
+									<%= image_tag(HOTINK_SETTINGS[:site] + i.image_url("system_icon"), :border => 1) %>
 								<% end %>
 							<% end %>
 						</div>

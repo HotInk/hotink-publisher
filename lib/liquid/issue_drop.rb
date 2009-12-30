@@ -1,16 +1,22 @@
 class Liquid::IssueDrop < Liquid::BaseDrop
     
   class_inheritable_reader :liquid_attributes
-  write_inheritable_attribute :liquid_attributes, [:id]
 
-  liquid_attributes << :name << :description  << :number << :volume << :date << :account_id << :id << :large_cover_image << :small_cover_image
+  liquid_attributes << :name << :description  << :number << :volume << :date << :large_cover_image << :small_cover_image
 
   def initialize(source, options = {})
     super source
-    @account = source.account unless @account
     @options  = options
   end
-
+  
+  def id
+    source.id
+  end
+  
+  def account_id
+    source.account_id
+  end
+  
   def articles
     get_articles
   end
@@ -22,12 +28,10 @@ class Liquid::IssueDrop < Liquid::BaseDrop
         @sections << article.section unless @sections.include?(article.section)
       end
     end
-    
     @sections
   end
   
   def articles_by_section
-          
       unless @articles_by_section
         @articles_by_section = {}
         for article in get_articles
@@ -38,7 +42,6 @@ class Liquid::IssueDrop < Liquid::BaseDrop
           end
         end
       end
-      
       @articles_by_section
   end
   
@@ -55,7 +58,7 @@ class Liquid::IssueDrop < Liquid::BaseDrop
   end
   
   def url
-    @account.url + "/issues/" + source.id.to_s
+    source.account.url + "/issues/" + source.id.to_s
   end
   
   private
@@ -63,7 +66,7 @@ class Liquid::IssueDrop < Liquid::BaseDrop
   def get_articles
     unless @articles
       @articles = Rails.cache.fetch([source.cache_key, '/articles'], :expires_in => 10.minutes) do
-         Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml", :as => @account.access_token)
+         Article.find(:all, :from => "/accounts/#{source.account.account_resource_id.to_s}/issues/#{source.id.to_s}/articles.xml")
       end
     end
     @articles

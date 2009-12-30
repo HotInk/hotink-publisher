@@ -12,9 +12,20 @@ class Account < ActiveRecord::Base
   has_many :podcasts
   
   has_many :article_options
+  
+  validates_presence_of :account_resource_id
     
   attr_accessor :access_token
   # has_many :articles
+  
+  def initialize(options={})
+    if options[:id]
+      resource_id = options.delete(:id)
+      super(options.merge({:account_resource_id => resource_id}))
+    else
+      super(options)
+    end
+  end
   
   # Load the current design and front page from the latest redesign and 
   # press run respectively.
@@ -65,7 +76,7 @@ class Account < ActiveRecord::Base
   
   def sections
     Rails.cache.fetch([self.cache_key, '/sections'], :expires_in => 10.minutes) do
-      Section.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
+      Section.find(:all, :params => { :account_id => self.account_resource_id })
     end
   end
   
@@ -75,7 +86,7 @@ class Account < ActiveRecord::Base
   
 
   def blogs
-    @blogs ||=  Blog.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
+    @blogs ||=  Blog.find(:all, :params => { :account_id => self.account_resource_id })
   end
   
   # hack for HyperactiveResource

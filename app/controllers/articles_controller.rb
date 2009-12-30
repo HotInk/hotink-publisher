@@ -13,21 +13,14 @@ class ArticlesController < ApplicationController
   # informative way.
   def show
     
-    @article = Article.find(params[:id], :account_id => @account.account_resource_id, :as => @account.access_token)
-    @comments = @article.comments
+    @article = Article.find(params[:id], :params => { :account_id => @account.account_resource_id })
     
     @registers[:form_authenticity_token] = self.form_authenticity_token
     @registers[:captcha_id] = @captcha.id
     @registers[:captcha_question] = @captcha.question    
     @registers[:form_action] = "#{@account.url}/articles/#{@article.id.to_s}/comments"
     
-    page_html = @current_template.parsed_code.render({'article' => @article, 'current_section' => @account.sections.detect{ |s| s.name == @article.section }, 'newspaper' => @newspaper}, :registers => @registers )
-    if @current_template.current_layout
-      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'current_section' => @account.sections.detect{ |s| s.name == @article.section }, 'article' => @article, 'newspaper' => @newspaper}, :registers => @registers)
-    else  
-      render :text => page_html
-    end 
-    #render :text => "Sorry, the page you were looking for could not be found.", :status => :not_found # If the current deisgn has no article template we should render 404
+    render :text => @current_template.render({'current_section' => @account.sections.detect{ |s| s.name == @article.section }, 'article' => @article, 'newspaper' => @newspaper}, :registers => @registers)
   end
   
   

@@ -170,7 +170,7 @@ class ApplicationController < ActionController::Base
      if @current_template && @account
         # Build query of only the necessary ids, from the widgets      
         unless @current_template.required_article_ids.blank?           
-          @registers[:widget_data] = @current_template.parsed_widget_data( Article.find_and_key_by_id(:ids => @current_template.required_article_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token) )
+          @registers[:widget_data] = @current_template.parsed_widget_data( hash_by_id(Article.find_by_ids(@current_template.required_article_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id)) )
         end
      end
     end

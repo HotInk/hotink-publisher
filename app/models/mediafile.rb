@@ -1,8 +1,7 @@
-class Mediafile < HyperactiveResource
-
-  # self.prefix = "/accounts/:account_id/articles/:article_id/"
-
-  belongs_to :article, :nested => true
+class Mediafile < ActiveResource::Base
+  
+  self.site = HOTINK_SETTINGS[:site]
+  self.prefix = "/accounts/:account_id/"
 
   def to_liquid(options = {})
     Liquid::MediafileDrop.new self, options
@@ -11,8 +10,5 @@ class Mediafile < HyperactiveResource
   def image_url(size)
     self.url.attributes[size]
   end
-  
-  def original_url
-    self.url.attributes["original"]
-  end
+
 end

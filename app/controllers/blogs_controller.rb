@@ -14,31 +14,19 @@ class BlogsController < ApplicationController
     @registers[:design] = @current_template.design
     @registers[:account] = @account
 
-    page_html = @current_template.parsed_code.render({'blogs' => @blogs, 'newspaper' => @newspaper}, :registers => @registers )
-    if @current_template.current_layout
-      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'blogs' => @blogs, 'newspaper' => @newspaper}, :registers => @registers)
-    else  
-      render :text => page_html
-    end
+    render :text => @current_template.render({'blogs' => @blogs, 'newspaper' => @newspaper}, :registers => @registers )
   end
   
 
   def show
-    @blog = Blog.find(params[:id], :account_id => @account.account_resource_id, :as => @account.access_token)
-    @entries = Entry.paginate(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/blogs/#{@blog.id.to_s}/entries.xml", :params => { :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15) }, :as => @account.access_token )
-    if @entries.first.respond_to?(:current_page) && @entries.first.respond_to?(:article)
-        @entries_pagination = { 'current_page' => @entries.first.current_page, 'per_page' => @entries.first.per_page, 'total_entries' => @entries.first.total_entries }
-        @entries = @entries.first.article.to_a
-      else
-        @entries_pagination = {}
-        @entries = []
-    end
-    page_html = @current_template.parsed_code.render({'blog' => @blog, 'entries' => @entries, 'entries_pagination' => @entries_pagination, 'newspaper' => @newspaper}, :registers => @registers )
-    if @current_template.current_layout
-      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'entries_pagination' => @entries_pagination, 'newspaper' => @newspaper}, :registers => @registers)
-    else  
-      render :text => page_html
-    end
+    @blog = Blog.find(params[:id], :params => { :account_id => @account.account_resource_id })
+
+    page = params[:page] || 1
+    per_page = params[:per_page] || 15
+    @entries = Entry.paginate( :params => { :blog_id => @blog.id, :account_id => @account.account_resource_id, :page => page, :per_page => per_page })
+    @entries_pagination = { 'current_page' => @entries.current_page, 'per_page' => @entries.per_page, 'total_entries' => @entries.total_entries }
+
+    render :text => @current_template.render({'blog' => @blog, 'entries' => @entries, 'entries_pagination' => @entries_pagination, 'newspaper' => @newspaper}, :registers => @registers )
   end
 
 end

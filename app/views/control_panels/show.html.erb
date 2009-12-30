@@ -12,9 +12,10 @@
 	
 	<div id="control_panel">
 		<div id="front_page_control" class="clearfix">
-			<h2>Front page</h2><% if @account.current_design %><% if @account.current_front_page %><%= button_link_to "Edit current front page", edit_account_front_page_path(@account, @account.current_front_page), :class=>"small primary pill-l" %><%= button_link_to_remote "New front page", :url => new_account_front_page_path(@account), :method => :get, :html => { :class => "pill-r" }  %><% else %><%= button_link_to_remote "New front page", :url => new_account_front_page_path(@account), :method => :get %><% end %><% end %>
+			<h2>Current front page</h2><% if @account.current_design %><% if @account.current_front_page %><%= button_link_to "Edit current front page", edit_account_front_page_path(@account, @account.current_front_page), :class=>"small primary pill-l" %><%= button_link_to_remote "New front page", :url => new_account_front_page_path(@account), :method => :get, :html => { :class => "pill-r" }  %><% else %><%= button_link_to_remote "New front page", :url => new_account_front_page_path(@account), :method => :get %><% end %><% end %>
 			<% if @account.current_front_page.blank? %>
 				<h3 style="margin-left: 60px;">No current front page</h3>
+				<div class="column_holder" style="width: 100%; float: left; clear: left;">
 			<% else %>
 				<div class="column_holder" style="width: 100%; float: left; clear: left;">
 				  <% unless @account.current_front_page.name.blank? %>
@@ -48,25 +49,24 @@
 						<p><%= link_to @account.current_front_page.template.name, edit_account_design_template_path(@account, @account.current_design, @account.current_front_page.template) %>
 						</p>
 					</div>
-					<div class="third_column left_column">
-						<h3>Drafts</h3>
-					</div>
-					<div class="two_thirds_column right_column">
-						<ol>
-							<% for front_page in @draft_front_pages %>
-							<li>
-								<h5><%= front_page.name.blank? ? "Draft front page" : front_page.name %></h5> <%= button_link_to "Edit", edit_account_front_page_path(@account, front_page), :class=>"micro pill-l" %><%= button_link_to "Preview", account_front_page_path(@account, front_page), :target => "_blank", :class=>"micro pill-c" %><%= button_link_to "Run", account_front_page_path(@account, front_page, :publish => 1), :method =>:put, :confirm => "Make this your current front page? This will take effect immediately." ,:class=>"micro save pill-r" %> <%= link_to "x", account_front_page_url(@account, front_page), :method => :delete, :confirm => "Delete this front page draft?", :class => "kill_link" %>
-								<p class="template_name"><%= front_page.template.name %></p>
-								<div>Last updated <%= front_page.updated_at.to_s(:standard) %></div>
-							</li>
-							<% end %>
-							<% if @draft_front_pages.empty? %>
-							<li style="background:none;"><h5><em>No drafts</em></h5></li>
-							<% end %>
-						</ol>
-					</div>
-				</div>
 			<% end %>
+			<div class="third_column left_column">
+				<h3>Drafts</h3>
+			</div>
+			<div class="two_thirds_column right_column">
+				<ol>
+					<% for front_page in @draft_front_pages %>
+					<li>
+						<h5><%= front_page.name.blank? ? "Draft front page" : front_page.name %></h5> <%= button_link_to "Edit", edit_account_front_page_path(@account, front_page), :class=>"micro pill-l" %><%= button_link_to "Preview", account_front_page_path(@account, front_page), :target => "_blank", :class=>"micro pill-c" %><%= button_link_to "Run", account_front_page_path(@account, front_page, :publish => 1), :method =>:put, :confirm => "Make this your current front page? This will take effect immediately." ,:class=>"micro save pill-r" %> <%= link_to "x", account_front_page_url(@account, front_page), :method => :delete, :confirm => "Delete this front page draft?", :class => "kill_link" %>
+						<p class="template_name"><%= front_page.template.name %></p>
+						<div>Last updated <%= front_page.updated_at.to_s(:standard) %></div>
+					</li>
+					<% end %>
+					<% if @draft_front_pages.empty? %>
+					<li style="background:none;"><h5><em>No drafts</em></h5></li>
+					<% end %>
+				</ol>
+			</div>
 		</div>
 		<% if @account.current_design %>
 			<div id="widget_control" class="clearfix">

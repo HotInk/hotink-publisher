@@ -23,13 +23,13 @@ class WidgetsController < ApplicationController
     end
     
     @schema_articles = {}
-    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
+    article_resources = Article.find_by_ids(schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id) unless schema_ids.blank?
     article_resources.each do |article|
       @schema_articles.merge!(article.id => article)
     end
       
-    @articles = Article.paginate(:page => page, :per_page => 10, :account_id => @account.account_resource_id, :as => @account.access_token )
-    @articles = @articles.first.article
+    @articles = Article.paginate(:params => { :page => page, :per_page => 10, :account_id => @account.account_resource_id } )
+
     respond_to do |format|
       format.html
       format.js

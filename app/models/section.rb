@@ -1,8 +1,9 @@
-class Section < HyperactiveResource
+class Section < ActiveResource::Base
 
-  # self.prefix = "/accounts/:account_id/"
+  self.site = HOTINK_SETTINGS[:site]
+  self.prefix = "/accounts/:account_id/"
   
-  belongs_to :account, :nested => true
+  #belongs_to :account, :nested => true
   
   def to_param
     self.name

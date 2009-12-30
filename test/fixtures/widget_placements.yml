@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  template_id: 1
-  widget_id: 1
-
-two:
-  template_id: 1
-  widget_id: 1

@@ -1,5 +1,7 @@
 class AccountsController < ApplicationController
 
+  include ApplicationHelper
+
   skip_before_filter :require_user, :only => :show
   
   before_filter :require_design, :only => :show
@@ -21,7 +23,6 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   # GET /accounts/1.xml
   def show
-
     @front_page = @account.current_front_page
     @current_template = @front_page.template
     
@@ -29,20 +30,14 @@ class AccountsController < ApplicationController
     schema_ids = @current_template.required_article_ids + @front_page.schema_article_ids
     # One request to find them all
     schema_articles = {}
-    schema_articles = Article.find_and_key_by_id(:ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)  unless schema_ids.blank?
+    schema_articles = hash_by_id(Article.find_by_ids(schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id))  unless schema_ids.blank?
   
     @registers[:widget_data] = @current_template.parsed_widget_data(schema_articles)
-    
-    page_html = @current_template.parsed_code.render(@front_page.sorted_schema_articles(schema_articles).merge('newspaper' => @newspaper), :registers => @registers )
-    
+        
     # Squid reverse proxy caching headers
     expires_in 2.minutes, :public => true
     
-    if @current_template.current_layout
-      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'newspaper' => @newspaper}, :registers => @registers )
-    else  
-      render :text => page_html
-    end
+    render :text => @current_template.render(@front_page.sorted_schema_articles(schema_articles).merge('newspaper' => @newspaper), :registers => @registers )
   end
 
   # GET /accounts/new

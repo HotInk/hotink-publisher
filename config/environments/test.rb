@@ -9,6 +9,11 @@ config.cache_classes = true
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils = true
 
+# Gems
+config.gem 'rspec'
+config.gem 'factory_girl'
+config.gem 'shoulda'
+
 # Show full error reports and disable caching
 config.action_controller.consider_all_requests_local = true
 config.action_controller.perform_caching             = false

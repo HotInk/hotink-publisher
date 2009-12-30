@@ -2,16 +2,34 @@ class Liquid::MediafileDrop < Liquid::BaseDrop
   
   include ERB::Util # So we can simply use <tt>h(...)</tt>.
   
-  class_inheritable_reader :liquid_attributes
-  write_inheritable_attribute :liquid_attributes, [:id]
-
-  liquid_attributes << :title << :caption  << :date << :authors_list << :mediafile_type
+  liquid_attributes << :title << :caption  << :date << :mediafile_type
 
   def initialize(source, options = {})
     super source
     @options  = options
   end
   
+  # General data
+  def id
+    source.id
+  end
+  
+  def authors_list
+    source.authors_list
+  end
+  
+  # Mediafile-specific
+  
+  def url
+    if source.mediafile_type == "Image"
+      source.url.original
+    else
+      source.url
+    end
+  end
+  
+  # Image specific
+    
   def is_vertical?
     source.height.to_i > source.width.to_i
   end
@@ -37,7 +55,7 @@ class Liquid::MediafileDrop < Liquid::BaseDrop
   end
   
   def original_url
-     source.original_url
+     source.url.original
   end
   
   #TODO: figure out a nicer way of doing this other than enumerating the sizes

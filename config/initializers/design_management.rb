@@ -11,6 +11,3 @@ end
 Paperclip.interpolates :version do |attachement, style|  
      attachement.instance.version.to_s  
 end
-
-# Webthumb api handler
-include Simplificator::Webthumb

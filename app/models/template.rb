@@ -1,9 +1,10 @@
 class Template < ActiveRecord::Base
-  belongs_to :account
   belongs_to :design
+  validates_presence_of :design
   
   has_many :widget_placements
   has_many :widgets, :through => :widget_placements
+  
   
   acts_as_versioned
     

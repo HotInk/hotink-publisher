@@ -85,5 +85,14 @@ module ApplicationHelper
      ]
    end
  end
+ 
+ def hash_by_id(records)
+   records_by_id = {}
+   # Recontruct fetched records as hash keyed by id attribute
+   records.each do |record|
+     records_by_id.merge!(record.id.to_s => record)
+   end
+   records_by_id
+ end
    
 end

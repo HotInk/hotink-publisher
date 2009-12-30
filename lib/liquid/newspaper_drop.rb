@@ -45,23 +45,15 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
     @account.name
   end
   
+  def latest_issues
+     @latest_issues ||= get_latest_issues
+  end
+  
   def latest_issue
     unless @latest_issues
       @latest_issues = latest_issues
     end
-    @latest_issues.first.issue.first.account.access_token = @account.access_token # We need to preserve access to this token for nested requests
-    @latest_issues.first.issue.to_a unless @latest_issues.first.issue.respond_to? :first # If there's only one issue, it won't respond to "first"
-    @latest_issues.first.issue.first
-  end
-  
-  def latest_issues
-      unless @latest_issues
-        @latest_issues = latest_issues
-      end
-      @latest_issues.first.issue.collect do |i| 
-        i.account.access_token = @account.access_token
-        i
-      end
+    @latest_issues.first
   end
   
   # Returns hash of most recent articles keyed by section.
@@ -83,15 +75,13 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   def latest_entries
     unless @latest_entries
       @latest_entries = Rails.cache.fetch([@account.cache_key, '/latest_entries'], :expires_in => 10.minutes) do
-          Entry.paginate(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/entries.xml", :params => { :page => 1, :per_page => 5}, :as => @account.access_token ) 
+          Entry.paginate(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/entries.xml", :params => { :page => 1, :per_page => 5}) 
       end
     end
-    @latest_entries.first.article.collect do |i| 
-      i
-    end
+    @latest_entries
   end
   
-  # Returns hashof recent blog entries, keyed by blog title
+  # Returns hash of recent blog entries, keyed by blog title
   def latest_from_blog
     unless @latest_entries_from_blogs
       @latest_entries_from_blogs = {}
@@ -108,21 +98,21 @@ class Liquid::NewspaperDrop < Liquid::BaseDrop
   
   private
   
-  def latest_issues
+  def get_latest_issues
     Rails.cache.fetch([@account.cache_key, '/latest_issues'], :expires_in => 10.minutes) do
-      Issue.paginate(:all, :account_id => @account.account_resource_id, :page => 1, :per_page => 15, :as => @account.access_token)
+      Issue.paginate(:all, :params => { :account_id => @account.account_resource_id, :page => 1, :per_page => 15 })
     end
   end
   
   def latest_articles_for_sections
     Rails.cache.fetch([@account.cache_key, '/latest_article_for_sections'], :expires_in => 10.minutes) do
-      Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/query.xml", :params => { :group_by => "section", :count => 5 }, :as => @account.access_token )
+      Article.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/query.xml", :params => { :group_by => "section", :count => 5 })
     end
   end
   
   def latest_entries_from_blogs
     Rails.cache.fetch([@account.cache_key, '/latest_entries_from_blogs'], :expires_in => 10.minutes) do
-      Entry.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/query.xml", :params => { :group_by => "blog", :count => 5 }, :as => @account.access_token )
+      Entry.find(:all, :from => "/accounts/#{@account.account_resource_id.to_s}/query.xml", :params => { :group_by => "blog", :count => 5 })
     end
   end
   

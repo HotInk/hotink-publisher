@@ -8,8 +8,7 @@ class IssuesController < ApplicationController
   before_filter :build_registers
   
   def show   
-    @issue = Issue.find(params[:id], :account_id => @account.account_resource_id, :as => @account.access_token)
-    @issue.account.access_token = @account.access_token # we have to preserve the access token for liquid requests
+    @issue = Issue.find(params[:id], :params => { :account_id => @account.account_resource_id })
         # Widget data processing -- start  
         # Build query of only the necessary ids, from the widgets
         schema_ids = Array.new
@@ -20,7 +19,7 @@ class IssuesController < ApplicationController
         end
 
         unless schema_ids.blank?  
-          article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
+          article_resources = Article.find_by_ids(schema_ids.reject{ |i| i.blank? }, :params => {:account_id => @account.account_resource_id})
 
           widget_data = {}
           schema_articles = {}
@@ -44,27 +43,16 @@ class IssuesController < ApplicationController
       @registers[:account] = @account
       @registers[:design] = @current_template.design if @current_template.design
 
-      page_html = @current_template.parsed_code.render({'issue' => @issue, 'articles' => @articles, 'newspaper' => @newspaper}, :registers => @registers )
-       if @current_template.current_layout
-         render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'issue' => @issue, 'newspaper' => @newspaper}, :registers => @registers)
-       else  
-         render :text => page_html
-       end
+      render :text => @current_template.render({'issue' => @issue, 'articles' => @articles, 'newspaper' => @newspaper}, :registers => @registers )
   end
     
   def index
-    @issues = Issue.paginate(:all, :page => (params[:page] || 1), :per_page =>( params[:per_page] || 15),  :account_id => @account.account_resource_id, :as => @account.access_token)
-    if @issues.first.respond_to?(:current_page)
-      @issues_pagination = { 'current_page' => @issues.first.current_page, 'per_page' => @issues.first.per_page, 'total_entries' => @issues.first.total_entries }
-      @issues = @issues.first.issue.collect do |i|
-            i.account.access_token = @account.access_token
-            i
-      end
-    else
-      @issues = nil
-      @issues_pagination = {}
-    end 
+    page = params[:page] || 1
+    per_page = params[:per_page] || 15
     
+    @issues = Issue.paginate(:all, :params => { :page => page, :per_page => per_page, :account_id => @account.account_resource_id })
+    @issues_pagination = { 'current_page' => @issues.current_page, 'per_page' => @issues.per_page, 'total_entries' => @issues.total_entries }
+
       # Widget data processing -- start  
       # Build query of only the necessary ids, from the widgets
       schema_ids = Array.new
@@ -99,12 +87,7 @@ class IssuesController < ApplicationController
     @registers[:account] = @account
     @registers[:design] = @current_template.design if @current_template.design
 
-    page_html = @current_template.parsed_code.render({'issues' => @issues.to_a, 'issues_pagination' => @issues_pagination,  'newspaper' => @newspaper}, :registers => @registers )
-     if @current_template.current_layout
-       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'issues' => @issues.to_a, 'issue_pagination' => @issue_pagination, 'newspaper' => @newspaper}, :registers => @registers)
-     else  
-       render :text => page_html
-     end
+    render :text => @current_template.render({'issues' => @issues.to_a, 'issues_pagination' => @issues_pagination,  'newspaper' => @newspaper}, :registers => @registers )
   end
 
 end

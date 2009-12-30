@@ -12,7 +12,7 @@ class SectionsController < ApplicationController
 
   def show
     begin
-      @section = Section.find(URI.encode(params[:id]), :account_id => @account.account_resource_id, :as => @account.access_token)
+      @section = Section.find(URI.encode(params[:id]), :params => { :account_id => @account.account_resource_id })
     rescue NoMethodError
       zissou
       return
@@ -20,23 +20,12 @@ class SectionsController < ApplicationController
     # We'll get a lot of traffic that thinks it's a section, when really it's a bad request. Give 'em Zissou.
     zissou and return unless @section
 
-    
-    @articles = Article.paginate(:all, :page => (params[:page] || 1), :per_page => ( params[:per_page] || 15), :account_id => @account.account_resource_id, :section_id => @section.id, :as => @account.access_token)
-    if @articles.first.respond_to?(:current_page) && @articles.first.respond_to?(:article)
-      @articles_pagination = { 'current_page' => @articles.first.current_page, 'per_page' => @articles.first.per_page, 'total_entries' => @articles.first.total_entries }
-      @articles = @articles.first.article.to_a
-    else
-      @articles_pagination = {}
-      @articles = nil
-    end
-   
-    page_html = @current_template.parsed_code.render({'current_section' => @section, 'articles' => @articles.to_a, 'articles_pagination' => @articles_pagination, 'newspaper' => @newspaper}, :registers => @registers )
-     if @current_template.current_layout
-       render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'current_section' => @section, 'articles' => @articles.to_a, 'article_pagination' => @article_pagination, 'newspaper' => @newspaper}, :registers => @registers)
-     else  
-       render :text => page_html
-     end
-      
+    page = params[:page] || 1
+    per_page = params[:per_page] || 15
+    @articles = Article.paginate(:all, :params => { :page => page, :per_page => per_page, :account_id => @account.account_resource_id, :section_id => @section.id })
+    @articles_pagination = { 'current_page' => @articles.current_page, 'per_page' => @articles.per_page, 'total_entries' => @articles.total_entries }
+
+    render :text => @current_template.render({'current_section' => @section, 'articles' => @articles.to_a, 'articles_pagination' => @articles_pagination, 'newspaper' => @newspaper}, :registers => @registers)
   end
 
 end

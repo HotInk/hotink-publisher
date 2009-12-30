@@ -46,7 +46,7 @@ class Admin::CommentsController < ApplicationController
     
     @comments = Comment.paginate(:page => params[:page], :per_page => 20, :conditions => conditions, :order => "created_at DESC")
     
-    @article_resources = Article.find(:all, :ids => @comments.collect { |x| x.content_id }.uniq, :account_id => @account.account_resource_id, :as => @account.access_token)
+    @article_resources = Article.find_by_ids(@comments.collect { |x| x.content_id }.uniq, :account_id => @account.account_resource_id)
     
     @articles = {}
     for a in @article_resources

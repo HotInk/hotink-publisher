@@ -3,7 +3,6 @@ class Liquid::BlogDrop < Liquid::BaseDrop
   
   def initialize(source, options = {})
      super source
-     @account = source.account unless @account
      @options  = options
    end
    

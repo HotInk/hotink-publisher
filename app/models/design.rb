@@ -1,6 +1,7 @@
 class Design < ActiveRecord::Base
   
   belongs_to :account
+  validates_presence_of :account
 
   belongs_to :default_layout, :foreign_key => "layout_id", :class_name => "Layout"
   belongs_to :default_front_page_template, :class_name => "FrontPageTemplate"

@@ -1,5 +1,6 @@
 class FrontPagesController < ApplicationController
   
+  include ApplicationHelper
   layout 'admin'
    
   before_filter :set_liquid_variables, :only => :show
@@ -22,24 +23,17 @@ class FrontPagesController < ApplicationController
   # GET /front_pages/1.xml
   def show
     @front_page = @account.front_pages.find(params[:id])
-    @current_template = @front_page.template
     
     # Build query of only the necessary ids
-    schema_ids = @current_template.required_article_ids + @front_page.schema_article_ids
+    schema_ids =  @front_page.schema_article_ids + @front_page.template.required_article_ids
     schema_articles = {}
     
     # One request to find them all
-    schema_articles = Article.find_and_key_by_id(:ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)  unless schema_ids.blank?
+    schema_articles = hash_by_id(Article.find_by_ids(schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id))  unless schema_ids.blank?
 
-    @registers[:widget_data] = @current_template.parsed_widget_data(schema_articles)
+    @registers[:widget_data] = @front_page.template.parsed_widget_data(schema_articles)
     
-    page_html = @current_template.parsed_code.render(@front_page.sorted_schema_articles(schema_articles).merge('newspaper' => @newspaper), :registers => @registers )
-        
-    if @current_template.current_layout
-      render :text => @current_template.current_layout.parsed_code.render({'page_content' => page_html, 'newspaper' => @newspaper}, :registers => @registers )
-    else  
-      render :text => page_html
-    end
+    render :text => @front_page.render(@front_page.sorted_schema_articles(schema_articles).merge('newspaper' => @newspaper), :registers => @registers )
   end
 
   # GET /front_pages/new
@@ -64,16 +58,17 @@ class FrontPagesController < ApplicationController
     end
     
     @schema_articles = {}
-    article_resources = Article.find(:all, :ids => schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id, :as => @account.access_token)
+    if schema_ids.blank?
+      article_resources = []
+    else
+      article_resources = Article.find_by_ids(schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id)
+    end
     article_resources.each do |article|
       @schema_articles.merge!(article.id => article)
     end
       
-    @articles = Article.paginate(:page => page, :per_page => 10, :account_id => @account.account_resource_id, :as => @account.access_token )
-    @articles = @articles.first.article
-    
-    @articles = @articles.to_a unless @articles.respond_to? :first
-    
+    @articles = Article.paginate(:params => { :page => page, :per_page => 10, :account_id => @account.account_resource_id })
+      
     respond_to do |format|
       format.html
       format.js

@@ -1,8 +1,6 @@
-class Issue < HyperactiveResource
+class Issue < ActiveResource::Base
 
-  has_many :article
-  belongs_to :account, :nested => true
-
+  self.site = HOTINK_SETTINGS[:site]
   self.prefix = "/accounts/:account_id/"
 
   def to_liquid(options = {})
@@ -11,6 +9,11 @@ class Issue < HyperactiveResource
   
   def cache_key
     "issues/#{self.id}"
+  end
+  
+  def account
+    account_resource_id = self.prefix_options[:account_id] || self.account_id
+    @account ||= Account.find_by_account_resource_id(account_resource_id)
   end
 
 end

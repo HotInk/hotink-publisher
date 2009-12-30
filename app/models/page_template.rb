@@ -15,4 +15,12 @@ class PageTemplate < Template
     end
   end
   
+  def render(options={}, registers={})
+    if current_layout
+      current_layout.parsed_code.render(options.merge({'page_contents' => parsed_code.render(options, registers)}), registers)
+    else
+      parsed_code.render(options, registers)
+    end
+  end
+  
 end

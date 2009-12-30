@@ -1,7 +1,8 @@
-class Entry < HyperactiveResource
+class Entry < ActiveResource::Base
 
-  belongs_to :blog, :nested => true
-
+  self.site = HOTINK_SETTINGS[:site]
+  self.prefix = "/accounts/:account_id/"
+  
   def comments
     Comment.find_all_by_content_id(self.id)
   end
