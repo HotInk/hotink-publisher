@@ -12,7 +12,11 @@ class Article < ActiveResource::Base
   end
   
   def account
-    @account ||= Account.find_by_account_resource_id(account_id)
+    @account ||= Account.find_by_account_resource_id(self.account_id)
+  end
+  
+  def account_id
+    self.prefix_options[:account_id]
   end
   
   def url

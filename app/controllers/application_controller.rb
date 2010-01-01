@@ -15,6 +15,31 @@ class ApplicationController < ActionController::Base
   before_filter :find_account
   before_filter :require_user
   
+  protected
+    
+    def require_user
+     #logger.info session.inspect
+     if session[:sso] && session[:sso][:user_id]
+       if (session[:sso][:is_admin?]=='true')||(session[:sso]["account_#{@account.account_resource_id.to_s}_manager".to_sym]=='true')
+         true
+       else
+         render :text => "unauthorized!", :status => 401
+         return
+       end
+     else
+       redirect_to "/sso/login?return_to=#{request.request_uri}"
+       false
+     end
+    end
+    
+    def current_user_id
+      if session[:sso] && session[:sso][:user_id]
+        return session[:sso][:user_id]
+      else
+        nil
+      end
+    end
+  
   private
   
     def find_account
@@ -73,22 +98,7 @@ class ApplicationController < ActionController::Base
       @newspaper = Liquid::NewspaperDrop.new(@account)
       @site = Liquid::SiteDrop.new(self)
     end
-    
-    def require_user
-     #logger.info session.inspect
-     if session[:sso] && session[:sso][:user_id]
-       if (session[:sso][:is_admin?]=='true')||(session[:sso]["account_#{@account.account_resource_id.to_s}_manager".to_sym]=='true')
-         true
-       else
-         render :text => "unauthorized!", :status => 401
-         return
-       end
-     else
-       redirect_to "/sso/login?return_to=#{request.request_uri}"
-       false
-     end
-    end
-    
+
     # This method loads widget data for public templates
     def load_widget_data
      if @current_template && @account

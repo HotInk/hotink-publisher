@@ -15,7 +15,6 @@ class Liquid::SiteDrop < Liquid::BaseDrop
   
   def latest_comments
     Comment.find(:all, :limit => 10, :order => "created_at DESC")
-  end
-  
+  end  
   
 end

@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
     @registers[:captcha_question] = @captcha.question    
     @registers[:form_action] = "#{@account.url}/articles/#{@article.id.to_s}/comments"
     
-    render :text => @current_template.render({'current_section' => @account.sections.detect{ |s| s.name == @article.section }, 'article' => @article, 'newspaper' => @newspaper}, :registers => @registers)
+    render :text => @current_template.render({'current_section' => @account.sections.detect{ |s| s.name == @article.section }, 'article' => @article, 'newspaper' => @newspaper, 'current_user_id' => current_user_id}, :registers => @registers)
   end
   
   
