@@ -74,13 +74,10 @@ class ApplicationController < ActionController::Base
       @site = Liquid::SiteDrop.new(self)
     end
     
-    # Remote session / User authentication code below
-    
     def require_user
      #logger.info session.inspect
      if session[:sso] && session[:sso][:user_id]
        if (session[:sso][:is_admin?]=='true')||(session[:sso]["account_#{@account.account_resource_id.to_s}_manager".to_sym]=='true')
-         logger.info session[:sso].inspect
          true
        else
          render :text => "unauthorized!", :status => 401

@@ -26,9 +26,7 @@ Rails::Initializer.run do |config|
   config.gem "rdiscount",
              :lib    => "rdiscount",
              :source => "http://gems.github.com"
-  
-  config.gem 'hancock-client', :version => '0.0.8'
-    
+      
   # config.gem 'mislav-will_paginate',
   #             :source => "http://gems.github.com"             
     

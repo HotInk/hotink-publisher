@@ -3,7 +3,7 @@ require(File.dirname(__FILE__) + "/../../config/environment") unless defined?(Ra
 require 'hancock-client'
 
 class Sso < Sinatra::Base
-  use Hancock::Client::Middleware do |sso|
+  use Keymaster::Client::Middleware do |sso|
     sso.sso_url = "#{HOTINK_SETTINGS[:site]}/sso"
   end
 end
