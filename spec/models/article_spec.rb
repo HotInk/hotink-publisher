@@ -35,4 +35,10 @@ describe Article do
     @article.images.should_not include(@mediafile)
   end
   
+  it "should identify its comments" do
+    article = Factory(:article)
+    Comment.should_receive(:find).with(:all, :conditions => { :content_id => article.id, :content_type => "Article" })
+    
+    article.comments
+  end
 end

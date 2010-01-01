@@ -6,6 +6,7 @@ class BlogsController < ApplicationController
   before_filter :require_design  
   before_filter :find_template
   before_filter :build_registers
+  before_filter :load_widget_data
   
   def index
     @blogs = @account.blogs

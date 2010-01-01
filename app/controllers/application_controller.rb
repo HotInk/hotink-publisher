@@ -3,9 +3,8 @@
 
 class ApplicationController < ActionController::Base
  
-  helper :all # include all helpers, all the time
-  helper_method :current_user_session, :current_user
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  include ApplicationHelper
+  #protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :passwcord
@@ -15,7 +14,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :find_account
   before_filter :require_user
-  before_filter :load_access_token
   
   private
   
@@ -76,95 +74,22 @@ class ApplicationController < ActionController::Base
       @site = Liquid::SiteDrop.new(self)
     end
     
-    def get_theme
-      @account.name unless @account.nil?
-    end
-    
     # Remote session / User authentication code below
     
-    def current_user_session
-      return @current_user_session if defined?(@current_user_session)
-      @current_user_session = UserSession.find
-    end
-
-    def current_user
-      return @current_user if defined?(@current_user)
-      @current_user = current_user_session && current_user_session.user
-    end
-
-    # This function handles authentication for all application users.
-    # First, it checks to see if user is already logged in
-    # Second, it checks params[:session_action], to see if session negotiation is ongoing.
-    # Third, it checks for params[:oauth_token] to see if this is a callback_url response to request_token authorization.
     def require_user
-      #First, check to see if user is already logged in
-      unless (current_user && current_user.account==@account) || ( current_user && current_user.account.id==1 )
-        logger.info "Current user: " + current_user.class.name
-
-        # Second, check to see if session negotiation is ongoing  
-        if params[:session_action]
-          if params[:request_url] # preserve a passed along request url
-            redirect_to new_user_path(:request_url => params[:request_url], :account_id => params[:account_id]) and return if params[:session_action]=="new_user"
-          else
-            redirect_to new_user_path(:account_id => params[:account_id]) and return if params[:session_action]=="new_user"  
-          end
-        end 
-
-        # Third, check to see if this is a logged-in, existing user (w/signed approval form Hot Ink) or a request_token authorization callback response
-        if params[:oauth_token]
-          if params[:sig]
-
-            # This is where we actually authenticate
-            access_token = OauthToken.find_by_token(params[:oauth_token])
-            
-            if access_token&&params[:sig]==Digest::SHA1.hexdigest(access_token.token + access_token.secret)
-
-              # Signature matches, it's really Hot Ink and the user checks out. Log 'em in.
-              UserSession.create!(access_token.user)
-
-              # If a request url was forwarded along, send them there. 
-              # This will preserve any query-string values set by Hot Ink.            
-              if params[:request_url]  
-                redirect_to(params[:request_url])
-                return
-              end
-
-            else
-              # Either Hot Ink is confused, or someone's trying to break in
-              render :text => "Oauth verification not accepted.", :status => 401
-              return
-            end
-
-          else
-            redirect_to new_user_path(:oauth_token => params[:oauth_token], :request_url => params[:request_url], :account_id => params[:account_id])
-            return
-          end 
-        end
-
-        # Last resort, this must be a fresh user request. Forward along to Hot Ink to authenticate.
-        redirect_to "#{OAUTH_CREDENTIALS[:site]}/remote_session/new?key=#{OAUTH_CREDENTIALS[:token]}&request_url=#{request.url}&account_id=#{params[:account_id]}"
-        return false
-      end
-    end
-
-    def get_consumer
-      require 'oauth/consumer'
-      require 'oauth/signature/rsa/sha1'
-      consumer = OAuth::Consumer.new(OAUTH_CREDENTIALS[:token], OAUTH_CREDENTIALS[:secret], { :site => OAUTH_CREDENTIALS[:site] })
-    end
-
-    def load_access_token
-      if current_user && @account
-        # Use the current user's access token whenever posssible to keep the best records of who's doing what in the Hot Ink logs
-        @account.access_token = OAuth::AccessToken.new(get_consumer, current_user.oauth_token.token, current_user.oauth_token.secret)
-        logger.info "Using current user's access token."
-      elsif @account && @account.users.first
-        logger.info "User token belonging to #{@account.users.first.id.to_s}"
-        @account.access_token = OAuth::AccessToken.new(get_consumer, @account.users.first.oauth_token.token, @account.users.first.oauth_token.secret)
-        logger.info "Token: #{@account.access_token.token.to_s}"
-      else
-        logger.info "No access token for this request. No users on account #{@account.id.to_s}"
-      end
+     #logger.info session.inspect
+     if session[:sso] && session[:sso][:user_id]
+       if (session[:sso][:is_admin?]=='true')||(session[:sso]["account_#{@account.account_resource_id.to_s}_manager".to_sym]=='true')
+         logger.info session[:sso].inspect
+         true
+       else
+         render :text => "unauthorized!", :status => 401
+         return
+       end
+     else
+       redirect_to "/sso/login?return_to=#{request.request_uri}"
+       false
+     end
     end
     
     # This method loads widget data for public templates

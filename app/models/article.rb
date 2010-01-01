@@ -22,5 +22,9 @@ class Article < ActiveResource::Base
   def images
     self.mediafiles.select{|mediafile| mediafile.mediafile_type == "Image"}
   end
+  
+  def comments
+    Comment.find(:all, :conditions => { :content_id => id, :content_type => "Article"})
+  end
 
 end

@@ -12,43 +12,48 @@
 	
 	<div id="control_panel">
 		<div id="front_page_control" class="clearfix">
-			<h2>Current front page</h2><% if @account.current_design %><% if @account.current_front_page %><%= button_link_to "Edit current front page", edit_account_front_page_path(@account, @account.current_front_page), :class=>"small primary pill-l" %><%= button_link_to_remote "New front page", :url => new_account_front_page_path(@account), :method => :get, :html => { :class => "pill-r" }  %><% else %><%= button_link_to_remote "New front page", :url => new_account_front_page_path(@account), :method => :get %><% end %><% end %>
-			<% if @account.current_front_page.blank? %>
-				<h3 style="margin-left: 60px;">No current front page</h3>
-				<div class="column_holder" style="width: 100%; float: left; clear: left;">
+			<% if @account.current_design %>
+				<h2>Current front page</h2><% if @account.current_front_page %><%= button_link_to "Edit current front page", edit_account_front_page_path(@account, @account.current_front_page), :class=>"small primary pill-l" %><%= button_link_to_remote "New front page draft", :url => new_account_front_page_path(@account), :method => :get, :html => { :class => "pill-r" }  %><% else %><%= button_link_to_remote "New front page draft", :url => new_account_front_page_path(@account), :method => :get %><% end %>
+				<% if @account.current_front_page.blank? %>
+					<h3 style="margin-left: 60px;">No current front page</h3>
+					<div class="column_holder" style="width: 100%; float: left; clear: left;">
+				<% else %>
+					<div class="column_holder" style="width: 100%; float: left; clear: left;">
+					  <% unless @account.current_front_page.name.blank? %>
+						<div class="third_column left_column">
+							<h3>Name</h3>
+						</div>
+						<div class="two_thirds_column right_column">
+							<p><%= @account.current_front_page.name %></p>
+						</div>
+					  <% end %>
+						<div class="third_column left_column">
+							<h3>Live since</h3>
+						</div>
+						<div class="two_thirds_column right_column">
+							<p style="color: purple;"><%= "#{@account.current_press_run.updated_at.to_s(:standard)} (#{time_ago_in_words(@account.current_press_run.updated_at)} ago)" %></p>
+						</div>
+						<div class="third_column left_column">
+							<h3>Last updated</h3>
+						</div>
+						<div class="two_thirds_column right_column">
+							<% if @account.current_front_page.updated_at > 7.days.ago %>
+							<p style="color: green;"><%= "#{@account.current_front_page.updated_at.to_s(:standard)} (#{time_ago_in_words(@account.current_front_page.updated_at)} ago)" %></p>
+							<% else %>
+							<p style="color: red;"><%= @account.current_front_page.updated_at.to_s(:standard) %></p>
+							<% end %>
+						</div>
+						<div class="third_column left_column">
+							<h3>Template</h3>
+						</div>
+						<div class="two_thirds_column right_column">
+							<p><%= link_to @account.current_front_page.template.name, edit_account_design_template_path(@account, @account.current_design, @account.current_front_page.template) if @account.current_design %>
+							</p>
+						</div>
+				<% end %>
 			<% else %>
-				<div class="column_holder" style="width: 100%; float: left; clear: left;">
-				  <% unless @account.current_front_page.name.blank? %>
-					<div class="third_column left_column">
-						<h3>Name</h3>
-					</div>
-					<div class="two_thirds_column right_column">
-						<p><%= @account.current_front_page.name %></p>
-					</div>
-				  <% end %>
-					<div class="third_column left_column">
-						<h3>Live since</h3>
-					</div>
-					<div class="two_thirds_column right_column">
-						<p style="color: purple;"><%= "#{@account.current_press_run.updated_at.to_s(:standard)} (#{time_ago_in_words(@account.current_press_run.updated_at)} ago)" %></p>
-					</div>
-					<div class="third_column left_column">
-						<h3>Last updated</h3>
-					</div>
-					<div class="two_thirds_column right_column">
-						<% if @account.current_front_page.updated_at > 7.days.ago %>
-						<p style="color: green;"><%= "#{@account.current_front_page.updated_at.to_s(:standard)} (#{time_ago_in_words(@account.current_front_page.updated_at)} ago)" %></p>
-						<% else %>
-						<p style="color: red;"><%= @account.current_front_page.updated_at.to_s(:standard) %></p>
-						<% end %>
-					</div>
-					<div class="third_column left_column">
-						<h3>Template</h3>
-					</div>
-					<div class="two_thirds_column right_column">
-						<p><%= link_to @account.current_front_page.template.name, edit_account_design_template_path(@account, @account.current_design, @account.current_front_page.template) if @account.current_design %>
-						</p>
-					</div>
+			<h2>This site is currently <em>offline</em></h2><%= button_link_to_remote "New front page draft", :url => new_account_front_page_path(@account), :method => :get %>
+			<div class="column_holder" style="width: 100%; float: left; clear: left;">
 			<% end %>
 			<div class="third_column left_column">
 				<h3>Drafts</h3>

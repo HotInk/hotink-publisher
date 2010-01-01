@@ -60,19 +60,6 @@ class Account < ActiveRecord::Base
       @current_press_run = self.press_runs.find(:first, :order => "created_at DESC")
     end      
   end  
-
-  # Only make the Resource reload when absolutely necessart
-  def account_resource(reload = false)
-    unless reload
-      @account_resource ||= AccountResource.find(self.account_resource_id, :as => self.access_token)
-    else
-      @account_resource = AccountResource.find(self.account_resource_id, :as => self.access_token)
-    end
-  end
-
-  # def articles
-  #   Article.find(:all, :params => {:account_id => self.account_resource_id})
-  # end
   
   def sections
     Rails.cache.fetch([self.cache_key, '/sections'], :expires_in => 10.minutes) do
@@ -92,14 +79,6 @@ class Account < ActiveRecord::Base
   # hack for HyperactiveResource
   def nested
     false
-  end
-  
-  def account_resource
-    if self.account_resource_id
-      @account ||= AccountResource.find(self.account_resource_id, :as => self.access_token) 
-    else
-      @account ||= AccountResource.find(self.id, :as => self.access_token)
-    end
   end
   
   def cache_key

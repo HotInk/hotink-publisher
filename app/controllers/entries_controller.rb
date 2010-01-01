@@ -6,6 +6,7 @@ class EntriesController < ApplicationController
   before_filter :require_design  
   before_filter :find_template
   before_filter :build_registers
+  before_filter :load_widget_data
   before_filter :create_brain_buster, :only => [:show]
     
   def show

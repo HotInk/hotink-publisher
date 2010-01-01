@@ -18,10 +18,6 @@ class Comment < ActiveRecord::Base
   def account
     Account.find(self.account_id)
   end
-  
-  # def article
-  #   Article.find(self.content_id, :params => {:account_id => self.account_id})
-  # end
     
   def Comment.clear_all_flags(account_id)
     @comments = Comment.find(:all, :conditions => {:account_id => account_id})

@@ -66,11 +66,6 @@ class CommentsController < ApplicationController
     @comment.account_id = @account.id
     @comment.ip = request.remote_ip
     
-    if facebook_session
-      @comment.type = "FacebookComment"
-      @comment.fb_user_id = facebook_session.user.id
-    end
-    
     if @comment.spam?
       @comment.spam = true
     end
