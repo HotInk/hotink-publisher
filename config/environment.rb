@@ -22,7 +22,7 @@ Rails::Initializer.run do |config|
 
   config.gem 'oauth'
   config.gem "nokogiri"
-  
+  config.gem 'sinatra'
   config.gem "rdiscount",
              :lib    => "rdiscount",
              :source => "http://gems.github.com"
