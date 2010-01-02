@@ -8,9 +8,6 @@ require 'openid/store/filesystem'
 gem 'rack-openid', '>=0.2'
 require 'rack/openid'
 
-gem 'haml', '~>2.0.9'
-require 'haml'
-
 require 'tmpdir'
 
 require File.dirname(__FILE__)+'/keymaster/helpers/rack'

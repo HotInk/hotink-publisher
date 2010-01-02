@@ -22,7 +22,12 @@ Rails::Initializer.run do |config|
 
   config.gem 'oauth'
   config.gem "nokogiri"
+  
+  
+  # SSO gems
   config.gem 'sinatra'
+  config.gem 'rack-openid'
+  
   config.gem "rdiscount",
              :lib    => "rdiscount",
              :source => "http://gems.github.com"
