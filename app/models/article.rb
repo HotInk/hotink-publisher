@@ -31,4 +31,9 @@ class Article < ActiveResource::Base
     Comment.find(:all, :conditions => { :content_id => id, :content_type => "Article"})
   end
 
+  class Category < Section
+    class Child < Section
+    end
+  end
+
 end
