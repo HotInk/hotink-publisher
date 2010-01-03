@@ -2,7 +2,7 @@ class Article < ActiveResource::Base
   
   self.site = HOTINK_SETTINGS[:site]
   self.prefix = "/accounts/:account_id/"
-  
+    
   def self.find_by_ids(ids=[], options={})
     find(:all, :params => { :ids => ids, :account_id => options[:account_id] })
   end
