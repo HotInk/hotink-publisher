@@ -10,7 +10,7 @@
 # Chris D's office iMac dev cred
 #OAUTH_CREDENTIALS = { :token => "HdLS8aGol4BKblPnR8xNA", :secret => "mVMjBHaCZd4bztcN5ANjFdqm10G94Ia529eK3Q2Lc", :site => "http://hotink.theorem.ca"  }
 
-#ActiveSupport::XmlMini.backend='Nokogiri'
+ActiveSupport::XmlMini.backend='Nokogiri'
 
 
 OpenID::Util.logger = RAILS_DEFAULT_LOGGER
