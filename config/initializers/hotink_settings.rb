@@ -10,6 +10,6 @@
 # Chris D's office iMac dev cred
 #OAUTH_CREDENTIALS = { :token => "HdLS8aGol4BKblPnR8xNA", :secret => "mVMjBHaCZd4bztcN5ANjFdqm10G94Ia529eK3Q2Lc", :site => "http://hotink.theorem.ca"  }
 
-ActiveSupport::XmlMini.backend='Nokogiri'
+#ActiveSupport::XmlMini.backend='Nokogiri'
 
-HOTINK_SETTINGS = { :site => "http://hotink.theorem.ca" }
+HOTINK_SETTINGS = { :site => "http://0.0.0.0:3000" }
