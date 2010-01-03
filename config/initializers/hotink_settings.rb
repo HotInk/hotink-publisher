@@ -12,4 +12,6 @@
 
 #ActiveSupport::XmlMini.backend='Nokogiri'
 
+
+OpenID::Util.logger = RAILS_DEFAULT_LOGGER
 HOTINK_SETTINGS = { :site => "http://hotink.theorem.ca" }
