@@ -12,4 +12,4 @@
 
 #ActiveSupport::XmlMini.backend='Nokogiri'
 
-HOTINK_SETTINGS = { :site => "http://0.0.0.0:3000" }
+HOTINK_SETTINGS = { :site => "http://hotink.theorem.ca" }
