@@ -32,7 +32,7 @@ class SearchesController < ApplicationController
     end
 
     unless schema_ids.blank?  
-      article_resources = Article.find_by_ids(schema_ids.reject{ |i| i.blank? }, :params => { :account_id => @account.account_resource_id })
+      article_resources = Article.find_by_ids(schema_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id)
 
       widget_data = {}
       schema_articles = {}
