@@ -13,7 +13,7 @@ class ArticlesController < ApplicationController
   # informative way.
   def show
     
-    @article = Article.find(:one, :from => "/accounts/1/articles/#{params[:id]}.xml", :params => { :account_id => @account.account_resource_id })
+    @article = Article.find(:one, :from => "/accounts/1/articles/#{params[:id]}.xml")
     
     @registers[:form_authenticity_token] = self.form_authenticity_token
     @registers[:captcha_id] = @captcha.id
