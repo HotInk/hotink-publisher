@@ -5,7 +5,7 @@ class DesignImportsController < ApplicationController
   end
   
   def create
-    if current_user.account.id == 1
+    if session[:sso][:is_admin?]
       @design = Design.new
       @design_to_import = Design.find_by_id(params[:design_id])
       @design.attributes = @design_to_import.attributes
