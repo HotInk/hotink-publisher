@@ -25,12 +25,30 @@ module Keymaster
               if contact_id = openid.display_identifier.split("/").last
                 sreg_params = openid.message.get_args("http://openid.net/extensions/sreg/1.1")
                 sso_login_as(contact_id, sreg_params)
+                
                 if session['sso_return_to']
-                  redirect session['sso_return_to']
-                  session['sso_return_to'] = nil
+                  begin
+                    return_url = URI.parse(session['sso_return_to'])
+                    
+                    unless return_url.host==request.host
+                      user_token = UserToken.create!(:user_id => sso_user_id)
+                      if return_url.query==nil
+                        return_url.query = "user_token=#{user_token.token}"
+                      else
+                        return_url.query = "user_token=#{user_token.token}&#{return_url.query}"
+                      end
+                    end
+                    
+                    redirect return_url.to_s   
+                  rescue
+                    redirect '/'
+                  ensure
+                    session['sso_return_to'] = nil
+                  end
                 else
                   redirect '/'
                 end
+              
               else
                 raise "No contact could be found for #{openid.display_identifier}"
               end

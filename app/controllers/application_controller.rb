@@ -12,8 +12,7 @@ class ApplicationController < ActionController::Base
   # before_filter :set_facebook_session
   # helper_method :facebook_session
 
-  before_filter :find_account
-  before_filter :require_user
+  before_filter :load_user_from_token, :find_account, :require_user
   
   protected
     
@@ -39,7 +38,16 @@ class ApplicationController < ActionController::Base
         nil
       end
     end
-  
+
+    def load_user_from_token
+      if params[:user_token]
+        token = UserToken.find_by_token(params[:user_token])
+        session[:sso] = {}
+        session[:sso][:user_id] = token.user_id if token
+        logger.info "Loaded user ##{token.user_id} with #{token.token}"
+      end
+    end
+    
   private
   
     def find_account
