@@ -1,7 +1,6 @@
 module Keymaster
   module Client
     class DefaultMiddleware < ::Sinatra::Base
-      enable :sessions
       enable :raise_errors
       disable :show_exceptions
 

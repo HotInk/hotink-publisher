@@ -3,6 +3,9 @@
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
+# Important instance settings
+HOTINK_SETTINGS = { :site => "http://0.0.0.0:3000", :session_key => '_hotink_publisher_session', :session_secret => '22kj78a11a301f15f2b366a2f57abc05c7a3f8bbc0e3bcb437a22527ddbfeeada8586bffa9b5bb1ab0vgt6ea59977c5d9e5f5a234705d4d2f9db28d1cdeb8fd' }
+
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
@@ -45,6 +48,11 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+
+  config.action_controller.session = {
+    :session_key => HOTINK_SETTINGS[:session_key],
+    :secret      => HOTINK_SETTINGS[:session_secret]
+  }
 
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.

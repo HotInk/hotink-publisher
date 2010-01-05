@@ -17,9 +17,8 @@ class ApplicationController < ActionController::Base
   protected
     
     def require_user
-     #logger.info session.inspect
      if session[:sso] && session[:sso][:user_id]
-       if (session[:sso][:is_admin?]=='true')||(session[:sso]["account_#{@account.account_resource_id.to_s}_manager".to_sym]=='true')
+       if ((session[:sso][:is_admin?]=='true')||(session[:sso]["account_#{@account.account_resource_id.to_s}_manager".to_sym]=='true'))
          true
        else
          render :text => "unauthorized!", :status => 401
@@ -32,7 +31,9 @@ class ApplicationController < ActionController::Base
     end
     
     def current_user_id
-      if session[:sso] && session[:sso][:user_id]
+      if session[:reader_id]
+        return session[:reader_id]
+      elsif session[:sso] && session[:sso][:user_id]
         return session[:sso][:user_id]
       else
         nil
@@ -42,9 +43,8 @@ class ApplicationController < ActionController::Base
     def load_user_from_token
       if params[:user_token]
         token = UserToken.find_by_token(params[:user_token])
-        session[:sso] = {}
-        session[:sso][:user_id] = token.user_id if token
-        logger.info "Loaded user ##{token.user_id} with #{token.token}"
+        session[:reader_id] = token.user_id if token
+        logger.info "Loaded user ##{session[:reader_id]} with #{token.token}"
       end
     end
     
