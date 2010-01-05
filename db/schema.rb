@@ -138,9 +138,9 @@ ActiveRecord::Schema.define(:version => 20100105010947) do
   end
 
   create_table "oauth_tokens", :force => true do |t|
-    t.string   "token",      :null => false
-    t.string   "secret",     :null => false
-    t.string   "token_type", :null => false
+    t.string   "token",      :default => "", :null => false
+    t.string   "secret",     :default => "", :null => false
+    t.string   "token_type", :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -268,10 +268,10 @@ ActiveRecord::Schema.define(:version => 20100105010947) do
   add_index "user_tokens", ["token"], :name => "index_user_tokens_on_token"
 
   create_table "users", :force => true do |t|
-    t.string   "persistence_token",                 :null => false
-    t.string   "oauth_token_id",                    :null => false
-    t.integer  "login_count",        :default => 0, :null => false
-    t.integer  "failed_login_count", :default => 0, :null => false
+    t.string   "persistence_token",  :default => "", :null => false
+    t.string   "oauth_token_id",     :default => "", :null => false
+    t.integer  "login_count",        :default => 0,  :null => false
+    t.integer  "failed_login_count", :default => 0,  :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
