@@ -1,5 +1,5 @@
 set :application, "hotink_publisher"
-set :branch, "managed_views"
+set :branch, "master"
 set :repository,  "git://github.com/HotInk/hotink-publisher.git"
 
 
