@@ -22,10 +22,10 @@ describe FrontPageTemplate do
     
     design_layout = Factory(:layout)
     template.design.default_layout = design_layout
-    template.render.should == design_layout.parsed_code.render({ 'page_contents' => template.parsed_code.render })
+    template.render.should == design_layout.parsed_code.render({ 'page_content' => template.parsed_code.render })
     
     template_layout = Factory(:layout)
     template.layout = template_layout
-    template.render.should == template_layout.parsed_code.render({ 'page_contents' => template.parsed_code.render })
+    template.render.should == template_layout.parsed_code.render({ 'page_content' => template.parsed_code.render })
   end
 end
