@@ -55,8 +55,17 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   
   # Mediafiles
   
+  def attached_media
+    source.mediafiles
+  end
+  
+  # This method is deprecated. Use ArticleDrop#attached_media instead
   def mediafiles
     source.mediafiles
+  end
+  
+  def files
+    source.mediafiles.select{ |a| a.mediafile_type == "Mediafile" }
   end
   
   def images

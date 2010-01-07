@@ -48,12 +48,22 @@ describe Liquid::ArticleDrop do
     output.should == " #{@article.url} "
   end
   
-  it "should return the article's mediafiles" do
+  it "should return the article's attached media" do
     article_with_mediafiles = Factory(:article, :mediafiles => (1..3).collect{ Factory(:mediafile) } )
-    output = Liquid::Template.parse( ' {% for mediafile in article.mediafiles %} {{ mediafile.title }} {% endfor %} '  ).render('article' => Liquid::ArticleDrop.new(article_with_mediafiles))
+    output = Liquid::Template.parse( ' {% for mediafile in article.attached_media %} {{ mediafile.title }} {% endfor %} '  ).render('article' => Liquid::ArticleDrop.new(article_with_mediafiles))
     
     titles = article_with_mediafiles.mediafiles.collect{ |m| m.title }
     output.should == "  #{titles.join('  ')}  "
+  end
+
+  it "should return files that are neither images nor audiofiles" do
+    images = (1..3).collect{ Factory(:image) }
+    files = (1..3).collect{ Factory(:mediafile) }
+    article_with_mediafiles = Factory(:article, :mediafiles => images + files)
+    
+    output = Liquid::Template.parse( ' {% for file in article.files %} {{ file.title }} {% endfor %} '  ).render('article' => Liquid::ArticleDrop.new(article_with_mediafiles))
+    output.should == "  #{files.collect{ |m| m.title }.join('  ')}  "
+    
   end
 
   it "should return the article's images" do
