@@ -62,7 +62,7 @@ module Keymaster
         end
 
         app.get '/sso/logout' do
-          session.clear
+          session[:sso] = nil
           redirect "#{options.sso_url}/logout"
         end
       end
