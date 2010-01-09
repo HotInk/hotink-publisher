@@ -10,7 +10,7 @@ class Sso < Sinatra::Base
   
   # Log out from alternate account domain
   get "/accounts/:id/logout" do
-    session.clear
+    session[:sso] = nil
     redirect "/"
   end
 end
