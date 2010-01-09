@@ -7,4 +7,10 @@ class Sso < Sinatra::Base
   use Keymaster::Client::Middleware do |sso|
     sso.sso_url = "#{HOTINK_SETTINGS[:site]}/sso"
   end
+  
+  # Log out from alternate account domain
+  get "/accounts/:id/logout" do
+    session.clear
+    redirect "/sso/logout"
+  end
 end
