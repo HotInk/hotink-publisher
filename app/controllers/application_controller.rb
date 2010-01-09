@@ -45,6 +45,7 @@ class ApplicationController < ActionController::Base
         token = UserToken.find_by_token(params[:user_token])
         session[:reader_id] = token.user_id if token
         logger.info "Loaded user ##{session[:reader_id]} with #{token.token}"
+        token.destroy
       end
     end
     
