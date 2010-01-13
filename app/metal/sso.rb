@@ -4,7 +4,7 @@ require 'sinatra/base'
 require 'logger'
 
 class Sso < Sinatra::Base
-  use Keymaster::Client::Middleware do |sso|
+  use Gatekeeper::Client::Middleware do |sso|
     sso.sso_url = "#{HOTINK_SETTINGS[:site]}/sso"
   end
   

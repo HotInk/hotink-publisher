@@ -30,6 +30,7 @@ Rails::Initializer.run do |config|
   # SSO gems
   config.gem 'sinatra'
   config.gem 'rack-openid', :lib => 'rack/openid'
+  config.gem 'gatekeeper'
   
   config.gem "rdiscount",
              :lib    => "rdiscount",
