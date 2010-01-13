@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
  
   include ApplicationHelper
+  include Gatekeeper::Helpers::Authentication
   #protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
@@ -17,8 +18,8 @@ class ApplicationController < ActionController::Base
   protected
     
     def require_user
-     if session[:sso] && session[:sso][:user_id]
-       if ((session[:sso][:is_admin?]=='true')||(session[:sso]["account_#{@account.account_resource_id.to_s}_manager".to_sym]=='true'))
+     if current_user
+       if (is_admin?||is_manager_for?(@account.account_resource_id))
          true
        else
          render :text => "unauthorized!", :status => 401
@@ -33,7 +34,7 @@ class ApplicationController < ActionController::Base
     def current_user_id
       if session[:reader_id]
         return session[:reader_id]
-      elsif session[:sso] && session[:sso][:user_id]
+      elsif current_user
         return session[:sso][:user_id]
       else
         nil
