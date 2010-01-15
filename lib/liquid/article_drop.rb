@@ -23,6 +23,10 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     end
   end
   
+  def word_count
+    source.wordcount
+  end
+  
   # Article date methods
   def published_at
     Time.parse(source.published_at).to_s(:standard).gsub(' ', '&nbsp;')
