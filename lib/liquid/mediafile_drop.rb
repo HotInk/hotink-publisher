@@ -28,6 +28,10 @@ class Liquid::MediafileDrop < Liquid::BaseDrop
     end
   end
   
+  def file_size
+    source.original_file_size
+  end
+  
   # Image specific
     
   def is_vertical?
