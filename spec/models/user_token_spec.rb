@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UserToken do
   before do
-    @user_token = UserToken.create!(:user_id =>1)
+    @user_token = UserToken.create!(:user_id =>1, :email =>"test@testaddress.com")
   end
   
   it "should generate a onetime-use authorization token" do

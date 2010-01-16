@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   protected
     
     def require_user
-     if current_user
+     if current_user?
        if (is_admin?||is_manager_for?(@account.account_resource_id))
          true
        else
@@ -31,20 +31,38 @@ class ApplicationController < ActionController::Base
      end
     end
     
+    def reader?
+      session[:reader] && !session[:reader][:id].nil?
+    end
+    
     def current_user_id
-      if session[:reader_id]
-        return session[:reader_id]
-      elsif current_user
+      if reader?
+        return session[:reader][:id]
+      elsif current_user?
         return session[:sso][:user_id]
       else
         nil
       end
     end
-
+    
+    def current_user
+      if reader?
+        return User.new(:user_id => session[:reader][:id], :email => session[:reader][:email])
+      elsif current_user?
+        return User.new(:user_id => session[:sso][:user_id], :email => session[:sso][:email])
+      else
+        nil
+      end
+    end
+    
     def load_user_from_token
       if params[:user_token]
         token = UserToken.find_by_token(params[:user_token])
-        session[:reader_id] = token.user_id if token
+        if token
+          session[:reader] ||= {}
+          session[:reader][:id] ||= token.user_id
+          session[:reader][:email] ||= token.email
+        end
         logger.info "Loaded user ##{session[:reader_id]} with #{token.token}"
         token.destroy
       end
@@ -79,7 +97,7 @@ class ApplicationController < ActionController::Base
     end
     
     def find_template
-      if params[:design_id] && current_user_id
+      if params[:design_id] && current_user?
         @current_template = @account.designs.find(params[:design_id]).templates.find_by_role("#{controller_name}/#{action_name}")
         @account.url = "/accounts/#{@account.account_resource_id}/designs/#{params[:design_id]}"
       else
