@@ -24,7 +24,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   end
   
   def word_count
-    source.wordcount
+    source.word_count
   end
   
   # Article date methods
