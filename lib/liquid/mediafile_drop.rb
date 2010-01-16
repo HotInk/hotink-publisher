@@ -18,6 +18,17 @@ class Liquid::MediafileDrop < Liquid::BaseDrop
     source.authors_list
   end
   
+  def image?
+    source.mediafile_type == "Image"
+  end
+  
+  def audiofile?
+    source.mediafile_type == "Audiofile"
+  end
+  
+  def file?
+    source.mediafile_type == "Mediafile"
+  end
   # Mediafile-specific
   
   def url
