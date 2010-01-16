@@ -33,7 +33,7 @@ class FrontPagesController < ApplicationController
 
     @registers[:widget_data] = @front_page.template.parsed_widget_data(schema_articles)
     
-    render :text => @front_page.render(@front_page.sorted_schema_articles(schema_articles).merge('newspaper' => @newspaper), :registers => @registers )
+    render :text => @front_page.render(@front_page.sorted_schema_articles(schema_articles).merge({'newspaper' => @newspaper, 'current_user' => current_user}), :registers => @registers )
   end
 
   # GET /front_pages/new

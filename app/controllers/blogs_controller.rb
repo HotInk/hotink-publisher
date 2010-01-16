@@ -15,7 +15,7 @@ class BlogsController < ApplicationController
     @registers[:design] = @current_template.design
     @registers[:account] = @account
 
-    render :text => @current_template.render({'blogs' => @blogs, 'newspaper' => @newspaper}, :registers => @registers )
+    render :text => @current_template.render({'blogs' => @blogs, 'newspaper' => @newspaper, 'current_user' => current_user}, :registers => @registers )
   end
   
 
@@ -27,7 +27,7 @@ class BlogsController < ApplicationController
     @entries = Entry.paginate( :params => { :blog_id => @blog.id, :account_id => @account.account_resource_id, :page => page, :per_page => per_page })
     @entries_pagination = { 'current_page' => @entries.current_page, 'per_page' => @entries.per_page, 'total_entries' => @entries.total_entries }
 
-    render :text => @current_template.render({'blog' => @blog, 'entries' => @entries, 'entries_pagination' => @entries_pagination, 'newspaper' => @newspaper}, :registers => @registers )
+    render :text => @current_template.render({'blog' => @blog, 'entries' => @entries, 'entries_pagination' => @entries_pagination, 'newspaper' => @newspaper, 'current_user' => current_user}, :registers => @registers )
   end
 
 end

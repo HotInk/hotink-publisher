@@ -25,7 +25,7 @@ class SectionsController < ApplicationController
     @articles = Article.paginate(:all, :params => { :page => page, :per_page => per_page, :account_id => @account.account_resource_id, :section_id => @section.id })
     @articles_pagination = { 'current_page' => @articles.current_page, 'per_page' => @articles.per_page, 'total_entries' => @articles.total_entries }
 
-    render :text => @current_template.render({'current_section' => @section, 'articles' => @articles.to_a, 'articles_pagination' => @articles_pagination, 'newspaper' => @newspaper}, :registers => @registers)
+    render :text => @current_template.render({'current_section' => @section, 'articles' => @articles.to_a, 'articles_pagination' => @articles_pagination, 'newspaper' => @newspaper, 'current_user' => current_user}, :registers => @registers)
   end
 
 end

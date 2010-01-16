@@ -43,7 +43,7 @@ class IssuesController < ApplicationController
       @registers[:account] = @account
       @registers[:design] = @current_template.design if @current_template.design
 
-      render :text => @current_template.render({'issue' => @issue, 'articles' => @articles, 'newspaper' => @newspaper}, :registers => @registers )
+      render :text => @current_template.render({'issue' => @issue, 'articles' => @articles, 'newspaper' => @newspaper, 'current_user' => current_user}, :registers => @registers )
   end
     
   def index
@@ -87,7 +87,7 @@ class IssuesController < ApplicationController
     @registers[:account] = @account
     @registers[:design] = @current_template.design if @current_template.design
 
-    render :text => @current_template.render({'issues' => @issues.to_a, 'issues_pagination' => @issues_pagination,  'newspaper' => @newspaper}, :registers => @registers )
+    render :text => @current_template.render({'issues' => @issues.to_a, 'issues_pagination' => @issues_pagination,  'newspaper' => @newspaper, 'current_user' => current_user}, :registers => @registers )
   end
 
 end

@@ -21,6 +21,6 @@ class EntriesController < ApplicationController
     # Set design register here, in case the user has specified one other than the current.
     @registers[:design] = @current_template.design
  
-    render :text => @current_template.render({'entry' => @entry, 'blog' => @blog, 'newspaper' => @newspaper}, :registers => @registers )
+    render :text => @current_template.render({'entry' => @entry, 'blog' => @blog, 'newspaper' => @newspaper, 'current_user' => current_user}, :registers => @registers )
   end
 end

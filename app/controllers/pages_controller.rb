@@ -31,7 +31,7 @@ class PagesController < ApplicationController
       end
     end
 
-    render :text => @current_template.render({'page' => @page, 'newspaper' => @newspaper}, :registers => @registers )
+    render :text => @current_template.render({'page' => @page, 'newspaper' => @newspaper, 'current_user' => current_user}, :registers => @registers )
     
   end
   
