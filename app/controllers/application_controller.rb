@@ -1,22 +1,14 @@
-# Filters added to this controller apply to all controllers in6 the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
  
   include ApplicationHelper
   include Gatekeeper::Helpers::Authentication
   #protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  # Scrub sensitive parameters from your log
-  # filter_parameter_logging :passwcord
-
-  # before_filter :set_facebook_session
-  # helper_method :facebook_session
-
   before_filter :load_user_from_token, :find_account, :require_user
   
-  protected
+  private
     
+    #This before filter is called on all requests unless specifically skipped.
     def require_user
      if current_user?
        if (is_admin?||is_manager_for?(@account.account_resource_id))
@@ -67,9 +59,7 @@ class ApplicationController < ActionController::Base
         token.destroy
       end
     end
-    
-  private
-  
+      
     def find_account
       begin
         if params[:account_id]
@@ -101,13 +91,15 @@ class ApplicationController < ActionController::Base
         @current_template = @account.designs.find(params[:design_id]).templates.find_by_role("#{controller_name}/#{action_name}")
         @account.url = "/accounts/#{@account.account_resource_id}/designs/#{params[:design_id]}"
       else
-        @current_template = @account.current_design.templates.find_by_role("#{controller_name}/#{action_name}")
+        @current_template = Template.find_by_role("#{controller_name}/#{action_name}", :conditions => { :account_id => @account.id, :design_id => @account.current_design.id })
       end
       raise ActiveRecord::RecordNotFound unless @current_template
       rescue
         zissou
     end
     
+    # A before filter that prevents a site from displaying unless the loaded account has a current_design,
+    # must be called following find_account in the before filter chain.
     def require_design
       unless @account && @account.current_design
         render :text => "This site is currently offline", :status => 503    
@@ -124,7 +116,6 @@ class ApplicationController < ActionController::Base
         
     def set_liquid_variables      
       @newspaper = Liquid::NewspaperDrop.new(@account)
-      @site = Liquid::SiteDrop.new(self)
     end
 
     # This method loads widget data for public templates

@@ -88,9 +88,19 @@ Factory.sequence :article_title do |n|
   "The truth about \##{n}"
 end
 
+Factory.define :section, :default_strategy => :build do |s|
+  s.sequence(:name) { |n| "Section \##{n}" }
+  s.sequence(:position) { |n| n }
+  s.sequence(:id) { |n| n }
+  s.children []
+end
+
+Factory.define :section_with_subcategories, :default_strategy => :build, :parent => :section do |s|
+  s.children { |p| (1..3).collect { Factory(:section, :parent_id => p.attributes[:id]) } }
+end
+
 Factory.define :author do |a|
   a.sequence(:name) { |n| "Author ##{n}" }
-  #a.account { Factory(:account) }
 end
 
 Factory.define :account do |a|
@@ -135,6 +145,11 @@ end
 Factory.define :press_run do |f|
   f.account   { Factory(:account) }
   f.front_page { |g| Factory(:front_page, :account => g.account) }
+end
+
+Factory.define :redesign do |f|
+  f.account   { Factory(:account) }
+  f.design { |g| Factory(:design, :account => g.account) }
 end
 
 Factory.define :account do |a|
