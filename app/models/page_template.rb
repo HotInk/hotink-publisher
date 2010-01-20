@@ -17,9 +17,9 @@ class PageTemplate < Template
   
   def render(options={}, registers={})
     if current_layout
-      current_layout.parsed_code.render(options.merge({'page_content' => parsed_code.render(options, registers)}), registers)
+      current_layout.render(options.merge({'page_content' => Marshal.load(parsed_code).render(options, registers)}), registers)
     else
-      parsed_code.render(options, registers)
+      Marshal.load(parsed_code).render(options, registers)
     end
   end
   

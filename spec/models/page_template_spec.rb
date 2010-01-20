@@ -19,15 +19,15 @@ describe PageTemplate do
   
   it "should render with the appropriate layout" do
     template = Factory(:page_template)
-    template.render.should == template.parsed_code.render
+    template.render.should == Marshal.load(template.parsed_code).render
     
     design_layout = Factory(:layout)
     template.design.default_layout = design_layout
-    template.render.should == design_layout.parsed_code.render({ 'page_content' => template.parsed_code.render })
+    template.render.should == design_layout.render({ 'page_content' => Marshal.load(template.parsed_code).render })
     
     template_layout = Factory(:layout)
     template.layout = template_layout
-    template.render.should == template_layout.parsed_code.render({ 'page_content' => template.parsed_code.render })
+    template.render.should == template_layout.render({ 'page_content' => Marshal.load(template.parsed_code).render })
   end
   
 end
