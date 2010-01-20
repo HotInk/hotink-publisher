@@ -57,13 +57,11 @@ class TemplatesController < ApplicationController
       @tplate = @design.page_templates.build(model_params)
     end
     
+    @tplate.save
+    flash[:notice] = 'Template was successfully created.'
+    
     respond_to do |format|
-      if @tplate.save
-        flash[:notice] = 'Template was successfully created.'
-        format.html { redirect_to edit_account_design_template_path(@account, @design, @tplate) }
-      else
-        format.html { render :action => "new" }
-      end
+      format.html { redirect_to edit_account_design_template_path(@account, @design, @tplate) }
     end
     
   rescue Liquid::SyntaxError => e
@@ -90,13 +88,10 @@ class TemplatesController < ApplicationController
      end
     end
     
+    @tplate.update_attributes(params[@tplate.class.name.underscore.to_sym])
+    flash[:notice] = 'Template was successfully updated.'
     respond_to do |format|
-      if @tplate.update_attributes(params[@tplate.class.name.underscore.to_sym])
-        flash[:notice] = 'Template was successfully updated.'
-        format.html { redirect_to( account_design_url(@account,@design) ) }
-      else
-        format.html { render :action => "edit" }
-      end
+      format.html { redirect_to( account_design_url(@account,@design) ) }
     end
     
   rescue Liquid::SyntaxError => e
