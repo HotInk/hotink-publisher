@@ -2,14 +2,30 @@ class Template < ActiveRecord::Base
   belongs_to :design
   validates_presence_of :design
   
-  has_many :widget_placements
+  has_many :widget_placements, :dependent => :destroy
   has_many :widgets, :through => :widget_placements
   
+  before_save :parse_code
   
   acts_as_versioned
+  
+  def name
+    return read_attribute('name') unless read_attribute('name').blank?
+    "(Unnamed template)"
+  end
+
+  # A before filter to parse the Liquid template stored in self.code
+  def parse_code
+    write_attribute(:parsed_code, Marshal::dump(Liquid::Template.parse(self.code)))
+  end
+  
+  # Render parsed Liquid template code
+  def render(options=nil)
+    parsed_code = Marshal::load(read_attribute(:parsed_code))
+    parsed_code.render(options)
+  end 
     
-  # Returns an array of the ids of all articles used in widgets 
-  # or used in template code.
+  # Returns an array of the ids of all articles used in widgets.
   def required_article_ids
     data_ids = []
     self.all_widgets.each do |widget|
@@ -41,20 +57,5 @@ class Template < ActiveRecord::Base
     end
     widget_articles
   end
-  
-  def name
-    return read_attribute('name') unless read_attribute('name').blank?
-    "(Unnamed template)"
-  end
-  
-  #You gotta parse in the controller. Here to save you have to...serialize.
-  #serialize :parsed_code, Liquid::Template
-  def parsed_code=(parsed_liquid_template)
-    write_attribute(:parsed_code, Marshal::dump(parsed_liquid_template))
-  end
-  
-  def parsed_code
-    @parsed_code ||= Marshal::load( read_attribute(:parsed_code) )
-  end
-  
+    
 end

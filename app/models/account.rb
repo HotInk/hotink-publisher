@@ -1,7 +1,5 @@
 class Account < ActiveRecord::Base
-  
-  has_many :users
-  
+    
   has_many :front_pages, :conditions => { :active => true }, :dependent => :destroy
   has_many :press_runs, :dependent => :destroy
   
@@ -15,20 +13,6 @@ class Account < ActiveRecord::Base
   
   validates_presence_of :account_resource_id
     
-  attr_accessor :access_token
-  # has_many :articles
-  
-  def initialize(options={})
-    if options[:id]
-      resource_id = options.delete(:id)
-      super(options.merge({:account_resource_id => resource_id}))
-    else
-      super(options)
-    end
-  end
-  
-  # Load the current design and front page from the latest redesign and 
-  # press run respectively.
   def current_design 
     if current_redesign && current_redesign.design
       current_redesign.design
@@ -67,18 +51,8 @@ class Account < ActiveRecord::Base
     end
   end
   
-  def issues
-    @issues ||= Issue.find(:all, :account_id => self.account_resource_id, :as => self.access_token)
-  end
-  
-
   def blogs
     @blogs ||=  Blog.find(:all, :params => { :account_id => self.account_resource_id })
-  end
-  
-  # hack for HyperactiveResource
-  def nested
-    false
   end
   
   def cache_key

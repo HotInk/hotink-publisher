@@ -5,28 +5,6 @@ class TemplatesController < ApplicationController
   before_filter :find_design
   
   # Can't use @template as an instance variable!
-  
-  # GET /templates
-  # GET /templates.xml
-  def index
-    @tplates = @design.templates.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @tplates }
-    end
-  end
-
-  # GET /templates/1
-  # GET /templates/1.xml
-  def show
-    @tplate = @design.templates.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @tplate }
-    end
-  end
 
   # GET /templates/new
   # GET /templates/new.xml
@@ -34,7 +12,7 @@ class TemplatesController < ApplicationController
     
     case params[:role]
     when nil
-      @tplate = @design.templates.build
+      raise ArgumentError, "Must assign a template role"
     when 'layout'
       @tplate = @design.layouts.build(:role => 'layout')
     when 'partial'
@@ -51,7 +29,6 @@ class TemplatesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @tplate }
     end
   end
 
@@ -61,11 +38,9 @@ class TemplatesController < ApplicationController
   end
 
   # POST /templates
-  # POST /templates.xml
   def create
-    
     # Find template attributes
-    model_params = params[:template] || params[:widget_template] || params[:front_page_template] || params[:page_template] || params[:partial_template] || params[:layout]
+    model_params = params[:template] || params[:layout] || params[:partial_template] || params[:front_page_template]  || params[:widget_template]|| params[:page_template]
     
     case model_params[:role]
     when 'layout' 
@@ -82,19 +57,20 @@ class TemplatesController < ApplicationController
       @tplate = @design.page_templates.build(model_params)
     end
     
-    # Pre-parse the template in the controller, it can't happen in the model
-    @tplate.parsed_code = Liquid::Template.parse(@tplate.code)
-    
     respond_to do |format|
       if @tplate.save
         flash[:notice] = 'Template was successfully created.'
         format.html { redirect_to edit_account_design_template_path(@account, @design, @tplate) }
-        format.xml  { render :xml => @tplate, :status => :created, :location => [@account, @design, @tplate] }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @tplate.errors, :status => :unprocessable_entity }
       end
     end
+    
+  rescue Liquid::SyntaxError => e
+    flash[:syntax_error] = "#{e.message}"
+    respond_to do |format|
+      format.html { render :action => "new" }
+    end    
   end
 
   # PUT /templates/1
@@ -104,12 +80,10 @@ class TemplatesController < ApplicationController
 
     # Serialized attributes need to be declared explicitly.
     @tplate.schema = (params[@tplate.class.name.underscore.to_sym][:schema] || []) if @tplate.kind_of? WidgetTemplate
-    # Pre-parse the template in the controller, it can't happen in the model
-    @tplate.parsed_code = Liquid::Template.parse(params[@tplate.class.name.underscore.to_sym][:code])
-        
+     
     unless @tplate.class.name=="WidgetTemplate"
      @tplate.widgets.clear 
-     @tplate.parsed_code.root.nodelist.select{ |c| c.is_a? Liquid::Widget }.each do |widget|
+     Marshal.load(@tplate.parsed_code).root.nodelist.select{ |c| c.is_a? Liquid::Widget }.each do |widget|
       logger.info("Found widget: #{widget.widget_name[1..-2]} \n")
       widget_object = @design.widgets.find_by_name(widget.widget_name[1..-2])
       @tplate.widgets << widget_object if widget_object
@@ -120,33 +94,29 @@ class TemplatesController < ApplicationController
       if @tplate.update_attributes(params[@tplate.class.name.underscore.to_sym])
         flash[:notice] = 'Template was successfully updated.'
         format.html { redirect_to( account_design_url(@account,@design) ) }
-        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @tplate.errors, :status => :unprocessable_entity }
       end
     end
+    
   rescue Liquid::SyntaxError => e
     flash[:syntax_error] = "#{e.message}"
     @tplate.code = params[@tplate.class.name.underscore.to_sym][:code]
     respond_to do |format|
       format.html { render :action => "edit" }
-      format.xml  { head :uprocessable_entity }
     end
   end
 
   # DELETE /templates/1
-  # DELETE /templates/1.xml
   def destroy
     @tplate = @design.templates.find(params[:id])
 
-    @tplate.active = false # Instead of @tplate.destroy
+    @tplate.active = false
     @tplate.save
     
     flash[:notice] = "Template removed."
     respond_to do |format|
       format.html { redirect_to(account_design_url(@account, @design)) }
-      format.xml  { head :ok }
     end
   end
 end

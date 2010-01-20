@@ -113,23 +113,28 @@ end
 Factory.define :template do |t|
   t.design { Factory(:design) }
   t.sequence(:code) { |n| "Template ##{n}" }
-  t.sequence(:parsed_code) { |n| Liquid::Template.parse("Template ##{n}") }
-end
-
-Factory.define :page_template, :parent => :template, :class => 'PageTemplate' do |p|
-  p.sequence(:code) { |n| "Page Template ##{n}" }
-  p.sequence(:parsed_code) { |n| Liquid::Template.parse("Page Template ##{n}") }
 end
 
 Factory.define :layout, :parent => :template, :class => 'Layout' do |l|
   l.sequence(:code) { |n| "Layout ##{n} \n{{ page_contents }}" }
-  l.sequence(:parsed_code) { |n| Liquid::Template.parse("Layout ##{n} \n{{ page_contents }}") }
+end
+
+Factory.define :page_template, :parent => :template, :class => 'PageTemplate' do |p|
+  p.sequence(:code) { |n| "Page Template ##{n}" }
+end
+
+Factory.define :partial_template, :parent => :template, :class => 'PartialTemplate' do |p|
+  p.sequence(:code) { |n| "Partial Template ##{n}" }
+end
+
+Factory.define :widget_template, :parent => :template, :class => 'WidgetTemplate' do |p|
+  p.sequence(:code) { |n| "Widget Template ##{n}" }
 end
 
 Factory.define :front_page_template, :parent => :template, :class => 'FrontPageTemplate' do |f|
   f.sequence(:code) { |n| "Front page template ##{n}" }
-  f.sequence(:parsed_code) { |n| Liquid::Template.parse("Front page template ##{n}") }
 end
+
 ##
 
 Factory.define :design do |d|
