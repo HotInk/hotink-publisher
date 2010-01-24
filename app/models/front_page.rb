@@ -22,7 +22,7 @@ class FrontPage < ActiveRecord::Base
     return "#{self.created_at.to_formatted_s(:long_date)} #{self.created_at.to_formatted_s(:time)}"
   end
   
-  # Since front pages are initialzed and save as blank, we can tell whether they've been changed
+  # Since front pages are initialized and save as blank, we can tell whether they've been changed
   # based on whether or not the time created equals the time last updated, (e.g. only one save
   # operation has been performed, no effective updates.)
   def unchanged?
@@ -49,12 +49,12 @@ class FrontPage < ActiveRecord::Base
   end
   
   # Takes a collection of fetched articles (presumably including this front page's articles)
-  # and returns a hash of this front pages articles keyed according to schema entity
+  # and returns a hash of this front page's articles keyed according to schema entity
   def sorted_schema_articles(schema_articles = {})
    articles = {}
    if self.schema.respond_to?(:each_key) && !schema_articles.blank?
       self.schema.each_key do |item|
-        item_array = self.schema[item]['ids'].collect{ |i| schema_articles[i] }
+        item_array = self.schema[item]['ids'].collect{ |i| schema_articles[i.to_s] }
         articles.merge!( item => item_array.compact )
       end
     end

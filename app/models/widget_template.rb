@@ -10,4 +10,9 @@ class WidgetTemplate < Template
     parsed_schema
   end
   
+  private
+  
+  def find_widgets
+    true # Don't load widgets in a widget template
+  end
 end

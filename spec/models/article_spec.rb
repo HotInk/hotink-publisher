@@ -5,6 +5,9 @@ describe Article do
   it "should find articles by id" do
     Article.should_receive(:find).with(:all, :params => { :ids => [2, 5, 6, 8], :account_id => nil})
     Article.find_by_ids([2, 5, 6, 8])
+    
+    Article.should_not_receive(:find).with(:all, :params => { :ids => nil, :account_id => nil})
+    Article.find_by_ids(nil).should == []
   end
   
   it "should know its publisher account" do

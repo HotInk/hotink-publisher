@@ -77,17 +77,9 @@ class TemplatesController < ApplicationController
     @tplate = @design.templates.find(params[:id])
 
     # Serialized attributes need to be declared explicitly.
-    @tplate.schema = (params[@tplate.class.name.underscore.to_sym][:schema] || []) if @tplate.kind_of? WidgetTemplate
-     
-    unless @tplate.class.name=="WidgetTemplate"
-     @tplate.widgets.clear 
-     Marshal.load(@tplate.parsed_code).root.nodelist.select{ |c| c.is_a? Liquid::Widget }.each do |widget|
-      logger.info("Found widget: #{widget.widget_name[1..-2]} \n")
-      widget_object = @design.widgets.find_by_name(widget.widget_name[1..-2])
-      @tplate.widgets << widget_object if widget_object
-     end
+    if @tplate.kind_of? WidgetTemplate
+      @tplate.schema = (params[@tplate.class.name.underscore.to_sym][:schema] || []) 
     end
-    
     @tplate.update_attributes(params[@tplate.class.name.underscore.to_sym])
     flash[:notice] = 'Template was successfully updated.'
     respond_to do |format|

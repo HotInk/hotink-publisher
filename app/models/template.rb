@@ -6,6 +6,7 @@ class Template < ActiveRecord::Base
   has_many :widgets, :through => :widget_placements
   
   before_save :parse_code
+  after_save  :find_widgets
   
   acts_as_versioned
   
@@ -17,6 +18,10 @@ class Template < ActiveRecord::Base
   # A before filter to parse the Liquid template stored in self.code
   def parse_code
     write_attribute(:parsed_code, Marshal::dump(Liquid::Template.parse(self.code)))
+  end
+  
+  def rendered_template
+    Marshal.load(parsed_code)
   end
   
   # Render parsed Liquid template code
@@ -50,12 +55,22 @@ class Template < ActiveRecord::Base
     unless schema_articles.blank?
       self.all_widgets.each do |widget|
         widget.schema.each_key do |item|
-          item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i] }
+          item_array = widget.schema[item]['ids'].collect{ |i| schema_articles[i.to_s] }
           widget_articles.merge!( "#{item}_#{widget.name}" => item_array.compact )
         end
       end
     end
     widget_articles
+  end
+  
+  private
+  
+  def find_widgets
+    widgets.clear
+    rendered_template.root.nodelist.select{ |c| c.is_a? Liquid::Widget }.each do |widget|
+      widget_object = design.widgets.find_by_name(widget.widget_name[1..-2])
+      widgets << widget_object if widget_object
+    end
   end
     
 end

@@ -21,9 +21,7 @@ class Comment < ActiveRecord::Base
     
   def Comment.clear_all_flags(account_id)
     @comments = Comment.find(:all, :conditions => {:account_id => account_id})
-    @comments.collect{|comment|
-      comment.clear_flags
-    }
+    @comments.each { |comment| comment.clear_flags }
   end
   
   def flag

@@ -108,6 +108,10 @@ Factory.define :account do |a|
   a.time_zone "What time?"
 end
 
+Factory.define :podcast do |p|
+  p.account { Factory(:account) }
+end
+
 ## Templates
 
 Factory.define :template do |t|
@@ -129,13 +133,22 @@ end
 
 Factory.define :widget_template, :parent => :template, :class => 'WidgetTemplate' do |p|
   p.sequence(:code) { |n| "Widget Template ##{n}" }
+  p.schema [{ 'name' => 'lead_articles', 'model' => 'Article', 'quantity' => "2", 'description' => "" }]
 end
 
 Factory.define :front_page_template, :parent => :template, :class => 'FrontPageTemplate' do |f|
   f.sequence(:code) { |n| "Front page template ##{n}" }
+  f.schema [{ 'name' => 'lead_articles', 'model' => 'Article', 'quantity' => "2", 'description' => "" }]
 end
 
 ##
+
+Factory.define :widget do |w|
+  w.account   { Factory(:account) }
+  w.sequence(:name) { |n| "Widget ##{n}" }
+  w.design { |v| Factory(:design, :account => v.account) }
+  w.template { |v| Factory(:widget_template, :design => v.design) }
+end
 
 Factory.define :design do |d|
   d.account { Factory(:account) }
@@ -155,6 +168,19 @@ end
 Factory.define :redesign do |f|
   f.account   { Factory(:account) }
   f.design { |g| Factory(:design, :account => g.account) }
+end
+
+Factory.define :comment do |c|
+  c.sequence(:email) { |n| "email#{n}@address.com"  }
+  c.name "Commenter"
+  c.body "This is what I say!"
+  c.account { Factory(:account) }
+end
+
+Factory.define :page do |p|
+  p.sequence(:name) { |n| "Page ##{n}" }
+  p.account { Factory(:account) }
+  p.bodytext "Page page bodytext"
 end
 
 Factory.define :account do |a|

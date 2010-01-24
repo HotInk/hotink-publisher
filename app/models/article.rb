@@ -4,7 +4,7 @@ class Article < ActiveResource::Base
   self.prefix = "/accounts/:account_id/"
     
   def self.find_by_ids(ids=[], options={})
-    find(:all, :params => { :ids => ids, :account_id => options[:account_id] })
+    ids.blank? ? [] : find(:all, :params => { :ids => ids, :account_id => options[:account_id] }) 
   end
 
   def to_liquid(options = {})
