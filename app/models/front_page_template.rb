@@ -28,9 +28,9 @@ class FrontPageTemplate < Template
   
   def render(options={}, registers={})
     if current_layout
-      current_layout.render(options.merge({'page_content' => Marshal.load(parsed_code).render(options, registers)}), registers)
+      current_layout.render(options.merge({'page_content' => super(options, registers)}), registers)
     else
-      Marshal.load(parsed_code).render(options, registers)
+      super(options, registers)
     end
   end
   

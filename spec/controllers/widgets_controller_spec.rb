@@ -26,7 +26,7 @@ describe WidgetsController do
   
   describe "GET edit" do
     before do
-      @widget = Factory(:widget, :design => @design, :account => @account)
+      @widget = Factory(:widget, :design => @design)
     end
     context "when there are no schema articles" do
       before do
@@ -79,7 +79,7 @@ describe WidgetsController do
   describe "PUT update" do
     context "with appropiate parameters" do
       before do
-        @widget = Factory(:widget, :design => @design, :account => @account)
+        @widget = Factory(:widget, :design => @design)
         put :update, :account_id => @account.id, :design_id => @design.id, :id => @widget.id, :front_page => Factory.attributes_for(:widget)
       end
       
@@ -90,7 +90,7 @@ describe WidgetsController do
   
   describe "DELETE destroy" do
     before do
-      @widget = Factory(:widget, :design => @design, :account => @account)
+      @widget = Factory(:widget, :design => @design)
       @widget.should_receive(:destroy)
       Widget.should_receive(:find).and_return(@widget)
       delete :destroy, :account_id => @account.id, :design_id => @design.id, :id => @widget.id

@@ -30,7 +30,7 @@ class WidgetsController < ApplicationController
 
     # Process the schema template into a real schema
     @widget_template = @design.widget_templates.find(params[:template])
-    @widget = @design.widgets.create(:schema => @widget_template.parse_schema, :template => @widget_template, :account => @account)
+    @widget = @design.widgets.create(:schema => @widget_template.parse_schema, :template => @widget_template)
     flash[:notice] = 'Widget was successfully created.'
 
     respond_to do |format|

@@ -35,4 +35,5 @@ module Liquid
 
   end
   
+  Template.register_filter Liquid::DesignFilters
 end

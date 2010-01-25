@@ -36,8 +36,7 @@ class AccountsController < ApplicationController
         
     # Squid reverse proxy caching headers
     expires_in 2.minutes, :public => true
-    
-    render :text => @current_template.render(@front_page.sorted_schema_articles(schema_articles).merge('newspaper' => @newspaper), :registers => @registers )
+    render :text => @current_template.render(@front_page.sorted_schema_articles(schema_articles).merge('newspaper' => @newspaper, 'current_user' => current_user), :registers => @registers )
   end
 
   # GET /accounts/new

@@ -1,7 +1,4 @@
 class Widget < ActiveRecord::Base
-  belongs_to :account
-  validates_presence_of :account
-  
   belongs_to :design
   validates_presence_of :design
   
@@ -24,6 +21,10 @@ class Widget < ActiveRecord::Base
       end
     end
     ids
+  end
+  
+  def render(options={}, registers={})
+    template.render(options,registers)
   end
 
 end

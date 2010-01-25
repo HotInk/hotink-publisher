@@ -25,7 +25,7 @@ module Liquid
   
     def render(context)      
       design = context.registers[:design].blank? ? context.registers[:account].current_design : context.registers[:design]
-      partial = design.templates.find_by_name(context[@template_name]).parsed_code     
+      partial = design.partial_templates.find_by_name(context[@template_name])     
       
       variable = context[@variable_name || @template_name[1..-2]]
       
@@ -45,11 +45,9 @@ module Liquid
                     
           context[@template_name[1..-2]] = variable
           partial.render(context)
-          
         end
       end
     end
-  end
-
-  Liquid::Template.register_tag('include', Include)  
+  end  
+  Template.register_tag('include', Include)
 end

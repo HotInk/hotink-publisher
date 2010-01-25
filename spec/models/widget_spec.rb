@@ -5,9 +5,6 @@ describe Widget do
   
   subject { Factory(:widget) }
   
-  it { should belong_to(:account) }
-  it { should validate_presence_of(:account) }
-  
   it { should belong_to(:template) }
   it { should validate_presence_of(:template) }
   
@@ -35,4 +32,13 @@ describe Widget do
       @widget.schema_article_ids.should == @article_ids
     end
   end 
+  
+  it "should know how to render itself" do
+    template = mock('widget template')
+    widget = Factory(:widget)
+    widget.should_receive(:template).and_return(template)
+    template.should_receive(:render).with({}, {})
+    
+    widget.render
+  end
 end

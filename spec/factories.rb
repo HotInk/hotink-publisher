@@ -174,9 +174,8 @@ end
 ##
 
 Factory.define :widget do |w|
-  w.account   { Factory(:account) }
   w.sequence(:name) { |n| "Widget ##{n}" }
-  w.design { |v| Factory(:design, :account => v.account) }
+  w.design { |v| Factory(:design) }
   w.template { |v| Factory(:widget_template, :design => v.design) }
 end
 

@@ -25,14 +25,13 @@ module Liquid
     def render(context)      
       design = context.registers[:design].blank? ? context.registers[:account].current_design : context.registers[:design]
       widget = design.widgets.find_by_name(context[@widget_name])
-      partial = widget.template.parsed_code  
       
       context.stack do
         widget.schema.each_key do |item|
           item_array = context.registers[:widget_data]["#{item}_#{widget.name}"]
           context[item] = item_array
         end
-        partial.render(context)
+        widget.render(context)
       end
     end
 

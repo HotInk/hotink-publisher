@@ -58,7 +58,7 @@ class SearchesController < ApplicationController
     @registers[:tagged_with] = @tag_query
     @registers[:design] = @current_template.design if @current_template.design
    
-    render :text => @current_template.render({'newspaper' => @newspaper, 'search_results' => @search_results.to_a, 'search_results_pagination' => @search_results_pagination, 'search_query' => @search_query, 'tag_query' => @tag_query}, :registers => @registers )
+    render :text => @current_template.render({'newspaper' => @newspaper, 'search_results' => @search_results.to_a, 'search_results_pagination' => @search_results_pagination, 'search_query' => @search_query, 'tag_query' => @tag_query, 'current_user' => current_user}, :registers => @registers )
   end
   
 end

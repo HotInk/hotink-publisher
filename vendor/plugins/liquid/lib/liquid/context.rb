@@ -13,14 +13,15 @@ module Liquid
   #
   #   context['bob']  #=> nil  class Context
   class Context
-    attr_reader :scopes
-    attr_reader :errors, :registers
+    attr_reader :scopes, :errors, :registers, :environments
 
-    def initialize(assigns = {}, registers = {}, rethrow_errors = false)
-      @scopes     = [(assigns || {})]
-      @registers  = registers
-      @errors     = []
+    def initialize(environments = {}, outer_scope = {}, registers = {}, rethrow_errors = false)
+      @environments   = [environments].flatten
+      @scopes         = [(outer_scope || {})]
+      @registers      = registers
+      @errors         = []
       @rethrow_errors = rethrow_errors
+      squash_instance_assigns_with_environments
     end
 
     def strainer
@@ -56,14 +57,14 @@ module Liquid
       if strainer.respond_to?(method)
         strainer.__send__(method, *args)
       else
-        raise FilterNotFound, "Filter '#{method}' not found"
+        args.first
       end
     end
 
     # push new local scope on the stack. use <tt>Context#stack</tt> instead
-    def push
+    def push(new_scope={})
       raise StackLevelError, "Nesting too deep" if @scopes.length > 100
-      @scopes.unshift({})
+      @scopes.unshift(new_scope)
     end
 
     # merge a hash of variables in the current local scope
@@ -86,15 +87,19 @@ module Liquid
     #   end
     #   context['var]  #=> nil
     #
-    def stack(&block)
+    def stack(new_scope={},&block)
       result = nil
-      push
+      push(new_scope)
       begin
         result = yield
       ensure
         pop
       end
       result
+    end
+    
+    def clear_instance_assigns
+      @scopes[0] = {}
     end
 
     # Only allow String, Numeric, Hash, Array, Proc, Boolean or <tt>Liquid::Drop</tt>
@@ -139,14 +144,14 @@ module Liquid
       # Double quoted strings
       when /^"(.*)"$/
         $1.to_s
-      # Integer and floats
-      when /^(\d+)$/
+      # Integer
+      when /^([+-]?\d+)$/
         $1.to_i
       # Ranges
       when /^\((\S+)\.\.(\S+)\)$/
         (resolve($1).to_i..resolve($2).to_i)
       # Floats
-      when /^(\d[\d\.]+)$/
+      when /^([+-]?\d[\d\.]+)$/
         $1.to_f
       else
         variable(key)
@@ -156,9 +161,18 @@ module Liquid
     # fetches an object starting at the local scope and then moving up
     # the hierachy
     def find_variable(key)
-      scope = @scopes[0..-2].find { |s| s.has_key?(key) } || @scopes.last
-      variable = scope[key]
-      variable = scope[key] = variable.call(self) if variable.is_a?(Proc)
+      scope = @scopes.find { |s| s.has_key?(key) }
+      if scope.nil?
+        @environments.each do |e|
+          if variable = lookup_and_evaluate(e, key)
+            scope = e
+            break
+          end
+        end
+      end
+      scope     ||= @environments.last || @scopes.last
+      variable  ||= lookup_and_evaluate(scope, key)
+      
       variable = variable.to_liquid
       variable.context = self if variable.respond_to?(:context=)
       return variable
@@ -193,8 +207,7 @@ module Liquid
              (object.respond_to?(:fetch) and part.is_a?(Integer)))
 
             # if its a proc we will replace the entry with the proc
-            res = object[part]
-            res = object[part] = res.call(self) if res.is_a?(Proc) and object.respond_to?(:[]=)
+            res = lookup_and_evaluate(object, part)
             object = res.to_liquid
 
           # Some special cases. If the part wasn't in square brackets and
@@ -217,5 +230,25 @@ module Liquid
 
       object
     end
+    
+    def lookup_and_evaluate(obj, key)
+      if (value = obj[key]).is_a?(Proc) && obj.respond_to?(:[]=)
+        obj[key] = value.call(self)
+      else
+        value
+      end
+    end
+    
+    def squash_instance_assigns_with_environments
+      @scopes.last.each_key do |k|
+        @environments.each do |env|
+          if env.has_key?(k)
+            scopes.last[k] = lookup_and_evaluate(env, k)
+            break
+          end
+        end
+      end
+    end
+    
   end
 end

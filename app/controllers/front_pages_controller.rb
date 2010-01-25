@@ -45,10 +45,10 @@ class FrontPagesController < ApplicationController
   def edit
     page = params[:page] || 1    
     @articles = Article.paginate(:params => { :page => page, :per_page => 10, :account_id => @account.account_resource_id })
+    @front_page = @account.front_pages.find(params[:id])
       
     respond_to do |format|
       format.html do
-        @front_page = @account.front_pages.find(params[:id])
         @schema_articles = hash_by_id(Article.find_by_ids(@front_page.schema_article_ids.reject{ |i| i.blank? }, :account_id => @account.account_resource_id))
       end
       format.js

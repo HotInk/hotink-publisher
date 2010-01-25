@@ -17,11 +17,31 @@ module CanadianMoneyFilter
   end
 end
 
+module FiltersWithArguments
+  def adjust(input, offset=10)
+    sprintf('[%d]', input+offset)
+  end
+  
+  def addsub(input, plus, minus=20)
+    sprintf('[%d]', input+plus-minus)
+  end
+end
+
 class FiltersTest < Test::Unit::TestCase
   include Liquid
 
   def setup
     @context = Context.new
+  end
+
+  #def test_nonexistent_filter
+  #  @context['var'] = 1000
+  #  assert_match /Error - filter 'money'/, Variable.new("var | money").render(@context)
+  #end
+
+  def test_nonexistent_filter
+    @context['var'] = 1000
+    assert_raises(FilterNotFound) { Variable.new("var | xyzzy").render(@context) }
   end
 
   def test_local_filter
@@ -35,6 +55,37 @@ class FiltersTest < Test::Unit::TestCase
     @context.add_filters(MoneyFilter)
     assert_equal ' 1000$ ', Variable.new("var | money_with_underscore").render(@context)
   end
+
+  def test_filter_with_numeric_argument
+    @context['var'] = 1000
+    @context.add_filters(FiltersWithArguments)
+    assert_equal '[1005]', Variable.new("var | adjust: 5").render(@context)
+  end
+
+  def test_filter_with_negative_argument
+    @context['var'] = 1000
+    @context.add_filters(FiltersWithArguments)
+    assert_equal '[995]', Variable.new("var | adjust: -5").render(@context)
+  end
+
+  def test_filter_with_default_argument
+    @context['var'] = 1000
+    @context.add_filters(FiltersWithArguments)
+    assert_equal '[1010]', Variable.new("var | adjust").render(@context)
+  end
+
+  def test_filter_with_two_arguments
+    @context['var'] = 1000
+    @context.add_filters(FiltersWithArguments)
+    assert_equal '[1150]', Variable.new("var | addsub: 200, 50").render(@context)
+  end
+
+  # ATM the trailing value is silently ignored. Should raise an exception?
+  #def test_filter_with_two_arguments_no_comma
+  #  @context['var'] = 1000
+  #  @context.add_filters(FiltersWithArguments)
+  #  assert_equal '[1150]', Variable.new("var | addsub: 200 50").render(@context)
+  #end
 
   def test_second_filter_overwrites_first
     @context['var'] = 1000

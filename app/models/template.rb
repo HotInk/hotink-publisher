@@ -27,7 +27,7 @@ class Template < ActiveRecord::Base
   # Render parsed Liquid template code
   def render(options=nil, registers = nil)
     parsed_code = Marshal::load(read_attribute(:parsed_code))
-    parsed_code.render(options, :registers => registers)
+    parsed_code.render(options, registers)
   end 
     
   # Returns an array of the ids of all articles used in widgets.

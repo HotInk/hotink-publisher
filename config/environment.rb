@@ -26,7 +26,6 @@ Rails::Initializer.run do |config|
   config.gem 'oauth'
   config.gem "nokogiri"
   
-  
   # SSO gems
   config.gem 'sinatra'
   config.gem 'rack-openid', :lib => 'rack/openid'
