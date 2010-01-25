@@ -16,7 +16,7 @@ class Article < ActiveResource::Base
   end
   
   def account_id
-    self.prefix_options[:account_id]
+    self.prefix_options[:account_id] || self.attributes[:account_id]
   end
   
   def url

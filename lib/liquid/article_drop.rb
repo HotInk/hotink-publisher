@@ -2,6 +2,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   
   include ERB::Util # So we can simply use <tt>h(...)</tt>.
   include Liquid::UrlFilters
+  include Liquid::StandardFilters
     
   class_inheritable_reader :liquid_attributes
   write_inheritable_attribute :liquid_attributes, [:id]
@@ -57,7 +58,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     source.url
   end
   
-  # Mediafiles
+  ## Mediafiles ##
   
   def attached_media
     source.mediafiles
@@ -84,20 +85,16 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     end
   end
 
-  def has_horizontal_image?
-    if source.images.detect { |image| image.height.to_i <= image.width.to_i }
+  def has_vertical_image?
+    if source.images.detect { |image| image.height.to_i > image.width.to_i }
       return true
     else
       return false
     end
   end
-  
-  def first_horizontal_image
-    source.images.detect { |image| image.height.to_i <= image.width.to_i }
-  end
-  
-  def has_vertical_image?
-    if source.images.detect { |image| image.height.to_i > image.width.to_i }
+
+  def has_horizontal_image?
+    if source.images.detect { |image| image.height.to_i <= image.width.to_i }
       return true
     else
       return false
@@ -108,15 +105,49 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
     source.images.detect { |image| image.height.to_i > image.width.to_i }
   end
   
+  def first_horizontal_image
+    source.images.detect { |image| image.height.to_i <= image.width.to_i }
+  end
+  
   def audiofiles
-    source.audiofiles
+    source.mediafiles.select{ |a| a.mediafile_type == "Audiofile" }
   end
   
   def has_audiofile?
-    if source.audiofiles.detect {|a| a }
+    if audiofiles.detect {|a| a }
       return true
     else
       return false
+    end
+  end
+  
+  ## Tags ##
+  
+  def tags
+    source.tags
+  end
+  
+  def tags_list
+    case source.tags.length
+     when 0
+       return nil
+     when 1
+       return source.tags.first.blank? ? "" : source.tags.first.name
+     else
+       tags_list = source.tags.collect{ |t| t.name }
+       tags_list.join(', ')
+    end  
+  end
+  
+  def tags_list_with_links  
+    case source.tags.length
+     when 0
+       return nil
+     when 1
+       return source.tags.first.blank? ? "" : link_to_tag(source.tags.first)
+     else
+      tags_list = source.tags.collect{ |t| link_to_tag(t) }
+      tags_list.join(', ')
     end
   end
   
@@ -130,42 +161,6 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   
   def issues
      source.issues
-  end
-  
-  # Tags and lists
-  def tags
-    source.tags
-  end
-  
-  def tags_list
-    case source.tags.length
-     when 0
-       return nil
-     when 1
-       return source.tags.first.blank? ? "" : source.tags.first.name
-     when 2
-        return source.tags.first.name + ", " + source.tags.second.name
-     else
-      list = String.new
-      (0..(source.tags.count - 3)).each{ |i| list += source.tags[i].name + ", " }
-      list += source.tags[source.tags.length-2].name + ", " + source.tags[source.tags.length-1].name # last two authors get special formatting
-      return list
-    end  end
-  
-  def tags_list_with_links  
-    case source.tags.length
-     when 0
-       return nil
-     when 1
-       return source.tags.first.blank? ? "" : link_to_tag(source.tags.first)
-     when 2
-        return link_to_tag(source.tags.first) + ", " + link_to_tag(source.tags.second)
-     else
-      list = String.new
-      (0..(source.tags.length - 3)).each{ |i| list += link_to_tag(source.tags[i]) + ", " }
-      list += link_to_tag(source.tags[source.tags.length-2]) + ", " + link_to_tag(source.tags[source.tags.length-1]) # last two authors get special formatting
-      return list
-    end
   end
   
   # Authors and lists
@@ -204,15 +199,10 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   end
   
   def excerpt
-    if source.summary
-      source.summary
+    if source.summary.blank?
+      truncatewords(source.bodytext, 120)
     else
-      words = 120
-      if source.bodytext.nil? then return end
-      wordlist = source.bodytext.split
-      l = words.to_i - 1
-      l = 0 if l < 0
-      wordlist.length > l ? wordlist[0..l].join(" ") + "..." : source.bodytext
+      source.summary
     end
   end
   
@@ -227,7 +217,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   # default: unlocked. TODO: put this into an account configuration option
   def comments_locked
     begin
-      account = Account.find_by_account_resource_id(source.account_id)
+      account = Account.find_by_account_resource_id(source.attributes['account_id'])
       account.article_options.find_by_article_id(source.id).comments_locked
     rescue
       false      
@@ -237,7 +227,7 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   # default: enabled. TODO: put this into an account configuration option  
   def comments_enabled
     begin
-      account = Account.find_by_account_resource_id(source.account_id)
+      account = Account.find_by_account_resource_id(source.attributes['account_id'])
       account.article_options.find_by_article_id(source.id).comments_enabled
     rescue
       true

@@ -9,6 +9,10 @@ Factory.define :article, :default_strategy => :build do |a|
   a.updated_at             Time.now.to_s(:db)
   a.sequence(:account_id)  {|n| n.to_i }
   a.sequence(:account_name)  {|n| "Account ##{n}" }
+  a.summary                ""
+  a.mediafiles             []
+  a.tags                   []
+  a.authors                []
 end
 
 Factory.define :entry, :default_strategy => :build do |e|
@@ -25,6 +29,8 @@ Factory.define :entry, :default_strategy => :build do |e|
   e.blogs                   { [ Factory(:blog) ] }
 end
 
+## Mediafiles
+
 Factory.define :mediafile, :default_strategy => :build do |m|
   m.sequence(:title)      { |n| "Mediafile ##{n}" }
   m.sequence(:caption)    { |n| "A caption for Mediafile ##{n}." }
@@ -33,6 +39,7 @@ Factory.define :mediafile, :default_strategy => :build do |m|
   m.sequence(:id)         { |n| n.to_i }
   m.authors_list           "Author #1, Author #2 and Author #3"
   m.sequence(:url)        { |n| "/mediafile_url/#{n}.txt" }
+  m.original_file_size    "667 KB"
   m.content_type          "text/plain"
 end
 
@@ -41,6 +48,16 @@ Factory.define :image, :default_strategy => :build, :parent => :mediafile do |i|
   i.content_type        "image/jpeg"
   i.url                 { Factory(:image_url) }
   i.height              "683"
+  i.width               "1024"
+end
+
+Factory.define :vertical_image, :default_strategy => :build, :parent => :image do |i|
+  i.height              "1024"
+  i.width               "800"
+end
+
+Factory.define :horizontal_image, :default_strategy => :build, :parent => :image do |i|
+  i.height              "800"
   i.width               "1024"
 end
 
@@ -53,6 +70,19 @@ Factory.define :image_url, :class => 'Url', :default_strategy => :build do |i|
   i.system_default "/mediafile_url/image/system_default.jpg"
   i.system_thumb "/mediafile_url/image/system_thumb.jpg"
   i.system_icon "/mediafile_url/image/system_icon.jpg"
+end
+
+Factory.define :audiofile, :default_strategy => :build, :parent => :mediafile do |a|
+  a.mediafile_type      "Audiofile"
+  a.content_type        "audio/mpeg"
+  a.sequence(:url)      { |n| "/mediafile_url/#{n}.mp3" }
+end
+
+##
+
+Factory.define :tag, :default_strategy => :build do |t|
+  t.sequence(:name)       { |n| "Tag ##{n}"}
+  t.sequence(:id)         { |n| n.to_i }
 end
 
 Factory.define :blog, :default_strategy => :build do |b|
@@ -99,7 +129,7 @@ Factory.define :section_with_subcategories, :default_strategy => :build, :parent
   s.children { |p| (1..3).collect { Factory(:section, :parent_id => p.attributes[:id]) } }
 end
 
-Factory.define :author do |a|
+Factory.define :author, :default_strategy => :build do |a|
   a.sequence(:name) { |n| "Author ##{n}" }
 end
 
@@ -172,7 +202,7 @@ end
 
 Factory.define :comment do |c|
   c.sequence(:email) { |n| "email#{n}@address.com"  }
-  c.name "Commenter"
+  c.sequence(:name) { |n| "Commenter ##{n}" }
   c.body "This is what I say!"
   c.account { Factory(:account) }
 end
@@ -181,6 +211,11 @@ Factory.define :page do |p|
   p.sequence(:name) { |n| "Page ##{n}" }
   p.account { Factory(:account) }
   p.bodytext "Page page bodytext"
+end
+
+Factory.define :template_file do |t|
+  t.design  { Factory(:design) }
+  t.file  { File.new(RAILS_ROOT + '/spec/fixtures/hotink.gif') }
 end
 
 Factory.define :account do |a|
