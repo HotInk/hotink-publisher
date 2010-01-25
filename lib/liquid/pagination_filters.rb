@@ -126,5 +126,5 @@ module Liquid
     
   end
 
-  Template.register_filter Liquid::PaginationFilters
+  Template.register_filter PaginationFilters
 end

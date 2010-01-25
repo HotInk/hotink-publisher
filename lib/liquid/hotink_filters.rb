@@ -81,5 +81,5 @@ module Liquid
     end
     
   end
-  Template.register_filter HotinkFilters
+  Template.register_filter(HotinkFilters)
 end

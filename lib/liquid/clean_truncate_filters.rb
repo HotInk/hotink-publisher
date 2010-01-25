@@ -22,5 +22,5 @@ module Liquid
     end  
   end
   
-  Template.register_filter Liquid::CleanTruncateFilters
+  Template.register_filter(CleanTruncateFilters)
 end

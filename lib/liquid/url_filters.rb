@@ -105,5 +105,5 @@ module Liquid
 
   end
   
-  Template.register_filter Liquid::UrlFilters
+  Template.register_filter(UrlFilters)
 end
