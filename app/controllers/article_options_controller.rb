@@ -5,7 +5,7 @@ class ArticleOptionsController < ApplicationController
   def index
     page = params[:page] || 1
     
-    @articles = Article.paginate(:params => { :account_id => 1, :page => page, :per_page => 15 } )
+    @articles = Article.paginate(:params => { :account_id => @account.account_resource_id, :page => page, :per_page => 15 } )
     @article_options = @account.article_options.find_all_by_article_id(@articles.collect { |a| a.id })
     
     respond_to do |format|

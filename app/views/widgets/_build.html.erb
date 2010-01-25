@@ -3,7 +3,7 @@
 	<p>Widgets are special layout tools that allow you gather a collection of articles and include them on any page in your site using a display template. To include a widget, use the widget liquid tag:</p>
 	<blockquote><code>{% widget "Your widget name" %}</code></blockquote>
 		<% if @account.designs.empty? %>
-			<p>To create a widget, first <%= link_to "create a site design", new_account_design_path(@account) %> and then a widget template.</p>
+			<p>To create a widget, first <%= link_to "create a site design", new_account_design_path(@account) %> and then a <strong>widget template</strong>.</p>
 		<%- elsif @account.current_design&&@account.current_design.widget_templates.blank? -%>
 			<p>To create a widget, first <%= link_to "create a widget template", new_account_design_template_url(@account, @account.current_design, :role =>"widget") %></p>
 		<% else %>

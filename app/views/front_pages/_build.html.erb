@@ -1,5 +1,11 @@
 <div id="build" class="clearfix">
 	<h1>New front page</h1>
+	<p>Your site's front page contains a curated list of the most popular and important stories currently published. Which template will your new front page be based on?</p>
+	<% if @account.designs.empty? %>
+		<p>To create a front page, first <%= link_to "create a site design", new_account_design_path(@account) %> and then a <strong>front page template.</strong></p>
+	<% elsif @account.current_design&&@account.current_design.front_page_templates.blank? %>
+		<p>To create a front page, first <%= link_to "create a front page template", new_account_design_template_url(@account, @account.current_design, :role =>"front_pages/show") %></p>
+	<% else %>
 		<fieldset id="front_page_build_form">	
 			<% form_tag account_front_pages_path(@account) do %>
 				<p>Which template should your new front page be based on?</p>
@@ -7,4 +13,5 @@
 				<%= button_link_to_submit "Build" %>
 			<% end %>
 		</fieldset>
+	<% end %>
 </div>
