@@ -7,14 +7,13 @@ class TemplateFilesController < ApplicationController
     @template_file = @design.template_files.build
     
     respond_to do |format|
-      format.js
       format.html
+      format.js
     end
   end
   
   def create
     @design = @account.designs.find(params[:design_id])
-    
     @template_file = TemplateFile.find_by_file_file_name_and_design_id( sanitized_name_of(params[:template_file][:file]), @design.id )
     if @template_file
       @template_file.active = true
@@ -74,7 +73,7 @@ class TemplateFilesController < ApplicationController
 
 private
   
-  def sanitized_name_of file
+  def sanitized_name_of(file)
     File.basename( file.original_filename ).gsub(/[^\w\.\_]/,'_')
   end
   

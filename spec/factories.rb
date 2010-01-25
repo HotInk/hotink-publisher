@@ -217,6 +217,16 @@ Factory.define :template_file do |t|
   t.file  { File.new(RAILS_ROOT + '/spec/fixtures/hotink.gif') }
 end
 
+Factory.define :javascript_file do |t|
+  t.design  { Factory(:design) }
+  t.file  { File.new(RAILS_ROOT + '/spec/fixtures/sample.js') }
+end
+
+Factory.define :stylesheet do |t|
+  t.design  { Factory(:design) }
+  t.file  { File.new(RAILS_ROOT + '/spec/fixtures/sample.css') }
+end
+
 Factory.define :account do |a|
   a.sequence(:account_resource_id) { |n| n }
 end
