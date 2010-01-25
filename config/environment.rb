@@ -4,7 +4,7 @@
 RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
 # Important instance settings
-HOTINK_SETTINGS = { :site => "http://hotink.theorem.ca", :session_key => '_hotink_publisher_session', :session_secret => '22kj78a11a301f15f2b366a2f57abc05c7a3f8bbc0e3bcb437a22527ddbfeeada8586bffa9b5bb1ab0vgt6ea59977c5d9e5f5a234705d4d2f9db28d1cdeb8fd' }
+HOTINK_SETTINGS = { :site => "http://0.0.0.0:3000", :session_key => '_hotink_publisher_session', :session_secret => '22kj78a11a301f15f2b366a2f57abc05c7a3f8bbc0e3bcb437a22527ddbfeeada8586bffa9b5bb1ab0vgt6ea59977c5d9e5f5a234705d4d2f9db28d1cdeb8fd' }
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')

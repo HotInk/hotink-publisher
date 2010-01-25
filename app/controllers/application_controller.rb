@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
          return
        end
      else
-       redirect_to "/sso/login?return_to=#{request.request_uri}"
+       redirect_to "/sso/login?return_to=#{request.url}"
        false
      end
     end
@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
         @current_template = @account.designs.find(params[:design_id]).templates.find_by_role("#{controller_name}/#{action_name}")
         @account.url = "/accounts/#{@account.account_resource_id}/designs/#{params[:design_id]}"
       else
-        @current_template = Template.find_by_role("#{controller_name}/#{action_name}", :conditions => { :design_id => @account.current_design.id })
+        @current_template = Template.find_by_role("#{controller_name}/#{action_name}", :conditions => { :design_id => @account.current_design.id, :active => true })
       end
       raise ActiveRecord::RecordNotFound unless @current_template
       rescue
