@@ -13,11 +13,11 @@ class WidgetsController < ApplicationController
   def edit
     page = params[:page] || 1
     @articles = Article.paginate(:params => { :page => page, :per_page => 10, :account_id => @account.account_resource_id } )
-
+    @design = @account.designs.find(params[:design_id])
+    @widget = @design.widgets.find(params[:id])
+    
     respond_to do |format|
       format.html do
-        @design = @account.designs.find(params[:design_id])
-        @widget = @design.widgets.find(params[:id])
         @schema_articles = hash_by_id(Article.find_by_ids(@widget.schema_article_ids, :account_id => @account.account_resource_id))
       end
       format.js

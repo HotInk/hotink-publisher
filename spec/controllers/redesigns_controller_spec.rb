@@ -14,4 +14,14 @@ describe RedesignsController, "POST create" do
     should respond_with(:redirect)
     @account.current_design.should == design
   end
+  
+  it "should take the site offline" do
+    design = Factory(:design, :account => @account)
+    redesign = Factory(:redesign, :design => design, :account => @account)
+    
+    post :create, :account_id => @account.id, :redesign => { :design_id => "" }
+    should respond_with(:redirect)
+    @account.current_design.should == design
+  end
+    
 end

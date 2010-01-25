@@ -216,31 +216,24 @@ class Liquid::ArticleDrop < Liquid::BaseDrop
   
   # default: unlocked. TODO: put this into an account configuration option
   def comments_locked
-    option = source.article_option
-    if option.comments_locked == nil
-      false
-    else
+    option = ArticleOption.find_or_initialize_by_article_id(source.id)
+    if option
       option.comments_locked
+    else
+      false
     end
   end
 
   # default: enabled. TODO: put this into an account configuration option  
   def comments_enabled
-    option = source.article_option
-    if option.comments_enabled == nil
-      true
-    else
-      option.comments_enabled
+    option = ArticleOption.find_or_initialize_by_article_id(source.id)
+    if option && !option.comments_enabled.nil?
+      return option.comments_enabled
     end
+    return true
   end 
   
   def article_option_id
-    if source.article_option.nil?
-      "nil"
-    elsif source.article_option.new_record?
-      "new record"
-    else
-      source.article_option.id 
-    end 
+    nil
   end
 end

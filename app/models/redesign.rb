@@ -3,5 +3,4 @@ class Redesign < ActiveRecord::Base
   validates_presence_of :account
 
   belongs_to :design
-  validates_presence_of :design
 end
