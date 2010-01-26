@@ -8,13 +8,6 @@ module Liquid
         @template_name = $1        
         @variable_name = $3
         @attributes    = {}
-
-        markup.scan(TagAttributes) do |key, value|
-          @attributes[key] = value
-        end
-
-      else
-        raise SyntaxError.new("Error in tag 'include' - Valid syntax: include '[template]' (with|for) [object|collection]")
       end
 
       super
@@ -30,10 +23,6 @@ module Liquid
       variable = context[@variable_name || @template_name[1..-2]]
       
       context.stack do
-        @attributes.each do |key, value|
-          context[key] = context[value]
-        end
-
         if variable.is_a?(Array)
           
           variable.collect do |variable|            

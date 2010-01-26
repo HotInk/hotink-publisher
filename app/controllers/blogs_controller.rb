@@ -10,11 +10,6 @@ class BlogsController < ApplicationController
   
   def index
     @blogs = @account.blogs
-
-    # Set design register here, in case the user has specified one other than the current.
-    @registers[:design] = @current_template.design
-    @registers[:account] = @account
-
     render :text => @current_template.render({'blogs' => @blogs, 'newspaper' => @newspaper, 'current_user' => current_user}, :registers => @registers )
   end
   

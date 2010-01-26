@@ -7,7 +7,6 @@ class ArticlesController < ApplicationController
   before_filter :set_liquid_variables, :only => :show
   before_filter :build_registers, :only => :show
   before_filter :create_brain_buster, :only => :show
-
   before_filter :load_widget_data, :only => :show
   
   def show  

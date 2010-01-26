@@ -13,7 +13,7 @@ describe AccountsController do
         @newspaper = Liquid::NewspaperDrop.new(@account)
         Liquid::NewspaperDrop.stub!(:new).and_return(@newspaper)
         @front_page = Factory(:front_page, :account => @account)
-        @design = Factory(:design)
+        @design = Factory(:design, :account => @account)
         @redesign = Factory(:redesign, :account => @account, :design => @design)
         @press_run = Factory(:press_run, :account => @account, :front_page => @front_page)
       end

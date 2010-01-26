@@ -23,7 +23,6 @@ class ArticleOptionsController < ApplicationController
     respond_to do |format|
       format.js { render :partial => 'reload_article' }
     end
-    
   end
   
   def start_comments
