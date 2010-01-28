@@ -28,7 +28,7 @@
 
 <td class="response column-response">
 	<% if @articles[comment.content_id.to_s] %>
-		<%= link_to @articles[comment.content_id.to_s].title, "#{@account.url}/articles/#{@articles[comment.content_id].id}#comment-#{comment.id}" %> <br/>
+		<%= link_to @articles[comment.content_id.to_s].title, "#{@account.url}/articles/#{@articles[comment.content_id.to_s].id}#comment-#{comment.id}" %> <br/>
 		<%= @articles[comment.content_id.to_s].comments.size %> comments
 	<% end %>
 </td>
