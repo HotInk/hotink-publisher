@@ -12,7 +12,7 @@ class SectionsController < ApplicationController
 
   def show
     begin
-      @section = Section.find(URI.encode(params[:id]), :params => { :account_id => @account.account_resource_id })
+      @section = Section.find(URI.encode(params[:id]).gsub('&', '%26'), :params => { :account_id => @account.account_resource_id })
     rescue NoMethodError
       zissou
       return
