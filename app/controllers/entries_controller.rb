@@ -16,7 +16,7 @@ class EntriesController < ApplicationController
     @registers[:form_authenticity_token] = self.form_authenticity_token
     @registers[:captcha_id] = @captcha.id
     @registers[:captcha_question] = @captcha.question    
-    @registers[:form_action] = "#{@account.url}/blogs/#{@entry.blog_id}/entries/#{@entry.id}/comments"
+    @registers[:form_action] = "#{@account.url}/blogs/#{@blog.id}/entries/#{@entry.id}/comments"
     
     # Set design register here, in case the user has specified one other than the current.
     @registers[:design] = @current_template.design
