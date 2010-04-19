@@ -19,6 +19,8 @@ describe TemplateFile do
     end
     
     it "should know its file's size" do
+      @template_file.file_size.should_not be_nil
+      @template_file.file_size.should_not == "0"      
       @template_file.file_size.should == @template_file.file_file_size
     end
   end
